@@ -1,0 +1,115 @@
+.site-navigation{
+  height: 65px;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  color: $text-color;
+
+  .menu-title {
+    font-size: 22px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+  }
+
+  .ion-ios-menu{
+    font-size: 36px;
+    width: 65px;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+  }
+
+  .menu-content-container {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+
+    .ant-avatar {
+      background: $background;
+      border: 1px solid $border;
+    }
+
+    .menu-avatar-name {
+      font-size: 18px;
+      margin-left: 15px;
+    }
+    
+  }
+
+  ul {
+    height: 100%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style-type: none;
+    padding: 0 20px 50px;
+
+      a {
+          text-decoration: none;
+          padding: 0 20px 0 20px;
+          font-size: 20px;
+          color: $text-color;
+
+          &:hover {
+            color: $text-link;
+          }
+      }
+  }
+}
+
+@media screen and (max-width: 900px){
+  .site-navigation {
+    .menu-content-container {
+      width: 300px;
+      height: calc(100% - 65px);
+      background: white;
+      position: absolute;
+      top: 65px;
+      left: -300px;
+      transition: 300ms ease left;
+      flex-direction: column-reverse;
+      padding: 0px;
+      padding-left: 30px;
+
+      a {
+        width: 100%;
+        padding: 0px;
+      }
+
+      li {
+        height: 65px;
+        display: flex;
+        align-items: center;
+      }
+
+      ul {
+          flex-direction: column;
+          justify-content: flex-start;
+          padding: 0px;
+          padding-top: 20px;
+      }
+
+      ul, li, .menu-avatar-container {
+        width: 100%;
+      }
+
+      .menu-avatar-container {
+        padding-top: 20px;
+      }
+
+      &.active {
+        left: 0px;
+      }
+    }
+    .ion-ios-menu {
+      display: flex;
+    }
+  }
+
+}

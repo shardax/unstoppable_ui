@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import Navigation from './components/Navigation';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {UserContext} from "./UserContext";
+
+import PageRenderer from './page-renderer';
 
 function App() {
+  
+  const [value, setValue] = useState({userName: "", isLoggedIn: false});
+
+  console.log("In APp ");
+  console.log(JSON.stringify(value));
+ // var userLoggenIn = value.isLoggenIn 
+ // ivalue.isLoggedIn)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <UserContext.Provider value={{value, setValue}}>
+          <Navigation />
+        </UserContext.Provider> 
+        <Switch>
+          <UserContext.Provider value={{value, setValue}}>
+            <Route path="/:page" component={PageRenderer} />
+            <Route path="/" render={() => <Redirect to="/home" />} />
+          </UserContext.Provider>
+          <Route component={() => 404} />
+        </Switch>
+        
+      </div>
+    </Router>
   );
 }
 
