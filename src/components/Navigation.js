@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react'
 import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
 import { UserContext } from "../UserContext";
+import UnsIcon from '../images/2Unstoppable_logo.png'
 
 const navAfterLoginLinks = [
   {
@@ -48,7 +49,9 @@ export default function Navigation ({user}) {
 
 
   return (<nav className="site-navigation" role="navigation">
-    <span className="menu-title">2Unstoppable</span>
+    <span className="menu-title">
+      <img src={UnsIcon} width="250" height="50"/>
+    </span>
     <div className={`menu-content-container ${menuActive && 'active'}`}>
       <ul>
       { navLinks.map((link, index) => (
