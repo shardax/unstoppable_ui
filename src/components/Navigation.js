@@ -36,7 +36,7 @@ const navBeforeLoginLinks = [
   }
 ]
 
-export default function Navigation ({user}) {
+export default function Navigation () {
   const [menuActive, setMenuActive] = useState(false)
   const {value, setValue} = useContext(UserContext);
  

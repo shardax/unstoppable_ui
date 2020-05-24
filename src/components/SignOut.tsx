@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 
-export default function SignOut() {
+const SignOut: React.FC = () => {  
 
   const [url, setUrl] = useState(
     'http://localhost:3001/users/sign_out',
@@ -10,7 +10,7 @@ export default function SignOut() {
   const {value, setValue} = useContext(UserContext);
   const [logoutSubmitted, setLogoutSubmitted] = useState(false);
   
-  const handleLogout = (event) => {
+  const handleLogout = (event: MouseEvent) => {
     event.preventDefault();
     setLogoutSubmitted(true);
   }
@@ -32,8 +32,10 @@ export default function SignOut() {
     
     return (
     <div>
-      <button onClick={() => handleLogout()}>Login</button>
+      <button onClick={() => handleLogout}>Login</button>
     </div>
       );
 }
+
+export default SignOut;
 
