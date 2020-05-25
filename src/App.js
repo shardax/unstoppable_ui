@@ -1,9 +1,14 @@
+import { observer, useAsObservableSource, useLocalStore } from "mobx-react"
 import React, {useState} from 'react';
 import Navigation from './components/Navigation';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
-import {UserContext} from "./UserContext";
+import {UserContext, StoreProvider} from "./UserContext";
+//import 'mobx-react-lite/batchingForReactDom'
+//import {useLocalStore} from 'mobx-react';
 
 import PageRenderer from './page-renderer';
+
+
 
 function App() {
   
@@ -15,6 +20,7 @@ function App() {
  // ivalue.isLoggedIn)
 
   return (
+    <StoreProvider>
     <Router>
       <div className="App">
         <UserContext.Provider value={{value, setValue}}>
@@ -30,6 +36,7 @@ function App() {
         
       </div>
     </Router>
+    </StoreProvider>
   );
 }
 

@@ -13,6 +13,8 @@
     "@types/react-dom": "^16.9.8",
     "antd": "^4.2.0",
     "axios": "^0.19.2",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -21,6 +23,12 @@
     "react-scripts": "3.4.1",
     "sass-loader": "^8.0.2",
     "typescript": "^3.9.3"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**/mobx-react/**",
+      "**/mobx-react"
+    ]
   },
   "scripts": {
     "start": "react-scripts start",
