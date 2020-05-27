@@ -23,7 +23,6 @@ export default function SignOut() {
       try {
         const response = await axios.delete(url, { withCredentials: true });
         console.log('👉 Returned data:', response);
-        //setValue({username: result.data.name, isLoggedIn: true});
         store.username = "";
         store.isLoggedIn = false;
       } catch (e) {

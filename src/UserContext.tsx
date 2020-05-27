@@ -1,23 +1,27 @@
 import React, {createContext, ReactNode} from 'react'
 import {useLocalStore} from 'mobx-react'
 
+export type TStore = {
+  username: string
+  isLoggedIn: boolean
+}
+
 function createStore() {
-  const store = {
+  const store: TStore = {
     username: "",
     isLoggedIn: false
   };
   return store;
 }
 
-type Store = ReturnType<typeof createStore>;
+//type Store = ReturnType<typeof createStore>;
 
 export const  UserContext = createContext({});
 
-export const StoreContext = React.createContext<Store | null>(null);
+export const StoreContext = React.createContext<TStore | null>(null);
 
 export const StoreProvider = (props: { children?: ReactNode }) => {
   const store = useLocalStore(createStore);
- 
   return (
     <StoreContext.Provider value={store}>
       {props.children}

@@ -1,7 +1,7 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
-import { UserContext, StoreContext } from "../UserContext";
+import { StoreContext } from "../UserContext";
 import {useObserver} from 'mobx-react'
 import UnsIcon from '../images/2Unstoppable_logo.png'
 
@@ -60,12 +60,11 @@ const DisplayUserName = () => {
 
 
 export default function Navigation () {
-  const [menuActive, setMenuActive] = useState(false)
-  const {value, setValue} = useContext(UserContext);
+  const [menuActive, setMenuActive] = useState(false);
 
   return (<nav className="site-navigation" role="navigation">
     <span className="menu-title">
-      <img src={UnsIcon} width="250" height="50"/>
+      <img src={UnsIcon} width="250" height="50" alt="" />
     </span>
     <div className={`menu-content-container ${menuActive && 'active'}`}>
       <SetNavigationLinks/>

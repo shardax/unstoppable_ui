@@ -1,8 +1,7 @@
-import { observer, useAsObservableSource, useLocalStore } from "mobx-react"
-import React, {useState} from 'react';
+import React from 'react';
 import Navigation from './components/Navigation';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
-import {UserContext, StoreProvider} from "./UserContext";
+import {StoreProvider} from "./UserContext";
 import PageRenderer from './page-renderer';
 
 const NoMatchPage = () => {
@@ -16,7 +15,7 @@ const App: React.FC = () => {
     <StoreProvider>
       <Router>
         <div className="App">
-            <Navigation />
+          <Navigation />
           <Switch>
             <Route path="/:page" component={PageRenderer} />
             <Route path="/" render={() => <Redirect to="/home" />} />
