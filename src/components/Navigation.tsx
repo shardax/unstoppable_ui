@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
-import { StoreContext } from "../UserContext";
+import { StoreContext, useStore } from "../UserContext";
 import {useObserver} from 'mobx-react'
 import UnsIcon from '../images/2Unstoppable_logo.png'
 
@@ -38,7 +38,7 @@ const navBeforeLoginLinks = [
 ]
 
 const SetNavigationLinks = () => {
-  const store = React.useContext(StoreContext);
+  const store = useStore();
 
   return useObserver(() => (
     <ul>
@@ -53,7 +53,7 @@ const SetNavigationLinks = () => {
 }
 
 const DisplayUserName = () => {
-  const store = React.useContext(StoreContext);
+  const store = useStore();
 
   return (useObserver(() => <span className='menu-avatar-name'>{store.username}</span>))
 }
@@ -69,7 +69,7 @@ export default function Navigation () {
     <div className={`menu-content-container ${menuActive && 'active'}`}>
       <SetNavigationLinks/>
       <span className="menu-avatar-container">
-        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" size= "38" />
+        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" size= "small" />
         <DisplayUserName/>
       </span>
     </div>
