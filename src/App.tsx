@@ -11,9 +11,7 @@ const NoMatchPage = () => {
   );
 };
 
-function App() {
-  
-
+const App: React.FC = () => {
   return (
     <StoreProvider>
       <Router>
