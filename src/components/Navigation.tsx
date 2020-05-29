@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
-import { StoreContext, useStore } from "../UserContext";
+import {useStore} from "../UserContext";
 import {useObserver} from 'mobx-react'
 import UnsIcon from '../images/2Unstoppable_logo.png'
 
@@ -22,10 +22,6 @@ const navAfterLoginLinks = [
 ]
 
 const navBeforeLoginLinks = [
-  {
-    title: 'Home',
-    path: '/'
-  },
   {
     title: 'Login',
     path: '/login'

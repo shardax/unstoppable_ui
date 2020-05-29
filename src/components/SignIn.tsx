@@ -1,8 +1,13 @@
 import React, { useState, useEffect} from "react";
+import {Redirect, Link, RouteComponentProps, useHistory} from 'react-router-dom';
 import axios from "axios";
 import {useStore} from "../UserContext";
 
-export default function SignIn() {
+interface Props extends RouteComponentProps{}
+
+const SignIn: React.FC<Props> = ({  }) => {
+
+  const history = useHistory();
 
   const [url] = useState(
     'http://localhost:3001/users/sign_in',
@@ -26,38 +31,47 @@ export default function SignIn() {
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
+      store.isLoggedIn = false;
  
       try {
-        let data = { user: {"username": inputUserName, "password": inputPassword}}
-        const result = await axios.post(url, data, { withCredentials: true });
-        console.log(JSON.stringify(result));
-        console.log(result.data.username);
-        store.username =  result.data.username;
-        store.isLoggedIn = true;
-        console.log("Printing store values")
-        console.log(store.username);
-        console.log(store.isLoggedIn);
+        if (inputSubmitted) {
+          let data = { user: {"username": inputUserName, "password": inputPassword}}
+          const result = await axios.post(url, data, { withCredentials: true });
+          console.log(JSON.stringify(result));
+          console.log(result.data.username);
+          store.username =  result.data.username;
+          store.isLoggedIn = true;
+          console.log("Printing store values")
+          console.log(store.username);
+          console.log(store.isLoggedIn);
+        }
       } catch (error) {
         setIsError(true);
       }
- 
-      setIsLoading(false);
+      console.log("store.isLoggedIn)");
+      console.log(store.isLoggedIn);
+      if(store.isLoggedIn){
+        history.push("/home");
+      }
     };
- 
     fetchData();
+
   }, [inputSubmitted]);
-    
+
     return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input 
-          type="username"
-          name="username"
-          placeholder="Username"
-          value={inputUserName}
-          onChange={event => setInputUserName(event.target.value)}
-          required
-          />
+        <div className="form-group">
+          <input
+            type="username"
+            name="username"
+            placeholder="Username"
+            value={inputUserName}
+            onChange={event => setInputUserName(event.target.value)}
+            required
+            />
+        </div>
+        <div className="form-group">
           <input 
           type="password"
           name="password"
@@ -66,8 +80,11 @@ export default function SignIn() {
           onChange={event => setInputPassword(event.target.value)}
           required
           />
-          <button type="submit">Login</button>
+         </div>
+         <button type="submit">Login</button>
       </form>
       </div>
-      );  }
+      );
+    }
 
+      export default SignIn;

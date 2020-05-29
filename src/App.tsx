@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {StoreProvider} from "./UserContext";
 import PageRenderer from './page-renderer';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const NoMatchPage = () => {
   return (
