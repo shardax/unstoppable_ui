@@ -1,20 +1,13 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {useStore} from "../UserContext";
+import { LOGOUTURL } from "../constants/matcher";
 
-export default function SignOut() {
+//export default function SignOut() {
+const SignOut: React.FC = ({  }) => {
 
-  const [url, setUrl] = useState(
-    'http://localhost:3001/users/sign_out',
-  );
+  const url = LOGOUTURL;
   
-  const [logoutSubmitted, setLogoutSubmitted] = useState(false);
-  
-  const handleLogout = (event: MouseEvent) => {
-    event.preventDefault();
-    setLogoutSubmitted(true);
-  }
-
   const store = useStore();
   
   useEffect(() => {
@@ -27,18 +20,19 @@ export default function SignOut() {
         store.isLoggedIn = false;
       } catch (e) {
         console.log(`😱 Axios request failed: ${e}`);
+        // error
       }
     }
     fetchData();
 
-  }, [logoutSubmitted]);
+  }, []);
     
     return (
     <div>
-      <button onClick={() => handleLogout}>Login</button>
+      
     </div>
       );
 }
 
-//export default SignOut;
+export default SignOut;
 

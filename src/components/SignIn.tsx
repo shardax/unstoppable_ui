@@ -1,7 +1,8 @@
 import React, { useState, useEffect} from "react";
-import {Redirect, Link, RouteComponentProps, useHistory} from 'react-router-dom';
+import {RouteComponentProps, useHistory} from 'react-router-dom';
 import axios from "axios";
 import {useStore} from "../UserContext";
+import { LOGINURL } from "../constants/matcher";
 
 interface Props extends RouteComponentProps{}
 
@@ -9,15 +10,11 @@ const SignIn: React.FC<Props> = ({  }) => {
 
   const history = useHistory();
 
-  const [url] = useState(
-    'http://localhost:3001/users/sign_in',
-    //'http://uns1.herokuapp.com/users/sign_in',
-  );
+  const url = LOGINURL;
   
   const [inputUserName, setInputUserName] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [inputSubmitted, setInputSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,7 +27,6 @@ const SignIn: React.FC<Props> = ({  }) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      setIsLoading(true);
       store.isLoggedIn = false;
  
       try {
@@ -87,4 +83,4 @@ const SignIn: React.FC<Props> = ({  }) => {
       );
     }
 
-      export default SignIn;
+    export default SignIn;
