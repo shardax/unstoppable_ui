@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
-import {useStore} from "../UserContext";
+import {useDataStore} from "../UserContext";
 import {useObserver} from 'mobx-react'
 import UnsIcon from '../images/2Unstoppable_logo.png'
 
 const navAfterLoginLinks = [
   {
-    title: 'Home',
+    title: 'Browse Profiles',
     path: '/'
   },
   {
@@ -34,7 +34,7 @@ const navBeforeLoginLinks = [
 ]
 
 const SetNavigationLinks = () => {
-  const store = useStore();
+  const store = useDataStore();
 
   return useObserver(() => (
     <ul>
@@ -49,7 +49,7 @@ const SetNavigationLinks = () => {
 }
 
 const DisplayUserName = () => {
-  const store = useStore();
+  const store = useDataStore();
 
   return (useObserver(() => <span className='menu-avatar-name'>{store.username}</span>))
 }

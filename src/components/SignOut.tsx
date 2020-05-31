@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {useStore} from "../UserContext";
+import {useDataStore} from "../UserContext";
 import { LOGOUTURL } from "../constants/matcher";
 
 //export default function SignOut() {
@@ -8,7 +8,7 @@ const SignOut: React.FC = ({  }) => {
 
   const url = LOGOUTURL;
   
-  const store = useStore();
+  const store = useDataStore();
   
   useEffect(() => {
  

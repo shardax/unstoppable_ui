@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import {RouteComponentProps, useHistory} from 'react-router-dom';
 import axios from "axios";
-import {useStore} from "../UserContext";
+import {useDataStore, AddToProfileStore} from "../UserContext";
 import { LOGINURL } from "../constants/matcher";
 
 interface Props extends RouteComponentProps{}
@@ -22,7 +22,7 @@ const SignIn: React.FC<Props> = ({  }) => {
     setInputSubmitted(true);
   }
 
-  const store = useStore();
+  const store = useDataStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,9 +37,11 @@ const SignIn: React.FC<Props> = ({  }) => {
           console.log(result.data.username);
           store.username =  result.data.username;
           store.isLoggedIn = true;
+          AddToProfileStore(result.data.profile);
           console.log("Printing store values")
           console.log(store.username);
           console.log(store.isLoggedIn);
+          console.log(store.profile.zipcode);
         }
       } catch (error) {
         setIsError(true);
