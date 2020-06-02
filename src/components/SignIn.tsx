@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import {RouteComponentProps, useHistory} from 'react-router-dom';
+import {RouteComponentProps, useHistory, Redirect} from 'react-router-dom';
 import axios from "axios";
 import {useDataStore, AddToProfileStore} from "../UserContext";
 import { LOGINURL } from "../constants/matcher";
@@ -16,18 +16,28 @@ const SignIn: React.FC<Props> = ({  }) => {
   const [inputPassword, setInputPassword] = useState("");
   const [inputSubmitted, setInputSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setInputSubmitted(true);
   }
 
-  const store = useDataStore();
+  const handleRefresh = (event: any) => {
+    event.preventDefault();
+    setInputUserName("");
+    setInputPassword("");
+    setInputSubmitted(false);
+    setErrorMessage("");
+    setIsError(false);
+  }
+
+  const currentUserStore = useDataStore();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      store.isLoggedIn = false;
+      currentUserStore.isLoggedIn = false;
  
       try {
         if (inputSubmitted) {
@@ -35,21 +45,30 @@ const SignIn: React.FC<Props> = ({  }) => {
           const result = await axios.post(url, data, { withCredentials: true });
           console.log(JSON.stringify(result));
           console.log(result.data.username);
-          store.username =  result.data.username;
-          store.isLoggedIn = true;
-          AddToProfileStore(result.data.profile);
+          currentUserStore.username =  result.data.username;
+          currentUserStore.isLoggedIn = true;
+          currentUserStore.profile = result.data.profile;
           console.log("Printing store values")
-          console.log(store.username);
-          console.log(store.isLoggedIn);
-          console.log(store.profile.zipcode);
+          console.log(currentUserStore.username);
+          console.log(currentUserStore.isLoggedIn);
+          console.log(currentUserStore.profile.zipcode);
         }
       } catch (error) {
+        //console.log(JSON.stringify(error));
+        console.log(error.message);
+        if (error.message.includes("401")) {
+          setErrorMessage("Invalid Username or Password.");
+        } else {
+          setErrorMessage(error.message);
+        }
         setIsError(true);
       }
       console.log("store.isLoggedIn)");
-      console.log(store.isLoggedIn);
-      if(store.isLoggedIn){
+      console.log(currentUserStore.isLoggedIn);
+      if(currentUserStore.isLoggedIn){
         history.push("/home");
+      } else {
+        history.push("/login")
       }
     };
     fetchData();
@@ -59,6 +78,7 @@ const SignIn: React.FC<Props> = ({  }) => {
     return (
     <div>
       <form onSubmit={handleSubmit}>
+      { errorMessage && <h3 className="error"> { errorMessage } </h3> }
         <div className="form-group">
           <input
             type="username"
@@ -79,7 +99,8 @@ const SignIn: React.FC<Props> = ({  }) => {
           required
           />
          </div>
-         <button type="submit">Login</button>
+         {!isError &&  <button type="submit">Login</button>}
+         {isError &&  <button name="refresh" onClick={handleRefresh as any}>Refresh and Login</button>}
       </form>
       </div>
       );
