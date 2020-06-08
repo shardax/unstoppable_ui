@@ -13,18 +13,20 @@ const NoMatchPage = () => {
 
 const App: React.FC = () => {
   return (
-    <StoreProvider>
-      <Router>
-        <div className="App">
-          <Navigation />
-          <Switch>
-            <Route path="/:page" component={PageRenderer} />
-            <Route path="/" render={() => <Redirect to="/home" />} />
-            <Route component={NoMatchPage} />
-          </Switch>
-        </div>
-      </Router>
-    </StoreProvider>
+    <>
+      <StoreProvider>
+        <Router>
+          <div className="App">
+            <Navigation />
+            <Switch>
+              <Route path="/:page" component={PageRenderer} />
+              <Route path="/" render={() => <Redirect to="/home" />} />
+              <Route component={NoMatchPage} />
+            </Switch>
+          </div>
+        </Router>
+      </StoreProvider>
+    </>
   );
 }
 
