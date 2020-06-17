@@ -7,28 +7,17 @@ import FlexView from 'react-flexview';
 
 
 const ViewProfile: React.FC = ({  }) => {
-
-  
   
   const [profile, setProfile] = React.useState(useDataStore().profile);
   const [displayUsername, setDisplayUserName] = React.useState(useDataStore().username);
-  console.log("Bhalooo");
-  console.log(JSON.stringify(profile));
-  //console.log(displayUsername);
 
   useEffect(() => {
-  
-  
-    console.log("HOHOHA HOHOHA In view profile");
-    // Temp code
-    const profileId = profile.id;
-
     axios
-    .get(PROFILEURL + `/${profileId}.json`, { withCredentials: true })
+    .get(PROFILEURL + `/${profile.id}.json`, { withCredentials: true })
     .then(result => {
       console.log(result);
       //currentUserStore.username =  result.data.username;
-     // setProfile(result.data);
+      setProfile(result.data);
     }).catch (e => {
       console.log(`😱 Axios request failed: ${e}`);
     })
@@ -64,12 +53,6 @@ const Card = ({ title, author, date, image, children }: CardProps) => (
   </FlexView>
 );
 **/
-
-const DisplayUserName = () => {
-  const store = useDataStore();
-  console.log(store.username);
-  return (store.username);
-}
 
 
   return (
