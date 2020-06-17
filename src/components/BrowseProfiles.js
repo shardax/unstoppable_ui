@@ -1,10 +1,17 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import { ALLPROFILESURL } from "../constants/matcher";
+import {useDataStore} from "../UserContext";
+
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const [filter, setFilter] = React.useState("");
   const [userCollection, setUserCollection] = React.useState([]);
+  ////
+  const [display, setDisplay] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [search, setSearch] = useState("");
 
   // Load full list when the component gets mounted and filter gets updated
   React.useEffect(() => {
@@ -13,7 +20,7 @@ import axios from "axios";
     
       // Load async data from an inexistent endpoint.
     axios
-    .get(`http://uns1.herokuapp.com/profiles.json?&min_age=18&max_age=130&distance=""commit=Search&search=${filter}`, { withCredentials: true },{headers:{
+    .get(ALLPROFILESURL + `?&min_age=18&max_age=130&distance=""commit=Search&search=${filter}`, { withCredentials: true },{headers:{
       contentType: "application/json; charset=utf-8",
     }})
     .then(response => {

@@ -7,8 +7,12 @@ import UnsIcon from '../images/2Unstoppable_logo.png'
 
 const navAfterLoginLinks = [
   {
-    title: 'Browse Profiles',
+    title: 'Home',
     path: '/'
+  },
+  {
+    title: 'View',
+    path: '/profile'
   },
   {
     title: 'Logout',
@@ -32,6 +36,30 @@ const navBeforeLoginLinks = [
 
   }
 ]
+
+/**
+ * 
+ * // example Context object
+const ThemeContext = React.createContext("dark");
+
+// usage with context Consumer
+function Button() {
+  return <ThemeContext.Consumer>
+        {theme => <button className={theme}> Amazing button </button>}
+  </ThemeContext.Consumer>
+}
+
+
+// usage with useContext hook 
+import {useContext} from 'react';
+
+function ButtonHooks() {
+ const theme = useContext(ThemeContext)
+ return <button className={theme}>Amazing button</button>
+}
+
+ * 
+ */
 
 const SetNavigationLinks = () => {
   const store = useDataStore();

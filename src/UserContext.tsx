@@ -28,6 +28,5 @@ export const AddToProfileStore = (profile: ProfileStore) => {
   if (!store) {
     throw new Error("useDataStore: !store, did you forget StoreProvider?");
   }
-  store.profile = profile;
+  //store.profile = profile;
 };
-

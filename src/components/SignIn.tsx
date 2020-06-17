@@ -51,7 +51,7 @@ const SignIn: React.FC<Props> = ({  }) => {
           console.log("Printing store values")
           console.log(currentUserStore.username);
           console.log(currentUserStore.isLoggedIn);
-          console.log(currentUserStore.profile.zipcode);
+          console.log(currentUserStore.profile.id);
         }
       } catch (error) {
         //console.log(JSON.stringify(error));
