@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode} from 'react'
 import {useLocalStore} from 'mobx-react'
-import {createStore, UserStore, ProfileStore} from './UserStore'
+import {createStore, UserStore} from './UserStore'
 
 //type Store = ReturnType<typeof createStore>;
 
@@ -21,12 +21,4 @@ export const useDataStore = () => {
     throw new Error("useDataStore: !store, did you forget StoreProvider?");
   }
   return store;
-};
-
-export const AddToProfileStore = (profile: ProfileStore) => {
-  const store = React.useContext(StoreContext);
-  if (!store) {
-    throw new Error("useDataStore: !store, did you forget StoreProvider?");
-  }
-  //store.profile = profile;
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import {RouteComponentProps, useHistory, Redirect} from 'react-router-dom';
 import axios from "axios";
-import {useDataStore, AddToProfileStore} from "../UserContext";
+import {useDataStore} from "../UserContext";
 import { LOGINURL } from "../constants/matcher";
 
 interface Props extends RouteComponentProps{}
@@ -48,6 +48,8 @@ const SignIn: React.FC<Props> = ({  }) => {
           currentUserStore.username =  result.data.username;
           currentUserStore.isLoggedIn = true;
           currentUserStore.profile = result.data.profile;
+          currentUserStore.profileId = result.data.profile.id;
+          currentUserStore.avatarPath= result.data.photo;
           console.log("Printing store values")
           console.log(currentUserStore.username);
           console.log(currentUserStore.isLoggedIn);

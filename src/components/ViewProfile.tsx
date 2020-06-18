@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../UserContext";
 import axios from "axios";
-import { PROFILEURL } from "../constants/matcher";
+import { PROFILEURL, ROOTURL } from "../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 
@@ -10,14 +10,16 @@ const ViewProfile: React.FC = ({  }) => {
   
   const [profile, setProfile] = React.useState(useDataStore().profile);
   const [displayUsername, setDisplayUserName] = React.useState(useDataStore().username);
-
+  const store = useDataStore();
   useEffect(() => {
     axios
-    .get(PROFILEURL + `/${profile.id}.json`, { withCredentials: true })
+    .get(PROFILEURL + `/${store.profileId}.json`, { withCredentials: true })
     .then(result => {
       console.log(result);
       //currentUserStore.username =  result.data.username;
-      setProfile(result.data);
+      store.profile = result.data.profile;
+      store.avatarPath = result.data.photo;
+      console.log(ROOTURL + store.avatarPath );
     }).catch (e => {
       console.log(`😱 Axios request failed: ${e}`);
     })
@@ -52,6 +54,8 @@ const Card = ({ title, author, date, image, children }: CardProps) => (
     
   </FlexView>
 );
+avatarPath: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBIdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--644ee1f6b2a9643091de027fa0e1f0d804bfe6d1/IMG_9868.JPG?disposition=attachment"
+
 **/
 
 
@@ -59,7 +63,7 @@ const Card = ({ title, author, date, image, children }: CardProps) => (
     <div>
       <FlexView basis={1000}>
         <AvatarEditor
-          image="./src/sarada.jpg"
+          image={ROOTURL + store.avatarPath}
           width={175}
           height={140}
           border={30}
@@ -72,12 +76,12 @@ const Card = ({ title, author, date, image, children }: CardProps) => (
           <FlexView  style={{ width: 250, height: 20 }}>
             <FlexView  style={{ width: 20, height: 10 }}></FlexView>
               <FlexView  style={{ width: 230, height: 10 }}>
-                  <b>{displayUsername}</b>, {profile.age}</FlexView>
+                  <b>{store.username}</b>, {store.profile.age}</FlexView>
               </FlexView >
               <FlexView  style={{ width: 250, height: 30 }}>
               <FlexView  style={{ width: 20, height: 30 }}></FlexView>
               <FlexView  style={{ width: 230, height: 30 }}>
-                {profile.city}, {profile.state} {profile.zipcode}
+                {store.profile.city}, {store.profile.state} {store.profile.zipcode}
               </FlexView>
           </FlexView >
          </FlexView>

@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { create, persist} from 'mobx-persist';
 
+/** 
 export type UserStoreType = {
   username: string
   isLoggedIn: boolean
@@ -40,12 +41,14 @@ export type ProfileStoreType = {
   referred_by: string
 }
 
+
 export type ProfileListStore = {
   profileList: ProfileStoreType[]
 }
+**/
 
 export class ProfileStore {
-  @persist @observable id: number;
+  id: number;
   zipcode: string;
   city: string;
   state: string;
@@ -106,19 +109,34 @@ export class ProfileStore {
   this.moderated = false;
   this.referred_by = "";
 
-  hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
+  //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 
 }
 export class UserStore {
   @persist @observable username:string;
   @persist @observable isLoggedIn: boolean;
-  profile: ProfileStore = new ProfileStore();
+  @persist @observable profileId: number;
+  @persist('object') profile: ProfileStore;
+  @persist avatarPath: string;
+
   constructor(){
-    this.username = "";
-    this.isLoggedIn = false;
+     // When the User hits refresh, get the values from the local storage.
+    if (localStorage.userStore != null) {
+      var localStorageData = JSON.parse(localStorage["userStore"]);
+      this.username = localStorageData.username;
+      this.isLoggedIn = localStorageData.isLoggedIn;
+      this.profile = localStorageData.profile;
+      this.avatarPath = localStorageData.avatarPath;
+      this.profileId = localStorageData.profileId;
+    } else {
+      this.username = "";
+      this.isLoggedIn = false;
+      this.profile = new ProfileStore();
+      this.avatarPath = "";
+      this.profileId = 0;
+      }
     hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
-    //hydrate('unsAppStore', this);
   }
  
 }
@@ -132,15 +150,7 @@ const hydrate = create({
 })
 
 export function createStore() {
-  
   const store = new UserStore();
-  
-  /*: UserStore = {
-    username: "",
-    isLoggedIn: false,
-    profile: new ProfileStore()
-  };*/
-  
   return store;
 }
 
