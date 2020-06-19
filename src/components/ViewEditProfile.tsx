@@ -6,10 +6,11 @@ import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 
 
-const ViewProfile: React.FC = ({  }) => {
+const ViewEditProfile: React.FC = ({  }) => {
   
   const [profile, setProfile] = React.useState(useDataStore().profile);
   const [displayUsername, setDisplayUserName] = React.useState(useDataStore().username);
+  const [editMode, setEditMode] = React.useState(false);
   const store = useDataStore();
   useEffect(() => {
     axios
@@ -25,6 +26,10 @@ const ViewProfile: React.FC = ({  }) => {
     })
   }, []);
 
+  const handleEdit = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setEditMode(true);
+  }
 
 /** 
 
@@ -61,7 +66,8 @@ avatarPath: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBIdz0
 
   return (
     <div>
-      <FlexView basis={1000}>
+      
+      { !editMode && <FlexView basis={1000}>
         <AvatarEditor
           image={ROOTURL + store.avatarPath}
           width={175}
@@ -90,9 +96,15 @@ avatarPath: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBIdz0
           <FlexView  style={{ width: 20, height: 30 }}></FlexView>
           <FlexView  style={{ width: 200, height: 100 }}><h3><b>My Profile</b></h3></FlexView>
         </FlexView>
+        <FlexView column basis={200}>
+          <button onClick={handleEdit}>
+            Edit Profile
+          </button>
+        </FlexView>
       </FlexView>
+      }
     </div>
       );
     
 }
-export default ViewProfile;
+export default ViewEditProfile;

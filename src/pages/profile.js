@@ -1,11 +1,11 @@
 import React from 'react'
-import ViewProfile from '../components/ViewProfile'
+import ViewEditProfile from '../components/ViewEditProfile'
 
 export default function Profile() {
   return (
     <>
     <div>
-      <ViewProfile />
+      <ViewEditProfile />
     </div>
     </>
     )
