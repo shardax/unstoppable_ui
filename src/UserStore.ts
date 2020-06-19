@@ -119,6 +119,7 @@ export class UserStore {
   @persist @observable profileId: number;
   @persist('object') profile: ProfileStore;
   @persist avatarPath: string;
+  @persist editMode: boolean;
 
   constructor(){
      // When the User hits refresh, get the values from the local storage.
@@ -129,12 +130,14 @@ export class UserStore {
       this.profile = localStorageData.profile;
       this.avatarPath = localStorageData.avatarPath;
       this.profileId = localStorageData.profileId;
+      this.editMode = localStorageData.editMode;
     } else {
       this.username = "";
       this.isLoggedIn = false;
       this.profile = new ProfileStore();
       this.avatarPath = "";
       this.profileId = 0;
+      this.editMode = false;
       }
     hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }

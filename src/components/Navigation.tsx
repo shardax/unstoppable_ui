@@ -7,11 +7,11 @@ import UnsIcon from '../images/2Unstoppable_logo.png'
 
 const navAfterLoginLinks = [
   {
-    title: 'Home',
+    title: 'Browse', //Home
     path: '/'
   },
   {
-    title: 'View',
+    title: 'My Profile',
     path: '/profile'
   },
   {
