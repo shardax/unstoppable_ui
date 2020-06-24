@@ -19,7 +19,7 @@ const ViewProfile: React.FC = ({  }) => {
   return (
     <div>
       
-   <FlexView basis={1000}>
+   <FlexView basis={1000} height={300}>
         <AvatarEditor
           image={ROOTURL + store.avatarPath}
           width={175}
@@ -40,7 +40,11 @@ const ViewProfile: React.FC = ({  }) => {
             Edit Profile
           </button>
         </FlexView>
-      </FlexView>
+  </FlexView>
+
+   <FlexView basis={1000} height={300}>
+        <PrintUserInfo />
+   </FlexView>
       
     </div>
       );
