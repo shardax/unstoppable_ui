@@ -27,3 +27,18 @@ const PrintUserInfo: React.FC = ({  }) => {
   
 }
 export  {PrintUserInfo};
+
+
+const PrintFitness: React.FC = ({  }) => {
+  const store = useDataStore();
+  return (
+    <div>
+       <FlexView column basis={1000}> </FlexView>
+        <FlexView basis={300} height={10}>
+          <b>{store.profile.fitness_level}</b></FlexView>
+          <FlexView  basis={300} height={20}>
+           </FlexView>
+    </div>
+  )
+}
+export  {PrintFitness};

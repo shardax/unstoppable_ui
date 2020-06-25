@@ -5,7 +5,7 @@ import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
-import {PrintUserInfo} from "./CommonElements";
+import {PrintUserInfo, DisplayFitness} from "./CommonElements";
 
 const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
@@ -18,7 +18,7 @@ const ViewProfile: React.FC = ({  }) => {
   }
   return (
     <div>
-      
+   
    <FlexView basis={1000} height={300}>
         <AvatarEditor
           image={ROOTURL + store.avatarPath}
@@ -42,9 +42,17 @@ const ViewProfile: React.FC = ({  }) => {
         </FlexView>
   </FlexView>
 
-   <FlexView basis={1000} height={300}>
-        <PrintUserInfo />
-   </FlexView>
+
+  <FlexView column basis={100} width={300}>
+      <FlexView column basis={100} width={300}>
+          <FlexView>   Reasons For Wanting Partner: </FlexView>
+          <DisplayFitness/>
+          <FlexView> Cancer Location: </FlexView>
+          <FlexView> Your Current Fitness Level: </FlexView>
+          <FlexView> Treatment Status: </FlexView>
+          <FlexView> Personality: </FlexView>
+     </FlexView>  
+  </FlexView>
       
     </div>
       );
