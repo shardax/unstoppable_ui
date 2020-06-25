@@ -77,6 +77,7 @@ export class ProfileStore {
   step_status: string;
   moderated: boolean;
   referred_by: string;
+  photo: string;
 
   constructor(){
   this.id = 0;
@@ -108,7 +109,7 @@ export class ProfileStore {
   this.step_status = "";
   this.moderated = false;
   this.referred_by = "";
-
+  this.photo = "";
   //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 

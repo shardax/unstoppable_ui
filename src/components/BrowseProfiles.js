@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { ALLPROFILESURL } from "../constants/matcher";
+import { ALLPROFILESURL, ROOTURL } from "../constants/matcher";
 import {useDataStore} from "../UserContext";
 
 
@@ -33,12 +33,18 @@ import {useDataStore} from "../UserContext";
   }, [filter]);
 
   return (
+    <>
     <div>
       <input value={filter} onChange={e => setFilter(e.target.value)} />
       {userCollection.map((profile, index) => (
+        <>
         <p>Username:{profile.name}, Cancer Location:{profile.cancer_location}, zipcode: {profile.zipcode}</p>
+        <img src={ROOTURL + profile.photo} height={160} width={200} />
+        </>
       ))}
     </div>
+    </>
       );
 }
+
 export default BrowseProfiles;
