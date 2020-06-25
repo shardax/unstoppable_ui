@@ -5,6 +5,7 @@ import {useDataStore} from "../UserContext";
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -17,7 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
-  const [value, setValue] = useState([18,110]);
+  const [ageRange, setAgeRange] = useState([18,120]);
 
   // Load full list when the component gets mounted and filter gets updated
   React.useEffect(() => {
@@ -25,8 +26,8 @@ import { makeStyles } from '@material-ui/core/styles';
     //http://uns1.herokuapp.com/profiles?utf8=✓&search=bre&commit=Search
     
       // Load async data from an inexistent endpoint.
-   // min_age = value[0]
-    let url = ALLPROFILESURL + `?&min_age=` + value[0] + `&max_age=` + value[1] + `&distance=""commit=Search&search=${filter}`;
+  
+    let url = ALLPROFILESURL + `?&min_age=` + ageRange[0] + `&max_age=` + ageRange[1] + `&distance=""commit=Search&search=${filter}`;
       
     axios
     .get(url, { withCredentials: true },{headers:{
@@ -39,16 +40,12 @@ import { makeStyles } from '@material-ui/core/styles';
       console.log(`😱 Axios request failed: ${e}`);
       setUserCollection([]);
     })
-  }, [filter, value]);
+  }, [filter, ageRange]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    console.log(newValue);
+  const handleChange = (event, newAgeRange) => {
+    setAgeRange(newAgeRange);
+    console.log(newAgeRange);
   };
-
-  function valuetext(value) {
-    return `${value}°C`;
-  }
 
   const useStyles = makeStyles({
     root: {
@@ -63,11 +60,10 @@ import { makeStyles } from '@material-ui/core/styles';
       Age Range
     </Typography>
     <Slider
-      value={value}
+      value={ageRange}
       onChange={handleChange}
       valueLabelDisplay="auto"
       aria-labelledby="range-slider"
-      getAriaValueText={valuetext}
       valueLabelDisplay="on"
     />
       <input value={filter} onChange={e => setFilter(e.target.value)} />
