@@ -119,7 +119,7 @@ export class UserStore {
   @persist @observable isLoggedIn: boolean;
   @persist @observable profileId: number;
   @persist('object') profile: ProfileStore;
-  @persist avatarPath: string;
+  @persist @observable avatarPath: string;
   @persist editMode: boolean;
 
   constructor(){
