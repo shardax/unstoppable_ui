@@ -2,6 +2,11 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { ALLPROFILESURL, ROOTURL } from "../constants/matcher";
 import {useDataStore} from "../UserContext";
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 
 //const BrowseProfiles: React.FC = ({  }) => {
@@ -12,6 +17,7 @@ import {useDataStore} from "../UserContext";
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
+  const [value, setValue] = useState([18,110]);
 
   // Load full list when the component gets mounted and filter gets updated
   React.useEffect(() => {
@@ -30,11 +36,37 @@ import {useDataStore} from "../UserContext";
       console.log(`😱 Axios request failed: ${e}`);
       setUserCollection([]);
     })
-  }, [filter]);
+  }, [filter, value]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    console.log(newValue);
+  };
+
+  function valuetext(value) {
+    return `${value}°C`;
+  }
+
+  const useStyles = makeStyles({
+    root: {
+      width: 200,
+    },
+  });
 
   return (
     <>
     <div>
+    <Typography id="range-slider" gutterBottom>
+      Temperature range
+    </Typography>
+    <Slider
+      value={value}
+      onChange={handleChange}
+      valueLabelDisplay="auto"
+      aria-labelledby="range-slider"
+      getAriaValueText={valuetext}
+      valueLabelDisplay="on"
+    />
       <input value={filter} onChange={e => setFilter(e.target.value)} />
       {userCollection.map((profile, index) => (
         <>
