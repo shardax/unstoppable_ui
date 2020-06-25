@@ -25,8 +25,11 @@ import { makeStyles } from '@material-ui/core/styles';
     //http://uns1.herokuapp.com/profiles?utf8=✓&search=bre&commit=Search
     
       // Load async data from an inexistent endpoint.
+   // min_age = value[0]
+    let url = ALLPROFILESURL + `?&min_age=` + value[0] + `&max_age=` + value[1] + `&distance=""commit=Search&search=${filter}`;
+      
     axios
-    .get(ALLPROFILESURL + `?&min_age=18&max_age=130&distance=""commit=Search&search=${filter}`, { withCredentials: true },{headers:{
+    .get(url, { withCredentials: true },{headers:{
       contentType: "application/json; charset=utf-8",
     }})
     .then(response => {
@@ -57,7 +60,7 @@ import { makeStyles } from '@material-ui/core/styles';
     <>
     <div>
     <Typography id="range-slider" gutterBottom>
-      Temperature range
+      Age Range
     </Typography>
     <Slider
       value={value}

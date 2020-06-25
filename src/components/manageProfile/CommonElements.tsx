@@ -29,7 +29,7 @@ const PrintUserInfo: React.FC = ({  }) => {
 export  {PrintUserInfo};
 
 
-const PrintFitness: React.FC = ({  }) => {
+const DisplayFitness: React.FC = ({  }) => {
   const store = useDataStore();
   return (
     <div>
@@ -41,4 +41,4 @@ const PrintFitness: React.FC = ({  }) => {
     </div>
   )
 }
-export  {PrintFitness};
+export  {DisplayFitness};
