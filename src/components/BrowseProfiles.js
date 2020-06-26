@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { sizing } from '@material-ui/system';
+import FlexView from 'react-flexview';
 
 
 
@@ -19,6 +21,7 @@ import Grid from '@material-ui/core/Grid';
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [ageRange, setAgeRange] = useState([18,120]);
+  const [distance, setDistance] = useState([0,1000]);
 
   // Load full list when the component gets mounted and filter gets updated
   React.useEffect(() => {
@@ -27,7 +30,7 @@ import Grid from '@material-ui/core/Grid';
     
       // Load async data from an inexistent endpoint.
   
-    let url = ALLPROFILESURL + `?&min_age=` + ageRange[0] + `&max_age=` + ageRange[1] + `&distance=""commit=Search&search=${filter}`;
+    let url = ALLPROFILESURL + `?&min_age=` + ageRange[0] + `&max_age=` + ageRange[1] + `&distance=` + distance[0] + `""commit=Search&search=${filter}`;
       
     axios
     .get(url, { withCredentials: true },{headers:{
@@ -42,30 +45,37 @@ import Grid from '@material-ui/core/Grid';
     })
   }, [filter, ageRange]);
 
-  const handleChange = (event, newAgeRange) => {
-    setAgeRange(newAgeRange);
-    console.log(newAgeRange);
-  };
+     const handleChange = (event, newAgeRange) => {
+        setAgeRange(newAgeRange);
+        console.log(newAgeRange);
+    };
 
-  const useStyles = makeStyles({
+
+   const useStyles = makeStyles({
     root: {
       width: 200,
     },
   });
 
+  const classes = useStyles();
+  const [value, setValue] = React.useState([20, 37]);
+
   return (
     <>
-    <div>
+    <div className={classes.root}>
     <Typography id="range-slider" gutterBottom>
       Age Range
     </Typography>
-    <Slider
+    <Slider 
       value={ageRange}
       onChange={handleChange}
       valueLabelDisplay="auto"
       aria-labelledby="range-slider"
       valueLabelDisplay="on"
     />
+    </div>
+
+    <div>
       <input value={filter} onChange={e => setFilter(e.target.value)} />
       {userCollection.map((profile, index) => (
         <>
