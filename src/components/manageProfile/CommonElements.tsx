@@ -34,11 +34,72 @@ const DisplayFitness: React.FC = ({  }) => {
   return (
     <div>
        <FlexView column basis={1000}> </FlexView>
-        <FlexView basis={300} height={10}>
-          <b>{store.profile.fitness_level}</b></FlexView>
-          <FlexView  basis={300} height={20}>
+       <FlexView  basis={300} height={10}> </FlexView>
+        <FlexView basis={300} height={40}>
+          <b> {store.profile.fitness_level}</b></FlexView>
+          <FlexView  basis={300} height={40}>
            </FlexView>
     </div>
   )
 }
 export  {DisplayFitness};
+
+const DisplayCancerLocation: React.FC = ({  }) => {
+  const store = useDataStore();
+  return (
+    <div>
+       <FlexView column basis={1000}> </FlexView>
+       <FlexView  basis={300} height={10}> </FlexView>
+        <FlexView basis={300} height={40}>
+          <b> {store.profile.cancer_location}</b></FlexView>
+          <FlexView  basis={300} height={40}>
+           </FlexView>
+    </div>
+  )
+}
+export  {DisplayCancerLocation};
+
+const DisplayPartnerReason: React.FC = ({  }) => {
+  const store = useDataStore();
+  return (
+    <div>
+       <FlexView column basis={1000}> </FlexView>
+       <FlexView  basis={300} height={10}> </FlexView>
+        <FlexView basis={300} height={40}>
+          <b> {store.profile.reason_for_match}</b></FlexView>
+          <FlexView  basis={300} height={40}>
+           </FlexView>
+    </div>
+  )
+}
+export  {DisplayPartnerReason};
+
+const DisplayTreatmentStatus: React.FC = ({  }) => {
+  const store = useDataStore();
+  return (
+    <div>
+       <FlexView column basis={1000}> </FlexView>
+       <FlexView  basis={300} height={10}> </FlexView>
+        <FlexView basis={300} height={40}>
+          <b> {store.profile.treatment_status}</b></FlexView>
+          <FlexView  basis={300} height={85}>
+           </FlexView>
+    </div>
+  )
+}
+export  {DisplayTreatmentStatus};
+
+const DisplayPersonality: React.FC = ({  }) => {
+  const store = useDataStore();
+  return (
+    <div>
+       <FlexView column basis={1000}> </FlexView>
+       <FlexView  basis={300} height={10}> </FlexView>
+        <FlexView basis={300} height={40}>
+          <b> {store.profile.personality}</b></FlexView>
+          <FlexView  basis={300} height={40}>
+           </FlexView>
+    </div>
+  )
+}
+export  {DisplayPersonality};
