@@ -45,8 +45,7 @@ import './Browse.scss'
             <img className="single-profile-image" src={ROOTURL + profile.photo} />
             <div className="single-profile-body">
               <h5 className="primary-text">{profile.name}</h5>
-              <p>Cancer Location: {profile.cancer_location}</p>
-              <p>zipcode: {profile.zipcode}</p>
+              <p>{profile.cancer_location} Cancer</p>
               <p>{profile.age} years old</p>
             </div>
           </div>
