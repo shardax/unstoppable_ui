@@ -1,0 +1,20 @@
+@import "../../assets/scss/variables";
+
+// BrowseProfiles
+
+.profile-browse-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.single-profile-wrapper {
+  margin: 1em;
+  width: 200px;
+  .single-profile-body {
+    padding: 1em 0.5em 0.5em 0.5em;
+  }
+}
+
+.single-profile-image {
+  height: 160px;
+  width: 200px;
+}

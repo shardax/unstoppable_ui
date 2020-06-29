@@ -3,6 +3,8 @@ import axios from "axios";
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import RangeSlider from "../RangeSlider";
 
+import './Browse.scss'
+
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const [filter, setFilter] = React.useState("");
@@ -37,12 +39,18 @@ import RangeSlider from "../RangeSlider";
     <div>
       <input value={filter} onChange={e => setFilter(e.target.value)} placeholder="Cancer Type OR Zipcode OR City"  width="50" />
         <RangeSlider ageRange={ageRange} onChange={handleChange}/>
-      {userCollection.map((profile: any, index: number) => (
-        <>
-          <p>Username:{profile.name}, Cancer Location:{profile.cancer_location}, zipcode: {profile.zipcode} age:{profile.age}</p>
-          <img src={ROOTURL + profile.photo} height={160} width={200} />
-        </>
-      ))}
+      <div className="profile-browse-grid">
+        {userCollection.map((profile: any, index: number) => (
+          <div className="single-profile-wrapper" key={index}>
+            <img className="single-profile-image" src={ROOTURL + profile.photo} />
+            <div className="single-profile-body">
+              <h5 className="primary-text">{profile.name}</h5>
+              <p>Cancer Location:{profile.cancer_location}</p>
+              <p>zipcode: {profile.zipcode} age:{profile.age}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
     </>
       );
