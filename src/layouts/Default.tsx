@@ -7,7 +7,9 @@ const Default: React.FC = ({ children }) => {
     <>
       <Navigation />
       <div className="default-layout-main">
-        {children}
+        <div className="format-children-default">
+         {children}
+        </div>
       </div>
     </>
   )

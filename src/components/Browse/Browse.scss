@@ -2,12 +2,47 @@
 
 // BrowseProfiles
 
+.browse-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .browse-search {
+    color: black;
+    height: 40px;
+    border-radius: 20px;
+    width: 30em;
+    outline: none;
+    border: 0;
+    margin-right: 3em;
+    background-color: $mutedPurple;
+    // background-color: $primaryPurple;
+    // color: white;
+    padding: 0.5em;
+    padding-left: 1em;
+  }
+}
+
+.favorite-profile-icon {
+  font-size: 25px;
+  color: white;
+  margin-bottom: -1.5em;
+  margin-left: 85%;
+  background-color: $primaryPurple;
+  border-radius: 50%;
+  padding: 0.1em;
+  position: relative;
+  z-index: 10;
+}
+
 .profile-browse-grid {
   display: flex;
   flex-wrap: wrap;
 }
 .single-profile-wrapper {
   margin: 1em;
+  display: flex;
+  flex-direction: column;
+  // box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   .single-profile-body {
     background-color: white;
     padding: 0.5em;
@@ -15,7 +50,6 @@
     border-bottom-right-radius: 10px;
     z-index: 100;
     position: relative;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     p {
       line-height: 1;
     }

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import RangeSlider from "../RangeSlider";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import './Browse.scss'
 
@@ -37,19 +38,22 @@ import './Browse.scss'
   return (
     <>
     <div>
-      <input value={filter} onChange={e => setFilter(e.target.value)} placeholder="Cancer Type OR Zipcode OR City"  width="50" />
-        <RangeSlider ageRange={ageRange} onChange={handleChange}/>
-      <div className="profile-browse-grid">
-        {userCollection.map((profile: any, index: number) => (
-          <div className="single-profile-wrapper" key={index}>
-            <img className="single-profile-image" src={ROOTURL + profile.photo} />
-            <div className="single-profile-body">
-              <h5 className="primary-text">{profile.name}</h5>
-              <p>{profile.cancer_location} Cancer</p>
-              <p>{profile.age} years old</p>
+      <div className="browse-filter-row"> 
+        <input className="browse-search" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
+          <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+        </div>
+        <div className="profile-browse-grid">
+          {userCollection.map((profile: any, index: number) => (
+            <div className="single-profile-wrapper" key={index}>
+              <FavoriteIcon className="favorite-profile-icon" />
+              <img className="single-profile-image" src={ROOTURL + profile.photo} />
+              <div className="single-profile-body">
+                <h5 className="primary-text">{profile.name}</h5>
+                <p>{profile.cancer_location} Cancer</p>
+                <p>{profile.age} years old</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
     </>
