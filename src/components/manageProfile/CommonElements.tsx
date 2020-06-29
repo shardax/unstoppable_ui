@@ -7,22 +7,16 @@ import FlexView from 'react-flexview';
 const PrintUserInfo: React.FC = ({  }) => {
   const store = useDataStore();
   return (
-    <div>
-      <FlexView basis={30} height={70}>
-      </FlexView>
-      <FlexView  basis={250} height={20}>
-        <FlexView  basis={20} height={10}>
-        </FlexView>
-        <FlexView  basis={230} height={10}>
-          <b>{store.username}</b>, {store.profile.age}</FlexView>
-        </FlexView >
-          <FlexView  basis={250} height={30}>
-            <FlexView  basis={20} height={30}></FlexView>
-            <FlexView  basis={230} height={30}>
-              {store.profile.city}, {store.profile.state} {store.profile.zipcode}
+
+        <FlexView column>
+          <FlexView hAlignContent='center'>
+            <b>Username: {store.username}</b>, Age: {store.profile.age}
           </FlexView>
-      </FlexView >
-    </div>
+          <FlexView hAlignContent='center'>
+          City: {store.profile.city} State: {store.profile.state} ZipCode: {store.profile.zipcode}
+          </FlexView>
+        </FlexView>
+
   )
   
 }
@@ -35,7 +29,7 @@ const DisplayFitness: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40}>
+        <FlexView basis={300} height={40} style={{fontSize: 15}}>
           <b> {store.profile.fitness_level}</b></FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
@@ -50,7 +44,7 @@ const DisplayCancerLocation: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40}>
+        <FlexView basis={300} height={40} style={{fontSize: 15}}>
           <b> {store.profile.cancer_location}</b></FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
@@ -65,7 +59,7 @@ const DisplayPartnerReason: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40}>
+        <FlexView basis={300} height={40} style={{fontSize: 15}}>
           <b> {store.profile.reason_for_match}</b></FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
@@ -80,10 +74,10 @@ const DisplayTreatmentStatus: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40}>
-          <b> {store.profile.treatment_status}</b></FlexView>
-          <FlexView  basis={300} height={85}>
-           </FlexView>
+        <FlexView basis={300} height={40} style={{fontSize: 15}}>
+        <b> {store.profile.treatment_status} </b>
+        </FlexView>
+        <FlexView  basis={300} height={85}></FlexView>
     </div>
   )
 }
@@ -95,7 +89,7 @@ const DisplayPersonality: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40}>
+        <FlexView basis={300} height={40} style={{fontSize: 15}}>
           <b> {store.profile.personality}</b></FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>

@@ -28,6 +28,7 @@ const ViewProfile: React.FC = ({  }) => {
           <Container maxWidth="xl"> 
    
    <FlexView basis={1000} height={300}>
+     <FlexView column basis = {300}></FlexView>
         <AvatarEditor
           image={ROOTURL + store.avatarPath}
           width={175}
@@ -37,12 +38,13 @@ const ViewProfile: React.FC = ({  }) => {
           scale={1.2}
           rotate={0}
         />
-        <PrintUserInfo />
-        <FlexView column basis={100}></FlexView>
+        <FlexView column basis={350}></FlexView>
         <FlexView column basis={200}>
-          <FlexView  style={{ width: 20, height: 30 }}></FlexView>
-          <FlexView  style={{ width: 200, height: 100 }}><h3><b>My Profile</b></h3></FlexView>
+        <FlexView  style={{ width: 20, height: 50 }}></FlexView>
+          <FlexView hAlignContent='center'><h3><b>My Profile</b></h3></FlexView>
+          <FlexView hAlignContent='center'> <PrintUserInfo /> </FlexView>
         </FlexView>
+        <FlexView column basis={350}></FlexView>
         <FlexView column basis={100}>
           <button onClick={handleEdit}>
             Edit Profile
@@ -51,20 +53,26 @@ const ViewProfile: React.FC = ({  }) => {
   </FlexView>
 
 
-  <FlexView column basis={100} width={100}>
-      <FlexView column basis={270} width={300}>
-          <FlexView> Reasons For Wanting Partner: </FlexView>
-          <FlexView><DisplayPartnerReason/></FlexView>
-          <FlexView> Cancer Location:  </FlexView>
-          <FlexView><DisplayCancerLocation/></FlexView>
-          <FlexView> Your Current Fitness Level:  </FlexView>
-          <FlexView> <DisplayFitness/> </FlexView>
-          <FlexView> Treatment Status: </FlexView>
-          <FlexView><DisplayTreatmentStatus/></FlexView>
-          <FlexView> Personality:  </FlexView>
-          <FlexView> <DisplayPersonality/></FlexView>
-     </FlexView>  
+  <FlexView basis={1000} height={300}>
+      <FlexView column basis = {700}></FlexView>
+      <FlexView column basis={300} width={300} style={{fontSize: 20}}>
+        <FlexView >Reasons For Wanting Partner: </FlexView>
+        <FlexView><DisplayPartnerReason/></FlexView>
+        <FlexView> Cancer Location:  </FlexView>
+        <FlexView><DisplayCancerLocation/></FlexView>
+        <FlexView> Your Current Fitness Level: </FlexView>
+        <FlexView> <DisplayFitness/> </FlexView>
+      </FlexView> 
+      <FlexView column basis = {100}></FlexView>
+      <FlexView column basis={300} width={300} >
+      <FlexView style={{fontSize: 20}}> Treatment Status: </FlexView>
+        <FlexView ><DisplayTreatmentStatus/></FlexView>
+        <FlexView style={{fontSize: 20}}>Personality: </FlexView>
+        <FlexView> <DisplayPersonality/></FlexView>
+      </FlexView>
   </FlexView>
+
+  
 
   </Container>
       </React.Fragment>

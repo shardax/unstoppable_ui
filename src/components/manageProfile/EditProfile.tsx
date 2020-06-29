@@ -44,7 +44,7 @@ const EditProfile: React.FC = ({  }) => {
         </FlexView>
         <FlexView column basis={200}>
           <button onClick={handleBackToView}>
-            Edit Profile
+            Save
           </button>
         </FlexView>
 
