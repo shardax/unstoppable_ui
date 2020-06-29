@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
-import {useDataStore} from "../UserContext";
+import {useDataStore} from "../../UserContext";
 import {useObserver} from 'mobx-react'
-import UnsIcon from '../images/2Unstoppable_logo.png'
-import { ALLPROFILESURL, ROOTURL } from "../constants/matcher";
+import UnsIcon from '../../images/2Unstoppable_logo.png'
+import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 
 const navAfterLoginLinks = [
   {
