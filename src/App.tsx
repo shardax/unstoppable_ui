@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation from './components/Navigation';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {StoreProvider} from "./UserContext";
 import PageRenderer from './page-renderer';
@@ -17,7 +16,6 @@ const App: React.FC = () => {
       <StoreProvider>
         <Router>
           <div className="App">
-            <Navigation />
             <Switch>
               <Route path="/:page" component={PageRenderer} />
               <Route path="/" render={() => <Redirect to="/home" />} />
