@@ -20,7 +20,7 @@ const navAfterLoginLinks = [
     path: '/logout'
   },
   {
-    title: 'Contact Us',
+    title: 'Messages',
     path: '/contact-us'
 
   }
@@ -30,11 +30,6 @@ const navBeforeLoginLinks = [
   {
     title: 'Login',
     path: '/login'
-  },
-  {
-    title: 'Contact Us',
-    path: '/contact-us'
-
   }
 ]
 
