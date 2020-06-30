@@ -5,6 +5,7 @@ import {useDataStore} from "../../UserContext";
 import {useObserver} from 'mobx-react'
 import UnsIcon from '../../images/2Unstoppable_logo.png'
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
+import './Navigation.scss';
 
 const navAfterLoginLinks = [
   {
@@ -61,14 +62,14 @@ const SetNavigationLinks = () => {
   const store = useDataStore();
 
   return useObserver(() => (
-    <ul>
+    <span>
       { (store.isLoggedIn ? navAfterLoginLinks : navBeforeLoginLinks).map((link, index) => (
-            <li key={index}>
+            <span className="link-wrapper" key={index}>
               <Link to={link.path}>{link.title}</Link>
-            </li>
+            </span>
           ))
       }
-    </ul>
+    </span>
   ));
 }
 
