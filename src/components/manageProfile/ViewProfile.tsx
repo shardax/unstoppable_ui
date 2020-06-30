@@ -9,7 +9,6 @@ import {PrintUserInfo, DisplayFitness, DisplayTreatmentStatus, DisplayPartnerRea
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { Box } from "@material-ui/core";
 
 
 const ViewProfile: React.FC = ({  }) => {
@@ -27,6 +26,7 @@ const ViewProfile: React.FC = ({  }) => {
       <React.Fragment>
           <CssBaseline />
           <Container maxWidth="xl"> 
+    
     <FlexView hAlignContent='center'>
     <FlexView hAlignContent='center' basis={1100} height={250} style={{backgroundColor : 'pink'}}>
          <AvatarEditor
