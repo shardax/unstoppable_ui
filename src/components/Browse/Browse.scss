@@ -9,7 +9,7 @@
   .browse-search {
     color: black;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     width: 30em;
     outline: none;
     border: 0;
@@ -23,11 +23,14 @@
 }
 
 .favorite-profile-icon {
-  font-size: 25px;
-  color: white;
-  margin-bottom: -1.5em;
+  font-size: 35px;
+  color: $primaryPurple;
+  cursor: pointer;
   margin-left: 85%;
-  background-color: $primaryPurple;
+  margin-top: -1em;
+  // border: 1px solid $primaryPurple;
+  outline: $primaryPurple;
+  // margin-bottom: 0.2em;
   border-radius: 50%;
   padding: 0.1em;
   position: relative;
