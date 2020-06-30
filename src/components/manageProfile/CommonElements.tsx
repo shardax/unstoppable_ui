@@ -29,8 +29,9 @@ const DisplayFitness: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 15}}>
-          <b> {store.profile.fitness_level}</b></FlexView>
+        <FlexView basis={300} height={40} style={{fontSize: 17}}>
+          {store.profile.fitness_level}
+        </FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
     </div>
@@ -44,8 +45,8 @@ const DisplayCancerLocation: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 15}}>
-          <b> {store.profile.cancer_location}</b></FlexView>
+        <FlexView basis={300} height={40} style={{fontSize: 17}}>
+          {store.profile.cancer_location}</FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
     </div>
@@ -59,8 +60,8 @@ const DisplayPartnerReason: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 15}}>
-          <b> {store.profile.reason_for_match}</b></FlexView>
+        <FlexView basis={300} height={40} style={{fontSize: 17}}>
+          {store.profile.reason_for_match}</FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
     </div>
@@ -74,8 +75,8 @@ const DisplayTreatmentStatus: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 15}}>
-        <b> {store.profile.treatment_status} </b>
+        <FlexView basis={300} height={40} style={{fontSize: 17}}>
+        {store.profile.treatment_status} 
         </FlexView>
         <FlexView  basis={300} height={85}></FlexView>
     </div>
@@ -89,8 +90,8 @@ const DisplayPersonality: React.FC = ({  }) => {
     <div>
        <FlexView column basis={1000}> </FlexView>
        <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 15}}>
-          <b> {store.profile.personality}</b></FlexView>
+        <FlexView basis={300} height={40} style={{fontSize: 17}}>
+          {store.profile.personality}</FlexView>
           <FlexView  basis={300} height={40}>
            </FlexView>
     </div>
