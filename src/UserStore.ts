@@ -78,7 +78,7 @@ export class ProfileStore {
   moderated: boolean;
   referred_by: string;
   photo: string;
-  liked_profiles: number[]
+  liked: number[]
 
   constructor(){
   this.id = 0;
@@ -111,7 +111,7 @@ export class ProfileStore {
   this.moderated = false;
   this.referred_by = "";
   this.photo = "";
-  this.liked_profiles = []
+  this.liked = []
   //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 
