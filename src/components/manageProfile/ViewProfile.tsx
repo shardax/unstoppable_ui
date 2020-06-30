@@ -9,7 +9,7 @@ import {PrintUserInfo, DisplayFitness, DisplayTreatmentStatus, DisplayPartnerRea
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
+import Default from '../../layouts/Default'
 
 const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
@@ -21,14 +21,16 @@ const ViewProfile: React.FC = ({  }) => {
     history.push("/profile");
   }
   return (
+    <Default>
     <div>
 
       <React.Fragment>
           <CssBaseline />
           <Container maxWidth="xl"> 
-   
-   <FlexView basis={1000} height={300}>
-        <AvatarEditor
+    
+    <FlexView hAlignContent='center'>
+    <FlexView hAlignContent='center' basis={1100} height={250} style={{backgroundColor : 'pink'}}>
+         <AvatarEditor
           image={ROOTURL + store.avatarPath}
           width={175}
           height={140}
@@ -37,39 +39,49 @@ const ViewProfile: React.FC = ({  }) => {
           scale={1.2}
           rotate={0}
         />
-        <PrintUserInfo />
-        <FlexView column basis={100}></FlexView>
+        
+        <FlexView column basis={200}></FlexView>
         <FlexView column basis={200}>
-          <FlexView  style={{ width: 20, height: 30 }}></FlexView>
-          <FlexView  style={{ width: 200, height: 100 }}><h3><b>My Profile</b></h3></FlexView>
+        <FlexView  style={{ width: 20, height: 80 }}></FlexView>
+          <FlexView hAlignContent='center'><h3><b>My Profile</b></h3></FlexView>
+          <FlexView hAlignContent='center'> <PrintUserInfo /> </FlexView>
         </FlexView>
-        <FlexView column basis={100}>
+        <FlexView column basis={200}></FlexView>
+        <FlexView column basis={200}>
+        <FlexView  style={{ width: 20, height: 100 }}></FlexView>
           <button onClick={handleEdit}>
             Edit Profile
           </button>
         </FlexView>
   </FlexView>
-
-
-  <FlexView column basis={100} width={100}>
-      <FlexView column basis={270} width={300}>
-          <FlexView> Reasons For Wanting Partner: </FlexView>
-          <FlexView><DisplayPartnerReason/></FlexView>
-          <FlexView> Cancer Location:  </FlexView>
-          <FlexView><DisplayCancerLocation/></FlexView>
-          <FlexView> Your Current Fitness Level:  </FlexView>
-          <FlexView> <DisplayFitness/> </FlexView>
-          <FlexView> Treatment Status: </FlexView>
-          <FlexView><DisplayTreatmentStatus/></FlexView>
-          <FlexView> Personality:  </FlexView>
-          <FlexView> <DisplayPersonality/></FlexView>
-     </FlexView>  
   </FlexView>
+  
+  <FlexView hAlignContent='center'>
+  <FlexView hAlignContent='center' basis={1100} height={350} style={{backgroundColor : 'pink'}}>
+      <FlexView column basis={300} width={300} style={{fontSize: 20}}>
+        <FlexView><b>Reasons For Wanting Partner: </b></FlexView>
+        <FlexView><DisplayPartnerReason/></FlexView>
+        <FlexView> <b>Cancer Location:  </b></FlexView>
+        <FlexView><DisplayCancerLocation/></FlexView>
+        <FlexView> <b>Your Current Fitness Level:</b></FlexView>
+        <FlexView> <DisplayFitness/> </FlexView>
+      </FlexView> 
+      <FlexView column basis = {100}></FlexView>
+      <FlexView column basis={300} width={300} style={{fontSize: 20}}>
+      <FlexView> <b>Treatment Status: </b></FlexView>
+        <FlexView><DisplayTreatmentStatus/></FlexView>
+        <FlexView><b>Personality: </b></FlexView>
+        <FlexView> <DisplayPersonality/></FlexView>
+      </FlexView>
+  </FlexView>
+  </FlexView>
+  
 
   </Container>
       </React.Fragment>
       
     </div>
+    </Default>
       );   
 }
 export default ViewProfile;
