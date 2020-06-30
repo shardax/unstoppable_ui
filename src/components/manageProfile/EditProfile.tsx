@@ -6,7 +6,7 @@ import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 import {PrintUserInfo} from "./CommonElements";
-
+import Default from '../../layouts/Default'
 
 
 const EditProfile: React.FC = ({  }) => {
@@ -19,6 +19,7 @@ const EditProfile: React.FC = ({  }) => {
     history.push("/profile");
   }
   return (
+    <Default>
     <div>
       
    <FlexView basis={1000}>
@@ -52,6 +53,7 @@ const EditProfile: React.FC = ({  }) => {
       </FlexView>
       
     </div>
+    </Default>
       );
     
 }

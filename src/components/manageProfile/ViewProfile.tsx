@@ -9,7 +9,7 @@ import {PrintUserInfo, DisplayFitness, DisplayTreatmentStatus, DisplayPartnerRea
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
+import Default from '../../layouts/Default'
 
 const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
@@ -21,6 +21,7 @@ const ViewProfile: React.FC = ({  }) => {
     history.push("/profile");
   }
   return (
+    <Default>
     <div>
 
       <React.Fragment>
@@ -80,6 +81,7 @@ const ViewProfile: React.FC = ({  }) => {
       </React.Fragment>
       
     </div>
+    </Default>
       );   
 }
 export default ViewProfile;
