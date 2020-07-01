@@ -35,7 +35,6 @@ const EditProfile: React.FC = ({  }) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      store.isLoggedIn = false;
  
       try {
         if (inputSubmitted && fetchData) {
