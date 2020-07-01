@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
+import './ViewProfile.scss'
 
 const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
@@ -22,14 +23,39 @@ const ViewProfile: React.FC = ({  }) => {
   }
   return (
     <div>
-
-      <React.Fragment>
+    <React.Fragment>
           <CssBaseline />
           <Container maxWidth="xl"> 
-    
-    <FlexView hAlignContent='center'>
+    <div className="profile-box">
+      
+      <table className="header">
+        <tr>
+          <td><AvatarEditor
+          image={ROOTURL + store.avatarPath}
+          width={175}
+          height={140}
+          border={30}
+          color={[255, 255, 255, 0.6]} // RGBA
+          scale={1.2}
+          rotate={0}
+      /></td>
+      <td>
+        <h1> My Profile </h1>
+        <PrintUserInfo />
+      </td>
+      <td>
+      <button onClick={handleEdit}>
+            Edit Profile
+      </button>
+      </td>
+        </tr>
+      </table>
+      </div>
+    {/*
+    <FlexView hAlignContent='center' width ={1300}>
     <FlexView hAlignContent='center' basis={1100} height={250} style={{backgroundColor : 'pink'}}>
-         <AvatarEditor
+        <FlexView  style={{ width: 20, height: 100 }}></FlexView>
+        <AvatarEditor
           image={ROOTURL + store.avatarPath}
           width={175}
           height={140}
@@ -54,8 +80,38 @@ const ViewProfile: React.FC = ({  }) => {
         </FlexView>
   </FlexView>
   </FlexView>
-  
-  <FlexView hAlignContent='center'>
+*/}
+<div className="Questions">
+  <table>
+    <tr>
+      <td>
+      <h5><b>Reasons For Wanting Partner: </b></h5>
+      <DisplayPartnerReason/>
+      </td>
+      <td>
+      <h5><b>Cancer Location:  </b></h5>
+      <DisplayCancerLocation/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h5><b>Your Current Fitness Level:</b></h5>
+      <DisplayFitness/> 
+      </td>
+      <td>
+      <h5><b>Treatment Status: </b></h5>
+      <DisplayTreatmentStatus/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h5><b>Personality: </b></h5>
+      <DisplayPersonality/>
+      </td>
+    </tr>
+  </table>
+</div>
+{/*  <FlexView hAlignContent='center' width ={1300}>
   <FlexView hAlignContent='center' basis={1100} height={350} style={{backgroundColor : 'pink'}}>
       <FlexView column basis={300} width={300} style={{fontSize: 20}}>
         <FlexView><b>Reasons For Wanting Partner: </b></FlexView>
@@ -73,7 +129,7 @@ const ViewProfile: React.FC = ({  }) => {
         <FlexView> <DisplayPersonality/></FlexView>
       </FlexView>
   </FlexView>
-  </FlexView>
+</FlexView> */}
   
 
   </Container>

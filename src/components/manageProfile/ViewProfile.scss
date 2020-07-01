@@ -1,0 +1,36 @@
+@import "../../assets/scss/variables";
+
+//View Profile
+
+.profile-box{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5%;
+    .header{
+        width: 100%;
+        text-align: center;
+    }
+    .avatar{
+        border-radius: 100%;
+    }
+    td{
+        width: 33%;
+    }
+}
+.Questions{
+    text-align: center;
+    table{
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+    td{
+        width: 50%;
+        text-align: center;
+        height: 10px;
+    }
+    tr{
+        padding: 5px;
+    }
+}
