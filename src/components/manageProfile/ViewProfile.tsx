@@ -21,7 +21,6 @@ const ViewProfile: React.FC = ({  }) => {
     history.push("/profile");
   }
   return (
-    <Default>
     <div>
 
       <React.Fragment>
@@ -81,8 +80,7 @@ const ViewProfile: React.FC = ({  }) => {
       </React.Fragment>
       
     </div>
-    </Default>
-      );   
+  );   
 }
 export default ViewProfile;
   

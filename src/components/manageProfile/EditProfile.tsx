@@ -19,7 +19,6 @@ const EditProfile: React.FC = ({  }) => {
     history.push("/profile");
   }
   return (
-    <Default>
     <div>
       
    <FlexView basis={1000}>
@@ -48,12 +47,9 @@ const EditProfile: React.FC = ({  }) => {
             Save
           </button>
         </FlexView>
-
-        
       </FlexView>
       
     </div>
-    </Default>
       );
     
 }

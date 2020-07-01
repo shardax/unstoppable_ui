@@ -1,3 +1,62 @@
+@import "../../assets/scss/variables";
+
+.default-wrapper {
+  display: flex;
+}
+
+.sidebar-wrapper {
+  width: 15em;
+  background-color: $primaryPurple;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 100vh;
+  .logo-sidenav-wrapper {
+    background: $primaryPurple;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-top-right-radius: 20px;
+  }
+}
+
+.Unstoppable {
+  text-align: center;
+  margin-top: 2em;
+  color: white;
+}
+
+.logo-sidenav {
+  width: 60%;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: white;
+  margin-top: 3em;
+}
+
+.all-links-wrapper {
+  margin-top: 3em;
+  .navlink-wrapper {
+    margin-top: 1.3em;
+    padding-left: 1.8em;
+    display: flex;
+    align-items: center;
+    color: white;
+    // border-left: 5px solid $primaryPurple;
+    // background-color: $mutedPink;
+    // width: 9em;
+    // padding: 0.5em;
+    // border-radius: 10px;
+    font-size: 18px;
+    .navlink-label {
+      margin-left: 0.5em;
+    }
+  }
+}
+
+.navlink-active {
+  border-left: 5px solid white;
+}
+
 .menu-content-container {
   display: flex;
   align-items: center;

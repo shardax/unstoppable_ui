@@ -2,7 +2,7 @@
 
 // BrowseProfiles
 
-$cardRadius: 5px;
+$cardRadius: 10px;
 
 .browse-filter-row {
   display: flex;
@@ -11,12 +11,12 @@ $cardRadius: 5px;
   .browse-search {
     color: black;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 30px;
     width: 30em;
     outline: none;
     border: 0;
     margin-right: 3em;
-    background-color: $mutedPurple;
+    background-color: $mutedPink;
     // background-color: $primaryPurple;
     // color: white;
     padding: 0.5em;
@@ -48,16 +48,11 @@ $cardRadius: 5px;
   display: flex;
   flex-direction: column;
   transition: 0.4s;
-  &:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    border-bottom-left-radius: $cardRadius;
-    border-bottom-right-radius: $cardRadius;
-  }
+  background-color: $cardsBackground;
+  border-radius: $cardRadius;
   .single-profile-body {
     font-weight: 300;
-    padding: 0.5em;
-    border-bottom-left-radius: $cardRadius;
-    border-bottom-right-radius: $cardRadius;
+    padding: 1em;
     z-index: 100;
     position: relative;
     p {
