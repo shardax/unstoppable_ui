@@ -27,6 +27,7 @@
 
 .logo-sidenav {
   width: 60%;
+  max-height: 9em;
   padding: 1em;
   border-radius: 1em;
   background-color: white;
@@ -41,7 +42,7 @@
     display: flex;
     align-items: center;
     color: white;
-    // border-left: 5px solid $primaryPurple;
+    border-left: 5px solid transparent;
     // background-color: $mutedPink;
     // width: 9em;
     // padding: 0.5em;
@@ -54,7 +55,7 @@
 }
 
 .navlink-active {
-  border-left: 5px solid white;
+  border-left: 5px solid white !important;
 }
 
 .menu-content-container {

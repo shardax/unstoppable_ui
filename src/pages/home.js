@@ -5,7 +5,7 @@ import Default from '../layouts/Default'
 export default function Home() {
   return (
     <Default>
-      <h1>Browse Profiles</h1>
+      <h1 className="primary-text">Browse Profiles</h1>
       <BrowseProfiles />
     </Default>
   )

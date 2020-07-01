@@ -92,9 +92,10 @@ export default function Navigation () {
   const store = useDataStore();
 
   return (<nav className="site-navigation" role="navigation">
-    <span className="menu-title">
+    {/* <span className="menu-title">
       <img src={UnsIcon} width="250" height="50" alt="" />
-    </span>
+    </span> */}
+    <div></div>
     <div className={`menu-content-container ${menuActive && 'active'}`}>
       <>
       <SetNavigationLinks/>
