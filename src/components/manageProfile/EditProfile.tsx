@@ -19,9 +19,9 @@ const EditProfile: React.FC = ({  }) => {
 
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
-    //store.editMode = false;
-    //console.log("In handleBackToView");
-    //history.push("/profile");
+    store.editMode = false;
+    console.log("In handleBackToView");
+    history.push("/profile");
     setInputSubmitted(true);
   }
 
@@ -31,13 +31,13 @@ const EditProfile: React.FC = ({  }) => {
     setInputSubmitted(true);
   }
 
-  const fetchData = false; // TODO Remove later
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
  
       try {
-        if (inputSubmitted && fetchData) {
+        if (inputSubmitted) {
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
           console.log("url");
           console.log(url);
