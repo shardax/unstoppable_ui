@@ -45,7 +45,7 @@ const ViewProfile: React.FC = ({  }) => {
         <PrintUserInfo />
       </td>
       <td>
-      <button onClick={handleEdit}>
+      <button className="editButton" onClick={handleEdit}>
             Edit Profile
       </button>
       </td>

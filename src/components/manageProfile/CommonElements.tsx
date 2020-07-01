@@ -7,16 +7,38 @@ import FlexView from 'react-flexview';
 const PrintUserInfo: React.FC = ({ }) => {
   const store = useDataStore();
   return (
-
-    <FlexView column>
-      <FlexView hAlignContent='center'>
+    <div style={{fontSize: 15}}>
+      {/*<FlexView column>
+      <FlexView hAlignContent='center' style={{fontSize: 17}}>
         <b>Username: {store.username}</b>, Age: {store.profile.age}
       </FlexView>
-      <FlexView hAlignContent='center'>
+      <FlexView hAlignContent='center' style={{fontSize: 17}}>
         City: {store.profile.city} State: {store.profile.state} ZipCode: {store.profile.zipcode}
       </FlexView>
-    </FlexView>
-
+    </FlexView> */}
+      <table>
+        <tr>
+          <td>
+            <b>Username: {store.username}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          Age: {store.profile.age}
+          </td>
+        </tr>
+        <tr>
+          <td>
+          City: {store.profile.city} State: {store.profile.state}
+          </td>
+        </tr>
+        <tr>
+          <td>
+          ZipCode: {store.profile.zipcode}
+          </td>
+        </tr>
+      </table>
+    </div>
   )
 
 }
