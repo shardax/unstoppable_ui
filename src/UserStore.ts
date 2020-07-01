@@ -144,6 +144,15 @@ export class UserStore {
       }
     hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }
+
+  clear() {
+      this.username = "";
+      this.isLoggedIn = false;
+      this.profile = new ProfileStore();
+      this.avatarPath = "";
+      this.profileId = 0;
+      this.editMode = false;
+  }
  
 }
 
