@@ -17,6 +17,10 @@ const AboutMe: React.FC = ({  }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
+  const [fitness, setFitness] = useState("quite active")
+  useEffect(() => {
+    console.log(fitness);
+  }, [fitness]);
 
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -65,6 +69,16 @@ const AboutMe: React.FC = ({  }) => {
         </FlexView>
         <FlexView column basis={100}></FlexView>
         
+        <select onChange={e => setFitness(e.currentTarget.value)} value={fitness}>
+                {FITNESS_LEVEL_DESCRIPTIONS.map(item => (
+                  <option
+                    key={item}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
         
     </FlexView>
     
