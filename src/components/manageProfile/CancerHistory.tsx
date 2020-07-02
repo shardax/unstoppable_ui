@@ -5,10 +5,10 @@ import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 import {PrintUserInfo} from "./CommonElements";
-import {CANCERLOCATIONLIST} from "../../constants/ProfileConstants"
+import {CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
 
-const AboutMe: React.FC = ({  }) => {
+const CancerHistory: React.FC = ({  }) => {
   const store = useDataStore();
   const history = useHistory();
 
@@ -32,14 +32,17 @@ const AboutMe: React.FC = ({  }) => {
     setInputSubmitted(true);
   }
 
+// What was your primary cancer diagnosis?  => This question is a dropdown . You get the values from CANCERLOCATIONLIST. The attribute name is cancer_location
+// Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC). This is an input field. The attribute name is other_cancer_location
+// Which of the following best describes you?  => This is a dropdown. You get the values from TREATMENT_STATUS_DESCRIPTIONS . The attribute name is treatment_status
+// Please briefly describe your cancer treatments: => This is a text field. The name of the attribute is treatment_description
+// Have you ever been part of a support group or wellness program following your cancer diagnosis?:  This is an input fiels. The name of the attribute is part_of_wellness_program
+// If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax): Input field.  The name of the attribute is which_wellness_program
   return (
-    <Default>
     <div>
       
    <FlexView basis={1000}>
-        <FlexView column>
-          <PrintUserInfo/>
-        </FlexView>
+        
         <FlexView column basis={20}></FlexView>
         <FlexView hAlignContent='center'>
             <FlexView column basis={500} width={500} style={{fontSize: 18}}>
@@ -58,17 +61,13 @@ const AboutMe: React.FC = ({  }) => {
             </FlexView>
         </FlexView>
         <FlexView column basis={100}></FlexView>
-        <FlexView column basis={200}>
-          <FlexView  style={{ width: 20, height: 30 }}></FlexView>
-          <FlexView  style={{ width: 200, height: 100 }}><h3><b>Edit Profile</b></h3></FlexView>
-        </FlexView>
+        
     </FlexView>
     
     
     </div>
-    </Default>
     
       );
     
 }
-export default AboutMe;
+export default CancerHistory;

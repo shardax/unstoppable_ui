@@ -33,13 +33,11 @@ const AboutMe: React.FC = ({  }) => {
   }
 
   return (
-    <Default>
+    
     <div>
       
    <FlexView basis={1000}>
-        <FlexView column>
-          <PrintUserInfo/>
-        </FlexView>
+        
         <FlexView column basis={20}></FlexView>
         <FlexView hAlignContent='center'>
             <FlexView column basis={500} width={500} style={{fontSize: 18}}>
@@ -66,17 +64,13 @@ const AboutMe: React.FC = ({  }) => {
             </FlexView>
         </FlexView>
         <FlexView column basis={100}></FlexView>
-        <FlexView column basis={200}>
-          <FlexView  style={{ width: 20, height: 30 }}></FlexView>
-          <FlexView  style={{ width: 200, height: 100 }}><h3><b>Edit Profile</b></h3></FlexView>
-        </FlexView>
-
+        
         
     </FlexView>
     
     
     </div>
-    </Default>
+    
     
       );
     
