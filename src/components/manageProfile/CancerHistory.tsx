@@ -16,7 +16,8 @@ const CancerHistory: React.FC = ({  }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
-  
+  const [cancerLocation, setCancerLocation] = useState("- Select one -")
+  const [treatmentStatus, setTreatmentStatus] = useState("- Select one -")
 
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -63,6 +64,27 @@ const CancerHistory: React.FC = ({  }) => {
         <FlexView column basis={100}></FlexView>
         
     </FlexView>
+
+          <select onChange={e => setCancerLocation(e.currentTarget.value)} value={cancerLocation}>
+                {CANCERLOCATIONLIST.map(item => (
+                  <option
+                    key={item}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+         </select>
+         <select onChange={e => setTreatmentStatus(e.currentTarget.value)} value={treatmentStatus}>
+                {TREATMENT_STATUS_DESCRIPTIONS.map(item => (
+                  <option
+                    key={item}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+         </select>
     
     
     </div>

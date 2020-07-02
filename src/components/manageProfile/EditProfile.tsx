@@ -19,10 +19,7 @@ const EditProfile: React.FC = ({  }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [fitness, setFitness] = useState("quite active")
-  useEffect(() => {
-    console.log(fitness);
-  }, [fitness]);
+  
 
 
   const handleBackToView = (event: React.MouseEvent) => {
@@ -93,16 +90,7 @@ const EditProfile: React.FC = ({  }) => {
         <FlexView column basis={20}></FlexView>
         <FlexView hAlignContent='center'>
             <FlexView column basis={500} width={500} style={{fontSize: 18}}>
-            <select onChange={e => setFitness(e.currentTarget.value)} value={fitness}>
-                {FITNESS_LEVEL_DESCRIPTIONS.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-              </select>
+            <AboutMe/>
             </FlexView>
         </FlexView>
         <FlexView column basis={100}></FlexView>
