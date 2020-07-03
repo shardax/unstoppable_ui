@@ -88,7 +88,7 @@ const Register: React.FC<Props> = ({ }) => {
         </tr>
         <tr>
           <td>
-            <h1>Log In</h1>
+            <h1>Register</h1>
           </td>        
         </tr>
         <tr>
