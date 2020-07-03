@@ -7,6 +7,7 @@ import FlexView from 'react-flexview';
 import {PrintUserInfo} from "./CommonElements";
 import Default from '../../layouts/Default'
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
+import useDropdown from '../common/useDropDown';
 
 
 const AboutMe: React.FC = ({  }) => {
@@ -17,11 +18,13 @@ const AboutMe: React.FC = ({  }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
-  const [fitness, setFitness] = useState("quite active")
+  //const [fitness, setFitness] = useState("quite active")
   const [exerciseLocation, setExerciseLocation] = useState("- Select one -")
   const [personalityDescription, setPersonalityDescription] = useState("- Select one -")
   const [preferredTime, setPreferredTime] = useState("- Select one -")
   const [workStatus, setWorkStatus] = useState("- Select one -")
+  
+  const [fitnessLevel, FitnessLevelDropdown ] = useDropdown("Fitness Level", store.profile.fitness_level, FITNESS_LEVEL_DESCRIPTIONS);
   
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -36,6 +39,12 @@ const AboutMe: React.FC = ({  }) => {
     console.log("In handleSubmit");
     setInputSubmitted(true);
   }
+
+  useEffect(() => {
+    console.log("In useEffect, print changes");
+    console.log(fitnessLevel);
+  }, [fitnessLevel]);
+
 
   return (
     
@@ -71,16 +80,7 @@ const AboutMe: React.FC = ({  }) => {
         <FlexView column basis={300} height={500}></FlexView>
         <FlexView column basis={500} width={500} style={{fontSize: 18}}>
         <FlexView><b>How would you describe your current fitness level? </b></FlexView><br/>
-        <select onChange={e => setFitness(e.currentTarget.value)} value={fitness}>
-                {FITNESS_LEVEL_DESCRIPTIONS.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
+         <FitnessLevelDropdown />
          <FlexView><b>Where do you prefer to be active?</b></FlexView>  <br/>
          <select onChange={e => setExerciseLocation(e.currentTarget.value)} value={exerciseLocation}>
                 {PREFERRED_EXERCISE_LOCATIONS.map(item => (
