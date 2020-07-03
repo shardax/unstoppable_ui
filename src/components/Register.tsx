@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { RouteComponentProps, useHistory, Redirect } from 'react-router-dom';
 import axios from "axios";
 import { useDataStore } from "../UserContext";
-import { LOGINURL } from "../constants/matcher";
+import { REGISTERURL } from "../constants/matcher";
 import UnsIcon from '../images/2Unstoppable_logo.png'
-import './SignIn.scss'
+import './Register.scss'
 interface Props extends RouteComponentProps { }
 
-const SignIn: React.FC<Props> = ({ }) => {
+const Register: React.FC<Props> = ({ }) => {
 
   const history = useHistory();
 
-  const url = LOGINURL;
+  const url = REGISTERURL;
 
   const [inputUserName, setInputUserName] = useState("");
   const [inputPassword, setInputPassword] = useState("");
@@ -71,7 +71,7 @@ const SignIn: React.FC<Props> = ({ }) => {
       if (currentUserStore.isLoggedIn) {
         history.push("/home");
       } else {
-        history.push("/login")
+        history.push("/register")
       }
     };
     fetchData();
@@ -81,7 +81,7 @@ const SignIn: React.FC<Props> = ({ }) => {
   return (
     <div className="loginBlock">
       <table>
-        <tr className="top">
+        <tr>
           <td>
             <img src={UnsIcon} className="logo"/>
           </td>        
@@ -120,7 +120,7 @@ const SignIn: React.FC<Props> = ({ }) => {
           </form>
           </td>
         </tr>
-        <tr className="bottom">
+        <tr>
           <td>
             <p>Don't have an Account? <a href='/register'>Register Here!</a></p>
           </td>
@@ -130,4 +130,4 @@ const SignIn: React.FC<Props> = ({ }) => {
   );
 }
 
-export default SignIn;
+export default Register;
