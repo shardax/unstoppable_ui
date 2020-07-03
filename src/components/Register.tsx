@@ -83,46 +83,48 @@ const Register: React.FC<Props> = ({ }) => {
       <table>
         <tr>
           <td>
-            <img src={UnsIcon} className="logo"/>
-          </td>        
-        </tr>
-        <tr>
-          <td>
-            <h1>Register</h1>
-          </td>        
-        </tr>
-        <tr>
-          <td>
-          <form onSubmit={handleSubmit}>
-            {errorMessage && <h3 className="error"> {errorMessage} </h3>}
-            <div className="form-group">
-              <input
-                type="username"
-                name="username"
-                placeholder="Username"
-                value={inputUserName}
-                onChange={event => setInputUserName(event.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={inputPassword}
-                onChange={event => setInputPassword(event.target.value)}
-                required
-              />
-            </div>
-            {!isError && <button type="submit">Login</button>}
-            {isError && <button name="refresh" onClick={handleRefresh as any}>Refresh and Login</button>}
-          </form>
+            <img src={UnsIcon} className="logo" />
           </td>
         </tr>
         <tr>
           <td>
-            <p>Don't have an Account? <a href='/register'>Register Here!</a></p>
+            <h1>Register</h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <form onSubmit={handleSubmit}>
+              {errorMessage && <h3 className="error"> {errorMessage} </h3>}
+              <div className="form-group">
+                <input
+                  type="username"
+                  name="username"
+                  placeholder="Username"
+                  value={inputUserName}
+                  onChange={event => setInputUserName(event.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={inputPassword}
+                  onChange={event => setInputPassword(event.target.value)}
+                  required
+                />
+              </div>
+              {!isError && <button type="submit">Register</button>}
+              {isError && <button name="refresh" onClick={handleRefresh as any}>Refresh and Login</button>}
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox"></input>
+              <span className="checkmark"></span>
+              <label> You have read and understood the user agreement.</label>
           </td>
         </tr>
       </table>
