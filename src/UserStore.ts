@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { create, persist} from 'mobx-persist';
 
 /** 
@@ -81,43 +81,43 @@ export class ProfileStore {
   liked_profiles: number[];
   activity_ids: number[];
 
-  constructor(){
-  this.id = 0;
-  this.zipcode = "";
-  this.city = "";
-  this.state = "";
-  this.country = "";
-  this.state_code = "";
-  this.distance = 0;
-  this.time_zone = "";
-  this.dob = "";
-  this.age = 18;
-  this.other_favorite_activities = "";
-  this.fitness_level = "";
-  this.cancer_location = "";
-  this.prefered_exercise_location = "";
-  this.prefered_exercise_time = "";
-  this.reason_for_match = "";
-  this.treatment_status = "";
-  this.treatment_description = "";
-  this.personality = "";
-  this.work_status = "";
-  this.details_about_self = "";
-  this.other_cancer_location = "";
-  this.part_of_wellness_program = false;
-  this.which_wellness_program = "";
-  this.latitude = 0;
-  this.longitude = 0;
-  this.step_status = "";
-  this.moderated = false;
-  this.referred_by = "";
-  this.photo = "";
-  this.liked_profiles = [];
-  this.activity_ids = [];
-  //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
+  constructor() {
+    this.id = 0;
+    this.zipcode = "";
+    this.city = "";
+    this.state = "";
+    this.country = "";
+    this.state_code = "";
+    this.distance = 0;
+    this.time_zone = "";
+    this.dob = "";
+    this.age = 18;
+    this.other_favorite_activities = "";
+    this.fitness_level = "";
+    this.cancer_location = "";
+    this.prefered_exercise_location = "";
+    this.prefered_exercise_time = "";
+    this.reason_for_match = "";
+    this.treatment_status = "";
+    this.treatment_description = "";
+    this.personality = "";
+    this.work_status = "";
+    this.details_about_self = "";
+    this.other_cancer_location = "";
+    this.part_of_wellness_program = false;
+    this.which_wellness_program = "";
+    this.latitude = 0;
+    this.longitude = 0;
+    this.step_status = "";
+    this.moderated = false;
+    this.referred_by = "";
+    this.photo = "";
+    this.liked_profiles = [];
+    this.activity_ids = [];
+    //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
-
 }
+
 export class UserStore {
   @persist @observable username:string;
   @persist @observable isLoggedIn: boolean;
@@ -147,6 +147,20 @@ export class UserStore {
     hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }
 
+  @action
+  likeProfile(id: number) {
+    if (!this.profile.liked_profiles.includes(id)) {
+      this.profile.liked_profiles.push(id)
+    }
+  }
+  
+  @action
+  unlikeProfile(id: number) {
+    if (this.profile.liked_profiles.includes(id)) {
+      this.profile.liked_profiles = this.profile.liked_profiles.filter((currId: number) => currId !== id);
+    }
+  }
+
   clear() {
       this.username = "";
       this.isLoggedIn = false;
@@ -155,7 +169,6 @@ export class UserStore {
       this.profileId = 0;
       this.editMode = false;
   }
- 
 }
 
 

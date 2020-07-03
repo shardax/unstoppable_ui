@@ -7,6 +7,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 
 import './Browse.scss'
+import { useObserver } from "mobx-react";
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -41,18 +42,24 @@ import './Browse.scss'
   const updateLikedProfiles = async (type: 'like' | 'unlike', id: number) => {
     try {
       if (type==="like") {
-        await axios.post(`${PROFILEURL}/${store.profileId}/save_like?like_id=${id}`)
+        // store.profile.liked_profiles.push(id)
+        store.likeProfile(id)
+        console.log(store.profile.liked_profiles)
+        // await axios.patch(`${PROFILEURL}/${store.profileId}/save_like?like_id=${id}`)
         // Some action with MobX store to update liked profiles
       }
       if (type === "unlike") {
-        await axios.post(`${PROFILEURL}/${store.profileId}/save_like?like_id=${id}`)
+        store.unlikeProfile(id)
+        // store.profile.liked_profiles = store.profile.liked_profiles.filter((currId: number) => currId !== id)
+        console.log(store.profile.liked_profiles)
+        // await axios.patch(`${PROFILEURL}/${store.profileId}/save_like?like_id=${id}`)
       }
     } catch (e) {
       console.log(e)
     }
   }
  
-  return (
+  return useObserver(() => (
     <>
     <div>
       <div className="browse-filter-row"> 
@@ -65,16 +72,17 @@ import './Browse.scss'
               <img className="single-profile-image" src={ROOTURL + profile.photo} />
               <div className="single-profile-body">
                 <h5 className="primary-text">{profile.name}</h5>
+                {/* <span>{profile.id}</span> */}
                 <p>{profile.cancer_location} Cancer</p>
                 <p>{profile.age} years old</p>
-                {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like",profile.id)} className="favorite-profile-icon" />}
+                {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
               </div>
             </div>
           ))}
       </div>
     </div>
     </>
-  );
+  ))
 }
 
 export default BrowseProfiles;
