@@ -7,6 +7,7 @@ import FlexView from 'react-flexview';
 import {PrintUserInfo} from "./CommonElements";
 import {CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
+import useDropdown from '../common/useDropDown';
 
 const CancerHistory: React.FC = ({  }) => {
   const store = useDataStore();
@@ -16,8 +17,8 @@ const CancerHistory: React.FC = ({  }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
-  const [cancerLocation, setCancerLocation] = useState("- Select one -")
-  const [treatmentStatus, setTreatmentStatus] = useState("- Select one -")
+  const [cancerLocation, CancerLocationDropdown] = useDropdown("", store.profile.cancer_location, CANCERLOCATIONLIST);
+  const [treatmentStatus, TreatmentStatusDropdown] = useDropdown("", store.profile.treatment_status, TREATMENT_STATUS_DESCRIPTIONS);
 
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -65,26 +66,8 @@ const CancerHistory: React.FC = ({  }) => {
         
     </FlexView>
 
-          <select onChange={e => setCancerLocation(e.currentTarget.value)} value={cancerLocation}>
-                {CANCERLOCATIONLIST.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
-         <select onChange={e => setTreatmentStatus(e.currentTarget.value)} value={treatmentStatus}>
-                {TREATMENT_STATUS_DESCRIPTIONS.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
+          <CancerLocationDropdown />
+          <TreatmentStatusDropdown />
     
     
     </div>

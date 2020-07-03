@@ -18,13 +18,13 @@ const AboutMe: React.FC = ({  }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
-  //const [fitness, setFitness] = useState("quite active")
-  const [exerciseLocation, setExerciseLocation] = useState("- Select one -")
-  const [personalityDescription, setPersonalityDescription] = useState("- Select one -")
-  const [preferredTime, setPreferredTime] = useState("- Select one -")
-  const [workStatus, setWorkStatus] = useState("- Select one -")
-  
   const [fitnessLevel, FitnessLevelDropdown ] = useDropdown("Fitness Level", store.profile.fitness_level, FITNESS_LEVEL_DESCRIPTIONS);
+  const [exerciseLocation, ExerciseLocationDropdown] = useDropdown("", store.profile.prefered_exercise_location, PREFERRED_EXERCISE_LOCATIONS);
+  const [personalityDescription, PersonalityDescriptionDropdown] = useDropdown("", store.profile.personality, PERSONALITY_DESCRIPTION);
+  const [preferredTime, PreferredTimeDropdown] = useDropdown("", store.profile.prefered_exercise_time, PREFERRED_TIME_DESCRIPTIONS);
+  const [workStatus, WorkStatusDropdown] = useDropdown("", store.profile.work_status, WORK_STATUS_DESCRIPTIONS)
+  
+ 
   
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -82,49 +82,13 @@ const AboutMe: React.FC = ({  }) => {
         <FlexView><b>How would you describe your current fitness level? </b></FlexView><br/>
          <FitnessLevelDropdown />
          <FlexView><b>Where do you prefer to be active?</b></FlexView>  <br/>
-         <select onChange={e => setExerciseLocation(e.currentTarget.value)} value={exerciseLocation}>
-                {PREFERRED_EXERCISE_LOCATIONS.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
+         <ExerciseLocationDropdown />
         <FlexView><b>Which of the following best describes you?</b></FlexView>  <br/>
-         <select onChange={e => setPersonalityDescription(e.currentTarget.value)} value={personalityDescription}>
-                {PERSONALITY_DESCRIPTION.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
+         <PersonalityDescriptionDropdown/>
          <FlexView><b>When do you prefer to be active?</b></FlexView>  <br/>
-         <select onChange={e => setPreferredTime(e.currentTarget.value)} value={preferredTime}>
-                {PREFERRED_TIME_DESCRIPTIONS.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
+         <PreferredTimeDropdown/>
          <FlexView><b>Which of the following best describes your work situation?</b></FlexView>  <br/>
-         <select onChange={e => setWorkStatus(e.currentTarget.value)} value={workStatus}>
-                {WORK_STATUS_DESCRIPTIONS.map(item => (
-                  <option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-         </select>
+         <WorkStatusDropdown />
     </FlexView>
     </FlexView>
     
