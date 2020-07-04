@@ -17,14 +17,13 @@ const navAfterLoginLinks = [
     path: '/profile'
   },
   {
+    title: 'Messages',
+    path: '/contact-us'
+  },
+  {
     title: 'Logout',
     path: '/logout'
   },
-  {
-    title: 'Messages',
-    path: '/contact-us'
-
-  }
 ]
 
 const navBeforeLoginLinks = [
