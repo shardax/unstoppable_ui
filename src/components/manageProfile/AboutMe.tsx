@@ -8,10 +8,12 @@ import {PrintUserInfo} from "./CommonElements";
 import Default from '../../layouts/Default'
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import useDropdown from '../common/useDropDown';
+import { ProfileStore } from '../../UserStore';
 
 type AboutMeComponentProps = {
   reload: (name: string, value: any) => void,
-  inputChange: (e: any) => void
+  inputChange: (e: any) => void,
+  currentEditProfile: ProfileStore
 };
 
 
@@ -63,20 +65,28 @@ const AboutMe = (props: AboutMeComponentProps) => {
         <FlexView column basis={300} width={300}></FlexView>
         <FlexView hAlignContent='center'>
             <FlexView column basis={350} width={500} style={{fontSize: 18}}>
+              {/* 1 => Checkbox */}
               <FlexView><b>What are your favorite Activities? </b></FlexView>  <br/>
               <FlexView><input  width="100" height='10' /></FlexView>  <br/>
+              {/* 2 => Input text*/}
               <FlexView><b>Do you have any other favorite activities? </b></FlexView>  <br/>
               <FlexView><input  value={store.profile.other_favorite_activities} width="100" height='10' /></FlexView>  <br/>
-              
+              {/* 3 => Drop down */}
               <FlexView><input  value={store.profile.fitness_level}  width="100" height='10' /></FlexView>  <br/>
-              <FlexView><b>Identify your top reasons for wanting to become more active: </b></FlexView>  <br/>
+              <FlexView><b>How would you describe your current fitness level? </b></FlexView><br/>
+              <FitnessLevelDropdown onChange={props.reload("fitness", fitnessLevel)} />
+
+
+
+
+              <FlexView><b>Identify yo1 ur top reasons for wanting to become more active: </b></FlexView>  <br/>
               <FlexView><input width="100" height='10' /></FlexView>  <br/>
               
               <FlexView><input  placeholder="Home"  width="100" height='10' /></FlexView>  <br/>
               <FlexView><b>When do you prefer to be active? </b></FlexView>  <br/>
               <FlexView><input  placeholder="Morning"  width="100" height='10' /></FlexView>  <br/>
               <FlexView><b>What is the main reason you want to be matched with an exercise partner? </b></FlexView>  <br/>
-              <FlexView><input  value={store.profile.reason_for_match}  name="xyz" width="100" height='10' onChange={(e) => (props.inputChange(e))} /></FlexView>  <br/>
+              <FlexView><input  type="text" defaultValue={props.currentEditProfile.reason_for_match}  name="reason_for_match" width="100" height='10' onChange={(e) => (props.inputChange(e))} /></FlexView>  <br/>
               <FlexView><b>Which of the following best describes you? </b></FlexView>  <br/>
               <FlexView><input  value={store.profile.details_about_self}  width="100" height='10' /></FlexView>  <br/>
               <FlexView><b>Which of the following best describes your work situation?</b></FlexView>  <br/>
@@ -87,8 +97,7 @@ const AboutMe = (props: AboutMeComponentProps) => {
         </FlexView>
         <FlexView column basis={300} height={500}></FlexView>
         <FlexView column basis={500} width={500} style={{fontSize: 18}}>
-        <FlexView><b>How would you describe your current fitness level? </b></FlexView><br/>
-         <FitnessLevelDropdown onChange={props.reload("fitness", fitnessLevel)} />
+       
          <FlexView><b>Where do you prefer to be active?</b></FlexView>  <br/>
          <ExerciseLocationDropdown />
         <FlexView><b>Which of the following best describes you?</b></FlexView>  <br/>

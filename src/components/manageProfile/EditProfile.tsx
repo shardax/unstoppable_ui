@@ -23,8 +23,8 @@ const EditProfile: React.FC = ({  }) => {
   
   
 
-   let editProfile = store.profile;
-
+   let editProfile = new ProfileStore;
+      editProfile = store.profile;
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
     store.editMode = false;
@@ -120,7 +120,7 @@ const EditProfile: React.FC = ({  }) => {
         <FlexView column basis={20}></FlexView>
         <FlexView hAlignContent='center'>
             <FlexView column basis={500} width={500} style={{fontSize: 18}}>
-            <AboutMe reload={handleDropdownChange} inputChange={handleInputChange}/>
+            <AboutMe reload={handleDropdownChange} inputChange={handleInputChange} currentEditProfile={editProfile}/>
             </FlexView>
         </FlexView>
         <FlexView column basis={100}></FlexView>
