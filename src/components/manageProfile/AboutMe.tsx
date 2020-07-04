@@ -9,8 +9,13 @@ import Default from '../../layouts/Default'
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import useDropdown from '../common/useDropDown';
 
+type AboutMeComponentProps = {
+  reload: (name: string, value: any) => void,
+  inputChange: (e: any) => void
+};
 
-const AboutMe: React.FC = ({  }) => {
+
+const AboutMe = (props: AboutMeComponentProps) => { 
   const store = useDataStore();
   const history = useHistory();
 
@@ -23,7 +28,8 @@ const AboutMe: React.FC = ({  }) => {
   const [personalityDescription, PersonalityDescriptionDropdown] = useDropdown("", store.profile.personality, PERSONALITY_DESCRIPTION);
   const [preferredTime, PreferredTimeDropdown] = useDropdown("", store.profile.prefered_exercise_time, PREFERRED_TIME_DESCRIPTIONS);
   const [workStatus, WorkStatusDropdown] = useDropdown("", store.profile.work_status, WORK_STATUS_DESCRIPTIONS)
-  
+  // reason_for_match
+ // const [reasonForMatch, setReasonForMatch ] = useState("");
  
   
   const handleBackToView = (event: React.MouseEvent) => {
@@ -34,18 +40,20 @@ const AboutMe: React.FC = ({  }) => {
     setInputSubmitted(true);
   }
 
+ 
+/*
+  useEffect(() => {
+    console.log("In useEffect, print changes");
+    console.log(fitnessLevel);
+    props.reload(fitnessLevel);
+  }, [fitnessLevel]);
+*/
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("In handleSubmit");
     setInputSubmitted(true);
   }
-
-  useEffect(() => {
-    console.log("In useEffect, print changes");
-    console.log(fitnessLevel);
-  }, [fitnessLevel]);
-
-
   return (
     
     <div>
@@ -68,7 +76,7 @@ const AboutMe: React.FC = ({  }) => {
               <FlexView><b>When do you prefer to be active? </b></FlexView>  <br/>
               <FlexView><input  placeholder="Morning"  width="100" height='10' /></FlexView>  <br/>
               <FlexView><b>What is the main reason you want to be matched with an exercise partner? </b></FlexView>  <br/>
-              <FlexView><input  value={store.profile.reason_for_match}  width="100" height='10' /></FlexView>  <br/>
+              <FlexView><input  value={store.profile.reason_for_match}  name="xyz" width="100" height='10' onChange={(e) => (props.inputChange(e))} /></FlexView>  <br/>
               <FlexView><b>Which of the following best describes you? </b></FlexView>  <br/>
               <FlexView><input  value={store.profile.details_about_self}  width="100" height='10' /></FlexView>  <br/>
               <FlexView><b>Which of the following best describes your work situation?</b></FlexView>  <br/>
@@ -80,7 +88,7 @@ const AboutMe: React.FC = ({  }) => {
         <FlexView column basis={300} height={500}></FlexView>
         <FlexView column basis={500} width={500} style={{fontSize: 18}}>
         <FlexView><b>How would you describe your current fitness level? </b></FlexView><br/>
-         <FitnessLevelDropdown />
+         <FitnessLevelDropdown onChange={props.reload("fitness", fitnessLevel)} />
          <FlexView><b>Where do you prefer to be active?</b></FlexView>  <br/>
          <ExerciseLocationDropdown />
         <FlexView><b>Which of the following best describes you?</b></FlexView>  <br/>

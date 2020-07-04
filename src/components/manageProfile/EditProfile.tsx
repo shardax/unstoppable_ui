@@ -10,6 +10,7 @@ import AboutMe from './AboutMe';
 import CancerHistory from './CancerHistory'
 import Default from '../../layouts/Default'
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
+import { ProfileStore } from '../../UserStore';
 
 const EditProfile: React.FC = ({  }) => {
   const store = useDataStore();
@@ -20,7 +21,9 @@ const EditProfile: React.FC = ({  }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   
+  
 
+   let editProfile = store.profile;
 
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -30,12 +33,17 @@ const EditProfile: React.FC = ({  }) => {
     setInputSubmitted(true);
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log("In handleSubmit");
     setInputSubmitted(true);
   }
 
+
+
+  useEffect(() => {
+    editProfile = store.profile;
+  }, []);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +58,6 @@ const EditProfile: React.FC = ({  }) => {
           console.log("In Edit Profile");
           console.log(JSON.stringify(result));
           console.log(result.data.username);
-          
           store.profile.age=18;
         }
       } catch (error) {
@@ -68,6 +75,29 @@ const EditProfile: React.FC = ({  }) => {
     fetchData();
 
   }, [inputSubmitted]);
+
+  const handleDropdownChange = (name: string, value: any) => {
+    //event.preventDefault();
+    console.log("In handleEditChange of EDIT PROFILE YAAAY!");
+    //console.log(name);
+    console.log(name);
+    console.log(value);
+    //editProfile[name] = "xyz";
+    //console.log({name: "xyz"});
+    //editProfile["reason_for_match"] = "xyz"
+    //console.log(event.target.value);
+    //setInputSubmitted(true);
+    //editProfile[name] = value;
+  }
+
+  const handleInputChange = (e: any) => {
+    //event.preventDefault();
+    console.log("In handleInputChange of INPU PROFILE BHALOO!");
+    //console.log(name);
+    console.log(e.target.name);
+    console.log(e.target.value);
+    //editProfile[name] = value;
+  }
 
   
   return (
@@ -90,7 +120,7 @@ const EditProfile: React.FC = ({  }) => {
         <FlexView column basis={20}></FlexView>
         <FlexView hAlignContent='center'>
             <FlexView column basis={500} width={500} style={{fontSize: 18}}>
-            <AboutMe/>
+            <AboutMe reload={handleDropdownChange} inputChange={handleInputChange}/>
             </FlexView>
         </FlexView>
         <FlexView column basis={100}></FlexView>
