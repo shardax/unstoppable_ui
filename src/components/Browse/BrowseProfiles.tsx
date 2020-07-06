@@ -58,7 +58,7 @@ import { useObserver } from "mobx-react";
     <>
       <div>
         <div className="browse-filter-row"> 
-          <input className="browse-search" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
+          <input className="mdc-elevation--z1 browse-search" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
             <RangeSlider ageRange={ageRange} onChange={handleChange}/>
           </div>
           <div className="profile-browse-grid">

@@ -2,7 +2,7 @@
 
 .site-navigation {
   background: $primaryPurple;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  // box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) !important;
   color: white !important;
   position: sticky;
   top: 0;
@@ -30,3 +30,50 @@
   color: white !important;
 }
 
+.sidenav-wrapper {
+  width: 12em;
+  background-color: white;
+  border-right: 2px solid rgba(#333, 0.1);
+  position: fixed;
+  height: 100vh;
+  z-index: 0;
+  padding-top: 3em;
+  .sidebar-title {
+    font-size: 24px;
+    font-weight: 700;
+    padding-left: 0.9em;
+    color: $primaryPurple;
+    padding-bottom: 1em;
+  }
+  .sidenav-link {
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0.6em 0.2em;
+    // background-color: #474747;
+    &:hover {
+      background: rgba(#6200ee, 0.3);
+    }
+  }
+  .sidenav-link-content {
+    color: #474747;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0.7em;
+    padding-left: 1.4em;
+    &:hover {
+      color: #6200ee;
+    }
+    .sidenav-link-name {
+      margin-left: 0.7em;
+    }
+  }
+}
+
+.main-navlink {
+  padding-bottom: 0.5em;
+}
+
+.bottom-light-border {
+  border-bottom: 1px solid rgba(#999, 0.3);
+}
