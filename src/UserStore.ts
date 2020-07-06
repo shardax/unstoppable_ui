@@ -122,7 +122,7 @@ export class UserStore {
   @persist @observable username:string;
   @persist @observable isLoggedIn: boolean;
   @persist @observable profileId: number;
-  @persist('object') profile: ProfileStore;
+  @persist('object') @observable profile: ProfileStore;
   @persist @observable avatarPath: string;
   @persist editMode: boolean;
 
