@@ -26,6 +26,9 @@ const CheckboxExample = () => (
         workStatus: store.profile.work_status,
         cancerLocation: store.profile.cancer_location,
         treatmentStatus: store.profile.treatment_status,
+        reason_for_match: store.profile.reason_for_match,
+        details_about_self: store.profile.details_about_self,
+        treatment_description:store.profile.treatment_description,
         other_favorite_activities: "Dancing" //store.profile.other_favorite_activities
       }}
       onSubmit={async values => {
@@ -139,6 +142,21 @@ const CheckboxExample = () => (
           >
           {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
+          </div>
+
+          <div className="label">
+            <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b></label>
+            <Field name="reason_for_match" placeHoldee="Enter reason for matching"/>
+          </div>
+
+          <div className="label">
+            <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
+            <Field name="details_about_self" placeHoldee="details_about_self"/>
+          </div>
+
+          <div className="label">
+            <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
+            <Field name="treatment_description" placeHoldee="treatment_description"/>
           </div>
 
           
