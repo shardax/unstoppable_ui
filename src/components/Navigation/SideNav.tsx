@@ -34,7 +34,8 @@ const SideNav = () => {
 
   return (
     <div className="sidenav-wrapper">
-      <div className="sidebar-title bottom-light-border">{store.username}</div>
+      <div className="sidebar-title">{store.username}</div>
+      <div className="sidebar-subtitle bottom-light-border">{store.email ? store.email : "Email not defined."}</div>
       <div className="main-navlink bottom-light-border">  
         {sideNavLinks.map((link: any) => (
           <div className="sidenav-link">

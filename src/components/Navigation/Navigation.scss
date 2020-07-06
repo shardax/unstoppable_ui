@@ -41,9 +41,13 @@
   .sidebar-title {
     font-size: 24px;
     font-weight: 700;
-    padding-left: 0.9em;
+    padding-left: 16px;
     color: $primaryPurple;
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
+  }
+  .sidebar-subtitle {
+    padding-left: 16px;
+    font-size: 14px;
   }
   .sidenav-link {
     cursor: pointer;
