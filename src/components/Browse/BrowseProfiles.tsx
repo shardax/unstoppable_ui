@@ -41,16 +41,13 @@ import { useObserver } from "mobx-react";
 
   const updateLikedProfiles = async (type: 'like' | 'unlike', id: number) => {
     try {
+      let url = PROFILEURL + "/" + store.profile.id + ".json" ;
       if (type==="like") {
         store.likeProfile(id)
-        console.log(store.profile.liked_profiles)
-        await axios.patch(`${PROFILEURL}/${store.profileId}/save_like?like_id=${id}`)
-      }
-      if (type === "unlike") {
+      } else if (type==="unlike") {
         store.unlikeProfile(id)
-        console.log(store.profile.liked_profiles)
-        await axios.patch(`${PROFILEURL}/${store.profileId}/save_like?like_id=${id}`)
       }
+      const result = await axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
     } catch (e) {
       console.log(e)
     }

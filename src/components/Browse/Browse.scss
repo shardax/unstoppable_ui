@@ -3,6 +3,8 @@
 // BrowseProfiles
 
 $cardRadius: 5px;
+$cardWidth: 300px;
+$cardHeight: 240px;
 
 .browse-filter-row {
   display: flex;
@@ -70,8 +72,8 @@ $cardRadius: 5px;
 }
 
 .single-profile-image {
-  height: 200px;
-  width: 250px;
+  height: $cardHeight;
+  width: $cardWidth;
   border-top-left-radius: $cardRadius;
   border-top-right-radius: $cardRadius;
 }
@@ -86,3 +88,11 @@ $cardRadius: 5px;
     margin-right: 0.8em;
   }
 }
+
+@media only screen and (max-width: 1200px) {
+  .single-profile-image {
+    height: 180px;
+    width: 225px;
+  }
+}
+
