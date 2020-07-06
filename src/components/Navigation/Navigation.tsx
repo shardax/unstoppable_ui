@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Avatar} from 'antd';
 import {useDataStore} from "../../UserContext";
 import {useObserver} from 'mobx-react'
-import UnsIcon from '../../images/2Unstoppable_logo.png'
+import UnsIcon from '../../images/2unstoppable.png'
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import './Navigation.scss';
 
@@ -17,14 +17,13 @@ const navAfterLoginLinks = [
     path: '/profile'
   },
   {
+    title: 'Messages',
+    path: '/contact-us'
+  },
+  {
     title: 'Logout',
     path: '/logout'
   },
-  {
-    title: 'Messages',
-    path: '/contact-us'
-
-  }
 ]
 
 const navBeforeLoginLinks = [
@@ -64,8 +63,8 @@ const SetNavigationLinks = () => {
   return useObserver(() => (
     <span>
       { (store.isLoggedIn ? navAfterLoginLinks : navBeforeLoginLinks).map((link, index) => (
-            <span className="link-wrapper" key={index}>
-              <Link to={link.path}>{link.title}</Link>
+            <span key={index}>
+              <Link className="link-wrapper" to={link.path}>{link.title}</Link>
             </span>
           ))
       }
@@ -91,9 +90,11 @@ export default function Navigation () {
   const [menuActive, setMenuActive] = useState(false);
   const store = useDataStore();
 
-  return (<nav className="site-navigation" role="navigation">
+  return (
+  <nav className="site-navigation" role="navigation">
     <span className="menu-title">
-      <img src={UnsIcon} width="250" height="50" alt="" />
+      <img className="logo-navbar" src={UnsIcon} alt="" />
+      {/* <h3 style={{ color: "white" }}><span 2unstoppable</h3> */}
     </span>
     <div className={`menu-content-container ${menuActive && 'active'}`}>
       <>
