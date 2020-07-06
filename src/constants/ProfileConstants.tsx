@@ -74,3 +74,5 @@ export const CANCERLOCATIONLIST = [
       'From my provider (physician, nurse, nutritionist)',
       'Other'
     ]
+    // TODO the activities need to be retrieved from store
+    export const ACTIVITIES = [[1,"Walking"], [2,"Running"], [3,"Cycling"], [4,"Weight Lifting"], [5,"Aerobics"], [6,"Swimming"], [7,"Team Sports"], [8,"Yoga"], [9,"Pilates"], [10,"Gardening"] ]

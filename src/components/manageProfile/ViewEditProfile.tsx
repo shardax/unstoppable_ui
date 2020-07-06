@@ -6,6 +6,7 @@ import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
+import CheckboxExample from "./CheckboxExample"
 
 
 const ViewEditProfile: React.FC = ({  }) => {
@@ -61,7 +62,7 @@ const Card = ({ title, author, date, image, children }: CardProps) => (
 **/
 
   if (store.editMode) {
-    return <EditProfile />
+    return <CheckboxExample />
   } else {
     return <ViewProfile />
   }
