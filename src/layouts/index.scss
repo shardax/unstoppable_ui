@@ -1,6 +1,6 @@
 .default-layout-main {
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 10%;
+  margin-right: 10%;
   max-width: 1200px;
   display: flex;
   justify-content: center;
@@ -11,7 +11,7 @@
 
 @media only screen and (max-width: 1100px) {
   .default-layout-main {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 3%;
+    margin-right: 3%;
   }
 }

@@ -1,7 +1,32 @@
+@import "../../assets/scss/variables.scss";
+
+.site-navigation {
+  background: $primaryPurple;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  color: white !important;
+  position: sticky;
+  top: 0;
+}
+
+// .menu-title {
+//   height: 100%;
+//   background-color: white;
+// }
+
+.logo-navbar {
+  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.3em;
+}
+
 .menu-content-container {
   display: flex;
   align-items: center;
 }
+
 .link-wrapper {
   margin: 0em 0.8em;
+  color: white !important;
 }
+
