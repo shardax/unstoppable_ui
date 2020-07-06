@@ -5,6 +5,7 @@ import RangeSlider from "../RangeSlider";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
+import {Link} from 'react-router-dom'
 
 import './Browse.scss'
 import { useObserver } from "mobx-react";
@@ -55,26 +56,28 @@ import { useObserver } from "mobx-react";
  
   return useObserver(() => (
     <>
-    <div>
-      <div className="browse-filter-row"> 
-        <input className="browse-search" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
-          <RangeSlider ageRange={ageRange} onChange={handleChange}/>
-        </div>
-        <div className="profile-browse-grid">
-          {userCollection.map((profile: any) => (
-            <div className="single-profile-wrapper" key={profile.id}>
-              <img className="single-profile-image" src={ROOTURL + profile.photo} />
-              <div className="single-profile-body">
-                <h5 className="primary-text">{profile.name}</h5>
-                {/* <span>{profile.id}</span> */}
-                <p>{profile.cancer_location} Cancer</p>
-                <p>{profile.age} years old</p>
-                {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
+      <div>
+        <div className="browse-filter-row"> 
+          <input className="browse-search" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
+            <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+          </div>
+          <div className="profile-browse-grid">
+            {userCollection.map((profile: any) => (
+              <div className="single-profile-wrapper" key={profile.id}>
+                <Link to={"/user/" + profile.id}>
+                <img className="single-profile-image" src={ROOTURL + profile.photo} />
+                <div className="single-profile-body">
+                  <h5 className="primary-text">{profile.name}</h5>
+                  {/* <span>{profile.id}</span> */}
+                  <p>{profile.cancer_location} Cancer</p>
+                  <p>{profile.age} years old</p>
+                  {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
+                </div>
+                </Link>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
-    </div>
     </>
   ))
 }

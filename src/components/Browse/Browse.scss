@@ -53,6 +53,7 @@ $cardHeight: 240px;
   display: flex;
   flex-direction: column;
   transition: 0.4s;
+  cursor: pointer;
   &:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     border-bottom-left-radius: $cardRadius;
@@ -65,6 +66,7 @@ $cardHeight: 240px;
     border-bottom-right-radius: $cardRadius;
     z-index: 100;
     position: relative;
+    color: #69616C;
     p {
       line-height: 1;
     }
