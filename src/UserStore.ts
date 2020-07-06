@@ -125,6 +125,7 @@ export class UserStore {
   @persist('object') @observable profile: ProfileStore;
   @persist @observable avatarPath: string;
   @persist editMode: boolean;
+  @persist @observable email: string;
 
   constructor(){
      // When the User hits refresh, get the values from the local storage.
@@ -136,8 +137,10 @@ export class UserStore {
       this.avatarPath = localStorageData.avatarPath;
       this.profileId = localStorageData.profileId;
       this.editMode = localStorageData.editMode;
+      this.email = localStorageData.email
     } else {
       this.username = "";
+      this.email = "";
       this.isLoggedIn = false;
       this.profile = new ProfileStore();
       this.avatarPath = "";
