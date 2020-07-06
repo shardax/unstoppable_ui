@@ -53,7 +53,6 @@ $cardHeight: 240px;
   display: flex;
   flex-direction: column;
   transition: 0.4s;
-  cursor: pointer;
   &:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     border-bottom-left-radius: $cardRadius;
@@ -70,10 +69,14 @@ $cardHeight: 240px;
     p {
       line-height: 1;
     }
+    .profile-name-link:hover {
+      text-decoration: underline;
+    }
   }
 }
 
 .single-profile-image {
+  cursor: pointer;
   height: $cardHeight;
   width: $cardWidth;
   border-top-left-radius: $cardRadius;

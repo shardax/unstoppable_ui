@@ -65,15 +65,16 @@ import { useObserver } from "mobx-react";
             {userCollection.map((profile: any) => (
               <div className="single-profile-wrapper" key={profile.id}>
                 <Link to={"/user/" + profile.id}>
-                <img className="single-profile-image" src={ROOTURL + profile.photo} />
+                  <img className="single-profile-image" src={ROOTURL + profile.photo} />
+                </Link>
                 <div className="single-profile-body">
-                  <h5 className="primary-text">{profile.name}</h5>
-                  {/* <span>{profile.id}</span> */}
+                  <Link to={"/user/" + profile.id}>
+                    <h5 className="primary-text profile-name-link">{profile.name}</h5>
+                  </Link>
                   <p>{profile.cancer_location} Cancer</p>
                   <p>{profile.age} years old</p>
                   {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
                 </div>
-                </Link>
               </div>
             ))}
         </div>
