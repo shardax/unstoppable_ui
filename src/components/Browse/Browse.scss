@@ -72,3 +72,14 @@ $cardRadius: 5px;
   border-top-left-radius: $cardRadius;
   border-top-right-radius: $cardRadius;
 }
+
+.age-range-input-wrap {
+  display: flex;
+  justify-content: space-between;
+  .age-range-input {
+    width: 2em;
+  }
+  .age-range-label {
+    margin-right: 0.8em;
+  }
+}
