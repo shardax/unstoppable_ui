@@ -34,7 +34,7 @@ const RangeSlider = ( (props) => {
                 onChange={props.onChange}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
-                valueLabelDisplay="on"
+                valueLabelDisplay="auto"
             />
         </div>
     )
