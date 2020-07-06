@@ -62,7 +62,7 @@ const Card = ({ title, author, date, image, children }: CardProps) => (
 **/
 
   if (store.editMode) {
-    return <CheckboxExample />
+    return <EditProfile />
   } else {
     return <ViewProfile />
   }

@@ -3,6 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { Debug } from './Debug';
 import {useDataStore} from "../../UserContext";
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, ACTIVITIES} from "../../constants/ProfileConstants"
+import {CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
 const store = useDataStore();
 
@@ -20,6 +21,12 @@ const CheckboxExample = () => (
         location: [],
         activites: ["Walking", "Yoga"],
         fitnessLevel: store.profile.fitness_level,
+        personality: store.profile.personality,
+        preferedExerciseLocation: store.profile.prefered_exercise_location,
+        preferedExerciseTime: store.profile.prefered_exercise_time,
+        workStatus: store.profile.work_status,
+        cancerLocation: store.profile.cancer_location,
+        treatmentStatus: store.profile.treatment_status,
         other_favorite_activities: "Dancing" //store.profile.other_favorite_activities
       }}
       onSubmit={async values => {
@@ -69,20 +76,73 @@ const CheckboxExample = () => (
          {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
            
         </select>*/}
-
-
-  
-
+          <div>
+          <label htmlFor="personality">How would you describe your personality? </label>
           <Field
             component="select"
-            id="location"
-            name="location"
+            id="personallity"
+            name="personality"
           >
-            <option value="NY">New York</option>
-            <option value="SF">San Francisco</option>
-            <option value="CH">Chicago</option>
-            <option value="OTHER">Other</option>
+          {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
+          </div>
+
+          <div>
+          <label htmlFor="preferedExerciseLocation">Where do you prefer to be active? </label>
+          <Field
+            component="select"
+            id="preferedExerciseLocation"
+            name="preferedExerciseLocation"
+          >
+          {PREFERRED_EXERCISE_LOCATIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+          </Field>
+          </div>
+
+          <div>
+          <label htmlFor="preferedExerciseTime">When do you prefer to be active?</label>
+          <Field
+            component="select"
+            id="preferedExerciseTime"
+            name="preferedExerciseTime"
+          >
+          {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+          </Field>
+          </div>
+
+          <div>
+          <label htmlFor="workStatus"> Which of the following best describes your work situation? </label>
+          <Field
+            component="select"
+            id="workStatus"
+            name="workStatus"
+          >
+          {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+          </Field>
+          </div>
+
+          <div>
+          <label htmlFor="cancerLocation">What was your primary cancer diagnosis?</label>
+          <Field
+            component="select"
+            id="cancerLocation"
+            name="cancerLocation"
+          >
+          {CANCERLOCATIONLIST.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+          </Field>
+          </div>
+
+          <div>
+          <label htmlFor="treatmentStatus">Which of the following best describes you?</label>
+          <Field
+            component="select"
+            id="treatmentStatus"
+            name="treatmentStatus"
+          >
+          {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+          </Field>
+          </div>
+
+          
           <label>
             <Field type="checkbox" name="terms" />I accept the terms and
             conditions.
@@ -98,9 +158,11 @@ const CheckboxExample = () => (
               </label>
             </div>
           ) : null}
+          <div>
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
+          </div>
           
         </Form>
       )}
