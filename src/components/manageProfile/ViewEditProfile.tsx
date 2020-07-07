@@ -6,6 +6,7 @@ import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
+import CheckboxExample from "./CheckboxExample"
 
 
 const ViewEditProfile: React.FC = ({  }) => {
@@ -17,7 +18,7 @@ const ViewEditProfile: React.FC = ({  }) => {
       console.log(result);
       //currentUserStore.username =  result.data.username;
       store.profile = result.data.profile;
-      store.avatarPath = result.data.photo;
+      store.avatarPath = result.data.profile.photo;
       console.log(ROOTURL + store.avatarPath );
     }).catch (e => {
       console.log(`😱 Axios request failed: ${e}`);

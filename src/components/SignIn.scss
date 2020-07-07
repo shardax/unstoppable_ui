@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 .loginBlock {
   text-align: center;
   padding-top: 10%;
@@ -62,4 +63,51 @@
     border-bottom-right-radius: 6px;
   }
   
+=======
+.registerMessage {
+  margin-top: 10vh;
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  margin: 25px auto;
+}
+
+.input-row {
+  margin: 25px 0px;
+}
+
+label {
+  display: block;
+  padding-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+}
+
+button {
+  border-radius: 0px;
+  padding: 5px 15px;
+  background: none;
+  border: 1px solid #607d8b;
+  cursor: pointer;
+}
+
+.form-message {
+  font-size: 10px;
+  padding-top: 2px;
+}
+.form-message.valid {
+  color: #4caf50;
+}
+.form-message.invalid {
+  color: #f44336;
+}
+
+.has-error {
+  border: 1px solid #f44336;
+>>>>>>> 54fa75a6432a7dff5ed359493919cb48a11787f7
 }

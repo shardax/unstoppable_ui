@@ -98,9 +98,9 @@ export default function Navigation () {
     </span>
     <div className={`menu-content-container ${menuActive && 'active'}`}>
       <>
-      <SetNavigationLinks/>
-      <DisplayAvatar/>
-      <DisplayUserName/>
+        {/* <SetNavigationLinks/> */}
+        <DisplayAvatar/>
+        <DisplayUserName/>
       </>
     </div>
     <i className="ionicons icon ion-ios-menu" onClick={() => setMenuActive(!menuActive)} />
