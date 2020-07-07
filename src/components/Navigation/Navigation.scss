@@ -44,6 +44,7 @@
     padding-left: 16px;
     color: $primaryPurple;
     padding-bottom: 0.5em;
+    line-height: 1;
   }
   .sidebar-subtitle {
     padding-left: 16px;
@@ -75,15 +76,12 @@
 }
 
 .sidenav-link-content-active {
-  color: #6200ee;
+  color: #6200ee !important;
   background: rgba(#6200ee, 0.3);
   border-radius: 10px;
 }
 
-.main-navlink {
-  padding-bottom: 0.5em;
-}
-
-.bottom-light-border {
-  border-bottom: 1px solid rgba(#999, 0.3);
+.horizontal-break {
+  margin-top: 2em;
+  margin-bottom: 2em;
 }

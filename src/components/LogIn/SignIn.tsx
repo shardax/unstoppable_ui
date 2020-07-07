@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps, useHistory, Redirect } from 'react-router-dom';
 import axios from "axios";
+<<<<<<< HEAD:src/components/SignIn.tsx
 import { useDataStore } from "../UserContext";
 import { LOGINURL } from "../constants/matcher";
 import UnsIcon from '../images/2Unstoppable_logo.png'
 import './SignIn.scss'
 interface Props extends RouteComponentProps { }
+=======
+import {useDataStore} from "../../UserContext";
+import { LOGINURL } from "../../constants/matcher";
+>>>>>>> ede1fcd2fb55c3bd7f7787ad844d70323020f0b3:src/components/LogIn/SignIn.tsx
 
 const SignIn: React.FC<Props> = ({ }) => {
 

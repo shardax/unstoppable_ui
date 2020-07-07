@@ -29,10 +29,9 @@ const User = () => {
   }
 
   return (
-    <div>
-      {id}
+    <pre>
       {JSON.stringify(user, null, 2)}
-    </div>
+    </pre>
   )
 }
 

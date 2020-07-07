@@ -53,29 +53,33 @@ import { useObserver } from "mobx-react";
       console.log(e)
     }
   }
+
+  const ProfileCard = ({profile}) => useObserver(() => (
+      <div className="single-profile-wrapper" key={profile.id}>
+        <Link to={"/user/" + profile.id}>
+          <img className="single-profile-image" src={ROOTURL + profile.photo} />
+        </Link>
+        <div className="single-profile-body">
+          <Link to={"/user/" + profile.id}>
+            <h5 className="primary-text profile-name-link">{profile.name}</h5>
+          </Link>
+          <p>{profile.cancer_location} Cancer</p>
+          <p>{profile.age} years old</p>
+          {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
+        </div>
+      </div>
+  ))
  
   return useObserver(() => (
     <>
       <div>
         <div className="browse-filter-row"> 
-          <input className="mdc-elevation--z1 browse-search" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
+          <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
             <RangeSlider ageRange={ageRange} onChange={handleChange}/>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
-              <div className="single-profile-wrapper" key={profile.id}>
-                <Link to={"/user/" + profile.id}>
-                  <img className="single-profile-image" src={ROOTURL + profile.photo} />
-                </Link>
-                <div className="single-profile-body">
-                  <Link to={"/user/" + profile.id}>
-                    <h5 className="primary-text profile-name-link">{profile.name}</h5>
-                  </Link>
-                  <p>{profile.cancer_location} Cancer</p>
-                  <p>{profile.age} years old</p>
-                  {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
-                </div>
-              </div>
+              <ProfileCard profile={profile} />
             ))}
         </div>
       </div>

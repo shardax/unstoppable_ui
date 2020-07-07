@@ -35,17 +35,22 @@ const SideNav = () => {
   return (
     <div className="sidenav-wrapper">
       <div className="sidebar-title">{store.username}</div>
-      <div className="sidebar-subtitle bottom-light-border">{store.email ? store.email : "Email not defined."}</div>
-      <div className="main-navlink bottom-light-border">  
+      <div className="sidebar-subtitle">{store.email ? store.email : "Email not defined."}</div>
+
+      <hr className="horizontal-break" />
+
+      <div className="main-navlink">  
         {sideNavLinks.map((link: any) => (
           <div className="sidenav-link">
             <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
           </div>
         ))}
       </div>  
-      <div className="">
-        <Link className="sidenav-link-content" to={"/logout"}><ExitToAppIcon /> <span className="sidenav-link-name">Logout</span></Link>
-      </div>
+
+      <hr className="horizontal-break" />
+
+      <Link className="sidenav-link-content" to={"/logout"}><ExitToAppIcon /> <span className="sidenav-link-name">Logout</span></Link>
+
     </div>
   )
 }
