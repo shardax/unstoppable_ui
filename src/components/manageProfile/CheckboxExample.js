@@ -1,20 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
+import { Debug } from './Debug';
 import {useDataStore} from "../../UserContext";
-import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../constants/matcher";
-import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, ACTIVITIES, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
+import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, ACTIVITIES} from "../../constants/ProfileConstants"
+import {CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
-import * as Yup from 'yup';
-
 const store = useDataStore();
 
-const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
-
-const validationSchema = Yup.object({
-  reason_for_match: Yup.string().required("Required")
-})
-
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const CheckboxExample = () => (
   
@@ -34,30 +27,12 @@ const CheckboxExample = () => (
         workStatus: store.profile.work_status,
         cancerLocation: store.profile.cancer_location,
         treatmentStatus: store.profile.treatment_status,
-        reason_for_match: store.profile.reason_for_match,
-        details_about_self: store.profile.details_about_self,
-        treatment_description:store.profile.treatment_description,
         other_favorite_activities: "Dancing" //store.profile.other_favorite_activities
       }}
       onSubmit={async values => {
         await sleep(1000);
         alert(JSON.stringify(values, null, 2));
-          let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
-          axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} ).then(res => {
-            // do good things
-           
-            console.log(JSON.stringify(res));
-        })
-        .catch(err => {
-              if (err.response) {
-                // client received an error response (5xx, 4xx)
-              } else if (err.request) {
-                // client never received a response, or request never left
-              } else {
-                // anything else
-              }
-            }) // end of error block
-        }} // end of onSubmit
+      }}
     >
       {({ isSubmitting, getFieldProps, handleChange, handleBlur, values }) => (
         <Form>
@@ -167,27 +142,22 @@ const CheckboxExample = () => (
           </Field>
           </div>
 
-          <div className="label">
-            <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b></label>
-            <Field name="reason_for_match" placeHoldee="Enter reason for matching"/>
-          </div>
-
-          <div className="label">
-            <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
-            <Field name="details_about_self" placeHoldee="details_about_self"/>
-          </div>
-
-          <div className="label">
-            <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
-            <Field name="treatment_description" placeHoldee="treatment_description"/>
-          </div>
-
           
           <label>
             <Field type="checkbox" name="terms" />I accept the terms and
             conditions.
           </label>
           {/* Here's how you can use a checkbox to show / hide another field */}
+          {!!values.terms ? (
+            <div>
+              <label>
+                <Field type="checkbox" name="newsletter" />
+                Send me the newsletter <em style={{ color: 'rebeccapurple' }}>
+                  (This is only shown if terms = true)
+                </em>
+              </label>
+            </div>
+          ) : null}
           <div>
           <button type="submit" disabled={isSubmitting}>
             Submit

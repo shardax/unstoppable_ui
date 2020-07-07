@@ -1,10 +1,9 @@
 import React from 'react'
-import SignIn from '../components/SignIn'
+import SignIn2 from '../components/SignIn2'
 
 export default function Login() {
   return (
   <div>
-    <h1>Login</h1>
-    <SignIn />
+    <SignIn2 />
   </div>)
   }

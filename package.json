@@ -19,6 +19,7 @@
     "antd": "^4.2.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
+    "formik": "^2.1.4",
     "mobx": "^5.15.4",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^6.2.2",
@@ -33,7 +34,8 @@
     "react-scripts": "3.4.1",
     "sass-loader": "^8.0.2",
     "simple-flexbox": "^2.3.1",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "yup": "^0.29.1"
   },
   "workspaces": {
     "nohoist": [
