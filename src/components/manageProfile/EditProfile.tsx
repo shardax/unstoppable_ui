@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from "react";
 import { Formik, Field, Form } from 'formik';
 import {useDataStore} from "../../UserContext";
-import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, ACTIVITIES} from "../../constants/ProfileConstants"
-import {CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
+import axios from "axios";
+import { PROFILEURL, ROOTURL } from "../../constants/matcher";
+import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, ACTIVITIES, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
+import * as Yup from 'yup';
+
 const store = useDataStore();
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+
+const validationSchema = Yup.object({
+  reason_for_match: Yup.string().required("Required")
+})
+
 
 const CheckboxExample = () => (
   
@@ -34,7 +42,22 @@ const CheckboxExample = () => (
       onSubmit={async values => {
         await sleep(1000);
         alert(JSON.stringify(values, null, 2));
-      }}
+          let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
+          axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} ).then(res => {
+            // do good things
+           
+            console.log(JSON.stringify(res));
+        })
+        .catch(err => {
+              if (err.response) {
+                // client received an error response (5xx, 4xx)
+              } else if (err.request) {
+                // client never received a response, or request never left
+              } else {
+                // anything else
+              }
+            }) // end of error block
+        }} // end of onSubmit
     >
       {({ isSubmitting, getFieldProps, handleChange, handleBlur, values }) => (
         <Form>
