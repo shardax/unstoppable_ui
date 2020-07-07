@@ -54,8 +54,7 @@ import { useObserver } from "mobx-react";
     }
   }
 
-  const ProfileCard = ({profile}) => {
-    return (
+  const ProfileCard = ({profile}) => useObserver(() => (
       <div className="single-profile-wrapper" key={profile.id}>
         <Link to={"/user/" + profile.id}>
           <img className="single-profile-image" src={ROOTURL + profile.photo} />
@@ -69,8 +68,7 @@ import { useObserver } from "mobx-react";
           {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
         </div>
       </div>
-    )
-  }
+  ))
  
   return useObserver(() => (
     <>
