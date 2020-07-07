@@ -44,6 +44,7 @@
     padding-left: 16px;
     color: $primaryPurple;
     padding-bottom: 0.5em;
+    line-height: 1;
   }
   .sidebar-subtitle {
     padding-left: 16px;
@@ -80,10 +81,7 @@
   border-radius: 10px;
 }
 
-.main-navlink {
-  padding-bottom: 0.5em;
-}
-
-.bottom-light-border {
-  border-bottom: 1px solid rgba(#999, 0.3);
+.horizontal-break {
+  margin-top: 2em;
+  margin-bottom: 2em;
 }

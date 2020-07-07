@@ -9,7 +9,6 @@ import Error from "./Error";
 import {useDataStore} from "../UserContext";
 import { LOGINURL } from "../constants/matcher";
 
-
 const ValidationSchema = Yup.object().shape({
   username: Yup.string()
     .min(1, "Too Short!")
