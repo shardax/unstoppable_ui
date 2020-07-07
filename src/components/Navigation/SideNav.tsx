@@ -39,7 +39,7 @@ const SideNav = () => {
       <div className="main-navlink bottom-light-border">  
         {sideNavLinks.map((link: any) => (
           <div className="sidenav-link">
-            <NavLink className="sidenav-link-content" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
+            <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
           </div>
         ))}
       </div>  
