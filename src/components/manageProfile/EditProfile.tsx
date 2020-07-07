@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Formik, Field, Form } from 'formik';
 import {useDataStore} from "../../UserContext";
+import {useHistory} from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, ACTIVITIES, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
@@ -9,14 +10,23 @@ import * as Yup from 'yup';
 
 const store = useDataStore();
 
+const history = useHistory();
+
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
 const validationSchema = Yup.object({
   reason_for_match: Yup.string().required("Required")
 })
 
+const handleBackToView = (event: React.MouseEvent) => {
+  event.preventDefault();
+  store.editMode = false;
+  console.log("In handleBackToView");
+  history.push("/profile");
+}
 
-const CheckboxExample = () => (
+
+const EditProfile = () => (
   
   <div>
     <Default>
@@ -47,6 +57,9 @@ const CheckboxExample = () => (
             // do good things
            
             console.log(JSON.stringify(res));
+            store.editMode = false;
+            console.log("In handleBackToView");
+            history.push("/profile");
         })
         .catch(err => {
               if (err.response) {
@@ -201,4 +214,4 @@ const CheckboxExample = () => (
   </div>
 );
 
-export default CheckboxExample;
+export default EditProfile;
