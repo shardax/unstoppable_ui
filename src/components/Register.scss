@@ -1,0 +1,50 @@
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+.mainBlock {
+  padding-left: 100px;
+  padding-bottom: 30px;
+  h1, h2{
+    color:  #9781AE;
+  }
+  p{
+    color: gray;
+  }
+  td{
+    padding-bottom: 8px;
+  }
+  input[type=text]{
+    border-radius: 5px;
+    width: 500px;
+    height: 40px;
+    border: 1px solid darkgray;
+  }
+  select{
+    padding: 9px;
+    border-radius: 5px;
+    border: 1px solid darkgray;
+  }
+  .container{
+    padding-bottom: 30px;
+  }
+  .buttons{
+    padding: 6px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 3px;
+    background-color: #9781AE;
+    color: white;
+    border: 1px solid darkgray;
+    font-size : 20px;
+  }
+  .submitButtons{
+    padding-left: 100px;
+    table{
+      width: 300px;
+    }
+  }
+} 
