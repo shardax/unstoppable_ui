@@ -6,8 +6,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Error from "./Error";
-import {useDataStore} from "../UserContext";
-import { LOGINURL } from "../constants/matcher";
+import {useDataStore} from "../../UserContext";
+import { LOGINURL } from "../../constants/matcher";
 
 const ValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -121,7 +121,7 @@ const SignIn2 = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.username}
-              className={touched.username && errors.username ? "has-error" : null}
+              className={"global-input " + (touched.username && errors.username ? "has-error" : null)}
             />
             <Error touched={touched.username} message={errors.username} />
           </div>
@@ -134,7 +134,7 @@ const SignIn2 = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              className={touched.password && errors.password ? "has-error" : null}
+              className={"global-input " + (touched.password && errors.password ? "has-error" : null)}
             />
             <Error touched={touched.password} message={errors.password} />
           </div>
