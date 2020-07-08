@@ -2,6 +2,7 @@
 
 .site-navigation {
   background: $primaryPurple;
+  opacity: 0.95;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12) !important;
   color: white !important;
   position: sticky;
@@ -31,8 +32,7 @@
 }
 
 .sidenav-wrapper {
-  width: 12em;
-  background-color: white;
+  width: 15em;
   border-right: 2px solid rgba(#333, 0.1);
   position: fixed;
   height: 100vh;
