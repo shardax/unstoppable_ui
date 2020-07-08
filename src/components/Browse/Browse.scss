@@ -17,8 +17,9 @@ $cardHeight: 240px;
     border-radius: 4px;
     width: 30em;
     margin-right: 3em;
-    // background-color: $primaryPurple;
-    // color: white;
+    background-color: white;
+    color: black;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     padding: 1em;
     padding-left: 1em;
   }
@@ -47,21 +48,16 @@ $cardHeight: 240px;
   margin: 1em;
   display: flex;
   flex-direction: column;
-  transition: 0.4s;
+  -webkit-transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+  transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  border-bottom-left-radius: $cardRadius;
+  border-bottom-right-radius: $cardRadius;
+  outline: none;
+  text-decoration: none;
   &:hover {
-    outline: none;
-    text-decoration: none;
-    -webkit-transition-property: box-shadow,opacity;
-    transition-property: box-shadow,opacity;
-    word-wrap: break-word;
-    position: relative;
-    white-space: normal;
-    -webkit-transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
-    transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
-    will-change: box-shadow;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
-    border-bottom-left-radius: $cardRadius;
-    border-bottom-right-radius: $cardRadius;
+    box-shadow: 0 9px 3px -6px rgba(0,0,0,.2),0 6px 6px 0 rgba(0,0,0,.14),0 3px 15px 0 rgba(0,0,0,.12);
+    // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   }
   .single-profile-body {
     font-weight: 300;

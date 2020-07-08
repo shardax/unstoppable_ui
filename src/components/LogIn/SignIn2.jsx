@@ -121,7 +121,7 @@ const SignIn2 = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.username}
-              className={"global-input " + (touched.username && errors.username ? "has-error" : null)}
+              className={"global-input login-form " + (touched.username && errors.username ? "has-error" : null)}
             />
             <Error touched={touched.username} message={errors.username} />
           </div>
@@ -134,7 +134,7 @@ const SignIn2 = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              className={"global-input " + (touched.password && errors.password ? "has-error" : null)}
+              className={"global-input login-form " + (touched.password && errors.password ? "has-error" : null)}
             />
             <Error touched={touched.password} message={errors.password} />
           </div>
