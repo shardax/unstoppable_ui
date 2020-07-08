@@ -3,7 +3,7 @@ import { RouteComponentProps, useHistory, Redirect } from 'react-router-dom';
 import axios from "axios";
 import { useDataStore } from "../../UserContext";
 import { REGISTERURL } from "../../constants/matcher";
-import UnsIcon from '../images/2Unstoppable_logo.png'
+import UnsIcon from '../../images/2Unstoppable_logo.png'
 import './Register.scss'
 interface Props extends RouteComponentProps { }
 

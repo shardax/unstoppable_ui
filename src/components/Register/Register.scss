@@ -1,12 +1,14 @@
 .logo {
   display: block;
+  margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
   width: 300px;
 }
 
 .mainBlock {
-  padding-left: 100px;
+  width: 80%;
+  margin-left: 15%;
   padding-bottom: 30px;
   h1, h2{
     color:  #9781AE;
@@ -30,6 +32,13 @@
   }
   .container{
     padding-bottom: 30px;
+    
+  }
+  .submitButtons{
+    padding-left: 15%;
+    table{
+      width: 300px;
+    }
   }
   .buttons{
     padding: 6px;
@@ -40,11 +49,5 @@
     color: white;
     border: 1px solid darkgray;
     font-size : 20px;
-  }
-  .submitButtons{
-    padding-left: 100px;
-    table{
-      width: 300px;
-    }
   }
 } 

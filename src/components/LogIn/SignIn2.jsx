@@ -144,6 +144,9 @@ const SignIn2 = () => {
               Submit
             </button>
           </div>
+          <div className="register">
+          <p>Don't have an Account? <a href='../register'>Register Here!</a></p>
+          </div>
         </form>
       )}
     </Formik>

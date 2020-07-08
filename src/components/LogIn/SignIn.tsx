@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from "react";
 import {RouteComponentProps, useHistory, Redirect} from 'react-router-dom';
 import axios from "axios";
-import {useDataStore} from "../UserContext";
-import { LOGINURL } from "../constants/matcher";
+import {useDataStore} from "../../UserContext";
+import { LOGINURL } from "../../constants/matcher";
 
 interface Props extends RouteComponentProps{}
 
