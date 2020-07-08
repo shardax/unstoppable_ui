@@ -88,11 +88,11 @@ $cardHeight: 240px;
 .age-range-input-wrap {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   .age-range-input {
-    width: 2.3em;
-  }
-  .age-range-label {
-    margin-right: 0.8em;
+    width: 40px;
+    outline: none;
+    border: 0;
   }
 }
 

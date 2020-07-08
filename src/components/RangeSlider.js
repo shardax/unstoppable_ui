@@ -16,16 +16,17 @@ const RangeSlider = ( (props) => {
 
     return (
         <div className={classes.root}>
-            <Typography id="range-slider" gutterBottom>
-            Age Range
-            </Typography>
             <div className="age-range-input-wrap">
                 <span>
-                    <label className="age-range-label" for="age-min">Min</label>
-                    <input id="age-min" value={props.ageRange[0]} className="age-range-input" />
+                 Age Range
                 </span>
                 <span>
-                    <label className="age-range-label" for="age-max">Max</label>
+                    {/* <label className="age-range-label" for="age-min">Min</label> */}
+                    <input id="age-min" value={props.ageRange[0]} className="age-range-input" />
+                </span>
+                <span> to </span>
+                <span>
+                    {/* <label className="age-range-label" for="age-max">Max</label> */}
                     <input  id="age-max" className="age-range-input" value={props.ageRange[1]} />
                 </span>
             </div>
