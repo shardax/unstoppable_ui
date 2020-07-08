@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { RouteComponentProps, useHistory, Redirect } from 'react-router-dom';
+import React, { useState, useEffect} from "react";
+import {RouteComponentProps, useHistory, Redirect} from 'react-router-dom';
 import axios from "axios";
-<<<<<<< HEAD:src/components/SignIn.tsx
-import { useDataStore } from "../UserContext";
+import {useDataStore} from "../UserContext";
 import { LOGINURL } from "../constants/matcher";
-import UnsIcon from '../images/2Unstoppable_logo.png'
-import './SignIn.scss'
-interface Props extends RouteComponentProps { }
-=======
-import {useDataStore} from "../../UserContext";
-import { LOGINURL } from "../../constants/matcher";
->>>>>>> ede1fcd2fb55c3bd7f7787ad844d70323020f0b3:src/components/LogIn/SignIn.tsx
 
-const SignIn: React.FC<Props> = ({ }) => {
+interface Props extends RouteComponentProps{}
+
+const SignIn: React.FC<Props> = ({  }) => {
 
   const history = useHistory();
 
   const url = LOGINURL;
-
+  
   const [inputUserName, setInputUserName] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [inputSubmitted, setInputSubmitted] = useState(false);
@@ -44,18 +38,18 @@ const SignIn: React.FC<Props> = ({ }) => {
     const fetchData = async () => {
       setIsError(false);
       currentUserStore.isLoggedIn = false;
-
+ 
       try {
         if (inputSubmitted) {
-          let data = { user: { "username": inputUserName, "password": inputPassword } }
+          let data = { user: {"username": inputUserName, "password": inputPassword}}
           const result = await axios.post(url, data, { withCredentials: true });
           console.log(JSON.stringify(result));
           console.log(result.data.username);
-          currentUserStore.username = result.data.username;
+          currentUserStore.username =  result.data.username;
           currentUserStore.isLoggedIn = true;
           currentUserStore.profile = result.data.profile;
           currentUserStore.profileId = result.data.profile.id;
-          currentUserStore.avatarPath = result.data.photo;
+          currentUserStore.avatarPath= result.data.photo;
           console.log("Printing store values")
           console.log(currentUserStore.username);
           console.log(currentUserStore.isLoggedIn);
@@ -73,7 +67,7 @@ const SignIn: React.FC<Props> = ({ }) => {
       }
       console.log("store.isLoggedIn)");
       console.log(currentUserStore.isLoggedIn);
-      if (currentUserStore.isLoggedIn) {
+      if(currentUserStore.isLoggedIn){
         history.push("/home");
       } else {
         history.push("/login")
@@ -83,56 +77,35 @@ const SignIn: React.FC<Props> = ({ }) => {
 
   }, [inputSubmitted]);
 
-  return (
-    <div className="loginBlock">
-      <table>
-        <tr className="top">
-          <td>
-            <img src={UnsIcon} className="logo"/>
-          </td>        
-        </tr>
-        <tr>
-          <td>
-            <h1>Log In</h1>
-          </td>        
-        </tr>
-        <tr>
-          <td>
-          <form onSubmit={handleSubmit}>
-            {errorMessage && <h3 className="error"> {errorMessage} </h3>}
-            <div className="form-group">
-              <input
-                type="username"
-                name="username"
-                placeholder="Username"
-                value={inputUserName}
-                onChange={event => setInputUserName(event.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={inputPassword}
-                onChange={event => setInputPassword(event.target.value)}
-                required
-              />
-            </div>
-            {!isError && <button type="submit">Login</button>}
-            {isError && <button name="refresh" onClick={handleRefresh as any}>Refresh and Login</button>}
-          </form>
-          </td>
-        </tr>
-        <tr className="bottom">
-          <td>
-            <p>Don't have an Account? <a href='/register'>Register Here!</a></p>
-          </td>
-        </tr>
-      </table>
-    </div>
-  );
-}
+    return (
+    <div>
+      <form onSubmit={handleSubmit}>
+      { errorMessage && <h3 className="error"> { errorMessage } </h3> }
+        <div className="form-group">
+          <input
+            type="username"
+            name="username"
+            placeholder="Username"
+            value={inputUserName}
+            onChange={event => setInputUserName(event.target.value)}
+            required
+            />
+        </div>
+        <div className="form-group">
+          <input 
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={inputPassword}
+          onChange={event => setInputPassword(event.target.value)}
+          required
+          />
+         </div>
+         {!isError &&  <button type="submit">Login</button>}
+         {isError &&  <button name="refresh" onClick={handleRefresh as any}>Refresh and Login</button>}
+      </form>
+      </div>
+      );
+    }
 
-export default SignIn;
+    export default SignIn;
