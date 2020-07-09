@@ -147,6 +147,9 @@ const SignIn2 = () => {
           <div className="register">
           <p>Don't have an Account? <a href='../register'>Register Here!</a></p>
           </div>
+          <div className="register">
+          <p>Forgot Username? <a href='../fusername'>Click Here!</a></p>
+          </div>
         </form>
       )}
     </Formik>
