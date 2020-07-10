@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import './SignIn.scss'
 //import Autosuggest from "react-autosuggest";
 import { Formik } from "formik";
@@ -145,10 +145,10 @@ const SignIn2 = () => {
             </button>
           </div>
           <div className="register">
-          <p>Don't have an Account? <a href='../register'>Register Here!</a></p>
+            <Link to='/register' activeClassName="active">Sign Up</Link>
           </div>
           <div className="register">
-          <p>Forgot Username? <a href='../fusername'>Click Here!</a></p>
+            <Link to='/fusername' activeClassName="active">Forgot Your Username?</Link>
           </div>
         </form>
       )}

@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import axios from "axios";
 import Error from "./Error";
 import './SignIn.scss'
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+//import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { FORGOTUSERNAMEURL } from "../../constants/matcher";
 
 const store = useDataStore();
