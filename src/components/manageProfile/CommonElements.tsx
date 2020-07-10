@@ -8,14 +8,6 @@ const PrintUserInfo: React.FC = ({ }) => {
   const store = useDataStore();
   return (
     <div style={{fontSize: 15}}>
-      {/*<FlexView column>
-      <FlexView hAlignContent='center' style={{fontSize: 17}}>
-        <b>Username: {store.username}</b>, Age: {store.profile.age}
-      </FlexView>
-      <FlexView hAlignContent='center' style={{fontSize: 17}}>
-        City: {store.profile.city} State: {store.profile.state} ZipCode: {store.profile.zipcode}
-      </FlexView>
-    </FlexView> */}
       <table>
         <tr>
           <td>
@@ -45,33 +37,11 @@ const PrintUserInfo: React.FC = ({ }) => {
 export { PrintUserInfo };
 
 
-const DisplayFitness: React.FC = ({ }) => {
-  const store = useDataStore();
-  return (
-    <div style={{fontSize: 17}}>
-      {/*<FlexView column basis={1000}> </FlexView>
-       <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 17}}>
-          {store.profile.fitness_level}
-        </FlexView>
-          <FlexView  basis={300} height={40}>
-           </FlexView>*/}
-      {store.profile.fitness_level}
-    </div>
-  )
-}
-export { DisplayFitness };
 
 const DisplayCancerLocation: React.FC = ({ }) => {
   const store = useDataStore();
   return (
     <div style={{fontSize: 17}}>
-      {/*<FlexView column basis={1000}> </FlexView>
-       <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 17}}>
-          {store.profile.cancer_location}</FlexView>
-          <FlexView  basis={300} height={40}>
-           </FlexView> */}
       {store.profile.cancer_location}
     </div>
   )

@@ -5,7 +5,7 @@ import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
-import {PrintUserInfo, DisplayFitness, DisplayTreatmentStatus, DisplayPartnerReason, DisplayPersonality, DisplayCancerLocation} from "./CommonElements";
+import {PrintUserInfo} from "./CommonElements";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -52,62 +52,43 @@ const ViewProfile: React.FC = ({  }) => {
         </tr>
       </table>
       </div>
-    {/*
-    <FlexView hAlignContent='center' width ={1300}>
-    <FlexView hAlignContent='center' basis={1100} height={250} style={{backgroundColor : 'pink'}}>
-        <FlexView  style={{ width: 20, height: 100 }}></FlexView>
-        <AvatarEditor
-          image={ROOTURL + store.avatarPath}
-          width={175}
-          height={140}
-          border={30}
-          color={[255, 255, 255, 0.6]} // RGBA
-          scale={1.2}
-          rotate={0}
-        />
-        
-        <FlexView column basis={200}></FlexView>
-        <FlexView column basis={200}>
-        <FlexView  style={{ width: 20, height: 80 }}></FlexView>
-          <FlexView hAlignContent='center'><h3><b>My Profile</b></h3></FlexView>
-          <FlexView hAlignContent='center'> <PrintUserInfo /> </FlexView>
-        </FlexView>
-        <FlexView column basis={200}></FlexView>
-        <FlexView column basis={200}>
-        <FlexView  style={{ width: 20, height: 100 }}></FlexView>
-          <button onClick={handleEdit}>
-            Edit Profile
-          </button>
-        </FlexView>
-  </FlexView>
-  </FlexView>
-*/}
+          
 <div className="Questions">
   <table>
     <tr>
       <td>
       <h5><b>Reasons For Wanting Partner: </b></h5>
-      <DisplayPartnerReason/>
+         <div style={{fontSize: 17}}>
+           {store.profile.reason_for_match}
+         </div>
       </td>
       <td>
       <h5><b>Cancer Location:  </b></h5>
-      <DisplayCancerLocation/>
+        <div style={{fontSize: 17}}>
+         {store.profile.cancer_location}
+        </div>
       </td>
     </tr>
     <tr>
       <td>
       <h5><b>Your Current Fitness Level:</b></h5>
-      <DisplayFitness/> 
+        <div style={{fontSize: 17}}>
+          {store.profile.fitness_level}
+        </div>
       </td>
       <td>
       <h5><b>Treatment Status: </b></h5>
-      <DisplayTreatmentStatus/>
+        <div style={{fontSize: 17}}>
+         {store.profile.treatment_status}
+        </div>
       </td>
     </tr>
     <tr>
       <td>
       <h5><b>Personality: </b></h5>
-      <DisplayPersonality/>
+        <div style={{fontSize: 17}}>
+          {store.profile.personality}
+        </div>
       </td>
     </tr>
   </table>
