@@ -16,7 +16,6 @@ const ViewEditProfile: React.FC = ({  }) => {
     .get(PROFILEURL + `/${store.profileId}.json`, { withCredentials: true })
     .then(result => {
       console.log(result);
-      //currentUserStore.username =  result.data.username;
       store.profile = result.data.profile;
       store.avatarPath = result.data.profile.photo;
       console.log(ROOTURL + store.avatarPath );

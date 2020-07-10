@@ -21,14 +21,11 @@ const ValidationSchema = Yup.object().shape({
 
 const SignIn2 = () => {
   const history = useHistory();
-
   const url = LOGINURL;
-  
-  
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const currentUserStore = useDataStore()
+  const store = useDataStore()
 
   return (
     <Formik
@@ -39,46 +36,33 @@ const SignIn2 = () => {
       validationSchema={ValidationSchema}
       validate={values => {
         let errors = {};
-
-        // Validate the Postal Code conditionally based on the chosen Country
-        
         return errors;
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
-
         setTimeout(() => {
           //alert(JSON.stringify(values, null, 2));
           resetForm();
           setSubmitting(false);
         }, 500);
 
-
-        setIsError(false);
-        currentUserStore.isLoggedIn = false;
-   
         const fetchData = async () => {
           setIsError(false);
-          currentUserStore.isLoggedIn = false;
+          store.isLoggedIn = false;
      
           try {
-            
-              let data = { user: {"username": values.username, "password": values.password}}
-              const result = await axios.post(url, data, { withCredentials: true });
+              const result = await axios.post(url, { user: {"username": values.username, "password": values.password}}, { withCredentials: true });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
-              currentUserStore.username =  result.data.username;
-              currentUserStore.isLoggedIn = true;
-              currentUserStore.profile = result.data.profile;
-              currentUserStore.profileId = result.data.profile.id;
-              currentUserStore.avatarPath= result.data.photo;
-              console.log("Printing store values")
-              console.log(currentUserStore.username);
-              console.log(currentUserStore.isLoggedIn);
-              console.log(currentUserStore.profile.id);
-            
+              store.username =  result.data.username;
+              store.email = result.data.email;
+              store.isLoggedIn = true;
+              store.profile = result.data.profile;
+              store.profileId = result.data.profile.id;
+              store.avatarPath = result.data.photo;
+              store.activities = result.data.all_activities;
+              store.exerciseReasons = result.data.all_exercise_reasons;
           } catch (error) {
-            //console.log(JSON.stringify(error));
             console.log(error.message);
             if (error.message.includes("401")) {
               setErrorMessage("Invalid Username or Password.");
@@ -87,17 +71,14 @@ const SignIn2 = () => {
             }
             setIsError(true);
           }
-          console.log("store.isLoggedIn)");
-          console.log(currentUserStore.isLoggedIn);
-          if(currentUserStore.isLoggedIn){
+          if(store.isLoggedIn){
             history.push("/home");
           } else {
             history.push("/login")
           }
         };
+        /* Login and fetch initial data */
         fetchData();
-      
-
       }}
     >
       {({
