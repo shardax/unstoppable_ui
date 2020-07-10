@@ -90,30 +90,39 @@ const ViewProfile: React.FC = ({  }) => {
           {store.profile.personality}
         </div>
       </td>
+      <td>
+      <h5><b>Programs for cancer treatmen: </b></h5>
+        <div style={{fontSize: 17}}>
+          {store.profile.part_of_wellness_program}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h5><b>Activity Ids: </b></h5>
+        <div style={{fontSize: 17}}>
+          {store.profile.activity_ids}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h5><b>Exercise Ids: </b></h5>
+        <div style={{fontSize: 17}}>
+          {store.profile.exercise_reason_ids}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h5><b>Exercise Location: </b></h5>
+        <div style={{fontSize: 17}}>
+          {store.profile.prefered_exercise_location}
+        </div>
+      </td>
     </tr>
   </table>
 </div>
-{/*  <FlexView hAlignContent='center' width ={1300}>
-  <FlexView hAlignContent='center' basis={1100} height={350} style={{backgroundColor : 'pink'}}>
-      <FlexView column basis={300} width={300} style={{fontSize: 20}}>
-        <FlexView><b>Reasons For Wanting Partner: </b></FlexView>
-        <FlexView><DisplayPartnerReason/></FlexView>
-        <FlexView> <b>Cancer Location:  </b></FlexView>
-        <FlexView><DisplayCancerLocation/></FlexView>
-        <FlexView> <b>Your Current Fitness Level:</b></FlexView>
-        <FlexView> <DisplayFitness/> </FlexView>
-      </FlexView> 
-      <FlexView column basis = {100}></FlexView>
-      <FlexView column basis={300} width={300} style={{fontSize: 20}}>
-      <FlexView> <b>Treatment Status: </b></FlexView>
-        <FlexView><DisplayTreatmentStatus/></FlexView>
-        <FlexView><b>Personality: </b></FlexView>
-        <FlexView> <DisplayPersonality/></FlexView>
-      </FlexView>
-  </FlexView>
-</FlexView> */}
-  
-
   </Container>
       </React.Fragment>
       
