@@ -16,6 +16,22 @@ const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
   const history = useHistory();
 
+  const getProfileActivityNames = (profile) => {
+    var names: string[];
+    names = [];
+    profile.activity_ids.map((activity_id) => {
+      const matched_activity = store.activities.find((a) => { return a.id == activity_id;});
+      if (matched_activity != null) {
+        names.push(matched_activity.name);
+      }
+    })
+    return names.join();
+  }
+
+  const DisplayProfileActivityNames = () => {
+   return (<p> {getProfileActivityNames(store.profile)} </p>)
+  }
+  
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
     store.editMode = true;
@@ -99,9 +115,9 @@ const ViewProfile: React.FC = ({  }) => {
     </tr>
     <tr>
       <td>
-      <h5><b>Activity Ids: </b></h5>
+      <h5><b>Activities: </b></h5>
         <div style={{fontSize: 17}}>
-          {store.profile.activity_ids}
+          <DisplayProfileActivityNames />
         </div>
       </td>
     </tr>
