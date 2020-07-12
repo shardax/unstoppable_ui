@@ -5,7 +5,7 @@ import axios from "axios";
 import { PROFILEURL, ROOTURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
-import {PrintUserInfo, getActivityNames, getExerciseReasonNames} from "./CommonElements";
+import {PrintUserInfo, DisplayProfileActivityNames, DisplayExerciseReasons} from "./CommonElements";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -15,15 +15,6 @@ import './ViewProfile.scss'
 const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
   const history = useHistory();
-
-  
-  const DisplayProfileActivityNames = () => {
-   return (<p> {getActivityNames(store.profile.activity_ids, store.activities)} </p>)
-  }
-
-  const DisplayExerciseReasons = () => {
-    return (<p> {getExerciseReasonNames(store.profile.exercise_reason_ids, store.exerciseReasons)} </p>)
-   }
   
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -110,7 +101,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Activities: </b></h5>
         <div style={{fontSize: 17}}>
-          <DisplayProfileActivityNames />
+          <DisplayProfileActivityNames profileToDisplay= {store.profile}/>
         </div>
       </td>
     </tr>
@@ -118,7 +109,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Exercise Ids: </b></h5>
         <div style={{fontSize: 17}}>
-        <DisplayExerciseReasons />
+        <DisplayExerciseReasons profileToDisplay= {store.profile}/>
         </div>
       </td>
     </tr>

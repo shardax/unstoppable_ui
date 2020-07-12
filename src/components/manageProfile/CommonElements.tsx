@@ -3,6 +3,7 @@ import { useDataStore } from "../../UserContext";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 import { ProfileStore } from '../../UserStore';
+import { useHistory } from 'react-router-dom';
 
 const PrintUserInfo = (profile) => {
   return (
@@ -46,18 +47,30 @@ const getActivityNames = (activity_ids, all_activities) => {
   })
   return names.join();
 }
-export {getActivityNames};
 
-
-const getExerciseReasonNames = (exercise_reason_ids, all_exercise_reasons) => {
+const getExerciseReasonNames = (exercise_reason_ids, exerciseReasons) => {
   var names: string[];
   names = [];
   exercise_reason_ids.map((exercise_reason_id) => {
-    const matched_exercise_reason = all_exercise_reasons.find((er) => { return er.id == exercise_reason_id});
+    const matched_exercise_reason = exerciseReasons.find((er) => { return er.id == exercise_reason_id});
     if (matched_exercise_reason != null) {
       names.push(matched_exercise_reason.name);
     }
   })
   return names.join();
 }
-export {getExerciseReasonNames}
+
+
+type ProfileProps = {
+  profileToDisplay: ProfileStore
+};
+
+export const DisplayProfileActivityNames = (profileProps: ProfileProps) => {
+  const store = useDataStore();
+  return (<p> {getActivityNames(profileProps.profileToDisplay.activity_ids, store.activities)} </p>)
+ }
+
+ export const DisplayExerciseReasons = (profileProps: ProfileProps) => {
+   const store = useDataStore();
+   return (<p> {getExerciseReasonNames(profileProps.profileToDisplay.exercise_reason_ids, store.exerciseReasons)} </p>)
+  }
