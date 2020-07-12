@@ -48,11 +48,11 @@ const getActivityNames = (activity_ids, all_activities) => {
   return names.join();
 }
 
-const getExerciseReasonNames = (exercise_reason_ids, exerciseReasons) => {
+const getExerciseReasonNames = (exercise_reason_ids, all_exerciseReasons) => {
   var names: string[];
   names = [];
   exercise_reason_ids.map((exercise_reason_id) => {
-    const matched_exercise_reason = exerciseReasons.find((er) => { return er.id == exercise_reason_id});
+    const matched_exercise_reason = all_exerciseReasons.find((er) => { return er.id == exercise_reason_id});
     if (matched_exercise_reason != null) {
       names.push(matched_exercise_reason.name);
     }

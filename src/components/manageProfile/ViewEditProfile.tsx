@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
+import { ProfileStore } from '../../UserStore';
 import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
@@ -8,62 +9,55 @@ import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
 import CheckboxExample from "./CheckboxExample"
 
+const store = useDataStore();
+const [currentProfile, setCurrentProfile] = useState(store.profile);
+const [dataLoading, setDataLoading] = useState("");
+
 
 const ViewEditProfile: React.FC = ({  }) => {
-  const store = useDataStore();
+ 
+  /** 
   useEffect(() => {
     axios
     .get(PROFILEURL + `/${store.profileId}.json`, { withCredentials: true })
     .then(result => {
       console.log(result);
-      store.profile = result.data.profile;
-      store.avatarPath = result.data.profile.photo;
+      setCurrentProfile(result.data.profile);
       console.log(ROOTURL + store.avatarPath );
     }).catch (e => {
       console.log(`😱 Axios request failed: ${e}`);
     })
   }, []);
 
+  **/
+/** 
+ useEffect(() => {
+  const fetchProfile = async () => {
+    try {
+      setDataLoading("Loading");
+      const { result } = await axios.get(PROFILEURL + `/${store.profileId}.json`,
+        { withCredentials: true,
+          headers: {
+            contentType: "application/json; charset=utf-8",
+        }})
+      setCurrentProfile(result.data.profile);
+    } catch (e) {
+      console.log(`😱 Profile Fetch failed: ${e}`);
+    }
+  }
+  fetchProfile()
+  }, []);
+**/
+
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
     store.editMode = true;
   }
 
-/** 
+  
+return(
+  <div>{ store.editMode ? <EditProfile /> : <ViewProfile profile={store.profile}/> } </div>
 
-type CardProps = {
-  title: string,
-  author: string,
-  date: string,
-  image: string,
-  children: string
-}
-
-const Card = ({ title, author, date, image, children }: CardProps) => (
-  <FlexView className="card">
-    <FlexView shrink basis="10%">
-      <img src={`${image}`} />
-    </FlexView>
-    <FlexView shrink basis="10%" className="description">
-      <FlexView column>
-        <FlexView className="title">{title}</FlexView>
-        <FlexView className="subtitle">
-          <FlexView className="author">{author}</FlexView>
-          <FlexView className="date">{date}</FlexView>
-        </FlexView>
-        {children}
-      </FlexView>
-    </FlexView>
-    
-  </FlexView>
-);
-
-**/
-
-  if (store.editMode) {
-    return <EditProfile />
-  } else {
-    return <ViewProfile />
-  }
+)
 }
 export default ViewEditProfile;

@@ -15,7 +15,7 @@ const history = useHistory();
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
 const validationSchema = Yup.object({
-  reason_for_match: Yup.string().required("Required")
+  //reason_for_match: Yup.string().required("Required")
 })
 
 const handleBackToView = (event: React.MouseEvent) => {

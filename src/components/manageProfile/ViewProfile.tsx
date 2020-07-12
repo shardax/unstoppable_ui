@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
+import { ProfileStore, ProfileProps } from '../../UserStore';
 import axios from "axios";
 import { PROFILEURL, ROOTURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
@@ -12,9 +13,15 @@ import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
 import './ViewProfile.scss'
 
-const ViewProfile: React.FC = ({  }) => {
+
+const ViewProfile = (props: ProfileProps) => {
   const store = useDataStore();
   const history = useHistory();
+
+  const profile = store.profile;
+
+  console.log("VIEWPROFILE");
+  console.log(JSON.stringify(profile));
   
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -32,7 +39,7 @@ const ViewProfile: React.FC = ({  }) => {
       <table className="header">
         <tr>
           <td><AvatarEditor
-          image={ROOTURL + store.avatarPath}
+          image={ROOTURL + profile.photo}
           width={175}
           height={140}
           border={30}
@@ -42,7 +49,7 @@ const ViewProfile: React.FC = ({  }) => {
       /></td>
       <td>
         <h1> My Profile </h1>
-        {PrintUserInfo(store.profile)}
+        {PrintUserInfo(profile)}
       </td>
       <td>
       <button className="editButton" onClick={handleEdit}>
@@ -59,13 +66,13 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Reasons For Wanting Partner: </b></h5>
          <div style={{fontSize: 17}}>
-           {store.profile.reason_for_match}
+           {profile.reason_for_match}
          </div>
       </td>
       <td>
       <h5><b>Cancer Location:  </b></h5>
         <div style={{fontSize: 17}}>
-         {store.profile.cancer_location}
+         {profile.cancer_location}
         </div>
       </td>
     </tr>
@@ -73,7 +80,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Your Current Fitness Level:</b></h5>
         <div style={{fontSize: 17}}>
-          {store.profile.fitness_level}
+          {profile.fitness_level}
         </div>
       </td>
       <td>
@@ -87,13 +94,13 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Personality: </b></h5>
         <div style={{fontSize: 17}}>
-          {store.profile.personality}
+          {profile.personality}
         </div>
       </td>
       <td>
       <h5><b>Programs for cancer treatmen: </b></h5>
         <div style={{fontSize: 17}}>
-          {store.profile.part_of_wellness_program}
+          {profile.part_of_wellness_program}
         </div>
       </td>
     </tr>
@@ -101,7 +108,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Activities: </b></h5>
         <div style={{fontSize: 17}}>
-          <DisplayProfileActivityNames profileToDisplay= {store.profile}/>
+          <DisplayProfileActivityNames profileToDisplay= {profile}/>
         </div>
       </td>
     </tr>
@@ -109,7 +116,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Exercise Ids: </b></h5>
         <div style={{fontSize: 17}}>
-        <DisplayExerciseReasons profileToDisplay= {store.profile}/>
+        <DisplayExerciseReasons profileToDisplay= {profile}/>
         </div>
       </td>
     </tr>
@@ -117,7 +124,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Exercise Location: </b></h5>
         <div style={{fontSize: 17}}>
-          {store.profile.prefered_exercise_location}
+          {profile.prefered_exercise_location}
         </div>
       </td>
     </tr>

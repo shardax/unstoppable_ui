@@ -213,6 +213,9 @@ export function createStore() {
   return store;
 }
 
+export type ProfileProps = {
+  profile: ProfileStore;
+};
 
 
 export type TStore = ReturnType<typeof createStore>
