@@ -62,6 +62,7 @@ const SignIn2 = () => {
               store.avatarPath = result.data.photo;
               store.activities = result.data.all_activities;
               store.exerciseReasons = result.data.all_exercise_reasons;
+              localStorage.setItem("userStore", JSON.stringify(store));
           } catch (error) {
             console.log(error.message);
             if (error.message.includes("401")) {
