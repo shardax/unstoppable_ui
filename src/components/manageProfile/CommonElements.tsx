@@ -2,31 +2,30 @@ import React, { useState, useEffect } from "react";
 import { useDataStore } from "../../UserContext";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
+import { ProfileStore } from '../../UserStore';
 
-
-const PrintUserInfo: React.FC = ({ }) => {
-  const store = useDataStore();
+const PrintUserInfo = (profile) => {
   return (
     <div style={{fontSize: 15}}>
       <table>
         <tr>
           <td>
-            <b>Username: {store.username}</b>
+            <b>Username: {profile.username}</b>
           </td>
         </tr>
         <tr>
           <td>
-          Age: {store.profile.age}
+          Age: {profile.age}
           </td>
         </tr>
         <tr>
           <td>
-          City: {store.profile.city} State: {store.profile.state}
+          City: {profile.city} State: {profile.state}
           </td>
         </tr>
         <tr>
           <td>
-          ZipCode: {store.profile.zipcode}
+          ZipCode: {profile.zipcode}
           </td>
         </tr>
       </table>
@@ -36,63 +35,29 @@ const PrintUserInfo: React.FC = ({ }) => {
 }
 export { PrintUserInfo };
 
-
-
-const DisplayCancerLocation: React.FC = ({ }) => {
-  const store = useDataStore();
-  return (
-    <div style={{fontSize: 17}}>
-      {store.profile.cancer_location}
-    </div>
-  )
+const getActivityNames = (activity_ids, all_activities) => {
+  var names: string[];
+  names = [];
+  activity_ids.map((activity_id) => {
+    const matched_activity = all_activities.find((a) => { return a.id == activity_id;});
+    if (matched_activity != null) {
+      names.push(matched_activity.name);
+    }
+  })
+  return names.join();
 }
-export { DisplayCancerLocation };
+export {getActivityNames};
 
-const DisplayPartnerReason: React.FC = ({ }) => {
-  const store = useDataStore();
-  return (
-    <div style={{fontSize: 17}}>
-      {/*<FlexView column basis={1000}> </FlexView>
-       <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 17}}>
-          {store.profile.reason_for_match}</FlexView>
-          <FlexView  basis={300} height={40}>
-           </FlexView>*/}
-      {store.profile.reason_for_match}
-    </div>
-  )
+
+const getExerciseReasonNames = (exercise_reason_ids, all_exercise_reasons) => {
+  var names: string[];
+  names = [];
+  exercise_reason_ids.map((exercise_reason_id) => {
+    const matched_exercise_reason = all_exercise_reasons.find((er) => { return er.id == exercise_reason_id});
+    if (matched_exercise_reason != null) {
+      names.push(matched_exercise_reason.name);
+    }
+  })
+  return names.join();
 }
-export { DisplayPartnerReason };
-
-const DisplayTreatmentStatus: React.FC = ({ }) => {
-  const store = useDataStore();
-  return (
-    <div style={{fontSize: 17}}>
-
-      {/*<FlexView column basis={1000}> </FlexView>
-       <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 17}}>
-        {store.profile.treatment_status} 
-        </FlexView>
-  <FlexView  basis={300} height={85}></FlexView>*/}
-      {store.profile.treatment_status}
-    </div>
-  )
-}
-export { DisplayTreatmentStatus };
-
-const DisplayPersonality: React.FC = ({ }) => {
-  const store = useDataStore();
-  return (
-    <div style={{fontSize: 17}}>
-      {/*<FlexView column basis={1000}> </FlexView>
-       <FlexView  basis={300} height={10}> </FlexView>
-        <FlexView basis={300} height={40} style={{fontSize: 17}}>
-          {store.profile.personality}</FlexView>
-          <FlexView  basis={300} height={40}>
-  </FlexView>*/}
-      {store.profile.personality}
-    </div>
-  )
-}
-export { DisplayPersonality };
+export {getExerciseReasonNames}

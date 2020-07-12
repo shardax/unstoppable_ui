@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../constants/matcher";
+import { PROFILEURL, ROOTURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
-import {PrintUserInfo} from "./CommonElements";
+import {PrintUserInfo, getActivityNames, getExerciseReasonNames} from "./CommonElements";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -16,21 +16,14 @@ const ViewProfile: React.FC = ({  }) => {
   const store = useDataStore();
   const history = useHistory();
 
-  const getProfileActivityNames = (profile) => {
-    var names: string[];
-    names = [];
-    profile.activity_ids.map((activity_id) => {
-      const matched_activity = store.activities.find((a) => { return a.id == activity_id;});
-      if (matched_activity != null) {
-        names.push(matched_activity.name);
-      }
-    })
-    return names.join();
+  
+  const DisplayProfileActivityNames = () => {
+   return (<p> {getActivityNames(store.profile.activity_ids, store.activities)} </p>)
   }
 
-  const DisplayProfileActivityNames = () => {
-   return (<p> {getProfileActivityNames(store.profile)} </p>)
-  }
+  const DisplayExerciseReasons = () => {
+    return (<p> {getExerciseReasonNames(store.profile.exercise_reason_ids, store.exerciseReasons)} </p>)
+   }
   
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -58,7 +51,7 @@ const ViewProfile: React.FC = ({  }) => {
       /></td>
       <td>
         <h1> My Profile </h1>
-        <PrintUserInfo />
+        {PrintUserInfo(store.profile)}
       </td>
       <td>
       <button className="editButton" onClick={handleEdit}>
@@ -125,7 +118,7 @@ const ViewProfile: React.FC = ({  }) => {
       <td>
       <h5><b>Exercise Ids: </b></h5>
         <div style={{fontSize: 17}}>
-          {store.profile.exercise_reason_ids}
+        <DisplayExerciseReasons />
         </div>
       </td>
     </tr>
