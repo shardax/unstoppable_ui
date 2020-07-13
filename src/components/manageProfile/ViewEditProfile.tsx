@@ -8,6 +8,7 @@ import FlexView from 'react-flexview';
 import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
 import CheckboxExample from "./CheckboxExample"
+import { profile } from "console";
 
 const store = useDataStore();
 const [currentProfile, setCurrentProfile] = useState(store.profile);
@@ -16,21 +17,8 @@ const [dataLoading, setDataLoading] = useState("");
 
 const ViewEditProfile: React.FC = ({  }) => {
  
-  /** 
-  useEffect(() => {
-    axios
-    .get(PROFILEURL + `/${store.profileId}.json`, { withCredentials: true })
-    .then(result => {
-      console.log(result);
-      setCurrentProfile(result.data.profile);
-      console.log(ROOTURL + store.avatarPath );
-    }).catch (e => {
-      console.log(`😱 Axios request failed: ${e}`);
-    })
-  }, []);
+  /*
 
-  **/
-/** 
  useEffect(() => {
   const fetchProfile = async () => {
     try {
@@ -47,7 +35,13 @@ const ViewEditProfile: React.FC = ({  }) => {
   }
   fetchProfile()
   }, []);
-**/
+
+*/
+useEffect(() => {
+  console.log(JSON.stringify(store.profile));
+  setCurrentProfile(store.profile);
+  }, [store.editMode]);
+
 
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -56,7 +50,7 @@ const ViewEditProfile: React.FC = ({  }) => {
 
   
 return(
-  <div>{ store.editMode ? <EditProfile /> : <ViewProfile profile={store.profile}/> } </div>
+  <div>{ store.editMode ? <EditProfile  /> : <ViewProfile profile={currentProfile}/> } </div>
 
 )
 }

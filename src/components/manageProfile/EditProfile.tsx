@@ -14,6 +14,8 @@ const history = useHistory();
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
+var profile = store.profile;
+
 const validationSchema = Yup.object({
   //reason_for_match: Yup.string().required("Required")
 })
@@ -36,26 +38,33 @@ const EditProfile = () => (
     <Formik
       initialValues={{
         location: [],
-        activites: ["Walking", "Yoga"],
-        fitnessLevel: store.profile.fitness_level,
-        personality: store.profile.personality,
-        preferedExerciseLocation: store.profile.prefered_exercise_location,
-        preferedExerciseTime: store.profile.prefered_exercise_time,
-        workStatus: store.profile.work_status,
-        cancerLocation: store.profile.cancer_location,
-        treatmentStatus: store.profile.treatment_status,
-        reason_for_match: store.profile.reason_for_match,
-        details_about_self: store.profile.details_about_self,
-        treatment_description:store.profile.treatment_description,
-        other_favorite_activities: "Dancing" //store.profile.other_favorite_activities
+        activity_ids: profile.activity_ids,
+        fitness_level: profile.fitness_level,
+        personality: profile.personality,
+        preferedExerciseLocation: profile.prefered_exercise_location,
+        preferedExerciseTime: profile.prefered_exercise_time,
+        workStatus: profile.work_status,
+        cancerLocation: profile.cancer_location,
+        treatmentStatus: profile.treatment_status,
+        reason_for_match: profile.reason_for_match,
+        details_about_self: profile.details_about_self,
+        treatment_description:profile.treatment_description,
+        other_favorite_activities: profile.other_favorite_activities
       }}
       onSubmit={async values => {
         await sleep(1000);
         alert(JSON.stringify(values, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
-          axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} ).then(res => {
+          profile.activity_ids = values.activity_ids;
+          profile.fitness_level = values.fitness_level;
+          profile.personality = values.personality;
+          profile.other_favorite_activities = values.other_favorite_activities;
+          profile.reason_for_match = values.reason_for_match;
+         
+
+          axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} ).then(res => {
             // do good things
-           
+            store.profile = profile;
             console.log(JSON.stringify(res));
             store.editMode = false;
             console.log("In handleBackToView");
@@ -74,9 +83,6 @@ const EditProfile = () => (
     >
       {({ isSubmitting, getFieldProps, handleChange, handleBlur, values }) => (
         <Form>
-        
-          <div className="label">Basic Info</div>
-          
           {/* 
             Multiple checkboxes with the same name attribute, but different
             value attributes will be considered a "checkbox group". Formik will automagically
@@ -87,15 +93,12 @@ const EditProfile = () => (
             <b>Favorite activities (check all that apply)</b>
           </div>
           <label>
-            {/*export const ACTIVITIES = [[1,"Walking"], [2,"Running"], [3,"Cycling"], [4,"Weight Lifting"], [5,"Aerobics"], [6,"Swimming"], [7,"Team Sports"], [8,"Yoga"], [9,"Pilates"], [10,"Gardening"] ]*/}
-            {/*ACTIVITIES.map(item => (<label> {item[1]} <Field type="checkbox" name="activities" value={item[1]}></Field> </label>	)  )*/}
+            {store.activities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field> </label>	)  )}
           </label>
           <div className="label">
             <label htmlFor="other_favorite_activities"><b>Do you have any other favorite activities? </b></label>
             <Field name="other_favorite_activities" placeHoldee="Enter any other favorite activity"/>
           </div>
-          
-
           {/* 
            The <select> element will also behave the same way if 
            you pass `multiple` prop to it. 
@@ -107,7 +110,7 @@ const EditProfile = () => (
           <Field
             component="select"
             id="fitness_level"
-            name="fitnessLevel"
+            name="fitness_level"
           >
           {FITNESS_LEVEL_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
