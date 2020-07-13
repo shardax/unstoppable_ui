@@ -8,11 +8,15 @@ import Error from "./Error";
 import './SignIn.scss'
 //import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { FORGOTUSERNAMEURL } from "../../constants/matcher";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const store = useDataStore();
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
  
+function onChange(value) {
+  console.log("Captcha value:", value);
+}
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -98,6 +102,10 @@ const ForgotUsername = () => {
               Submit
             </button>
           </div>
+          <ReCAPTCHA
+            sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+            onChange={onChange}
+          />,
         </form>
       )}
     </Formik>
