@@ -73,9 +73,12 @@ import { useObserver } from "mobx-react";
   return useObserver(() => (
     <>
       <div>
-        <div className="browse-filter-row"> 
-          <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
-            <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+          <div className="browse-sticky-nav">
+            <h3>Browse Profiles</h3>
+            <div className="browse-filter-row"> 
+              <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
+                <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+              </div>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (

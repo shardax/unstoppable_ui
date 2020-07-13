@@ -6,11 +6,17 @@ $cardRadius: 10px;
 $cardWidth: 300px;
 $cardHeight: 240px;
 
+.browse-sticky-nav {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 1em;
+}
+
 .browse-filter-row {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  // background: rgba(24,24,24, 0.1);
   border-radius: 10px;
   .browse-search {
     height: 40px;
@@ -41,11 +47,19 @@ $cardHeight: 240px;
 }
 
 .profile-browse-grid {
+  padding-bottom: 4em;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+  &:-webkit-scrollbar {
+    display: none;
+  }
 }
 .single-profile-wrapper {
   margin: 1em;
+  margin-bottom: 2em;
   display: flex;
   flex-direction: column;
   -webkit-transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
