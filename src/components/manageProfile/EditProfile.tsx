@@ -41,11 +41,11 @@ const EditProfile = () => (
         activity_ids: profile.activity_ids,
         fitness_level: profile.fitness_level,
         personality: profile.personality,
-        preferedExerciseLocation: profile.prefered_exercise_location,
-        preferedExerciseTime: profile.prefered_exercise_time,
-        workStatus: profile.work_status,
-        cancerLocation: profile.cancer_location,
-        treatmentStatus: profile.treatment_status,
+        prefered_exercise_location: profile.prefered_exercise_location,
+        prefered_exercise_time: profile.prefered_exercise_time,
+        work_status: profile.work_status,
+        cancer_location: profile.cancer_location,
+        treatment_status: profile.treatment_status,
         reason_for_match: profile.reason_for_match,
         details_about_self: profile.details_about_self,
         treatment_description:profile.treatment_description,
@@ -121,7 +121,7 @@ const EditProfile = () => (
           <label htmlFor="personality">How would you describe your personality? </label>
           <Field
             component="select"
-            id="personallity"
+            id="personality"
             name="personality"
           >
           {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
@@ -129,55 +129,55 @@ const EditProfile = () => (
           </div>
 
           <div>
-          <label htmlFor="preferedExerciseLocation">Where do you prefer to be active? </label>
+          <label htmlFor="prefered_exercise_location">Where do you prefer to be active? </label>
           <Field
             component="select"
-            id="preferedExerciseLocation"
-            name="preferedExerciseLocation"
+            id="prefered_exercise_location"
+            name="prefered_exercise_location"
           >
           {PREFERRED_EXERCISE_LOCATIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
 
           <div>
-          <label htmlFor="preferedExerciseTime">When do you prefer to be active?</label>
+          <label htmlFor="prefered_exercise_time">When do you prefer to be active?</label>
           <Field
             component="select"
-            id="preferedExerciseTime"
-            name="preferedExerciseTime"
+            id="prefered_exercise_time"
+            name="prefered_exercise_time"
           >
           {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
 
           <div>
-          <label htmlFor="workStatus"> Which of the following best describes your work situation? </label>
+          <label htmlFor="work_status"> Which of the following best describes your work situation? </label>
           <Field
             component="select"
-            id="workStatus"
-            name="workStatus"
+            id="work_status"
+            name="work_status"
           >
           {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
 
           <div>
-          <label htmlFor="cancerLocation">What was your primary cancer diagnosis?</label>
+          <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
           <Field
             component="select"
-            id="cancerLocation"
-            name="cancerLocation"
+            id="cancer_location"
+            name="cancer_location"
           >
           {CANCERLOCATIONLIST.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
 
           <div>
-          <label htmlFor="treatmentStatus">Which of the following best describes you?</label>
+          <label htmlFor="treatment_status">Which of the following best describes you?</label>
           <Field
             component="select"
-            id="treatmentStatus"
-            name="treatmentStatus"
+            id="treatment_status"
+            name="treatment_status"
           >
           {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
@@ -197,12 +197,6 @@ const EditProfile = () => (
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <Field name="treatment_description" placeHoldee="treatment_description"/>
           </div>
-
-          
-          <label>
-            <Field type="checkbox" name="terms" />I accept the terms and
-            conditions.
-          </label>
           {/* Here's how you can use a checkbox to show / hide another field */}
           <div>
           <button type="submit" disabled={isSubmitting}>
