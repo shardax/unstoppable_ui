@@ -18,7 +18,7 @@ const ViewProfile = (props: ProfileProps) => {
   const store = useDataStore();
   const history = useHistory();
 
-  const profile = store.profile;
+  const profile = props.profile;
 
   console.log("VIEWPROFILE");
   console.log(JSON.stringify(profile));
