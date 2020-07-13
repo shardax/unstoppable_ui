@@ -1,3 +1,5 @@
+@import "../assets/scss/variables.scss";
+
 .default-layout-main {
   margin: 1em 1em 1em 16em;
   padding-left: 3%;
@@ -7,20 +9,24 @@
   display: flex;
   background-color: white;
   justify-content: center;
-  border-radius: 10px !important;
-  overflow-y: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;
-  &:-webkit-scrollbar {
-    display: none;
-  }
+  border-radius:20px !important;
+  box-shadow: 0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12) !important;
+  overflow-y: hidden;
   .format-children-default {
     margin-top: 3em;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+    }
   }
 }
 
 .default-main-view {
   display: flex;
+  background-color: $defaultBackground;
 }
 
 @media only screen and (max-width: 1100px) {

@@ -60,12 +60,16 @@ import { useObserver } from "mobx-react";
           <img className="single-profile-image" src={ROOTURL + profile.photo} />
         </Link>
         <div className="single-profile-body">
-          <Link to={"/user/" + profile.id}>
-            <h5 className="primary-text profile-name-link">{profile.name}</h5>
-          </Link>
-          <p>{profile.cancer_location} Cancer</p>
-          <p>{profile.age} years old</p>
+          <div>
+            <Link to={"/user/" + profile.id}>
+              <h5 className="primary-text profile-name-link">{profile.name}</h5>
+            </Link>
+            <p>{profile.cancer_location} Cancer</p>
+            <p>{profile.age} years old</p>
+          </div>
+          <div>
           {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
+          </div>
         </div>
       </div>
   ))
