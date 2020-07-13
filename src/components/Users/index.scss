@@ -1,0 +1,17 @@
+.user-section-wrapper {
+  display: flex;
+  width: 100%;
+  .user-section-qa {
+    background-color: rgba($color: #7F43D5, $alpha: 0.05);
+    flex: 3;
+  }
+  .user-metadata {
+    flex: 1;
+  }
+}
+
+.user-section-image {
+  width: 20em;
+  height: 20em;
+  border-radius: 10px;
+}

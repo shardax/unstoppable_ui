@@ -72,37 +72,25 @@ const SetNavigationLinks = () => {
   ));
 }
 
-const DisplayUserName = () => {
-  const store = useDataStore();
-
-  return (useObserver(() => <span className='menu-avatar-name'>{store.username}</span>))
-}
-
-const DisplayAvatar = () => {
-  const store = useDataStore();
-  console.log(store.avatarPath);
-  //return (useObserver(() => <img src={ROOTURL + store.avatarPath} height={50} width={50} />))
-  return (useObserver(() => <Avatar src={ROOTURL + store.avatarPath}  size= "large" />))
-}
-
-
 export default function Navigation () {
   const [menuActive, setMenuActive] = useState(false);
   const store = useDataStore();
 
-  return (
-  <nav className="site-navigation" role="navigation">
-    <span className="menu-title">
-      <img className="logo-navbar" src={UnsIcon} alt="" />
-      {/* <h3 style={{ color: "white" }}><span 2unstoppable</h3> */}
-    </span>
-    <div className={`menu-content-container ${menuActive && 'active'}`}>
-      <>
-        {/* <SetNavigationLinks/> */}
-        <DisplayAvatar/>
-        <DisplayUserName/>
-      </>
-    </div>
-    <i className="ionicons icon ion-ios-menu" onClick={() => setMenuActive(!menuActive)} />
-  </nav>)
+  return useObserver(() => (
+    <nav className="site-navigation" role="navigation">
+      <span className="menu-title">
+        <img className="logo-navbar" src={UnsIcon} alt="" />
+        {/* <h3 style={{ color: "white" }}><span 2unstoppable</h3> */}
+      </span>
+      <div className={`menu-content-container ${menuActive && 'active'}`}>
+        <>
+          <Link to="/profile">
+            <Avatar src={ROOTURL + store.avatarPath}  size= "large" />
+            <span className='menu-avatar-name'>{store.username}</span>
+          </Link>
+        </>
+      </div>
+      <i className="ionicons icon ion-ios-menu" onClick={() => setMenuActive(!menuActive)} />
+    </nav>
+  ))
 }

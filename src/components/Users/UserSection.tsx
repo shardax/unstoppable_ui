@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
+import './index.scss'
 
 const UserSection: React.FC<{id: string}> = ({ id }) => {
 
@@ -27,10 +28,15 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
     return <div>Loading...</div>
   }
 
-
   return (
-    <div>
-      <div>{user.name}</div>
+    <div className="user-section-wrapper">
+      <div className="user-metadata">
+        <h1>{user.name}</h1>
+        <img className="user-section-image" src={ROOTURL + user.photo} />
+      </div>
+      <div className="user-section-qa">
+        Test
+      </div>
     </div>
   )
 }
