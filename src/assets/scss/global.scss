@@ -1,3 +1,5 @@
+@import './_variables';
+
 .border-radius {
   border-radius: 10px;
 }
@@ -8,4 +10,12 @@
   border: 0;
   padding: 1em;
   padding-left: 1em;
+}
+
+.primary-text {
+  color: $primaryPurple;
+}
+
+.primary-grey-text {
+  color: #9a91a6; 
 }

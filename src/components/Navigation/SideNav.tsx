@@ -35,7 +35,7 @@ const SideNav = () => {
   return (
     <div className="sidenav-wrapper">
       <div className="sidebar-title">{store.username}</div>
-      <div className="sidebar-subtitle">{store.email ? store.email : "Email not defined."}</div>
+      <div className="sidebar-subtitle primary-grey-text">{store.email ? store.email : "Email not defined."}</div>
 
       <hr className="horizontal-break" />
 

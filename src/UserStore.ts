@@ -134,7 +134,7 @@ export class ProfileStore {
     this.liked_profiles = [];
     this.activity_ids = [];
     this.exercise_reason_ids = [];
-    //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
+    hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 }
 
@@ -173,7 +173,7 @@ export class UserStore {
       this.activities = [];
       this.exerciseReasons = [];
       }
-    hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
+    // hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }
 
   @action
