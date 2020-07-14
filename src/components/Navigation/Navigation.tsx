@@ -80,7 +80,6 @@ export default function Navigation () {
     <nav className="site-navigation" role="navigation">
       <span className="menu-title">
         <img className="logo-navbar" src={UnsIcon} alt="" />
-        {/* <h3 style={{ color: "white" }}><span 2unstoppable</h3> */}
       </span>
       <div className={`menu-content-container ${menuActive && 'active'}`}>
         <>

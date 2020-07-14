@@ -6,18 +6,24 @@ $cardRadius: 10px;
 $cardWidth: 300px;
 $cardHeight: 240px;
 
+.browse-sticky-nav {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 1em;
+}
+
 .browse-filter-row {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  // background: rgba(24,24,24, 0.1);
   border-radius: 10px;
   .browse-search {
     height: 40px;
-    border-radius: 30px;
+    border-radius: 10px;
     width: 30em;
     margin-right: 3em;
-    background-color: #f1e6ff;
+    background-color: #ece4f6;
     color: black;
     // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     padding: 1em;
@@ -29,44 +35,52 @@ $cardHeight: 240px;
   font-size: 35px;
   color: $primaryPurple;
   cursor: pointer;
-  margin-left: 85%;
-  margin-top: -1em;
   // border: 1px solid $primaryPurple;
   outline: $primaryPurple;
   // margin-bottom: 0.2em;
   border-radius: 50%;
   padding: 0.1em;
+  margin-right: 0.4em;
   position: relative;
   z-index: 10;
 }
 
 .profile-browse-grid {
+  padding-bottom: 4em;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+  &:-webkit-scrollbar {
+    display: none;
+  }
 }
 .single-profile-wrapper {
   margin: 1em;
+  margin-bottom: 2em;
   display: flex;
   flex-direction: column;
   -webkit-transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
   transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
-  border-bottom-left-radius: $cardRadius;
-  border-bottom-right-radius: $cardRadius;
+  // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  // background: $card;
+  border-radius: $cardRadius;
   outline: none;
   text-decoration: none;
-  &:hover {
-    box-shadow: 0 9px 3px -6px rgba(0,0,0,.2),0 6px 6px 0 rgba(0,0,0,.14),0 3px 15px 0 rgba(0,0,0,.12);
-    // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
-  }
+  // &:hover {
+  //   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  // }
   .single-profile-body {
     font-weight: 300;
-    padding: 1em;
+    padding: 1em 0em;
     border-bottom-left-radius: $cardRadius;
     border-bottom-right-radius: $cardRadius;
     z-index: 100;
     position: relative;
     color: #69616C;
+    display: flex;
+    justify-content: space-between;
     // background-color: rgba($primaryPurple, 0.06);
     p {
       line-height: 1;
@@ -81,8 +95,9 @@ $cardHeight: 240px;
   cursor: pointer;
   height: $cardHeight;
   width: $cardWidth;
-  border-top-left-radius: $cardRadius;
-  border-top-right-radius: $cardRadius;
+  border-radius: 8px;
+  // border-top-left-radius: $cardRadius;
+  // border-top-right-radius: $cardRadius;
 }
 
 .age-range-input-wrap {
