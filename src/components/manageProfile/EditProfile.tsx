@@ -37,7 +37,6 @@ const EditProfile = () => (
 
     <Formik
       initialValues={{
-        location: [],
         activity_ids: profile.activity_ids,
         fitness_level: profile.fitness_level,
         personality: profile.personality,

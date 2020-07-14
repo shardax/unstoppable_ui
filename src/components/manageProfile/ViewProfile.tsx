@@ -84,7 +84,7 @@ const ViewProfile = (props: ProfileProps) => {
         </div>
       </td>
       <td>
-      <h5><b>Treatment Status: </b></h5>
+        <h5><b>Treatment Status: </b></h5>
         <div style={{fontSize: 17}}>
          {store.profile.treatment_status}
         </div>
@@ -114,7 +114,16 @@ const ViewProfile = (props: ProfileProps) => {
     </tr>
     <tr>
       <td>
-      <h5><b>Exercise Ids: </b></h5>
+        <h5><b>Other favorite activites: </b></h5>
+        <div style={{fontSize: 17}}>
+         {store.profile.other_favorite_activities}
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+      <h5><b>Exercise Reasons: </b></h5>
         <div style={{fontSize: 17}}>
         <DisplayExerciseReasons profileToDisplay= {profile}/>
         </div>

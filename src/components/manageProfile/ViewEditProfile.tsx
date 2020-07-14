@@ -1,14 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
-import { ProfileStore } from '../../UserStore';
-import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../constants/matcher";
-import AvatarEditor from 'react-avatar-editor';
-import FlexView from 'react-flexview';
 import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
-import CheckboxExample from "./CheckboxExample"
-import { profile } from "console";
 
 const store = useDataStore();
 const [currentProfile, setCurrentProfile] = useState(store.profile);
