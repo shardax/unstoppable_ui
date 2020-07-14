@@ -3,6 +3,7 @@ $text-color: #444;
 
 // 2Unstoppable Colors
 $primaryPurple: rgba(#6429B9, 0.95); //#9462a6;
+$bg: rgba(#6429B9, 0.4);
 $actionPink: #ed698e;
 $mutedPurple: #dfd1e4;
 $sidenav: #FCF8FD;
@@ -10,7 +11,8 @@ $purpleHover: #9f72e0;
 
 $background: #ffffff; //#f8f9fa;
 $border: #ccc;
-$defaultBackground: $primaryPurple;
+$defaultBackground: $bg linear-gradient(185deg, $bg 0,#5e31da 122.55%);
+
 
 // Colors for App
 $secondary: #c843d5;
