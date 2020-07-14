@@ -46,7 +46,7 @@ const ForgotUsername = () => {
         setSubmitting(true);
 
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+         // alert(JSON.stringify(values, null, 2));
           resetForm();
           setSubmitting(false);
         }, 500);
