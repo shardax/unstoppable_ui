@@ -13,9 +13,7 @@ const store = useDataStore();
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
  
-function onChange(value) {
-  console.log("Captcha value:", value);
-}
+const recaptchaRef = React.createRef();
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -101,10 +99,13 @@ const ForgotUsername = () => {
               Submit
             </button>
           </div>
-          <ReCAPTCHA
-            sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-            onChange={onChange}
-          />,
+          <form onSubmit={() => { recaptchaRef.current.execute(); }}>
+            <ReCAPTCHA
+               ref={recaptchaRef}
+               size="invisible"
+               sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+            />
+          </form>,
         </form>
       )}
     </Formik>

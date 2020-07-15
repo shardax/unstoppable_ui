@@ -8,14 +8,13 @@ import Error from "./Error";
 import './SignIn.scss'
 import { RESETPASSWORDURL } from "../../constants/matcher";
 import ReCAPTCHA from "react-google-recaptcha";
+import {useParams} from "react-router-dom";
 
 const store = useDataStore();
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
  
-function onChange(value) {
-  console.log("Captcha value:", value);
-}
+const recaptchaRef = React.createRef();
 
 const ValidationSchema = Yup.object().shape({
     password: Yup.string().required("This field is required"),
@@ -59,7 +58,7 @@ const ForgotPassword = () => {
         const fetchData = async () => {
           try {
             
-            const result = await axios.post(RESETPASSWORDURL, {user: { password: values.password, confirmpassword: values.confirmpassword  }, }, { withCredentials: true });
+            const result = await axios.post(RESETPASSWORDURL, {user: { password: values.password }, resetPassword:this.props.location.query.reset_password_token}, { withCredentials: true });
               console.log(JSON.stringify(result));
           } catch (error) {
             //console.log(JSON.stringify(error));
@@ -114,10 +113,13 @@ const ForgotPassword = () => {
               Submit
             </button>
           </div>
-          <ReCAPTCHA
-            sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-            onChange={onChange}
-          />,
+          <form onSubmit={() => { recaptchaRef.current.execute(); }}>
+            <ReCAPTCHA
+               ref={recaptchaRef}
+               size="invisible"
+               sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+            />
+          </form>,
         </form>
       )}
     </Formik>
