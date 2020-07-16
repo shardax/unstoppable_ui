@@ -26,6 +26,11 @@ const sideNavLinks = [
     to: "/messages",
     name: "Messages",
     icon: <MessageIcon />
+  },
+  {
+    to: "/usettings",
+    name: "UserSettings",
+    icon: <MessageIcon />
   }
 ]
 
