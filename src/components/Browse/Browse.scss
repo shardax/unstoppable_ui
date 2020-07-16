@@ -77,20 +77,28 @@ $cardHeight: 240px;
   // }
   .single-profile-body {
     font-weight: 300;
-    padding: 1em 0em;
+    padding: 1em 0em 0em 0em;
     border-bottom-left-radius: $cardRadius;
     border-bottom-right-radius: $cardRadius;
     z-index: 100;
     position: relative;
     color: #69616C;
     display: flex;
+    font-size: 13px;
     justify-content: space-between;
+    color: rgb(34, 34, 34);
     // background-color: rgba($primaryPurple, 0.06);
-    p {
-      line-height: 1;
+    .profile-username {
+      font-size: 16px;
+      display: inline;
     }
-    .profile-name-link:hover {
-      text-decoration: underline;
+    .profile-location {
+      color: rgb(113, 113,113);
+      font-size: 13px;
+    }
+    .other-profile-card-data {
+      margin-top: 0.1em;
+      margin-bottom: 0;
     }
   }
 }

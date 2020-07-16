@@ -9,7 +9,9 @@ import {Link} from 'react-router-dom'
 
 import './Browse.scss'
 import { useObserver } from "mobx-react";
-
+import Button from '../Button/Button'
+import colors from "../../assets/colors"
+import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const store = useDataStore()
@@ -62,12 +64,15 @@ import { useObserver } from "mobx-react";
         <div className="single-profile-body">
           <div>
             <Link to={"/user/" + profile.id}>
-              <h5 className="primary-text profile-name-link">{profile.name}</h5>
+              <h5 className="profile-username">{profile.name} · <span className="profile-location">city, state</span></h5>
             </Link>
-            <p>{profile.cancer_location} Cancer</p>
-            <p>{profile.age} years old</p>
+            <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
+            <p className="other-profile-card-data">{profile.age} years old</p>
           </div>
           <div>
+          <Link to={"/messages"}>
+            <ChatIcon className="favorite-profile-icon"></ChatIcon>
+          </Link>
           {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
           </div>
         </div>
