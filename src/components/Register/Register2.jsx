@@ -29,12 +29,12 @@ const validationSchema = Yup.object({
     year: Yup.string()
         .required("Required"),
     zipcode: Yup.string()
-        .matches(/(^([0-9]{5})(?:[-\s]*([0-9]{4}))?$)|(^([A-Z][0-9][A-Z])\s*([0-9][A-Z][0-9])$)*/, "Please enter a valid US or CA zip/postal code.")
+        .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
         .required("Required")
 });
 
 const Register2 = () => {
-    const { handleSubmit, handleChange, values, errors, } = useFormik({
+    const { handleBlur, handleSubmit, handleChange, values, errors, touched } = useFormik({
         initialValues: {
             username: "",
             email: "",
@@ -71,11 +71,12 @@ const Register2 = () => {
                                         type="text"
                                         name="username"
                                         value={values.username}
-                                        className="error"
+                                        className={errors.username&&touched.username ? "error" : null}
+                                        onBlur={handleBlur}
                                         onChange={handleChange}
                                     />
-                                    {errors.username ? (
-                                        <span className="errorText">{errors.username}</span>
+                                    {touched.username && errors.username ? (
+                                        <div className="errorText">{errors.username}</div>
                                     ) : null}
                                 </td>
                             </tr>
@@ -87,12 +88,13 @@ const Register2 = () => {
                                         id="email"
                                         type="email"
                                         name="email"
-                                        className={errors.email ? "error" : null}
+                                        className={errors.email&&touched.email ? "error" : null}
+                                        onBlur={handleBlur}
                                         value={values.email}
                                         onChange={handleChange}
                                     />
-                                    {errors.email ? (
-                                        <span className="errorText">{errors.email}</span>
+                                    {errors.email&&touched.email ? (
+                                        <div className="errorText">{errors.email}</div>
                                     ) : null}
                                 </td>
                             </tr>
@@ -105,6 +107,8 @@ const Register2 = () => {
                                             name="day"
                                             value={values.day}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.day && touched.day ? "error" : null}
                                         >
                                             <option>- Day -</option>
                                             <option value="1">1</option>
@@ -139,14 +143,13 @@ const Register2 = () => {
                                             <option value="30">30</option>
                                             <option value="31">31</option>
                                         </select>
-                                        {errors.day ? (
-                                        <span className="errorText">{errors.day}</span>
-                                    ) : null}
                                         <select
                                             id="month"
                                             name="month"
                                             value={values.month}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.month && touched.month ? "error" : null}
                                         >
                                             <option>- Month -</option>
                                             <option value="January">January</option>
@@ -162,14 +165,13 @@ const Register2 = () => {
                                             <option value="November">November</option>
                                             <option value="December">December</option>
                                         </select>
-                                        {errors.month ? (
-                                        <span className="errorText">{errors.month}</span>
-                                    ) : null}
                                         <select
                                             id="year"
                                             name="year"
                                             value={values.year}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.year && touched.year ? "error" : null}
                                         >
                                             <option>- Year -</option>
                                             <option value="2020">2020</option>
@@ -264,10 +266,11 @@ const Register2 = () => {
                                             <option value="1931">1931</option>
                                             <option value="1930">1930</option>
                                         </select>
-                                        {errors.year ? (
-                                        <span className="errorText">{errors.year}</span>
-                                    ) : null}
                                     </div>
+                                    {(errors.year&&touched.year)||(errors.day&&touched.day) || (errors.month&&touched.month) ? (
+                                        <div className="errorText">{errors.year}</div>
+                                    ) : null}
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -280,8 +283,10 @@ const Register2 = () => {
                                         name="zipcode"
                                         value={values.zipcode}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.zipcode ? "error" : null}
                                     />
-                                    {errors.zipcode ? (
+                                    {errors.zipcode&&touched.zipcode ? (
                                         <span className="errorText">{errors.zipcode}</span>
                                     ) : null}
                                 </td>
@@ -295,8 +300,10 @@ const Register2 = () => {
                                         type="text"
                                         value={values.password}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.password ? "error" : null}
                                     />
-                                    {errors.password ? (
+                                    {errors.password&&touched.password ? (
                                         <span className="errorText">{errors.password}</span>
                                     ) : null}
                                     <p><i>(8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 number)</i></p>
@@ -310,6 +317,8 @@ const Register2 = () => {
                                         name="hear"
                                         value={values.hear}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.hear ? "error" : null}
                                     >
                                         <option value="" label="Select an option" />
                                         <option value="social" label="Facebook/Social Media" />
@@ -321,7 +330,7 @@ const Register2 = () => {
                                         <option value="provider" label="My provider (physician, nurse, nutritionist)" />
                                         <option value="other" label="Other" />
                                     </select>
-                                    {errors.hear ? (
+                                    {errors.hear && touched.hear ? (
                                         <span className="errorText">{errors.hear}</span>
                                     ) : null}
                                 </td>
