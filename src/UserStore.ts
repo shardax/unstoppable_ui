@@ -47,6 +47,24 @@ export type ProfileListStore = {
 }
 **/
 
+export class ActivitiesStore {
+  id: number;
+  name: string;
+  constructor(){
+    this.id = 0;
+    this.name = "";
+  }
+}
+
+export class ExerciseReasonsStore {
+  id: number;
+  name: string;
+  constructor(){
+    this.id = 0;
+    this.name = "";
+  }
+}
+
 export class ProfileStore {
   id: number;
   zipcode: string;
@@ -80,6 +98,7 @@ export class ProfileStore {
   photo: string;
   liked_profiles: number[];
   activity_ids: number[];
+  exercise_reason_ids: number[];
 
   constructor() {
     this.id = 0;
@@ -114,7 +133,8 @@ export class ProfileStore {
     this.photo = "";
     this.liked_profiles = [];
     this.activity_ids = [];
-    //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
+    this.exercise_reason_ids = [];
+    hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 }
 
@@ -126,6 +146,8 @@ export class UserStore {
   @persist @observable avatarPath: string;
   @persist editMode: boolean;
   @persist @observable email: string;
+  @persist activities: ActivitiesStore[];
+  @persist exerciseReasons: ExerciseReasonsStore[];
 
   constructor(){
      // When the User hits refresh, get the values from the local storage.
@@ -137,7 +159,9 @@ export class UserStore {
       this.avatarPath = localStorageData.avatarPath;
       this.profileId = localStorageData.profileId;
       this.editMode = localStorageData.editMode;
-      this.email = localStorageData.email
+      this.email = localStorageData.email;
+      this.activities = localStorageData.activities;
+      this.exerciseReasons = localStorageData.exerciseReasons;
     } else {
       this.username = "";
       this.email = "";
@@ -146,8 +170,10 @@ export class UserStore {
       this.avatarPath = "";
       this.profileId = 0;
       this.editMode = false;
+      this.activities = [];
+      this.exerciseReasons = [];
       }
-    hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
+    // hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }
 
   @action
@@ -187,6 +213,9 @@ export function createStore() {
   return store;
 }
 
+export type ProfileProps = {
+  profile: ProfileStore;
+};
 
 
 export type TStore = ReturnType<typeof createStore>

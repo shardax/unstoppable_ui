@@ -1,7 +1,6 @@
 .site-navigation{
   height: 65px;
   width: 100%;
-  background: white;
   display: flex;
   justify-content: space-between;
   color: $text-color;
@@ -35,6 +34,7 @@
     .menu-avatar-name {
       font-size: 18px;
       margin-left: 15px;
+      color: white;
     }
     
   }
