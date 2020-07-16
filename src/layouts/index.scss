@@ -1,17 +1,31 @@
+@import "../assets/scss/variables.scss";
+
 .default-layout-main {
-  margin-left: 15em;
+  margin: 1em 1em 3.5em 16em;
   padding-left: 3%;
   padding-right: 3%;
-  max-width: 1200px;
+  // max-width: 1200px;
+  height: 96.5vh;
   display: flex;
+  background: white;
   justify-content: center;
+  border-radius: 4px !important;
+  overflow-y: hidden;
   .format-children-default {
-    margin-top: 3em;
+    margin-top: 1em;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+    }
   }
 }
 
 .default-main-view {
   display: flex;
+  background: $defaultBackground;
 }
 
 @media only screen and (max-width: 1100px) {
