@@ -37,7 +37,7 @@ $cardHeight: 240px;
 }
 
 .favorite-profile-icon {
-  font-size: 35px;
+  font-size: 28px;
   color: $primaryPurple;
   cursor: pointer;
   // border: 1px solid $primaryPurple;
@@ -128,6 +128,10 @@ $cardHeight: 240px;
   .single-profile-image {
     height: 180px;
     width: 225px;
+  }
+
+  .favorite-profile-icon {
+    font-size: 22px;
   }
 }
 
