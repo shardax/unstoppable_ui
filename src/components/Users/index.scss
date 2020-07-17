@@ -10,6 +10,8 @@
     }
   }
   .user-metadata {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -39,7 +41,7 @@
 }
 
 .user-section-image {
-  width: 20em;
-  height: 20em;
+  height: 200px;
+  width: 250px;
   border-radius: 10px;
 }

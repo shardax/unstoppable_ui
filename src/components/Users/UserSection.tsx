@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 import './index.scss';
+import colors from '../../assets/colors'
 
+import Button from '../Button/Button';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import NotesIcon from '@material-ui/icons/Notes';
 import SportsTennisIcon from '@material-ui/icons/SportsTennis';
@@ -44,7 +46,9 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
   return (
     <div className="user-section-wrapper">
       <div className="user-metadata">
-        <img className="user-section-image" src={ROOTURL + user.photo} />
+          <img className="user-section-image" src={ROOTURL + user.photo} />
+          <Button margin="0.8em 0em 0em 0em">Message User</Button>
+          <Button margin="0.8em 0em" background="white" color={colors.primary} border={"1px solid" + colors.primary}>Like User Profile</Button>
       </div>
       <div className="user-section-data">
         <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
