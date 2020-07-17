@@ -20,23 +20,24 @@ $cardHeight: 240px;
   border-radius: 10px;
   .browse-search {
     height: 40px;
-    // border-radius: 10px;
+    border-radius: 8px;
     width: 30em;
     margin-right: 3em;
     font-size: 16px;
-    // background-color: #ece4f6;
+    background-color: rgb(240,240,240);
     color: black;
     // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     padding: 1em;
     padding-left: 1em;
     &:focus {
       box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+      background-color: white;
     }
   }
 }
 
 .favorite-profile-icon {
-  font-size: 35px;
+  font-size: 28px;
   color: $primaryPurple;
   cursor: pointer;
   // border: 1px solid $primaryPurple;
@@ -53,7 +54,7 @@ $cardHeight: 240px;
   padding-bottom: 4em;
   display: flex;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;
   &:-webkit-scrollbar {
@@ -127,6 +128,10 @@ $cardHeight: 240px;
   .single-profile-image {
     height: 180px;
     width: 225px;
+  }
+
+  .favorite-profile-icon {
+    font-size: 22px;
   }
 }
 

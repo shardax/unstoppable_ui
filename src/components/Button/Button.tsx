@@ -8,6 +8,7 @@ interface ButtonProps {
   hoverBorder?: string,
   border?: string,
   padding?: string,
+  margin?: string,
   fontSize?: string
 }
 
@@ -21,7 +22,9 @@ const Button = styled.button<ButtonProps>`
   font-size: ${props => props.fontSize ? props.fontSize : "16px"};
   outline:none;
   border: ${props => props.border ? props.border : "none"};
-  
+  margin: ${props => props.margin ? props.margin : "0"};
+  display: flex,
+  align-items: center,
   &:hover {
     cursor: pointer;
 `

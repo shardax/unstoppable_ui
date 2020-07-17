@@ -36,7 +36,7 @@ const PrintUserInfo = (profile) => {
 }
 export { PrintUserInfo };
 
-const getActivityNames = (activity_ids, all_activities) => {
+export const getActivityNames = (activity_ids, all_activities) => {
   var names: string[];
   names = [];
   activity_ids.map((activity_id) => {

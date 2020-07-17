@@ -32,6 +32,7 @@
   height: 100vh;
   z-index: 0;
   padding-top: 3em;
+  background: $defaultBackground;
   .username-avatar-sidenav {
     margin-top: 2em;
     margin-left: 16px;
@@ -39,7 +40,7 @@
     align-items: center;
   }
   .sidebar-title {
-    padding-left: 10px;
+    padding-left: 15px;
     padding-top: 8px;
     font-size: 24px;
     font-weight: 700;
