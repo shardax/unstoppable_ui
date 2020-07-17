@@ -21,33 +21,34 @@ const UserSettings = (props: ProfileProps) => {
   const history = useHistory();
   const [showEmail, setShowEmail] = useState(false);
   const [showUsername, setShowUsername] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showDOB, setShowDOB] = useState(false);
   const [showZipcode, setShowZipcode] = useState(false);
   const [changeEmail, setChangeEmail] = useState(store.email);
   const [changeUsername, setChangeUsername] = useState(store.username);
   const [changeDOB, setChangeDOB] = useState(store.profile.dob);
   const [changeZipcode, setChangeZipcode] = useState(store.profile.zipcode);
-
-
-
-
-
-
   const profile = props.profile;
-  
-  //const handleEdit = (event: React.MouseEvent) => {
-   // event.preventDefault();
-   // store.editMode = true;
-   // history.push("/profile");
- // }
+ 
+  useEffect(() => {
 
- const handleEditEmail = (event: React.MouseEvent) => {
+   // Gte user data from Server
+
+
+
+  }, [])
+
+  const handleEditEmail = (event: React.MouseEvent) => {
    event.preventDefault();
    setShowEmail(!showEmail);
   }
-  const handleEditUsername = (event: React.MouseEvent) => {
+   const handleEditUsername = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowUsername(!showUsername);
+   }
+   const handleEditPassword = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setShowPassword(!showPassword);
    }
    const handleEditDOB = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -145,6 +146,77 @@ const UserSettings = (props: ProfileProps) => {
             </button>
           }
           { showUsername &&
+            <button type="submit">
+              Save
+            </button>
+          }
+        </td>
+      </tr>
+    </table>
+    </form>
+    )
+   }
+
+   const EditPassword = () => {
+    const formik = useFormik({
+      initialValues: {
+        currentpassword: '',
+        newpassword: '',
+        confirmnewpassword: '',
+      },
+      onSubmit: values => {
+        alert(JSON.stringify(values, null, 2));
+        setShowPassword(!showPassword);
+      },
+    });
+    return(
+      <form onSubmit={formik.handleSubmit}>
+      <table>
+      <tr>
+        <td>
+          <h5><b>Password: </b></h5>
+        </td>
+        <td>
+            {!showPassword &&
+              <div style={{fontSize: 20}}>
+               <h5><b>XXXXXXXX</b></h5>
+              </div>
+            }
+            {showPassword && 
+              <input 
+              type="text"
+              name="currentpassword"
+              placeholder="Current password"
+              onChange={formik.handleChange}
+              value={formik.values.currentpassword}
+              />
+            }
+            { showPassword && 
+              <input 
+              type="text"
+              name="newpassword"
+              placeholder="New Password"
+              onChange={formik.handleChange}
+              value={formik.values.newpassword}
+              />
+            }
+            { showPassword && 
+              <input 
+              type="text"
+              name="confirmnewpassword"
+              placeholder="Confirm New Password"
+              onChange={formik.handleChange}
+              value={formik.values.confirmnewpassword}
+              />
+            }
+        </td>
+        <td>
+          {!showPassword &&
+            <button className="editButton" onClick={handleEditPassword}>
+                  Edit
+            </button>
+          }
+          { showPassword &&
             <button type="submit">
               Save</button>
           }
@@ -256,31 +328,30 @@ const UserSettings = (props: ProfileProps) => {
 
   return (
     <Default>
-<div>
-      <React.Fragment>
-          <CssBaseline />
-          <Container maxWidth="xl"> 
-         <div className="profile-box">
-      
-           <table className="header">
-              <tr>
-                <td>
-                  <h1> Account Settings </h1>
-               </td>
-              </tr>
-            </table>
-          </div>     
-      <div className="Values">
-          <EditEmail/>
-          <EditUsername/>
-          <EditDOB/>
-         <EditZipcode/> 
-      </div>
+        <div>
+          <React.Fragment>
+            <CssBaseline />
+              <Container maxWidth="xl"> 
+                <div className="profile-box">
+                  <table className="header">
+                      <tr>
+                        <td>
+                          <h1> Account Settings </h1>
+                      </td>
+                      </tr>
+                    </table>
+                </div>     
+                <div className="Values">
+                  <EditEmail/>
+                  <EditUsername/>
+                  <EditPassword/>
+                  <EditDOB/>
+                <EditZipcode/> 
+               </div>
 
-  </Container>
-      </React.Fragment>
-      
-</div>
+              </Container>
+         </React.Fragment> 
+        </div>
     </Default>
       );   
 }
