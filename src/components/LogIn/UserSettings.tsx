@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
+import { useFormik } from 'formik';
 import axios from "axios";
 import { PROFILEURL, ROOTURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
@@ -12,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
+import * as Yup from 'yup';
 
 
 const UserSettings = (props: ProfileProps) => {
@@ -56,167 +58,229 @@ const UserSettings = (props: ProfileProps) => {
     setShowZipcode(!showZipcode);
    }
 
+   const EditEmail = () => {
+    const formik = useFormik({
+      initialValues: {
+        email: '',
+      },
+      onSubmit: values => {
+        alert(JSON.stringify(values, null, 2));
+        setShowEmail(!showEmail);
+      },
+    });
+    return(
+      <form onSubmit={formik.handleSubmit}>
+      <table>
+      <tr>
+        <td>
+          <h5><b>Email: </b></h5>
+        </td>
+        <td>
+            {!showEmail &&
+              <div style={{fontSize: 20}}>
+              {store.email}
+              </div>
+            }
+            { showEmail && 
+              <input 
+              type="text"
+              name="email"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              />
+            }
+        </td>
+        <td>
+          {!showEmail &&
+            <button className="editButton" onClick={handleEditEmail}>
+                  Edit
+            </button>
+          }
+          { showEmail &&
+            <button type="submit">Save</button>
+          }
+        </td>
+      </tr>
+    </table>
+    </form>
+    )
+   }
+
+   const EditUsername = () => {
+    const formik = useFormik({
+      initialValues: {
+        username: '',
+      },
+      onSubmit: values => {
+        alert(JSON.stringify(values, null, 2));
+        setShowUsername(!showUsername);
+      },
+    });
+    return(
+      <form onSubmit={formik.handleSubmit}>
+      <table>
+      <tr>
+        <td>
+          <h5><b>Username: </b></h5>
+        </td>
+        <td>
+            {!showUsername &&
+              <div style={{fontSize: 20}}>
+              {store.username}
+              </div>
+            }
+            { showUsername && 
+              <input 
+              type="text"
+              name="username"
+              onChange={formik.handleChange}
+              value={formik.values.username}
+              />
+            }
+        </td>
+        <td>
+          {!showUsername &&
+            <button className="editButton" onClick={handleEditUsername}>
+                  Edit
+            </button>
+          }
+          { showUsername &&
+            <button type="submit">
+              Save</button>
+          }
+        </td>
+      </tr>
+    </table>
+    </form>
+    )
+   }
+
+   const EditDOB = () => {
+    const formik = useFormik({
+      initialValues: {
+        DOB: '',
+      },
+      onSubmit: values => {
+        alert(JSON.stringify(values, null, 2));
+        setShowDOB(!showDOB);
+      },
+    });
+    return(
+      <form onSubmit={formik.handleSubmit}>
+      <table>
+      <tr>
+        <td>
+          <h5><b>Date of Birth: </b></h5>
+        </td>
+        <td>
+            {!showDOB &&
+              <div style={{fontSize: 20}}>
+              {store.profile.dob}
+              </div>
+            }
+            { showDOB && 
+              <input 
+              type="text"
+              name="DOB"
+              onChange={formik.handleChange}
+              value={formik.values.DOB}
+              />
+            }
+        </td>
+        <td>
+          {!showDOB &&
+            <button className="editButton" onClick={handleEditDOB}>
+                  Edit
+            </button>
+          }
+          { showDOB &&
+            <button type="submit">
+              Save</button>
+          }
+        </td>
+      </tr>
+    </table>
+    </form>
+    )
+   }
+
+   const EditZipcode = () => {
+    const formik = useFormik({
+      initialValues: {
+        zipcode: '',
+      },
+      onSubmit: values => {
+        alert(JSON.stringify(values, null, 2));
+        setShowZipcode(!showZipcode);
+      },
+    });
+    return(
+      <form onSubmit={formik.handleSubmit}>
+      <table>
+      <tr>
+        <td>
+          <h5><b>Zipcode: </b></h5>
+        </td>
+        <td>
+            {!showZipcode &&
+              <div style={{fontSize: 20}}>
+              {store.profile.zipcode}
+              </div>
+            }
+            { showZipcode && 
+              <input 
+              type="text"
+              name="zipcode"
+              onChange={formik.handleChange}
+              value={formik.values.zipcode}
+              />
+            }
+        </td>
+        <td>
+          {!showZipcode &&
+            <button className="editButton" onClick={handleEditZipcode}>
+                  Edit
+            </button>
+          }
+          { showZipcode &&
+            <button type="submit">
+              Save</button>
+          }
+        </td>
+      </tr>
+    </table>
+    </form>
+    )
+   }
+   
+
   return (
     <Default>
-    <div>
-    <React.Fragment>
+<div>
+      <React.Fragment>
           <CssBaseline />
           <Container maxWidth="xl"> 
-          <div className="profile-box">
+         <div className="profile-box">
       
-      <table className="header">
-      <td>
-        <h1> Account Settings </h1>
-      </td>
-      </table>
+           <table className="header">
+              <tr>
+                <td>
+                  <h1> Account Settings </h1>
+               </td>
+              </tr>
+            </table>
+          </div>     
+      <div className="Values">
+          <EditEmail/>
+          <EditUsername/>
+          <EditDOB/>
+         <EditZipcode/> 
       </div>
 
-
-          
-<div className="Values">
-  <table>
-    <tr>
-      <td>
-      <h4><b>Email: </b></h4>
-      </td>
-      <td>
-        {!showEmail &&
-          <div style={{fontSize: 20}}>
-            {store.email}
-          </div>
-        }
-        { showEmail && 
-          <input 
-          type="text"
-          name="email"
-          value={changeEmail}
-          onChange={event => setChangeEmail(event.target.value)}
-          />
-        }
-     </td>
-     <td>
-       {!showEmail &&
-        <button className="editButton" onClick={handleEditEmail}>
-              Edit
-        </button>
-       }
-      { showEmail &&
-        <button className="editButton" onClick={handleEditEmail}>
-              save
-        </button>
-      }
-      </td>
-    </tr>
-    <tr>
-      <td>
-         <h5><b>Username: </b></h5>
-      </td>
-      <td>
-          {!showUsername &&
-            <div style={{fontSize: 20}}>
-             {store.username}
-            </div>
-          }
-          { showUsername && 
-            <input 
-            type="text"
-            name="username"
-            value={changeUsername}
-            onChange={event => setChangeUsername(event.target.value)}
-            />
-          }
-      </td>
-      <td>
-        {!showUsername &&
-          <button className="editButton" onClick={handleEditUsername}>
-                Edit
-          </button>
-        }
-        { showUsername &&
-          <button className="editButton" onClick={handleEditUsername}>
-              save
-          </button>
-        }
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <h5><b>Date of Birth: </b></h5>
-      </td>
-      <td>
-        {!showDOB &&
-          <div style={{fontSize: 20}}>
-            {store.profile.dob}
-          </div>
-        }
-        { showDOB && 
-          <input 
-          type="text"
-          name="DOB"
-          value={changeDOB}
-          onChange={event => setChangeDOB(event.target.value)}
-          />
-        }
-      </td>
-      <td>
-        {!showDOB &&
-         <button className="editButton" onClick={handleEditDOB}>
-              Edit
-         </button>
-        }
-        { showDOB &&
-          <button className="editButton" onClick={handleEditDOB}>
-              save
-          </button>
-        }
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <h5><b>Zipcode: </b></h5>
-      </td>
-      <td>
-        {!showZipcode &&
-          <div style={{fontSize: 20}}>
-            {store.profile.zipcode}
-          </div>
-        }
-        { showZipcode && 
-          <input 
-          type="text"
-          name="zipcode"
-          value={changeZipcode}
-          onChange={event => setChangeZipcode(event.target.value)}
-          />
-        }
-      </td>
-      <td>
-        {!showZipcode &&
-          <button className="editButton" onClick={handleEditZipcode}>
-                Edit
-          </button>
-        }
-        { showZipcode &&
-          <button className="editButton" onClick={handleEditZipcode}>
-              save
-          </button>
-        }
-      </td>
-    </tr>
-    <tr>
-    </tr>
-  </table>
-</div>
-<div className="SaveButton">
-    <table className="header">
-        <tr>
-        </tr>
-      </table>
-    </div>
   </Container>
       </React.Fragment>
       
-    </div>
+</div>
     </Default>
       );   
 }

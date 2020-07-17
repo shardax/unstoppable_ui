@@ -29,11 +29,12 @@
     }
 }
 .Values{
-    text-align: center;
+    text-align: left;
     table{
-        margin-left: auto;
-        margin-right: auto;
-        width: 110%;
+        text-align:left;
+       // margin-left: auto;
+       // margin-right: auto;
+        width: 115%;
     }
     td{
         width: 100%;
