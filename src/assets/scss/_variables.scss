@@ -1,17 +1,24 @@
 $text-link: #2997ff;
 $text-color: #444;
 
-$background:#ffffff; //#f8f9fa;
-$border: #ccc;
-
 // 2Unstoppable Colors
-$primaryPurple: #7F43D5; //#9462a6;
+$primaryPurple: rgba(#6429B9, 0.95); //#9462a6;
+$bg: rgba(#6429B9, 0.20);
 $actionPink: #ed698e;
 $mutedPurple: #dfd1e4;
 $sidenav: #FCF8FD;
+$purpleHover: #9f72e0;
+
+$background: #ffffff; //#f8f9fa;
+$border: #ccc;
+$defaultBackground: $bg linear-gradient(330deg, $bg 0,#5e31da 122.55%);
 
 
 // Colors for App
-$secondary: #c843d5
+$secondary: #c843d5;
+
+
+//
+$card: rgba(#eacaed, 0.2);
 
 

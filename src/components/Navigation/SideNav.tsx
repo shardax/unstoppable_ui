@@ -1,6 +1,9 @@
 import React from 'react'
 import './Navigation.scss';
 import { useDataStore } from "../../UserContext";
+import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
+import {Avatar} from 'antd';
+import UnsIcon from '../../images/2unstoppable.png'
 
 
 //Icons
@@ -39,7 +42,13 @@ const SideNav = () => {
 
   return (
     <div className="sidenav-wrapper">
-      <div className="sidebar-title">{store.username}</div>
+      <div style={{ display: "flex", justifyContent: "center"}}>
+        <img className="logo-navbar" src={UnsIcon} alt="" />
+      </div>
+      <div className="username-avatar-sidenav">
+        <Avatar src={ROOTURL + store.avatarPath}  size= "large" />
+        <div className="sidebar-title">{store.username}</div>
+      </div>
       <div className="sidebar-subtitle primary-grey-text">{store.email ? store.email : "Email not defined."}</div>
 
       <hr className="horizontal-break" />
@@ -53,8 +62,9 @@ const SideNav = () => {
       </div>  
 
       <hr className="horizontal-break" />
-
-      <Link className="sidenav-link-content" to={"/logout"}><ExitToAppIcon /> <span className="sidenav-link-name">Logout</span></Link>
+      <div className="main-navlink">
+        <Link className="sidenav-link-content" to={"/logout"}><ExitToAppIcon /> <span className="sidenav-link-name">Logout</span></Link>
+        </div>
 
     </div>
   )
