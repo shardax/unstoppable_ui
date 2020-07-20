@@ -85,6 +85,8 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
         <div className="user-section-data">
           <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
 
+          <hr></hr>
+
           <div className="profile-section-header">About me 😀</div>
           <p className="muted-text">{user.age} years old</p>
           <ProfileIconRow field={"Personality"} chips={false} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />}/>
