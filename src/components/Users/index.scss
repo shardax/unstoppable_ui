@@ -1,14 +1,19 @@
 .user-section-wrapper {
   display: flex;
-  // width: 100%;
   margin: 3em 0em;
+  position: relative;
   .user-section-data {
-    margin-left: 3em;
+    margin-right: 3em;
     width: 100%;
-    // overflow-y: scroll;
-    // height: 97vh;
   }
 }
+
+// .user-metadata {
+//   position: -webkit-sticky !important;
+//   position: sticky !important;
+//   top: 10px !important;
+//   z-index: 1 !important;
+// }
 
 .full-profile-icon-row {
   // display: flex;
@@ -37,13 +42,10 @@
 }
 
 .user-section-other-wrapper {
-  .user-metadata {
-    display: flex;
-    flex-direction: column;
-  }
   .profile-chip-list {
     display: flex;
     flex-wrap: wrap;
+    position: -webkit-sticky;
     .profile-single-chip {
       padding: 0.2em 0.6em;
       margin: 0em .3em 0.3em 0.3em;
@@ -83,4 +85,5 @@
   height: 240px;
   width: 300px;
   border-radius: 10px;
+  margin-bottom: 1em;
 }

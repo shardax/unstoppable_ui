@@ -81,16 +81,9 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
 
   return (
     <div>
-      <h1 style={{ fontSize: "26px", marginTop: "1em" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
-
-      <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
-      <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
-
       <div className="user-section-wrapper">
-        <div className="user-metadata">
-            <img className="user-section-image" src={ROOTURL + user.photo} />
-        </div>
         <div className="user-section-data">
+          <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
 
           <div className="profile-section-header">About me 😀</div>
           <p className="muted-text">{user.age} years old</p>
@@ -101,9 +94,15 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
             </div>} icon={<NotesIcon className="full-profile-icon" />}/>
 
           <ProfileIconRow field={"Work Status"} chips={false} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />}/>
-
+        </div>
+        <div className="user-metadata">
+            <img className="user-section-image" src={ROOTURL + user.photo} />
+            <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
+            <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
         </div>
       </div>
+
+      <hr></hr>
       <div className="user-section-other-wrapper">
       
           <div className="profile-section-header">Details about Diagnosis</div>
