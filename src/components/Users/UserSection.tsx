@@ -36,10 +36,17 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
   }, [])
 
   const ProfileIconRow = ({ icon, field, answer, chips }) => {
+    if (!answer || answer === "") {
+      return null
+    }
+
     return (
-      <div style={chips ? { alignItems: "flex-start" } : { alignItems: "center" }} className="full-profile-icon-row">
-        {icon}
-        <span style={chips ? { alignItems: "flex-start" } : { alignItems: "center" }} className="field-answer-profile muted-text">{field}: {answer} </span>
+      <div className="full-profile-icon-row">
+        <div className="field-question-profile">
+          {icon}
+          <div>{field}</div>
+        </div>
+        <div className="field-answer muted-text">{answer}</div>
       </div>
     )
   }
@@ -76,28 +83,29 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
     <div>
       <h1 style={{ fontSize: "26px", marginTop: "1em" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
 
+      <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
+      <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
+
       <div className="user-section-wrapper">
         <div className="user-metadata">
             <img className="user-section-image" src={ROOTURL + user.photo} />
-            <Button margin="0.8em 0em 0em 0em">Message {user.name}</Button>
-            <Button margin="0.8em 0em" background="white" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
         </div>
         <div className="user-section-data">
+
           <div className="profile-section-header">About me 😀</div>
           <p className="muted-text">{user.age} years old</p>
           <ProfileIconRow field={"Personality"} chips={false} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />}/>
 
-          <div className="full-profile-icon-row">
-            <NotesIcon className="full-profile-icon" />
-            <div className="full-profile-das">
-              <p>{user.details_about_self}</p>
-            </div>
-          </div>
+          <ProfileIconRow field={"Details"} chips={false} answer={<div className="full-profile-das">
+            <p>{user.details_about_self}</p>
+            </div>} icon={<NotesIcon className="full-profile-icon" />}/>
 
           <ProfileIconRow field={"Work Status"} chips={false} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />}/>
-          
 
-          <hr></hr>
+        </div>
+      </div>
+      <div className="user-section-other-wrapper">
+      
           <div className="profile-section-header">Details about Diagnosis</div>
           
           <p>{user.cancer_location} cancer</p>
@@ -116,8 +124,8 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
           <ProfileIconRow field={"Prefered exercise time"} chips={true} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
           
         </div>
-      </div>
     </div>
+    // </div>
   )
 }
 
