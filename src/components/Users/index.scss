@@ -7,11 +7,26 @@
       display: flex;
       align-items: center;
       margin: 30px 0em;
+      .field-answer-profile {
+        display: flex;
+      }
     }
   }
+
   .user-metadata {
     display: flex;
     flex-direction: column;
+  }
+  .profile-chip-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    .profile-single-chip {
+      padding: 0.2em 0.6em;
+      margin: 0em .3em 0.3em 0.3em;
+      border-radius: 30px;
+      cursor: pointer;
+      background-color: rgb(240, 240, 240);
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 import './index.scss';
 import colors from '../../assets/colors'
+import { useDataStore } from "../../UserContext";
 
 import Button from '../Button/Button';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
@@ -10,7 +11,7 @@ import NotesIcon from '@material-ui/icons/Notes';
 import SportsTennisIcon from '@material-ui/icons/SportsTennis';
 
 const UserSection: React.FC<{id: string}> = ({ id }) => {
-
+  const store = useDataStore()
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
@@ -30,12 +31,36 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
     getProfile();
   }, [])
 
-  const ProfileIconRow = ({ icon, field, answer}) => {
+  const ProfileIconRow = ({ icon, field, answer, chips }) => {
     return (
-      <div className="full-profile-icon-row">
+      <div style={chips ? { alignItems: "flex-start" } : { alignItems: "center" }} className="full-profile-icon-row">
         {icon}
-        <span className="muted-text">{field}: {answer} </span>
+        <span style={chips ? { alignItems: "flex-start" } : { alignItems: "center" }} className="field-answer-profile muted-text">{field}: {answer} </span>
       </div>
+    )
+  }
+
+  const ChipList = () => {
+    const Chip = ({ activityId }) => {
+      const getMatch = () => {
+        console.log(activityId)
+        const matched = store.activities.find(({ id }) => id === activityId )
+        console.log(matched)
+        if (matched) return matched.name
+        return null
+      }      
+
+      return (
+        <span className="profile-single-chip">{getMatch() ? getMatch() : null}</span>
+      )
+    }
+
+    return (
+      <span className="profile-chip-list">
+        {user.activity_ids.map((activity: any, i: number) => 
+          <Chip key={i} activityId={activity} />
+        )}
+      </span>
     )
   }
 
@@ -52,6 +77,7 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
       </div>
       <div className="user-section-data">
         <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
+
         <p className="muted-text">{user.age} years old, {user.cancer_location} cancer</p>
 
         <div className="full-profile-icon-row">
@@ -61,8 +87,10 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
           </div>
         </div>
 
-        <ProfileIconRow field={"Fitness Level"} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
-        <ProfileIconRow field={"Activities"} answer={"test"} icon={<SportsTennisIcon className={"full-profile-icon"} />} />
+        <ProfileIconRow field={"Fitness Level"} chips={false} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
+
+        <ProfileIconRow field={"Activities"} chips={true} answer={<ChipList />} icon={<SportsTennisIcon className={"full-profile-icon"} />} />
+
         <p>Not done! More to come down here...</p>
       </div>
     </div>
