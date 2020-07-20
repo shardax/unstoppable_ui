@@ -4,7 +4,8 @@ import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
 import { useFormik } from 'formik';
 import axios from "axios";
-import { PROFILEURL, ROOTURL} from "../../constants/matcher";
+import {useObserver} from 'mobx-react'
+import { SAVEUSERURL, PROFILEURL, ROOTURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 //import {PrintUserInfo, DisplayProfileActivityNames, DisplayExerciseReasons} from "./CommonElements";
@@ -28,6 +29,7 @@ const UserSettings = (props: ProfileProps) => {
   const [changeUsername, setChangeUsername] = useState(store.username);
   const [changeDOB, setChangeDOB] = useState(store.profile.dob);
   const [changeZipcode, setChangeZipcode] = useState(store.profile.zipcode);
+ 
   const profile = props.profile;
  
   useEffect(() => {
@@ -38,6 +40,10 @@ const UserSettings = (props: ProfileProps) => {
 
   }, [])
 
+  const setUsername = (name) => {
+    store.username = name;
+    localStorage.setItem("userStore", JSON.stringify(store));
+  }
   const handleEditEmail = (event: React.MouseEvent) => {
    event.preventDefault();
    setShowEmail(!showEmail);
@@ -108,6 +114,7 @@ const UserSettings = (props: ProfileProps) => {
    }
 
    const EditUsername = () => {
+
     const formik = useFormik({
       initialValues: {
         username: '',
@@ -115,9 +122,39 @@ const UserSettings = (props: ProfileProps) => {
       onSubmit: values => {
         alert(JSON.stringify(values, null, 2));
         setShowUsername(!showUsername);
+        const saveData = async () => {
+          //setIsError(false);
+          try {
+              let url = "http://localhost:3001"+  "/account_settings/change_username";
+              const result = await axios.patch(url,
+                { "username": formik.values.username, "id": store.current_user_id},
+                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+              });
+              console.log(JSON.stringify(result));
+              if (result.data.status != "error") {
+                setUsername(formik.values.username);
+                formik.values.username =  result.data.username;;
+                console.log("updated username="+ store.username);
+                history.push("/usettings");
+              }
+              else {
+
+                console.log("printint error  message")
+                console.log(result.data.message);
+                // parse and show error
+                formik.errors.username = result.data.message;
+
+              }
+          } catch (error) {
+            console.log(JSON.stringify(error));
+            //setErrorMessage(error.message);
+            //setIsError(true);
+          }
+        };
+        saveData();
       },
     });
-    return(
+    return (
       <form onSubmit={formik.handleSubmit}>
       <table>
       <tr>

@@ -51,10 +51,14 @@ const SignIn2 = () => {
           store.isLoggedIn = false;
      
           try {
-              const result = await axios.post(url, { user: {"username": values.username, "password": values.password}}, { withCredentials: true });
+            const result = await axios.post(url,
+              { user: {"username": values.username, "password": values.password}},
+              { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+            });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
               store.username =  result.data.username;
+              store.current_user_id = result.data.current_user_id;
               store.email = result.data.email;
               store.isLoggedIn = true;
               store.profile = result.data.profile;

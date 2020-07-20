@@ -140,6 +140,7 @@ export class ProfileStore {
 
 export class UserStore {
   @persist @observable username:string;
+  @persist current_user_id:number;
   @persist @observable isLoggedIn: boolean;
   @persist @observable profileId: number;
   @persist('object') @observable profile: ProfileStore;
@@ -158,6 +159,7 @@ export class UserStore {
       this.profile = localStorageData.profile;
       this.avatarPath = localStorageData.avatarPath;
       this.profileId = localStorageData.profileId;
+      this.current_user_id = localStorageData.current_user_id;
       this.editMode = localStorageData.editMode;
       this.email = localStorageData.email;
       this.activities = localStorageData.activities;
@@ -169,6 +171,7 @@ export class UserStore {
       this.profile = new ProfileStore();
       this.avatarPath = "";
       this.profileId = 0;
+      this.current_user_id=0;
       this.editMode = false;
       this.activities = [];
       this.exerciseReasons = [];
