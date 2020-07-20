@@ -74,13 +74,13 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
 
   return (
     <div>
-      <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
+      <h1 style={{ fontSize: "26px", marginTop: "1em" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
 
       <div className="user-section-wrapper">
         <div className="user-metadata">
             <img className="user-section-image" src={ROOTURL + user.photo} />
-            <Button margin="0.8em 0em 0em 0em">Message User</Button>
-            <Button margin="0.8em 0em" background="white" color={colors.primary} border={"1px solid" + colors.primary}>Like User Profile</Button>
+            <Button margin="0.8em 0em 0em 0em">Message {user.name}</Button>
+            <Button margin="0.8em 0em" background="white" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
         </div>
         <div className="user-section-data">
           <div className="profile-section-header">About me 😀</div>
@@ -115,8 +115,6 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
 
           <ProfileIconRow field={"Prefered exercise time"} chips={true} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
           
-
-          <p>Not done! More to come down here...</p>
         </div>
       </div>
     </div>

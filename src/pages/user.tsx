@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../constants/matcher";
 import axios from 'axios'
 import Default from '../layouts/Default';
@@ -10,7 +10,10 @@ const User = () => {
 
   return (    
       <Default>
-        <UserSection id={id} />
+        <div style={{ width: "100vh", position: "relative" }}>
+          <Link style={{ textDecoration: "underline" }} to="/home">Go Back Home</Link>
+          <UserSection id={id} />
+        </div>
       </Default>
   )
 }
