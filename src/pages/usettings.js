@@ -1,9 +1,9 @@
 import React from 'react'
-import UserSettings from '../components/LogIn/UserSettings'
+import TestingUserSettings from '../components/LogIn/TestingUserSettings'
 
 export default function Usettings() {
   return (
   <div>
-    <UserSettings />
+    <TestingUserSettings />
   </div>)
   }

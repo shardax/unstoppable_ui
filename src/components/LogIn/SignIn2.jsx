@@ -136,9 +136,6 @@ const SignIn2 = () => {
           <div className="register">
             <Link to='/fusername' activeClassName="active">Forgot Your Username?</Link>
           </div>
-          <div className="register">
-            <Link to='/usettings' activeClassName="active">USersettingsplaceholder</Link>
-          </div>
         </form>
       )}
     </Formik>
