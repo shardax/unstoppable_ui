@@ -9,6 +9,10 @@ import Button from '../Button/Button';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import NotesIcon from '@material-ui/icons/Notes';
 import SportsTennisIcon from '@material-ui/icons/SportsTennis';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import WorkIcon from '@material-ui/icons/Work';
+import ExploreIcon from '@material-ui/icons/Explore';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const UserSection: React.FC<{id: string}> = ({ id }) => {
   const store = useDataStore()
@@ -69,29 +73,51 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
   }
 
   return (
-    <div className="user-section-wrapper">
-      <div className="user-metadata">
-          <img className="user-section-image" src={ROOTURL + user.photo} />
-          <Button margin="0.8em 0em 0em 0em">Message User</Button>
-          <Button margin="0.8em 0em" background="white" color={colors.primary} border={"1px solid" + colors.primary}>Like User Profile</Button>
-      </div>
-      <div className="user-section-data">
-        <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
+    <div>
+      <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
 
-        <p className="muted-text">{user.age} years old, {user.cancer_location} cancer</p>
-
-        <div className="full-profile-icon-row">
-          <NotesIcon className="full-profile-icon" />
-          <div className="full-profile-das">
-            <p>{user.details_about_self}</p>
-          </div>
+      <div className="user-section-wrapper">
+        <div className="user-metadata">
+            <img className="user-section-image" src={ROOTURL + user.photo} />
+            <Button margin="0.8em 0em 0em 0em">Message User</Button>
+            <Button margin="0.8em 0em" background="white" color={colors.primary} border={"1px solid" + colors.primary}>Like User Profile</Button>
         </div>
+        <div className="user-section-data">
+          <div className="profile-section-header">About me 😀</div>
+          <p className="muted-text">{user.age} years old</p>
+          <ProfileIconRow field={"Personality"} chips={false} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />}/>
 
-        <ProfileIconRow field={"Fitness Level"} chips={false} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
+          <div className="full-profile-icon-row">
+            <NotesIcon className="full-profile-icon" />
+            <div className="full-profile-das">
+              <p>{user.details_about_self}</p>
+            </div>
+          </div>
 
-        <ProfileIconRow field={"Activities"} chips={true} answer={<ChipList />} icon={<SportsTennisIcon className={"full-profile-icon"} />} />
+          <ProfileIconRow field={"Work Status"} chips={false} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />}/>
+          
 
-        <p>Not done! More to come down here...</p>
+          <hr></hr>
+          <div className="profile-section-header">Details about Diagnosis</div>
+          
+          <p>{user.cancer_location} cancer</p>
+          <ProfileIconRow field={"Treatment description"} chips={false} answer={user.treatment_description} icon={null}/>
+          <ProfileIconRow field={"Treatment status"} chips={false} answer={user.treatment_status} icon={null}/>
+
+          <hr></hr>
+          <div className="profile-section-header">Activity/Fitness</div>
+
+          <ProfileIconRow field={"Fitness Level"} chips={false} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
+
+          <ProfileIconRow field={"Activities"} chips={true} answer={<ChipList />} icon={<SportsTennisIcon className={"full-profile-icon"} />} />
+
+          <ProfileIconRow field={"Prefered exercise location"} chips={true} answer={user.preferred_excercise_location} icon={<ExploreIcon className={"full-profile-icon"} />} />
+
+          <ProfileIconRow field={"Prefered exercise time"} chips={true} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
+          
+
+          <p>Not done! More to come down here...</p>
+        </div>
       </div>
     </div>
   )
