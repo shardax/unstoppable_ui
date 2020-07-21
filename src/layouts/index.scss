@@ -1,22 +1,54 @@
+@import "../assets/scss/variables.scss";
+
 .default-layout-main {
-  margin-left: 15em;
-  padding-left: 3%;
-  padding-right: 3%;
-  max-width: 1200px;
+  // max-width: 1200px;
   display: flex;
+  background: white;
   justify-content: center;
+  overflow-y: hidden;
+  width: 100%;
   .format-children-default {
-    margin-top: 3em;
+    margin-left: 16em;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-top: 1em;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+    }
   }
 }
 
 .default-main-view {
   display: flex;
+  background: white;
 }
 
-@media only screen and (max-width: 1100px) {
+.topnav-wrapper {
+  visibility: hidden;
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
   .default-layout-main {
-    margin-left: 3%;
-    margin-right: 3%;
+    flex-direction: column;
+    .format-children-default {
+      margin-left: 0;
+      padding-left: 3%;
+      padding-right: 3%;
+    }
+  }
+
+  .sidenav-position {
+    visibility: hidden;
+    display: none;
+  }
+
+  .topnav-wrapper {
+    visibility: visible;
+    display: flex;
   }
 }
