@@ -8,6 +8,17 @@ import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DE
 import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "./Error";
+import {
+  TextField,
+  Button,
+  Checkbox,
+  Radio,
+  FormControlLabel,
+  Select,
+  MenuItem
+} from "@material-ui/core";
+
+
 
 const store = useDataStore();
 
@@ -34,7 +45,14 @@ const ValidationSchema = Yup.object().shape({
 });
 
 
-const EditProfile = () => (
+const EditProfile = () => { 
+  let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
+    const id = store.activities[key].id.toString()
+    const name = store.activities[key].name.toString();
+    return ({ id, name});
+  });
+
+  return(
   
   <div>
     <Default>
@@ -43,7 +61,6 @@ const EditProfile = () => (
 
     <Formik
       initialValues={{
-        activity_ids: profile.activity_ids,
         fitness_level: profile.fitness_level,
         personality: profile.personality,
         prefered_exercise_location: profile.prefered_exercise_location,
@@ -54,7 +71,8 @@ const EditProfile = () => (
         reason_for_match: profile.reason_for_match,
         details_about_self: profile.details_about_self,
         treatment_description:profile.treatment_description,
-        other_favorite_activities: profile.other_favorite_activities
+        other_favorite_activities: profile.other_favorite_activities,
+        activity_ids: profile.activity_ids.map(String),
       }}
       validationSchema={ValidationSchema}
       validate={values => {
@@ -65,7 +83,7 @@ const EditProfile = () => (
         await sleep(1000);
         alert(JSON.stringify(values, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
-          profile.activity_ids = values.activity_ids;
+          profile.activity_ids = values.activity_ids.map(Number);
           profile.fitness_level = values.fitness_level;
           profile.personality = values.personality;
           profile.other_favorite_activities = values.other_favorite_activities;
@@ -112,8 +130,10 @@ const EditProfile = () => (
             <b>Favorite activities (check all that apply)</b>
           </div>
           <label>
-            {store.activities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field> </label>	)  )}
+            {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field> </label>	)  )}
           </label>
+
+          
           <div className="label">
             <label htmlFor="other_favorite_activities"><b>Do you have any other favorite activities? </b></label>
             <Field name="other_favorite_activities" placeHoldee="Enter any other favorite activity"/>
@@ -137,6 +157,14 @@ const EditProfile = () => (
          {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
            
         </select>*/}
+
+          <div className="label">
+            <b>Identify your top reasons for wanting to become more active:</b>
+          </div>
+          <label>
+            {store.exerciseReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field> </label>	)  )}
+          </label>
+
           <div>
           <label htmlFor="personality">How would you describe your personality? </label>
           <Field
@@ -238,5 +266,5 @@ const EditProfile = () => (
     </Default>
   </div>
 );
-
+}
 export default EditProfile;
