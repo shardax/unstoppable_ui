@@ -7,7 +7,7 @@ import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
 import * as Yup from 'yup';
-import Error from "./Error";
+import Error from "../LogIn/Error";
 
 
 

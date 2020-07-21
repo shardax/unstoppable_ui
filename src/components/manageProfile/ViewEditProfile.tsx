@@ -43,7 +43,7 @@ useEffect(() => {
 
   
 return(
-  <div>{ store.editMode ? <EditProfile profile={currentProfile} /> : <ViewProfile profile={currentProfile}/> } </div>
+  <div>{ store.editMode ? <EditProfile  /> : <ViewProfile profile={currentProfile}/> } </div>
 
 )
 }
