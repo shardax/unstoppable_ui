@@ -8,15 +8,6 @@ import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DE
 import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "./Error";
-import {
-  TextField,
-  Button,
-  Checkbox,
-  Radio,
-  FormControlLabel,
-  Select,
-  MenuItem
-} from "@material-ui/core";
 
 
 
@@ -51,6 +42,11 @@ const EditProfile = () => {
     const name = store.activities[key].name.toString();
     return ({ id, name});
   });
+  let stringReasons: { id: string, name: string }[] = Object.keys(store.exerciseReasons).map(function (key) {
+    const id = store.exerciseReasons[key].id.toString()
+    const name = store.exerciseReasons[key].name.toString();
+    return ({ id, name});
+  });
 
   return(
   
@@ -73,6 +69,7 @@ const EditProfile = () => {
         treatment_description:profile.treatment_description,
         other_favorite_activities: profile.other_favorite_activities,
         activity_ids: profile.activity_ids.map(String),
+        exercies_reasons: profile.exercise_reason_ids.map(String),
       }}
       validationSchema={ValidationSchema}
       validate={values => {
@@ -84,6 +81,7 @@ const EditProfile = () => {
         alert(JSON.stringify(values, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
           profile.activity_ids = values.activity_ids.map(Number);
+          profile.exercise_reason_ids = values.exercies_reasons.map(Number)
           profile.fitness_level = values.fitness_level;
           profile.personality = values.personality;
           profile.other_favorite_activities = values.other_favorite_activities;
@@ -162,7 +160,7 @@ const EditProfile = () => {
             <b>Identify your top reasons for wanting to become more active:</b>
           </div>
           <label>
-            {store.exerciseReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field> </label>	)  )}
+            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field> </label>	)  )}
           </label>
 
           <div>
