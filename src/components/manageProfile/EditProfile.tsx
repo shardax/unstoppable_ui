@@ -29,6 +29,8 @@ const ValidationSchema = Yup.object().shape({
     .min(1, "Too Short!")
     .max(255, "Too Long!")
     .required("Required"),
+  cancer_location: Yup.string()
+    .required("Required"),
 });
 
 
@@ -129,6 +131,7 @@ const EditProfile = () => (
             id="fitness_level"
             name="fitness_level"
           >
+          <option value="" label="- Select One -" />
           {FITNESS_LEVEL_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
          {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
@@ -141,6 +144,7 @@ const EditProfile = () => (
             id="personality"
             name="personality"
           >
+          <option value="" label="- Select One -" />
           {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
@@ -152,6 +156,7 @@ const EditProfile = () => (
             id="prefered_exercise_location"
             name="prefered_exercise_location"
           >
+          <option value="" label="- Select One -" />
           {PREFERRED_EXERCISE_LOCATIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
@@ -163,6 +168,7 @@ const EditProfile = () => (
             id="prefered_exercise_time"
             name="prefered_exercise_time"
           >
+          <option value="" label="- Select One -" />
           {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
@@ -174,6 +180,7 @@ const EditProfile = () => (
             id="work_status"
             name="work_status"
           >
+          <option value="" label="- Select One -" />
           {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
@@ -185,8 +192,10 @@ const EditProfile = () => (
             id="cancer_location"
             name="cancer_location"
           >
+          <option value="" label="- Select One -" />
           {CANCERLOCATIONLIST.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
+          <Error touched={touched.cancer_location} message={errors.cancer_location} />
           </div>
 
           <div>
@@ -196,6 +205,7 @@ const EditProfile = () => (
             id="treatment_status"
             name="treatment_status"
           >
+          <option value="" label="- Select One -" />
           {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
