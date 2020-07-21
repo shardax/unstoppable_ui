@@ -238,7 +238,14 @@ const EditProfile = () => {
 
           <div className="label">
             <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
-            <Field name="reason_for_match" placeHoldee="Enter reason for matching"/>
+            <input
+              type="text"
+              name="reason_for_match"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.reason_for_match}
+              className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
+            />
             <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
           </div>
 
