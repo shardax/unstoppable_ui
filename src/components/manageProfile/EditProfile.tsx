@@ -158,7 +158,7 @@ const EditProfile = () => {
             <b>Do you have any other favorite activities? </b>
           </div>
           <label>
-            <Field name="other_favorite_activities" placeHoldee="Enter any other favorite activity"/>
+            <textarea name="other_favorite_activities" placeholder="Enter any other favorite activity" rows={1} cols={100}/>
           </label>
 
           <div className="Questions">
@@ -222,6 +222,7 @@ const EditProfile = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.reason_for_match}
+              size={100}
               className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
             />
             <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
@@ -260,7 +261,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
             <div className="Answers">
-            <Field name="details_about_self" placeHoldee="details_about_self"/>
+            <textarea name="details_about_self" placeholder="Details about self" rows={7} cols={100}/>
             </div>
           </div>
 
@@ -282,7 +283,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
             <div className="Answers">
-            <Field name="other_cancer_location" placeHolder="Additional Cancer Information"/>
+            <textarea name="other_cancer_location" placeholder="Additional Cancer Information" rows={2} cols={100}/>
           </div>
           </div>
 
@@ -303,7 +304,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <div className="Answers">
-            <Field name="treatment_description" placeHoldee="treatment_description"/>
+            <textarea name="treatment_description" placeholder="Treatment description" rows={3} cols={100}/>
           </div>
           </div>
           
@@ -348,7 +349,7 @@ const EditProfile = () => {
           <div>
             <div className="Questions">
               <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
-              <Field name="which_wellness_program" placeHolder="Which wellness program"/>
+              <textarea name="which_wellness_program" placeholder="Which wellness program" rows={3} cols={100}/>
             </div> 
             <button className="Button" disabled={isSubmitting}>
               Submit
