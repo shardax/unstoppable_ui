@@ -4,6 +4,7 @@ import { useDataStore } from "../../UserContext";
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import {Avatar} from 'antd';
 import UnsIcon from '../../images/2unstoppable.png'
+import {useObserver} from 'mobx-react'
 
 
 //Icons
@@ -29,13 +30,18 @@ const sideNavLinks = [
     to: "/messages",
     name: "Messages",
     icon: <MessageIcon />
+  },
+  {
+    to: "/usettings",
+    name: "UserSettings",
+    icon: <MessageIcon />
   }
 ]
 
 const SideNav = () => {
   const store = useDataStore()
 
-  return (
+  return useObserver(() => (
     <div className="sidenav-wrapper">
       <div style={{ display: "flex", justifyContent: "center"}}>
         <img className="logo-navbar" src={UnsIcon} alt="" />
@@ -62,7 +68,7 @@ const SideNav = () => {
         </div>
 
     </div>
-  )
+  ))
 }
 
 export default SideNav
