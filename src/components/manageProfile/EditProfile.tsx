@@ -8,6 +8,7 @@ import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DE
 import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../LogIn/Error";
+import './EditProfile.scss'
 
 
 
@@ -52,8 +53,10 @@ const EditProfile = () => {
   
   <div>
     <Default>
+    <div className='editProfile'>
     <h1>Edit Profile</h1>
     <h3> All changes will become part of your profile.</h3>
+    </div>
 
     <Formik
       initialValues={{
@@ -124,7 +127,8 @@ const EditProfile = () => {
             bind the checked values to a single array for your benefit. All the add and remove
             logic will be taken care of for you.
           */}
-          <div className="label">
+          <div className="Questions">
+          <div className="Questions">
             <b>Favorite activities (check all that apply)</b>
           </div>
           <label>
@@ -132,14 +136,14 @@ const EditProfile = () => {
           </label>
 
           
-          <div className="label">
+          <div className="Questions">
             <b>Do you have any other favorite activities? </b>
           </div>
           <label>
             <Field name="other_favorite_activities" placeHoldee="Enter any other favorite activity"/>
           </label>
-          
-          <div className="label">
+
+          <div className="Questions">
              <label htmlFor="fitnessLevel"><b>How would you describe your current fitness level? </b> </label>
           </div>
           <Field
@@ -154,7 +158,7 @@ const EditProfile = () => {
            
         </select>*/}
 
-          <div className="label">
+          <div className="Questions">
             <b>Identify your top reasons for wanting to become more active:</b>
          
           <label>
@@ -162,8 +166,8 @@ const EditProfile = () => {
           </label>
           </div>
 
-          <div>
-          <label htmlFor="prefered_exercise_location">Where do you prefer to be active? </label>
+          <div className="Questions">
+          <label htmlFor="prefered_exercise_location"><b>Where do you prefer to be active?</b> </label>
           <Field
             component="select"
             id="prefered_exercise_location"
@@ -174,8 +178,8 @@ const EditProfile = () => {
           </Field>
           </div>
 
-          <div>
-          <label htmlFor="prefered_exercise_time">When do you prefer to be active?</label>
+          <div className="Questions">
+          <label htmlFor="prefered_exercise_time"><b>When do you prefer to be active?</b></label>
           <Field
             component="select"
             id="prefered_exercise_time"
@@ -186,7 +190,7 @@ const EditProfile = () => {
           </Field>
           </div>
 
-          <div className="label">
+          <div className="Questions">
             <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
             <input
               type="text"
@@ -200,8 +204,8 @@ const EditProfile = () => {
           </div>
 
 
-          <div>
-            <label htmlFor="personality">How would you describe your personality? </label>
+          <div className="Questions">
+            <label htmlFor="personality"><b>How would you describe your personality?</b> </label>
             <Field
               component="select"
               id="personality"
@@ -212,8 +216,8 @@ const EditProfile = () => {
             </Field>
           </div>
 
-          <div>
-            <label htmlFor="work_status"> Which of the following best describes your work situation? </label>
+          <div className="Questions">
+            <label htmlFor="work_status"><b> Which of the following best describes your work situation?</b> </label>
             <Field
               component="select"
               id="work_status"
@@ -224,13 +228,13 @@ const EditProfile = () => {
             </Field>
           </div>
 
-          <div className="label">
+          <div className="Questions">
             <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
             <Field name="details_about_self" placeHoldee="details_about_self"/>
           </div>
 
-          <div>
-          <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
+          <div className="Questions">
+          <label htmlFor="cancer_location"><b>What was your primary cancer diagnosis?</b></label>
           <Field
             component="select"
             id="cancer_location"
@@ -242,13 +246,13 @@ const EditProfile = () => {
           <Error touched={touched.cancer_location} message={errors.cancer_location} />
           </div>
 
-          <div className="label">
+          <div className="Questions">
             <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
             <Field name="other_cancer_location" placeHolder="Additional Cancer Information"/>
           </div>
 
-          <div>
-          <label htmlFor="treatment_status">Which of the following best describes you?</label>
+          <div className="Questions">
+          <label htmlFor="treatment_status"><b>Which of the following best describes you?</b></label>
           <Field
             component="select"
             id="treatment_status"
@@ -259,7 +263,7 @@ const EditProfile = () => {
           </div>
 
 
-          <div className="label">
+          <div className="Questions">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <Field name="treatment_description" placeHoldee="treatment_description"/>
           </div>
@@ -267,7 +271,7 @@ const EditProfile = () => {
 
          
 
-          <div className="label">
+          <div className="Questions">
               <label htmlFor="treatment_status"><b> Have you ever been part of a support group or wellness program following your cancer diagnosis?:</b></label>
               <Field
               name="part_of_wellness_program"
@@ -303,7 +307,7 @@ const EditProfile = () => {
           
              
           <div>
-            <div className="label ">
+            <div className="Questions">
               <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
               <Field name="which_wellness_program" placeHolder="Which wellness program"/>
             </div> 
@@ -311,7 +315,7 @@ const EditProfile = () => {
               Submit
             </button>
           </div>
-
+          </div>
           
         </Form>
       )}
