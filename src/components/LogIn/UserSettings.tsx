@@ -5,7 +5,7 @@ import { ProfileStore, ProfileProps } from '../../UserStore';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
-import { SAVEUSERURL, PROFILEURL, ROOTURL} from "../../constants/matcher";
+import { PROFILEURL, ROOTURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 //import {PrintUserInfo, DisplayProfileActivityNames, DisplayExerciseReasons} from "./CommonElements";
