@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import '@quasar/extras/ionicons-v4/ionicons-v4.css'
 
 import './assets/scss/base.scss';
-import "./index.css";
+import "./index.scss";
 
 ReactDOM.render(
   <React.StrictMode>

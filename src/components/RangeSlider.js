@@ -31,6 +31,7 @@ const RangeSlider = ( (props) => {
                 </span>
             </div>
             <Slider 
+                className="slider-styling"
                 value={props.ageRange}
                 onChange={props.onChange}
                 valueLabelDisplay="auto"

@@ -9,7 +9,9 @@ import {Link} from 'react-router-dom'
 
 import './Browse.scss'
 import { useObserver } from "mobx-react";
-
+import Button from '../Button/Button'
+import colors from "../../assets/colors"
+import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const store = useDataStore()
@@ -60,12 +62,19 @@ import { useObserver } from "mobx-react";
           <img className="single-profile-image" src={ROOTURL + profile.photo} />
         </Link>
         <div className="single-profile-body">
-          <Link to={"/user/" + profile.id}>
-            <h5 className="primary-text profile-name-link">{profile.name}</h5>
+          <div>
+            <Link to={"/user/" + profile.id}>
+              <h5 className="profile-username">{profile.name} · <span className="profile-location">city, state</span></h5>
+            </Link>
+            <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
+            <p className="other-profile-card-data">{profile.age} years old</p>
+          </div>
+          <div>
+          <Link to={"/messages"}>
+            <ChatIcon className="favorite-profile-icon"></ChatIcon>
           </Link>
-          <p>{profile.cancer_location} Cancer</p>
-          <p>{profile.age} years old</p>
           {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
+          </div>
         </div>
       </div>
   ))
@@ -73,9 +82,12 @@ import { useObserver } from "mobx-react";
   return useObserver(() => (
     <>
       <div>
-        <div className="browse-filter-row"> 
-          <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
-            <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+          <div className="browse-sticky-nav">
+            <h3>Browse Profiles</h3>
+            <div className="browse-filter-row"> 
+              <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
+                <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+              </div>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
