@@ -60,19 +60,24 @@ const EditProfile = () => {
 
     <Formik
       initialValues={{
+        // About Me
+        activity_ids: profile.activity_ids.map(String),
+        other_favorite_activities: profile.other_favorite_activities,
         fitness_level: profile.fitness_level,
-        personality: profile.personality,
+        exercise_reasons: profile.exercise_reason_ids.map(String),
         prefered_exercise_location: profile.prefered_exercise_location,
         prefered_exercise_time: profile.prefered_exercise_time,
-        work_status: profile.work_status,
-        cancer_location: profile.cancer_location,
-        treatment_status: profile.treatment_status,
         reason_for_match: profile.reason_for_match,
+        personality: profile.personality,
+        work_status: profile.work_status,
         details_about_self: profile.details_about_self,
+        //Cancer History
+        cancer_location: profile.cancer_location,
+        other_cancer_location: profile.other_cancer_location,
+        treatment_status: profile.treatment_status,
         treatment_description:profile.treatment_description,
-        other_favorite_activities: profile.other_favorite_activities,
-        activity_ids: profile.activity_ids.map(String),
-        exercies_reasons: profile.exercise_reason_ids.map(String),
+        part_of_wellness_program: (profile.part_of_wellness_program || false),
+        which_wellness_program: profile.which_wellness_program
       }}
       validationSchema={ValidationSchema}
       validate={values => {
@@ -83,13 +88,24 @@ const EditProfile = () => {
         await sleep(1000);
         alert(JSON.stringify(values, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
+          //About Me
           profile.activity_ids = values.activity_ids.map(Number);
-          profile.exercise_reason_ids = values.exercies_reasons.map(Number)
-          profile.fitness_level = values.fitness_level;
-          profile.personality = values.personality;
           profile.other_favorite_activities = values.other_favorite_activities;
+          profile.fitness_level = values.fitness_level;
+          profile.exercise_reason_ids = values.exercise_reasons.map(Number);
+          profile.prefered_exercise_location = values.prefered_exercise_location;
+          profile.prefered_exercise_time = values.prefered_exercise_time;
           profile.reason_for_match = values.reason_for_match;
-         
+          profile.personality = values.personality;
+          profile.work_status = values.work_status;
+          profile.details_about_self = values.details_about_self;
+          //Cancer History
+          profile.cancer_location = values.cancer_location;
+          profile.other_cancer_location = values.other_cancer_location;
+          profile.treatment_status = values.treatment_status;
+          profile.treatment_description = values.treatment_description;
+          profile.part_of_wellness_program = values.part_of_wellness_program;
+          profile.which_wellness_program = values.which_wellness_program;
 
           axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} ).then(res => {
             // do good things
