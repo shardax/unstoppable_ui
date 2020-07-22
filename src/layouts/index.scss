@@ -1,17 +1,16 @@
 @import "../assets/scss/variables.scss";
 
 .default-layout-main {
-  margin: 1em 1em 3.5em 16em;
-  padding-left: 3%;
-  padding-right: 3%;
   // max-width: 1200px;
-  height: 96.5vh;
   display: flex;
   background: white;
   justify-content: center;
-  border-radius: 2px;
   overflow-y: hidden;
+  width: 100%;
   .format-children-default {
+    margin-left: 16em;
+    padding-left: 3%;
+    padding-right: 3%;
     margin-top: 1em;
     overflow-y: scroll;
     -ms-overflow-style: none;
@@ -28,9 +27,28 @@
   background: white;
 }
 
-@media only screen and (max-width: 1100px) {
+.topnav-wrapper {
+  visibility: hidden;
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
   .default-layout-main {
-    margin-left: 3%;
-    margin-right: 3%;
+    flex-direction: column;
+    .format-children-default {
+      margin-left: 0;
+      padding-left: 3%;
+      padding-right: 3%;
+    }
+  }
+
+  .sidenav-position {
+    visibility: hidden;
+    display: none;
+  }
+
+  .topnav-wrapper {
+    visibility: visible;
+    display: flex;
   }
 }

@@ -9,15 +9,16 @@ interface ButtonProps {
   border?: string,
   padding?: string,
   margin?: string,
-  fontSize?: string
+  fontSize?: string,
+  borderRadius?: string
 }
 
 const Button = styled.button<ButtonProps>`
   color: ${props => props.color ? props.color : "white"};
-  background: ${props => props.background ? props.background : colors.primary};
+  background: ${props => props.background ? props.background : colors.buttonBackground};
   padding: ${props => props.padding ? props.padding : "4px 6px"};
   min-width: 20px;
-  border-radius: 5px;
+  border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};
   font-weight: 700;
   font-size: ${props => props.fontSize ? props.fontSize : "16px"};
   outline:none;

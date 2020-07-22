@@ -117,12 +117,17 @@ $cardHeight: 240px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: rgb(113, 113,113);
   .age-range-input {
     width: 40px;
     outline: none;
     border: 0;
   }
 }
+
+.slider-styling {
+  color: $primaryPurple !important;
+};
 
 @media only screen and (max-width: 1300px) {
   .single-profile-image {

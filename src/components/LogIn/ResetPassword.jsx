@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import axios from "axios";
 import Error from "./Error";
 import './SignIn.scss'
-import { FORGOTUSERNAMEURL } from "../../constants/matcher";
+import { RESETPASSWORDURL } from "../../constants/matcher";
 import ReCAPTCHA from "react-google-recaptcha";
+import {useParams} from "react-router-dom";
 
 const store = useDataStore();
 
@@ -16,14 +17,18 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const recaptchaRef = React.createRef();
 
 const ValidationSchema = Yup.object().shape({
-  email: Yup.string()
-  .email("Must be an email address")
-  .max(255, "Too Long!")
-  .required("Required")
-});
+    password: Yup.string().required("This field is required"),
+    changepassword: Yup.string().when("password", {
+      is: val => (val && val.length > 0 ? true : false),
+      then: Yup.string().oneOf(
+        [Yup.ref("password")],
+        "Both password need to be the same"
+        )
+    })
+  });
 
 
-const ForgotUsername = () => {
+const ForgotPassword = () => {
 
   const currentUserStore = useDataStore()
 
@@ -31,7 +36,8 @@ const ForgotUsername = () => {
   return (
     <Formik
       initialValues={{
-        email: "",
+        password: "",
+        changepassword: ""
       }}
       validationSchema={ValidationSchema}
       validate={values => {
@@ -52,7 +58,7 @@ const ForgotUsername = () => {
         const fetchData = async () => {
           try {
             
-            const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }}, { withCredentials: true });
+            const result = await axios.post(RESETPASSWORDURL, {user: { password: values.password }, resetPassword:this.props.location.query.reset_password_token}, { withCredentials: true });
               console.log(JSON.stringify(result));
           } catch (error) {
             //console.log(JSON.stringify(error));
@@ -78,21 +84,29 @@ const ForgotUsername = () => {
         setFieldValue
       }) => (
         <form onSubmit={handleSubmit}>
-          <h2>Forgot Username</h2>
-          <h5>Please enter the email you used to sign up and we will send you an email with your username.</h5>
-         
-          <div className="input-row">
-            <label>Email</label>
+         <label for="password">Password</label>
             <input
-              type="text"
-              name="email"
-              onChange={handleChange}
+              type="password"
+              name="password"
               onBlur={handleBlur}
-              value={values.email}
-              className={"global-input login-form " + (touched.email && errors.email ? "has-error" : null)}
+              onChange={handleChange}
+              value={values.password}
             />
-            <Error touched={touched.email} message={errors.email} />
-          </div>
+            <span class="error" style={{ color: "red" }}>
+              {errors.password}
+            </span>
+
+            <label for="password">Confirm Password</label>
+            <input
+              type="password"
+              name="changepassword"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.changepassword}
+            />
+            <span class="error" style={{ color: "red" }}>
+              {errors.changepassword}
+            </span>
 
           <div className="input-row">
             <button type="submit" disabled={isSubmitting}>
@@ -112,4 +126,4 @@ const ForgotUsername = () => {
   );
 }
 
-export default ForgotUsername;
+export default ForgotPassword;

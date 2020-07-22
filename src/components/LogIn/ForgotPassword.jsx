@@ -23,7 +23,7 @@ const ValidationSchema = Yup.object().shape({
 });
 
 
-const ForgotUsername = () => {
+const ForgotPassword = () => {
 
   const currentUserStore = useDataStore()
 
@@ -52,7 +52,7 @@ const ForgotUsername = () => {
         const fetchData = async () => {
           try {
             
-            const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }}, { withCredentials: true });
+            const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }, stype:"P" }, { withCredentials: true });
               console.log(JSON.stringify(result));
           } catch (error) {
             //console.log(JSON.stringify(error));
@@ -78,8 +78,8 @@ const ForgotUsername = () => {
         setFieldValue
       }) => (
         <form onSubmit={handleSubmit}>
-          <h2>Forgot Username</h2>
-          <h5>Please enter the email you used to sign up and we will send you an email with your username.</h5>
+          <h2>Forgot Password</h2>
+          <h5>Please enter the email you used to sign up and we will send you instructions on how to reset your password.</h5>
          
           <div className="input-row">
             <label>Email</label>
@@ -112,4 +112,4 @@ const ForgotUsername = () => {
   );
 }
 
-export default ForgotUsername;
+export default ForgotPassword;
