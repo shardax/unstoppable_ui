@@ -133,17 +133,15 @@ const EditProfile = () => {
 
           
           <div className="label">
-            <label htmlFor="other_favorite_activities"><b>Do you have any other favorite activities? </b></label>
-            <Field name="other_favorite_activities" placeHoldee="Enter any other favorite activity"/>
+            <b>Do you have any other favorite activities? </b>
           </div>
-          {/* 
-           The <select> element will also behave the same way if 
-           you pass `multiple` prop to it. 
-
-
-
-          */}
-          <label htmlFor="fitnessLevel">How would you describe your current fitness level? </label>
+          <label>
+            <Field name="other_favorite_activities" placeHoldee="Enter any other favorite activity"/>
+          </label>
+          
+          <div className="label">
+             <label htmlFor="fitnessLevel"><b>How would you describe your current fitness level? </b> </label>
+          </div>
           <Field
             component="select"
             id="fitness_level"
@@ -158,21 +156,10 @@ const EditProfile = () => {
 
           <div className="label">
             <b>Identify your top reasons for wanting to become more active:</b>
-          </div>
+         
           <label>
             {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field> </label>	)  )}
           </label>
-
-          <div>
-          <label htmlFor="personality">How would you describe your personality? </label>
-          <Field
-            component="select"
-            id="personality"
-            name="personality"
-          >
-          <option value="" label="- Select One -" />
-          {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-          </Field>
           </div>
 
           <div>
@@ -199,16 +186,47 @@ const EditProfile = () => {
           </Field>
           </div>
 
+          <div className="label">
+            <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
+            <input
+              type="text"
+              name="reason_for_match"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.reason_for_match}
+              className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
+            />
+            <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
+          </div>
+
+
           <div>
-          <label htmlFor="work_status"> Which of the following best describes your work situation? </label>
-          <Field
-            component="select"
-            id="work_status"
-            name="work_status"
-          >
-          <option value="" label="- Select One -" />
-          {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-          </Field>
+            <label htmlFor="personality">How would you describe your personality? </label>
+            <Field
+              component="select"
+              id="personality"
+              name="personality"
+            >
+            <option value="" label="- Select One -" />
+            {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+            </Field>
+          </div>
+
+          <div>
+            <label htmlFor="work_status"> Which of the following best describes your work situation? </label>
+            <Field
+              component="select"
+              id="work_status"
+              name="work_status"
+            >
+            <option value="" label="- Select One -" />
+            {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+            </Field>
+          </div>
+
+          <div className="label">
+            <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
+            <Field name="details_about_self" placeHoldee="details_about_self"/>
           </div>
 
           <div>
@@ -236,24 +254,7 @@ const EditProfile = () => {
           </Field>
           </div>
 
-          <div className="label">
-            <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
-            <input
-              type="text"
-              name="reason_for_match"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.reason_for_match}
-              className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
-            />
-            <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
-          </div>
-
-          <div className="label">
-            <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
-            <Field name="details_about_self" placeHoldee="details_about_self"/>
-          </div>
-
+          
           <div className="label">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <Field name="treatment_description" placeHoldee="treatment_description"/>
