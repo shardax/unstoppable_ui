@@ -86,7 +86,7 @@ const EditProfile = () => {
       }}
       onSubmit={async values => {
         await sleep(1000);
-        alert(JSON.stringify(values, null, 2));
+        //alert(JSON.stringify(values, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
           //About Me
           profile.activity_ids = values.activity_ids.map(Number);
@@ -149,7 +149,7 @@ const EditProfile = () => {
           </div>
           <div className="Answers">
           <label>
-            {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>	)  )}
+            {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
           </label>
           </div>
 
@@ -180,7 +180,7 @@ const EditProfile = () => {
             <b>Identify your top reasons for wanting to become more active:</b>
             <div className="Answers">
           <label>
-            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercise_reason_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>	)  )}
+            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercise_reason_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
           </label>
           </div>
           </div>
@@ -350,7 +350,7 @@ const EditProfile = () => {
               <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
               <Field name="which_wellness_program" placeHolder="Which wellness program"/>
             </div> 
-            <button type="submit" disabled={isSubmitting}>
+            <button className="Button" disabled={isSubmitting}>
               Submit
             </button>
           </div>
