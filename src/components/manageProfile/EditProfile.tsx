@@ -242,6 +242,11 @@ const EditProfile = () => {
           <Error touched={touched.cancer_location} message={errors.cancer_location} />
           </div>
 
+          <div className="label">
+            <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
+            <Field name="other_cancer_location" placeHolder="Additional Cancer Information"/>
+          </div>
+
           <div>
           <label htmlFor="treatment_status">Which of the following best describes you?</label>
           <Field
@@ -249,22 +254,64 @@ const EditProfile = () => {
             id="treatment_status"
             name="treatment_status"
           >
-          <option value="" label="- Select One -" />
-          {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+          {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}  value={item}> {item}</option> ))}
           </Field>
           </div>
 
-          
+
           <div className="label">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <Field name="treatment_description" placeHoldee="treatment_description"/>
           </div>
-          {/* Here's how you can use a checkbox to show / hide another field */}
+          
+
+         
+
+          <div className="label">
+              <label htmlFor="treatment_status"><b> Have you ever been part of a support group or wellness program following your cancer diagnosis?:</b></label>
+              <Field
+              name="part_of_wellness_program"
+              render={({ field }) => (
+                <>
+                  <div className="radio-item">
+                    <input
+                      {...field}
+                      id="yes"
+                      value={true}
+                      checked={field.value === true}
+                      name="type"
+                      type="radio"
+                    />
+                    <label htmlFor="yes">Yes</label>
+                  </div>
+
+                  <div className="radio-item">
+                    <input
+                      {...field}
+                      id="no"
+                      value={false}
+                      name="type"
+                      checked={field.value === 'false'}
+                      type="radio"
+                    />
+                    <label htmlFor="no">No</label>
+                  </div>
+                </>
+              )}
+            />
+          </div>  
+          
+             
           <div>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+            <div className="label ">
+              <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
+              <Field name="which_wellness_program" placeHolder="Which wellness program"/>
+            </div> 
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
           </div>
+
           
         </Form>
       )}
