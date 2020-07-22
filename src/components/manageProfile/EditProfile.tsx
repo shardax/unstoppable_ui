@@ -147,9 +147,11 @@ const EditProfile = () => {
           <div className="Questions">
             <b>Favorite activities (check all that apply)</b>
           </div>
+          <div className="Answers">
           <label>
-            {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field> </label>	)  )}
+            {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>	)  )}
           </label>
+          </div>
 
           
           <div className="Questions">
@@ -176,14 +178,16 @@ const EditProfile = () => {
 
           <div className="Questions">
             <b>Identify your top reasons for wanting to become more active:</b>
-         
+            <div className="Answers">
           <label>
-            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field> </label>	)  )}
+            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>	)  )}
           </label>
+          </div>
           </div>
 
           <div className="Questions">
           <label htmlFor="prefered_exercise_location"><b>Where do you prefer to be active?</b> </label>
+          <div className="Answers">
           <Field
             component="select"
             id="prefered_exercise_location"
@@ -193,9 +197,11 @@ const EditProfile = () => {
           {PREFERRED_EXERCISE_LOCATIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
+          </div>
 
           <div className="Questions">
           <label htmlFor="prefered_exercise_time"><b>When do you prefer to be active?</b></label>
+          <div className="Answers">
           <Field
             component="select"
             id="prefered_exercise_time"
@@ -205,9 +211,11 @@ const EditProfile = () => {
           {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
           </div>
+          </div>
 
           <div className="Questions">
             <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
+            <div className="Answers">
             <input
               type="text"
               name="reason_for_match"
@@ -217,11 +225,13 @@ const EditProfile = () => {
               className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
             />
             <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
+            </div>
           </div>
 
 
           <div className="Questions">
             <label htmlFor="personality"><b>How would you describe your personality?</b> </label>
+            <div className="Answers">
             <Field
               component="select"
               id="personality"
@@ -231,9 +241,11 @@ const EditProfile = () => {
             {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
             </Field>
           </div>
+          </div>
 
           <div className="Questions">
             <label htmlFor="work_status"><b> Which of the following best describes your work situation?</b> </label>
+            <div className="Answers">
             <Field
               component="select"
               id="work_status"
@@ -243,14 +255,18 @@ const EditProfile = () => {
             {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
             </Field>
           </div>
+          </div>
 
           <div className="Questions">
             <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
+            <div className="Answers">
             <Field name="details_about_self" placeHoldee="details_about_self"/>
+            </div>
           </div>
 
           <div className="Questions">
           <label htmlFor="cancer_location"><b>What was your primary cancer diagnosis?</b></label>
+          <div className="Answers">
           <Field
             component="select"
             id="cancer_location"
@@ -261,14 +277,18 @@ const EditProfile = () => {
           </Field>
           <Error touched={touched.cancer_location} message={errors.cancer_location} />
           </div>
+          </div>
 
           <div className="Questions">
             <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
+            <div className="Answers">
             <Field name="other_cancer_location" placeHolder="Additional Cancer Information"/>
+          </div>
           </div>
 
           <div className="Questions">
           <label htmlFor="treatment_status"><b>Which of the following best describes you?</b></label>
+          <div className="Answers">
           <Field
             component="select"
             id="treatment_status"
@@ -277,11 +297,14 @@ const EditProfile = () => {
           {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item}  value={item}> {item}</option> ))}
           </Field>
           </div>
+          </div>
 
 
           <div className="Questions">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
+            <div className="Answers">
             <Field name="treatment_description" placeHoldee="treatment_description"/>
+          </div>
           </div>
           
 
