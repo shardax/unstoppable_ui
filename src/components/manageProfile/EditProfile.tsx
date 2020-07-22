@@ -64,7 +64,7 @@ const EditProfile = () => {
         activity_ids: profile.activity_ids.map(String),
         other_favorite_activities: profile.other_favorite_activities,
         fitness_level: profile.fitness_level,
-        exercise_reasons: profile.exercise_reason_ids.map(String),
+        exercise_reason_ids: profile.exercise_reason_ids.map(String),
         prefered_exercise_location: profile.prefered_exercise_location,
         prefered_exercise_time: profile.prefered_exercise_time,
         reason_for_match: profile.reason_for_match,
@@ -92,7 +92,7 @@ const EditProfile = () => {
           profile.activity_ids = values.activity_ids.map(Number);
           profile.other_favorite_activities = values.other_favorite_activities;
           profile.fitness_level = values.fitness_level;
-          profile.exercise_reason_ids = values.exercise_reasons.map(Number);
+          profile.exercise_reason_ids = values.exercise_reason_ids.map(Number);
           profile.prefered_exercise_location = values.prefered_exercise_location;
           profile.prefered_exercise_time = values.prefered_exercise_time;
           profile.reason_for_match = values.reason_for_match;
@@ -180,7 +180,7 @@ const EditProfile = () => {
             <b>Identify your top reasons for wanting to become more active:</b>
             <div className="Answers">
           <label>
-            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercies_reasons" value={item.id}></Field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>	)  )}
+            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercise_reason_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>	)  )}
           </label>
           </div>
           </div>
