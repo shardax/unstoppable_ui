@@ -9,7 +9,7 @@ import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import './EditProfile.scss'
-
+import styled from '@emotion/styled';
 
 
 const store = useDataStore();
@@ -19,6 +19,14 @@ const history = useHistory();
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
 var profile = store.profile;
+
+// with styled-components/emotion
+const MyStyledInput = styled.input`
+padding: .5em;
+border: 1px solid #000;
+/* ... */
+`
+const MyStyledTextarea = MyStyledInput.withComponent('textarea');
 
 const handleBackToView = (event: React.MouseEvent) => {
   event.preventDefault();
@@ -86,7 +94,7 @@ const EditProfile = () => {
       }}
       onSubmit={async values => {
         await sleep(1000);
-        //alert(JSON.stringify(values, null, 2));
+          //alert(JSON.stringify(values, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
           //About Me
           profile.activity_ids = values.activity_ids.map(Number);
@@ -261,7 +269,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
             <div className="Answers">
-            <textarea name="details_about_self" placeholder="Details about self" rows={7} cols={100}/>
+            <Field name="details_about_self" as={MyStyledTextarea} placeHolder="Details about self" rows={7} cols={75}/>
             </div>
           </div>
 
@@ -283,7 +291,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
             <div className="Answers">
-            <textarea name="other_cancer_location" placeholder="Additional Cancer Information" rows={2} cols={100}/>
+            <Field name="other_cancer_location"  as={MyStyledTextarea} placeHolder="Additional Cancer Information" rows={2} cols={75}/>
           </div>
           </div>
 
@@ -304,7 +312,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <div className="Answers">
-            <textarea name="treatment_description" placeholder="Treatment description" rows={3} cols={100}/>
+            <Field  name="treatment_description"  as={MyStyledTextarea} placeHolder="Treatment description" rows={2} cols={75}/>
           </div>
           </div>
           
@@ -349,7 +357,7 @@ const EditProfile = () => {
           <div>
             <div className="Questions">
               <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
-              <textarea name="which_wellness_program" placeholder="Which wellness program" rows={3} cols={100}/>
+              <Field  name="which_wellness_program" as={MyStyledTextarea} placeoHlder="Which wellness program" rows={3} cols={75}/>
             </div> 
             <button className="Button" disabled={isSubmitting}>
               Submit
