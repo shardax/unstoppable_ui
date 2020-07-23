@@ -1,5 +1,5 @@
 import React from 'react'
-import ViewEditProfile from '../components/ManageProfile/ViewEditProfile'
+import ViewEditProfile from '../components/manageProfile/ViewEditProfile'
 
 export default function Profile() {
   return (
