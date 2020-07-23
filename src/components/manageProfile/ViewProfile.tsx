@@ -29,7 +29,6 @@ const ViewProfile = (props: ProfileProps) => {
     history.push("/profile");
   }
   return (
-    <Default>
     <div>
     <React.Fragment>
           <CssBaseline />
@@ -143,7 +142,6 @@ const ViewProfile = (props: ProfileProps) => {
       </React.Fragment>
       
     </div>
-    </Default>
       );   
 }
 export default ViewProfile;

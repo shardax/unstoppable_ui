@@ -60,7 +60,6 @@ const EditProfile = () => {
   return(
   
   <div>
-    <Default>
     <div className='editProfile'>
     <h1>Edit Profile</h1>
     <h3> All changes will become part of your profile.</h3>
@@ -368,7 +367,6 @@ const EditProfile = () => {
         </Form>
       )}
     </Formik>
-    </Default>
   </div>
 );
 }

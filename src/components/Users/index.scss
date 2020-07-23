@@ -1,19 +1,20 @@
 .user-section-wrapper {
   display: flex;
   margin-top: 3em;
-  position: relative;
+  // height: 100%;
   .user-section-data {
     margin-right: 3em;
     width: 100%;
   }
 }
 
-// .user-metadata {
-//   position: -webkit-sticky !important;
-//   position: sticky !important;
-//   top: 10px !important;
-//   z-index: 1 !important;
-// }
+.user-metadata {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1 !important;
+  align-self: flex-start;
+}
 
 .full-profile-icon-row {
   // display: flex;
