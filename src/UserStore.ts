@@ -145,7 +145,7 @@ export class UserStore {
   @persist @observable profileId: number;
   @persist('object') @observable profile: ProfileStore;
   @persist @observable avatarPath: string;
-  @persist editMode: boolean;
+  @persist @observable editMode: boolean;
   @persist @observable email: string;
   @persist activities: ActivitiesStore[];
   @persist exerciseReasons: ExerciseReasonsStore[];
@@ -176,7 +176,7 @@ export class UserStore {
       this.activities = [];
       this.exerciseReasons = [];
       }
-    hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
+    // hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }
 
   @action

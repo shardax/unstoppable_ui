@@ -40,17 +40,16 @@ const ViewEditProfile: React.FC = ({  }) => {
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
     store.editMode = true;
-    history.push("/profile");
   }
 
-  return (
+  return useObserver(() => (
     <div>
       <div>
         <h3 className="profile-title">My Profile</h3>
-        { store.editMode ? null : <Button onClick={handleEdit}>Edit Profile</Button> }
+        { store.editMode ? null : <Button onClick={() => store.editMode = true}>Edit Profile</Button> }
       </div>
       { store.editMode ? <EditProfile  /> : <UserSection user={currentProfile} me={true} /> }
     </div>
-  )
+  ))
 }
 export default ViewEditProfile;

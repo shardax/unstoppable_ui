@@ -230,7 +230,7 @@ const EditProfile = () => {
               onBlur={handleBlur}
               value={values.reason_for_match}
               size={100}
-              className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
+              className={"global-input " + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
             />
             <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
             </div>
@@ -314,9 +314,6 @@ const EditProfile = () => {
             <Field  name="treatment_description"  as={MyStyledTextarea} placeHolder="Treatment description" rows={2} cols={75}/>
           </div>
           </div>
-          
-
-         
 
           <div className="Questions">
               <label htmlFor="treatment_status"><b> Have you ever been part of a support group or wellness program following your cancer diagnosis?:</b></label>
