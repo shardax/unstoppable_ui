@@ -14,8 +14,8 @@ interface InputProps {
 }
 
 const Input = styled.input<InputProps>`
-  color: ${props => props.color ? props.color : "white"};
-  background: ${props => props.background ? props.background : colors.buttonBackground};
+  color: ${props => props.color ? props.color : "black"};
+  background: ${props => props.background ? props.background : "#f0f0f0"};
   padding: ${props => props.padding ? props.padding : "4px 6px"};
   min-width: 20px;
   border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};

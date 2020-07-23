@@ -5,7 +5,7 @@ import EditProfile from "./EditProfile"
 import UserSection from "../Users/UserSection";
 import { useObserver } from "mobx-react";
 import Button from '../Button/Button';
-import {useHistory} from 'react-router-dom'
+import {useHistory, Prompt} from 'react-router-dom'
 
 
 const ViewEditProfile: React.FC = ({  }) => {
@@ -13,6 +13,7 @@ const ViewEditProfile: React.FC = ({  }) => {
   const [currentProfile, setCurrentProfile] = useState(store.profile);
   const [dataLoading, setDataLoading] = useState("");
   const history = useHistory()
+  const [editMode, setEditMode] = useState(false)
   /*
 
  useEffect(() => {
@@ -33,23 +34,27 @@ const ViewEditProfile: React.FC = ({  }) => {
   }, []);
 
 */
-  useEffect(() => {
-    setCurrentProfile(store.profile);
-  }, [store.editMode]);
+  // useEffect(() => {
+  //   setCurrentProfile(store.profile);
+  // }, [store.editMode]);
   
-  const handleEdit = (event: React.MouseEvent) => {
-    event.preventDefault();
-    store.editMode = true;
-  }
+  // const handleEdit = (event: React.MouseEvent) => {
+  //   event.preventDefault();
+  //   store.editMode = true;
+  // }
 
-  return useObserver(() => (
+  return (
     <div>
+      <Prompt
+        when={editMode}
+        message="Are you sure you want to leave? Your changes will not be saved."
+      />
       <div>
         <h3 className="profile-title">My Profile</h3>
-        { store.editMode ? null : <Button onClick={() => store.editMode = true}>Edit Profile</Button> }
+        { editMode ? null : <Button onClick={() => setEditMode(true)}>Edit Profile</Button> }
       </div>
-      { store.editMode ? <EditProfile  /> : <UserSection user={currentProfile} me={true} /> }
+      { editMode ? <EditProfile editControls={{editMode, setEditMode}} /> : <UserSection user={currentProfile} me={true} /> }
     </div>
-  ))
+  )
 }
 export default ViewEditProfile;

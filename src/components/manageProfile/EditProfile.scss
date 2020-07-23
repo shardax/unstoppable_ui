@@ -13,9 +13,9 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
-    padding-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    // padding-bottom: 10px;
+    // margin-left: auto;
+    // margin-right: auto;
    // width: 100%;
 }
 
@@ -24,15 +24,17 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 12px;
-    //padding-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
+    padding-bottom: 10px;
+    // width: 100%;
 }
+
+// .form-container {
+//     margin-bottom: 8em;
+// }
+
 .Checkbox{
     text-align: left;
     font-size: 18px;
-    //font-weight: bold;
     width: 50px;
     margin-top: 12px;
 }
@@ -43,4 +45,17 @@
     color: black;
     border: 2px solid violet;
     border-radius: 3px;
+}
+
+.submition-row {
+    position: fixed;
+    z-index: 20 !important;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    margin-left: -4%;
+    margin-right: -4%;
+    width: calc(100% - 16em);
+    border-top: 1px solid rgb(200,200,200);
 }

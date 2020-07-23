@@ -25,10 +25,10 @@ const ViewProfile = (props: ProfileProps) => {
   
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
-    store.editMode = true;
+    // store.editMode = true;
     history.push("/profile");
   }
-  
+
   return (
     <div>
     <React.Fragment>
