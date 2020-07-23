@@ -25,7 +25,7 @@ const sideNavLinks = [
   },
   {
     to: "/profile",
-    name: "Profile",
+    name: "My Profile",
     icon: <AccountCircleIcon />
   },
   {

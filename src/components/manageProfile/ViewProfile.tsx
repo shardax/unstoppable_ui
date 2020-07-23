@@ -28,6 +28,7 @@ const ViewProfile = (props: ProfileProps) => {
     store.editMode = true;
     history.push("/profile");
   }
+  
   return (
     <div>
     <React.Fragment>

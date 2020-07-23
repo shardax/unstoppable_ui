@@ -75,11 +75,11 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
         </div>
         <div className="user-metadata">
             <img className="user-section-image" src={ROOTURL + user.photo} />
-            {me ?  <div /> : (
-              <>
+            {me ?  null : (
+              <div style={{ display: "flex" }}>
                 <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
                 <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
-              </>
+              </div>
             )}
         </div>
       </div>

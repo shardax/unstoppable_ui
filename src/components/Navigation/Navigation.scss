@@ -101,4 +101,15 @@
   background: $primaryPurple;
   width: 100%;
   padding: 1em;
+  .hamburger-top {
+    color: white;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .unstoppable-title-topnav {
+    color: white;
+    font-weight: 600;
+    margin-left: 1em;
+  }
 }
