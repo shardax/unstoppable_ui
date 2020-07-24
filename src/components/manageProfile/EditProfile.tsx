@@ -12,6 +12,13 @@ import './EditProfile.scss'
 import styled from '@emotion/styled';
 import Input from '../Input/input';
 import Button from '../Button/Button'
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import classNames from "classnames";
+
 const store = useDataStore();
 
 const history = useHistory();
@@ -19,6 +26,32 @@ const history = useHistory();
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
 var profile = store.profile;
+
+const RadioButton = ({
+  field: { name, value, onChange, onBlur },
+  id,
+  label,
+  className,
+  ...props
+}) => {
+  return (
+    <div>
+      <input
+        name={name}
+        id={id}
+        type="radio"
+        value={id || false}
+        checked={id === value}
+        onChange={onChange}
+        onBlur={onBlur}
+        className={classNames("radio-button")}
+        {...props}
+      />
+      <label htmlFor={id}>{label}</label>
+    </div>
+  );
+};
+
 
 // with styled-components/emotion
 const MyStyledInput = styled.input`
@@ -87,8 +120,8 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         other_cancer_location: profile.other_cancer_location,
         treatment_status: profile.treatment_status,
         treatment_description:profile.treatment_description,
-        part_of_wellness_program: (profile.part_of_wellness_program || false),
-        which_wellness_program: profile.which_wellness_program
+        part_of_wellness_program: (profile.part_of_wellness_program),
+        which_wellness_program: profile.which_wellness_program,
       }}
       validationSchema={ValidationSchema}
       validate={values => {
@@ -97,7 +130,8 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
       }}
       onSubmit={async values => {
         await sleep(1000);
-          //alert(JSON.stringify(values, null, 2));
+          alert(JSON.stringify(profile, null, 2));
+          alert(JSON.stringify(values.part_of_wellness_program, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
           //About Me
           profile.activity_ids = values.activity_ids.map(Number);
@@ -316,36 +350,19 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
 
           <div className="Questions">
               <label htmlFor="treatment_status"><b> Have you ever been part of a support group or wellness program following your cancer diagnosis?:</b></label>
-              <Field
-              name="part_of_wellness_program"
-              render={({ field }) => (
-                <>
-                  <div className="radio-item">
-                    <input
-                      {...field}
-                      id="yes"
-                      value={true}
-                      checked={field.value === true}
-                      name="type"
-                      type="radio"
-                    />
-                    <label htmlFor="yes">Yes</label>
-                  </div>
 
-                  <div className="radio-item">
-                    <input
-                      {...field}
-                      id="no"
-                      value={false}
-                      name="type"
-                      checked={field.value === 'false'}
-                      type="radio"
-                    />
-                    <label htmlFor="no">No</label>
-                  </div>
-                </>
-              )}
-            />
+                      <Field
+                        component={RadioButton}
+                        name="part_of_wellness_program"
+                        id="true"
+                        label="Yes"
+                      />
+                      <Field
+                        component={RadioButton}
+                        name="part_of_wellness_program"
+                        id="false"
+                        label="No"
+                      />
           </div>  
           
              
