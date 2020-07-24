@@ -145,7 +145,7 @@ export class UserStore {
   @persist @observable profileId: number;
   @persist('object') @observable profile: ProfileStore;
   @persist @observable avatarPath: string;
-  @persist editMode: boolean;
+  // @persist @observable editMode: boolean;
   @persist @observable email: string;
   @persist activities: ActivitiesStore[];
   @persist exerciseReasons: ExerciseReasonsStore[];
@@ -160,7 +160,7 @@ export class UserStore {
       this.avatarPath = localStorageData.avatarPath;
       this.profileId = localStorageData.profileId;
       this.current_user_id = localStorageData.current_user_id;
-      this.editMode = localStorageData.editMode;
+      // this.editMode = localStorageData.editMode;
       this.email = localStorageData.email;
       this.activities = localStorageData.activities;
       this.exerciseReasons = localStorageData.exerciseReasons;
@@ -172,11 +172,11 @@ export class UserStore {
       this.avatarPath = "";
       this.profileId = 0;
       this.current_user_id=0;
-      this.editMode = false;
+      // this.editMode = false;
       this.activities = [];
       this.exerciseReasons = [];
       }
-    hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
+    // hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
   }
 
   @action
@@ -199,7 +199,7 @@ export class UserStore {
       this.profile = new ProfileStore();
       this.avatarPath = "";
       this.profileId = 0;
-      this.editMode = false;
+      // this.editMode = false;
   }
 }
 

@@ -12,6 +12,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MessageIcon from '@material-ui/icons/Message';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
+
 
 import { NavLink, Link } from 'react-router-dom';
 
@@ -23,18 +25,26 @@ const sideNavLinks = [
   },
   {
     to: "/profile",
-    name: "Profile",
+    name: "My Profile",
     icon: <AccountCircleIcon />
   },
   {
     to: "/messages",
     name: "Messages",
     icon: <MessageIcon />
-  },
+  }
+]
+
+const optionLinks = [
   {
     to: "/usettings",
-    name: "UserSettings",
-    icon: <MessageIcon />
+    name: "Settings",
+    icon: <SettingsIcon />
+  },
+  {
+    to: "/logout",
+    name: "Logout",
+    icon: <ExitToAppIcon />
   }
 ]
 
@@ -64,9 +74,12 @@ const SideNav = () => {
 
       <hr className="horizontal-break" />
       <div className="main-navlink">
-        <Link className="sidenav-link-content" to={"/logout"}><ExitToAppIcon /> <span className="sidenav-link-name">Logout</span></Link>
+        {optionLinks.map((link: any) => (
+            <div className="sidenav-link">
+              <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
+            </div>
+          ))}
         </div>
-
     </div>
   ))
 }

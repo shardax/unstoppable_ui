@@ -1,19 +1,24 @@
 .user-section-wrapper {
   display: flex;
   margin-top: 3em;
-  position: relative;
+  width: 100%;
+  // height: 100%;
   .user-section-data {
     margin-right: 3em;
     width: 100%;
+    flex-grow: 3;
+  }
+  .user-metadata {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+    align-self: flex-start;
+    flex-grow: 2;
   }
 }
 
-// .user-metadata {
-//   position: -webkit-sticky !important;
-//   position: sticky !important;
-//   top: 10px !important;
-//   z-index: 1 !important;
-// }
+
 
 .full-profile-icon-row {
   // display: flex;
@@ -86,4 +91,10 @@
   width: 300px;
   border-radius: 10px;
   margin-bottom: 1em;
+}
+
+.go-back-home {
+  font-size: 14px !important;
+  margin-bottom: 3px;
+  margin-right: 0.1em;
 }
