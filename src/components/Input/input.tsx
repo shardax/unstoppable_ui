@@ -5,7 +5,7 @@ import styled from 'styled-components';
 interface InputProps {
   color?: string,
   background?: string,
-  hoverBorder?: string,
+  focusBorder?: string,
   border?: string,
   padding?: string,
   margin?: string,
@@ -15,7 +15,7 @@ interface InputProps {
 
 const Input = styled.input<InputProps>`
   color: ${props => props.color ? props.color : "black"};
-  background: ${props => props.background ? props.background : "#f0f0f0"};
+  background: ${props => props.background ? props.background : "#ffffff"};
   padding: ${props => props.padding ? props.padding : "4px 6px"};
   min-width: 20px;
   border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};
@@ -24,10 +24,9 @@ const Input = styled.input<InputProps>`
   outline:none;
   border: ${props => props.border ? props.border : "none"};
   margin: ${props => props.margin ? props.margin : "0"};
-  display: flex,
-  align-items: center,
-  &:hover {
-    cursor: pointer;
+  &:focus {
+    border: ${props => props.focusBorder ? props.focusBorder : "auto"};
+  }
 `
 
 export default Input;

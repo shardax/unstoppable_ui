@@ -37,7 +37,7 @@ const sideNavLinks = [
 
 const optionLinks = [
   {
-    to: "/usettings",
+    to: "/settings",
     name: "Settings",
     icon: <SettingsIcon />
   },

@@ -8,6 +8,8 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
+import Input from '../Input/input'
+import Button from '../Button/Button'
 
 const ValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -101,34 +103,43 @@ const SignIn2 = () => {
           { errorMessage && <h3 className="error"> { errorMessage } </h3> }
           <div className="input-row">
             <label>Name</label>
-            <input
+            <Input
               type="text"
               name="username"
+              placeholder="username"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.username}
-              className={"global-input login-form " + (touched.username && errors.username ? "has-error" : null)}
+              className={"global-input " + (touched.username && errors.username ? "has-error" : null)}
+              padding={"1em"}
+              border="1px solid #f0f0f0"
+              focusBorder="1px solid black"
+              fontSize="14px"
             />
             <Error touched={touched.username} message={errors.username} />
           </div>
 
           <div className="input-row">
             <label>Password</label>
-            <input
+            <Input
               type="password"
               name="password"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              className={"global-input login-form " + (touched.password && errors.password ? "has-error" : null)}
+              className={"global-input " + (touched.password && errors.password ? "has-error" : null)}
+              padding={"1em"}
+              border="1px solid #f0f0f0"
+              focusBorder="1px solid black"
+              fontSize="14px"
             />
             <Error touched={touched.password} message={errors.password} />
           </div>
 
           <div className="input-row">
-            <button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting} padding="8px 30px">
               Submit
-            </button>
+            </Button>
           </div>
           <div className="register">
             <Link to='/register' activeClassName="active">Sign Up</Link>

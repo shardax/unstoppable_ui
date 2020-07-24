@@ -135,7 +135,7 @@ const UserSettings = (props: ProfileProps) => {
                 setUsername(formik.values.username);
                 formik.values.username =  result.data.username;;
                 console.log("updated username="+ store.username);
-                history.push("/usettings");
+                history.push("/settings");
               }
               else {
 
