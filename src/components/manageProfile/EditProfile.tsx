@@ -56,6 +56,11 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
     return ({ id, name});
   });
 
+  const handleCancel = (event: React.MouseEvent) => {
+    event.preventDefault();
+    editControls.setEditMode(false)
+  }
+
   return(
   
   <div>
@@ -163,13 +168,14 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           <div className="Questions">
             <b>Do you have any other favorite activities? </b>
           </div>
-          <label>
-            <textarea name="other_favorite_activities" placeholder="Enter any other favorite activity" rows={1} cols={50}/>
-          </label>
+            <label>
+             <textarea name="other_favorite_activities" placeholder="Enter any other favorite activity" rows={1} cols={50}/>
+            </label>
 
           <div className="Questions">
             <label htmlFor="fitnessLevel"><b>How would you describe your current fitness level? </b> </label>
           </div>
+          <div className="Answers">
           <Field
             component="select"
             id="fitness_level"
@@ -178,6 +184,7 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           <option value="" label="- Select One -" />
           {FITNESS_LEVEL_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
+          </div>
         {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
           
         </select>*/}
@@ -222,15 +229,7 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           <div className="Questions">
             <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
             <div className="Answers">
-            <input
-              type="text"
-              name="reason_for_match"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.reason_for_match}
-              size={100}
-              className={"global-input " + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
-            />
+            <Field name="reason_for_match"  as={MyStyledTextarea} placeHolder="Reason for Matching With Partner" rows={1} cols={50}/>
             {/* <Input></Input> */}
             <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
             </div>
@@ -358,6 +357,9 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
             </div>
             <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
                 Submit
+            </Button>
+            <Button margin="2em 1.5em" padding="10px 20px" onClick={handleCancel}>
+                Cancel
             </Button>
           </div>
         </Form>
