@@ -10,8 +10,8 @@ import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import './EditProfile.scss'
 import styled from '@emotion/styled';
-
-
+import Input from '../Input/input';
+import Button from '../Button/Button'
 const store = useDataStore();
 
 const history = useHistory();
@@ -28,13 +28,6 @@ border: 1px solid #000;
 `
 const MyStyledTextarea = MyStyledInput.withComponent('textarea');
 
-const handleBackToView = (event: React.MouseEvent) => {
-  event.preventDefault();
-  store.editMode = false;
-  console.log("In handleBackToView");
-  history.push("/profile");
-}
-
 const ValidationSchema = Yup.object().shape({
   reason_for_match: Yup.string()
     .min(1, "Too Short!")
@@ -44,8 +37,14 @@ const ValidationSchema = Yup.object().shape({
     .required("Required"),
 });
 
+interface IEditProfile {
+  editControls: {
+    editMode: boolean,
+    setEditMode: React.Dispatch<React.SetStateAction<boolean>>
+  }
+}
 
-const EditProfile = () => { 
+const EditProfile: React.FC<IEditProfile> = ({editControls}) => { 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
     const id = store.activities[key].id.toString()
     const name = store.activities[key].name.toString();
@@ -60,7 +59,6 @@ const EditProfile = () => {
   return(
   
   <div>
-    <Default>
     <div className='editProfile'>
     <h1>Edit Profile</h1>
     <h3> All changes will become part of your profile.</h3>
@@ -119,7 +117,7 @@ const EditProfile = () => {
             // do good things
             store.profile = profile;
             console.log(JSON.stringify(res));
-            store.editMode = false;
+            editControls.setEditMode(false)
             console.log("In handleBackToView");
             history.push("/profile");
         })
@@ -151,26 +149,26 @@ const EditProfile = () => {
             bind the checked values to a single array for your benefit. All the add and remove
             logic will be taken care of for you.
           */}
-          <div className="Questions">
-          <div className="Questions">
-            <b>Favorite activities (check all that apply)</b>
-          </div>
-          <div className="Answers">
-          <label>
-            {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
-          </label>
-          </div>
+          <div className="form-container">
+            <div className="Questions">
+              <b>Favorite activities (check all that apply)</b>
+            </div>
+            <div className="Answers">
+            <label>
+              {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
+            </label>
+            </div>
 
           
           <div className="Questions">
             <b>Do you have any other favorite activities? </b>
           </div>
           <label>
-            <textarea name="other_favorite_activities" placeholder="Enter any other favorite activity" rows={1} cols={100}/>
+            <textarea name="other_favorite_activities" placeholder="Enter any other favorite activity" rows={1} cols={50}/>
           </label>
 
           <div className="Questions">
-             <label htmlFor="fitnessLevel"><b>How would you describe your current fitness level? </b> </label>
+            <label htmlFor="fitnessLevel"><b>How would you describe your current fitness level? </b> </label>
           </div>
           <Field
             component="select"
@@ -180,8 +178,8 @@ const EditProfile = () => {
           <option value="" label="- Select One -" />
           {FITNESS_LEVEL_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
           </Field>
-         {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
-           
+        {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
+          
         </select>*/}
 
           <div className="Questions">
@@ -231,8 +229,9 @@ const EditProfile = () => {
               onBlur={handleBlur}
               value={values.reason_for_match}
               size={100}
-              className={"global-input" + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
+              className={"global-input " + (touched.reason_for_match && errors.reason_for_match ? "has-error" : null)}
             />
+            {/* <Input></Input> */}
             <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
             </div>
           </div>
@@ -269,7 +268,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
             <div className="Answers">
-            <Field name="details_about_self" as={MyStyledTextarea} placeHolder="Details about self" rows={7} cols={75}/>
+            <Field name="details_about_self" as={MyStyledTextarea} placeHolder="Details about self" rows={7} cols={50}/>
             </div>
           </div>
 
@@ -291,7 +290,7 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
             <div className="Answers">
-            <Field name="other_cancer_location"  as={MyStyledTextarea} placeHolder="Additional Cancer Information" rows={2} cols={75}/>
+            <Field name="other_cancer_location"  as={MyStyledTextarea} placeHolder="Additional Cancer Information" rows={2} cols={50}/>
           </div>
           </div>
 
@@ -312,12 +311,9 @@ const EditProfile = () => {
           <div className="Questions">
             <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
             <div className="Answers">
-            <Field  name="treatment_description"  as={MyStyledTextarea} placeHolder="Treatment description" rows={2} cols={75}/>
+            <Field  name="treatment_description"  as={MyStyledTextarea} placeHolder="Treatment description" rows={2} cols={50}/>
           </div>
           </div>
-          
-
-         
 
           <div className="Questions">
               <label htmlFor="treatment_status"><b> Have you ever been part of a support group or wellness program following your cancer diagnosis?:</b></label>
@@ -354,21 +350,19 @@ const EditProfile = () => {
           </div>  
           
              
-          <div>
-            <div className="Questions">
-              <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
-              <Field  name="which_wellness_program" as={MyStyledTextarea} placeoHlder="Which wellness program" rows={3} cols={75}/>
-            </div> 
-            <button className="Button" disabled={isSubmitting}>
-              Submit
-            </button>
+            <div>
+              <div className="Questions">
+                <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
+                <Field  name="which_wellness_program" as={MyStyledTextarea} placeoHlder="Which wellness program" rows={3} cols={50}/>
+              </div> 
+            </div>
+            <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
+                Submit
+            </Button>
           </div>
-          </div>
-          
         </Form>
       )}
     </Formik>
-    </Default>
   </div>
 );
 }

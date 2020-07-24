@@ -25,11 +25,11 @@ const ViewProfile = (props: ProfileProps) => {
   
   const handleEdit = (event: React.MouseEvent) => {
     event.preventDefault();
-    store.editMode = true;
+    // store.editMode = true;
     history.push("/profile");
   }
+
   return (
-    <Default>
     <div>
     <React.Fragment>
           <CssBaseline />
@@ -143,7 +143,6 @@ const ViewProfile = (props: ProfileProps) => {
       </React.Fragment>
       
     </div>
-    </Default>
       );   
 }
 export default ViewProfile;

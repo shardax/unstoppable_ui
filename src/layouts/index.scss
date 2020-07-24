@@ -4,7 +4,7 @@
   // max-width: 1200px;
   display: flex;
   background: white;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-y: hidden;
   width: 100%;
   .format-children-default {
@@ -15,6 +15,7 @@
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    width: 100%;
     &::-webkit-scrollbar {
       width: 0px;
       background: transparent; /* make scrollbar transparent */

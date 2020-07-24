@@ -36,7 +36,7 @@ const AboutMe = (props: AboutMeComponentProps) => {
   
   const handleBackToView = (event: React.MouseEvent) => {
     event.preventDefault();
-    store.editMode = false;
+    // store.editMode = false;
     console.log("In handleBackToView");
     history.push("/profile");
     setInputSubmitted(true);

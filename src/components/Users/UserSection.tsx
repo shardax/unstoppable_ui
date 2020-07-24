@@ -14,26 +14,8 @@ import WorkIcon from '@material-ui/icons/Work';
 import ExploreIcon from '@material-ui/icons/Explore';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 
-const UserSection: React.FC<{id: string}> = ({ id }) => {
+const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
   const store = useDataStore()
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const getProfile = async () => {
-      try {
-        const { data } = await axios.get(`${PROFILEURL}/${id}.json`, { withCredentials: true,
-          headers: {
-            contentType: "application/json; charset=utf-8",
-        }})
-        setUser(data.profile)
-        setLoading(false)
-      } catch (e) {
-        throw new Error(e)
-      }
-    }
-    getProfile();
-  }, [])
 
   const ProfileIconRow = ({ icon, field, answer, chips }) => {
     if (!answer || answer === "") {
@@ -54,9 +36,7 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
   const ChipList = () => {
     const Chip = ({ activityId }) => {
       const getMatch = () => {
-        console.log(activityId)
         const matched = store.activities.find(({ id }) => id === activityId )
-        console.log(matched)
         if (matched) return matched.name
         return null
       }      
@@ -73,10 +53,6 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
         )}
       </span>
     )
-  }
-
-  if (!user || loading ) {
-    return <div>Loading...</div>
   }
 
   return (
@@ -99,8 +75,12 @@ const UserSection: React.FC<{id: string}> = ({ id }) => {
         </div>
         <div className="user-metadata">
             <img className="user-section-image" src={ROOTURL + user.photo} />
-            <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
-            <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
+            {me ?  null : (
+              <div style={{ display: "flex" }}>
+                <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
+                <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
+              </div>
+            )}
         </div>
       </div>
 
