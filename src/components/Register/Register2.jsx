@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import './Register.scss'
 import { useFormik } from 'formik';
+import * as formik from 'formik';
 import * as Yup from "yup";
 import axios from "axios";
 import UnsIcon from '../../images/2Unstoppable_logo.png'
@@ -11,8 +12,6 @@ import { values } from "mobx";
 import { useCacheErrors } from "antd/lib/form/util";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
-var moment = require('moment');
-const minDate = moment().subtract(18, 'year').toDate();
 
 const validationSchema = Yup.object({
     username: Yup.string()
@@ -29,11 +28,12 @@ const validationSchema = Yup.object({
     zipcode: Yup.string()
         .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
         .required("Required"),
-    referred: Yup.string()
+    referred_by: Yup.string()
         .required("Required"),
-    selectedDate: Yup.date()
-        .max(minDate,"Must be over 18")
-        .required("Required")
+    age: Yup.number()
+        .min(18, "Must be 18 years old or older to register"),
+    phone: Yup.string()
+        .length(10, "Must be a valid US phone number")
 });
 
 const Register2 = () => {
@@ -45,21 +45,43 @@ const Register2 = () => {
     const [selectedDate, handleDateChange] = useState(new Date());
     const store = useDataStore();
 
-    const { handleBlur, handleSubmit, handleChange, values, errors, touched } = useFormik({
+
+    const { handleBlur, handleSubmit, handleChange, setFieldValue, values, errors, touched } = useFormik({
         initialValues: {
             username: "",
             email: "",
-            selectedDate: "",
+            selectedDate: new Date(),
             zipcode: "",
             password: "",
             hear: "",
-            referred: "",
+            referred_by: "",
             selectedDate: "",
+            age: "",
+            phone:""
         },
         validationSchema,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
+        onSubmit: async values => {
+            await axios.post(url, { user: 
+                {"username": values.username, 
+                "email": values.email, 
+                "dob(3i)": values.day, 
+                "dob(2i)":values.month, 
+                "dob(1i)":values.year,
+                "zipcode":values.zipcode,
+                "password":values.password}},
+                { withCredentials: true, 
+                    headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+            })
+            .catch(err => {
+                  if (err.response) {
+                    // client received an error response (5xx, 4xx)
+                  } else if (err.request) {
+                    // client never received a response, or request never left
+                  } else {
+                    // anything else
+                  }
+                }) // end of error block
+            }
     });
     return (
         <div>
@@ -114,18 +136,17 @@ const Register2 = () => {
                                     <h4>Date of Birth:</h4>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <DatePicker
-                                            variant="inline"
+                                            value={values.selectedDate}
+                                            inputVariant="outlined"
+                                            disableFuture
                                             openTo="year"
                                             views={["year", "month", "date"]}
-                                            label="Year, Month, and Day"
-                                            helperText="Start from year selection"
-                                            value={values.selectedDate}
-                                            onChange={handleChange}
-                                            className={errors.selectedDate && touched.selectedDate ? "error" : null}
-                                        />
+                                            format="MM/dd/yyyy"
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={value => setFieldValue("selectedDate", value)} />
                                     </MuiPickersUtilsProvider>
-                                    {errors.selectedDate && touched.selectedDate ? (
-                                        <div className="errorText">{errors.selectedDate}</div>
+                                    {errors.age && touched.age ? (
+                                        <div className="errorText">{errors.age}</div>
                                     ) : null}
                                 </td>
                             </tr>
@@ -167,14 +188,32 @@ const Register2 = () => {
                             </tr>
                             <tr>
                                 <td>
-                                    <h4>How did you learn about us?</h4>
-                                    <select
-                                        id="referred"
-                                        name="referred"
-                                        value={values.referred}
+                                    <h4>Phone Number:</h4>
+                                    <p><i>Your phone number will not be viewable to any other user.</i></p>
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="text"
+                                        value={values.phone}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        className={errors.referred && touched.referred ? "error" : null}
+                                        className={errors.phone && touched.phone ? "error" : null}
+                                    />
+                                    {errors.phone && touched.phone ? (
+                                        <span className="errorText">{errors.phone}</span>
+                                    ) : null}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>How did you learn about us?</h4>
+                                    <select
+                                        id="referred_by"
+                                        name="referred_by"
+                                        value={values.referred_by}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.referred_by && touched.referred_by ? "error" : null}
                                     >
                                         <option value="" label="Select an option" />
                                         <option value="social" label="Facebook/Social Media" />
@@ -186,8 +225,8 @@ const Register2 = () => {
                                         <option value="provider" label="My provider (physician, nurse, nutritionist)" />
                                         <option value="other" label="Other" />
                                     </select>
-                                    {errors.referred && touched.referred ? (
-                                        <span className="errorText">{errors.referred}</span>
+                                    {errors.referred_by && touched.referred_by ? (
+                                        <span className="errorText">{errors.referred_by}</span>
                                     ) : null}
                                 </td>
                             </tr>
