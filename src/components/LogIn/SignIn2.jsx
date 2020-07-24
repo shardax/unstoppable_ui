@@ -113,7 +113,7 @@ const SignIn2 = () => {
               className={"global-input " + (touched.username && errors.username ? "has-error" : null)}
               padding={"1em"}
               border="1px solid #f0f0f0"
-              focusBorder="1px solid black"
+              focusBorder="1px solid #6429B9"
               fontSize="14px"
             />
             <Error touched={touched.username} message={errors.username} />
@@ -130,7 +130,7 @@ const SignIn2 = () => {
               className={"global-input " + (touched.password && errors.password ? "has-error" : null)}
               padding={"1em"}
               border="1px solid #f0f0f0"
-              focusBorder="1px solid black"
+              focusBorder="1px solid #6429B9"
               fontSize="14px"
             />
             <Error touched={touched.password} message={errors.password} />
@@ -138,7 +138,7 @@ const SignIn2 = () => {
 
           <div className="input-row">
             <Button type="submit" disabled={isSubmitting} padding="8px 30px">
-              Submit
+              Log in
             </Button>
           </div>
           <div className="register">
