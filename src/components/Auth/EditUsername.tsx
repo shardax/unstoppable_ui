@@ -7,6 +7,8 @@ import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
+import Button from '../Button/Button';
+import Input from '../Input/input';
 
 interface IStateProps {
   stateProps: {
@@ -105,25 +107,24 @@ const EditUsername = (props: IStateProps) => {
           setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
-            <h2>Change Username</h2>
             <div className="input-row">
               <label>Name</label>
-              <input
+              <Input
                 type="text"
                 name="username"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.username}
-                className={"global-input login-form " + (touched.username && errors.username ? "has-error" : null)}
+                className={"login-form " + (touched.username && errors.username ? "has-error" : null)}
               />
               <Error touched={touched.username} message={errors.username} />
               <Error touched={touched.username} message={errorMessage} />
             </div>
   
             <div className="input-row">
-              <button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting}>
                 Submit
-              </button>
+              </Button>
             </div>
           </form>
         )}
