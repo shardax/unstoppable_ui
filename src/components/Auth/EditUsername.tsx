@@ -1,60 +1,52 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
-import { useFormik, Formik} from 'formik';
+import {Formik} from 'formik';
 import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
+import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
 
-
+interface IStateProps {
+  stateProps: {
+    setShowUsername: React.Dispatch<React.SetStateAction<boolean>>
+  }
+}
   
-const EditUsername = () => {
+const EditUsername = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
-    const [showUsername, setShowUsername] = useState(false);
-    const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-   
-    //interface AxiosRequestConfig {
-    //  username: string;
-   // }
 
     const ValidationSchema = Yup.object().shape({
         username: Yup.string()
           .min(2, "Too Short!")
           .max(255, "Too Long!")
           .required("Required!!")
-          .test('Unique Username','Username already in use', 
+          .test('Unique Username','Username already been taken', 
               function(value){return new Promise((resolve, reject) => {        
-                  axios.post('http://localhost:3001/account_settings/valid_username',  { "username": value, "id": store.current_user_id},{ withCredentials: true,
+                  axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
                   headers: {
                     contentType: "application/json; charset=utf-8",
                 }})
-                 // .then(res => {if(res.data.msg === 'Username already been taken'){resolve(false)} resolve(true)})
                  .then(res => {
                    if(res.data.message === 'Username already been taken'){
                      console.log(res.data.message);
-                     setErrorMessage('Username already been taken');
+                     resolve(false);
                   } else {
-                    console.log("USER GOOD!")
+                    console.log("User valid")
+                    resolve(true);
                   }
                 })
               })}
           )   
       });
       
-
     const setUsername = (name) => {
       store.username = name;
       localStorage.setItem("userStore", JSON.stringify(store));
     }
-  
-    const handleEditUsername = () => {
-     // event.preventDefault();
-      setShowUsername(!showUsername);
-     }
-    
   
     return (
       <Formik
@@ -69,41 +61,34 @@ const EditUsername = () => {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           setTimeout(() => {
-            //alert(JSON.stringify(values, null, 2));
+           // alert(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
           }, 500);
   
           const saveData = async () => {
-            setIsError(false);
-            store.isLoggedIn = false;
        
             try {
-                let url = "http://localhost:3001"+  "/account_settings/change_username";
-                const result = await axios.patch(url,
-                { "username": values.username, "id": store.current_user_id},
-                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+                const result = await axios.patch(SAVEUSERNAMEURL,
+                  { "username": values.username, "id": store.current_user_id},
+                  { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
                 if (result.data.status != "error") {
-                setUsername(values.username);
-                values.username =  result.data.username;;
-                console.log("updated username="+ store.username);
-                history.push("/usettings");
+                  setUsername(values.username);
+                  values.username =  result.data.username;;
+                  console.log("updated username="+ store.username);
+                  props.stateProps.setShowUsername(false);
+                  history.push("/settings");
                 }
                 else {
-
                 console.log("printint error  message")
                 console.log(result.data.message);
-                // parse and show error
-                //setErrors(result.data.message)
-                //errors.username = result.data.message;
-
+                setErrorMessage(result.data.message);
                 }
             } catch (error) {
             console.log(JSON.stringify(error));
             setErrorMessage(error.message);
-            setIsError(true);
             }
         };
         saveData();
@@ -147,4 +132,4 @@ const EditUsername = () => {
   }
   
 
-export default EditUsername
+export default EditUsername;

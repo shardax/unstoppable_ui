@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
+import EditUsername from '../Auth/EditUsername';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
-import { PROFILEURL, ROOTURL} from "../../constants/matcher";
+import { PROFILEURL, ROOTURL, SAVEUSERNAMEURL, VALIDUSERNAMEURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 //import {PrintUserInfo, DisplayProfileActivityNames, DisplayExerciseReasons} from "./CommonElements";
@@ -32,13 +33,9 @@ const UserSettings = (props: ProfileProps) => {
  
   const profile = props.profile;
  
-  useEffect(() => {
+  
 
-   // Gte user data from Server
-
-
-
-  }, [])
+  
 
   const setUsername = (name) => {
     store.username = name;
@@ -51,6 +48,7 @@ const UserSettings = (props: ProfileProps) => {
    const handleEditUsername = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowUsername(!showUsername);
+    alert(showUsername);
    }
    const handleEditPassword = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -113,7 +111,7 @@ const UserSettings = (props: ProfileProps) => {
     )
    }
 
-   const EditUsername = () => {
+   const EditUsername1 = () => {
 
     const formik = useFormik({
       initialValues: {
@@ -125,8 +123,7 @@ const UserSettings = (props: ProfileProps) => {
         const saveData = async () => {
           //setIsError(false);
           try {
-              let url = "http://localhost:3001"+  "/account_settings/change_username";
-              const result = await axios.patch(url,
+              const result = await axios.patch(VALIDUSERNAMEURL,
                 { "username": formik.values.username, "id": store.current_user_id},
                 { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
               });
@@ -380,7 +377,31 @@ const UserSettings = (props: ProfileProps) => {
                 </div>     
                 <div className="Values">
                   <EditEmail/>
-                  <EditUsername/>
+                  <table>
+                      <tr>
+                        <td>
+                          <h5><b>Username: </b></h5>
+                        </td>
+                        <td>
+                            {!showUsername &&
+                              <div style={{fontSize: 20}}>
+                              {store.username}
+                              </div>
+                            }
+                        </td>
+                        <td>
+                          {!showUsername &&
+                            <button className="editButton" onClick={handleEditUsername}>
+                                  Edit
+                            </button>
+                          }
+                          { showUsername &&
+                            <EditUsername stateProps={{setShowUsername}}/>
+                          }
+                        </td>
+                      </tr>
+                </table>
+                  
                   <EditPassword/>
                   <EditDOB/>
                 <EditZipcode/> 
