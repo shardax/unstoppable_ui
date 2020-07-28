@@ -8,11 +8,12 @@ import '../LogIn/UserSettings.scss'
 import DatePicker from "./DatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Yup from 'yup';
+import Button from '../Button/Button';
 import { SAVEDOBURL } from "../../constants/matcher";
 
 interface IStateProps {
   stateProps: {
-    setShowUsername: React.Dispatch<React.SetStateAction<boolean>>
+    setShowDOB: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
   
@@ -23,6 +24,12 @@ const EditDOB= (props: IStateProps) => {
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
     const [startDate, setStartDate] = useState(new Date());
+
+    const handleCancelDOB = (event: React.MouseEvent) => {
+      event.preventDefault();
+      props.stateProps.setShowDOB(false);
+    }
+
 
     const ValidationSchema = Yup.object().shape({
       age: Yup.number()
@@ -116,9 +123,12 @@ const EditDOB= (props: IStateProps) => {
             </div>
   
             <div className="input-row">
-              <button type="submit" disabled={isSubmitting}>
+              <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
-              </button>
+              </Button>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelDOB}>
+                Cancel
+              </Button>
             </div>
           </form>
         )}

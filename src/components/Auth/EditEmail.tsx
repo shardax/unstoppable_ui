@@ -6,59 +6,58 @@ import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
-import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
+import { SAVEEMAILURL, VALIDEMAILURL } from "../../constants/matcher";
 import Button from '../Button/Button';
 import Input from '../Input/input';
 
 interface IStateProps {
   stateProps: {
-    setShowUsername: React.Dispatch<React.SetStateAction<boolean>>
+    setShowEmail: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
   
-const EditUsername = (props: IStateProps) => {
+const EditEmail = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
 
-    const handleCancelUsername = (event: React.MouseEvent) => {
+    const handleCancelEmail = (event: React.MouseEvent) => {
       event.preventDefault();
-      props.stateProps.setShowUsername(false);
+      props.stateProps.setShowEmail(false);
     }
 
+
     const ValidationSchema = Yup.object().shape({
-        username: Yup.string()
-          .min(2, "Too Short!")
-          .max(255, "Too Long!")
+        email: Yup.string()
           .required("Required!!")
-          .test('Unique Username','Username already been taken', 
+    /* .test('Unique Email','Email already been taken', 
               function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
+                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.email},{ withCredentials: true,
                   headers: {
                     contentType: "application/json; charset=utf-8",
                 }})
                  .then(res => {
-                   if(res.data.message === 'Username already been taken'){
+                   if(res.data.message === 'Email already been taken'){
                      console.log(res.data.message);
                      resolve(false);
                   } else {
-                    console.log("User valid")
+                    console.log("Email valid")
                     resolve(true);
                   }
                 })
               })}
-          )   
+            )  */
       });
       
-    const setUsername = (name) => {
-      store.username = name;
+    const setEmail = (email) => {
+      store.email = email;
       localStorage.setItem("userStore", JSON.stringify(store));
     }
   
     return (
       <Formik
         initialValues={{
-          username: "",
+          email: "",
         }}
         validationSchema={ValidationSchema}
         validate={values => {
@@ -76,16 +75,16 @@ const EditUsername = (props: IStateProps) => {
           const saveData = async () => {
        
             try {
-                const result = await axios.patch(SAVEUSERNAMEURL,
-                  { "username": values.username, "id": store.current_user_id},
+                const result = await axios.patch(SAVEEMAILURL,
+                  { "email": values.email, "id": store.email},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
                 if (result.data.status != "error") {
-                  setUsername(values.username);
-                  values.username =  result.data.username;;
-                  console.log("updated username="+ store.username);
-                  props.stateProps.setShowUsername(false);
+                  setEmail(values.email);
+                  values.email =  result.data.email;;
+                  console.log("updated email="+ store.email);
+                  props.stateProps.setShowEmail(false);
                   history.push("/settings");
                 }
                 else {
@@ -116,21 +115,21 @@ const EditUsername = (props: IStateProps) => {
               <label>Name</label>
               <Input
                 type="text"
-                name="username"
+                name="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.username}
-                className={"login-form " + (touched.username && errors.username ? "has-error" : null)}
+                value={values.email}
+                className={"login-form " + (touched.email && errors.email ? "has-error" : null)}
               />
-              <Error touched={touched.username} message={errors.username} />
-              <Error touched={touched.username} message={errorMessage} />
+              <Error touched={touched.email} message={errors.email} />
+              <Error touched={touched.email} message={errorMessage} />
             </div>
   
             <div className="input-row">
             <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
               </Button>
-              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelUsername}>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelEmail}>
                 Cancel
               </Button>
             </div>
@@ -141,4 +140,4 @@ const EditUsername = (props: IStateProps) => {
   }
   
 
-export default EditUsername;
+export default EditEmail;

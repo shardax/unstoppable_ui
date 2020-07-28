@@ -3,6 +3,10 @@ import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
+import EditEmail from '../Auth/EditEmail';
+import EditZipcode from '../Auth/EditZipcode';
+import EditPassword from '../Auth/EditPassword';
+import EditDOB from '../Auth/EditDOB';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
@@ -32,11 +36,53 @@ const UserSettings = (props: ProfileProps) => {
   const [changeUsername, setChangeUsername] = useState(store.username);
   const [changeDOB, setChangeDOB] = useState(store.profile.dob);
   const [changeZipcode, setChangeZipcode] = useState(store.profile.zipcode);
- 
+  const [ZipcodeDisable, setZipcodeDisable] = useState(true);
+  const [EmailDisable, setEmailDisable] = useState(true);
+  const [UsernameDisable, setUsernameDisable] = useState(true);
+  const [DOBDisable, setDOBDisable] = useState(true);
+  const [PasswordDisable, setPasswordDisable] = useState(true);
   const profile = props.profile;
  
   
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setEmailDisable(!EmailDisable);
+    setDOBDisable(!DOBDisable);
+    setPasswordDisable(!PasswordDisable);
+  },
+  [showUsername]);
 
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setUsernameDisable(!UsernameDisable);
+    setDOBDisable(!DOBDisable);
+    setPasswordDisable(!PasswordDisable);
+  },
+  [showEmail]);
+
+  useEffect(() => {
+    setUsernameDisable(!UsernameDisable);
+    setEmailDisable(!EmailDisable);
+    setDOBDisable(!DOBDisable);
+    setPasswordDisable(!PasswordDisable);
+  },
+  [showZipcode]);
+
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setEmailDisable(!EmailDisable);
+    setUsernameDisable(!UsernameDisable);
+    setPasswordDisable(!PasswordDisable);
+  },
+  [showDOB]);
+
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setEmailDisable(!EmailDisable);
+    setUsernameDisable(!UsernameDisable);
+    setDOBDisable(!DOBDisable);
+  },
+  [showPassword]);
   
 
   const setUsername = (name) => {
@@ -64,7 +110,7 @@ const UserSettings = (props: ProfileProps) => {
     setShowZipcode(!showZipcode);
    }
 
-   const EditEmail = () => {
+   const EditEmail1 = () => {
     const formik = useFormik({
       initialValues: {
         email: '',
@@ -104,78 +150,9 @@ const UserSettings = (props: ProfileProps) => {
     )
    }
 
-   const EditUsername1 = () => {
+  
 
-    const formik = useFormik({
-      initialValues: {
-        username: '',
-      },
-      onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
-        setShowUsername(!showUsername);
-        const saveData = async () => {
-          //setIsError(false);
-          try {
-              const result = await axios.patch(VALIDUSERNAMEURL,
-                { "username": formik.values.username, "id": store.current_user_id},
-                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
-              });
-              console.log(JSON.stringify(result));
-              if (result.data.status != "error") {
-                setUsername(formik.values.username);
-                formik.values.username =  result.data.username;;
-                console.log("updated username="+ store.username);
-                history.push("/settings");
-              }
-              else {
-
-                console.log("printint error  message")
-                console.log(result.data.message);
-                // parse and show error
-                formik.errors.username = result.data.message;
-
-              }
-          } catch (error) {
-            console.log(JSON.stringify(error));
-            //setErrorMessage(error.message);
-            //setIsError(true);
-          }
-        };
-        saveData();
-      },
-    });
-    return (
-      <form onSubmit={formik.handleSubmit}>
-        <div className="account-settings-field-row">
-            {!showUsername &&
-              <div style={{fontSize: 20}}>
-              {store.username}
-              </div>
-            }
-            { showUsername && 
-              <Input 
-                type="text"
-                name="username"
-                onChange={formik.handleChange}
-                value={formik.values.username}
-              />
-            }
-          {!showUsername &&
-            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
-              Edit
-            </Button>
-          }
-          { showUsername &&
-            <Button type="submit">
-              Save
-            </Button>
-          }
-      </div>
-    </form>
-    )
-   }
-
-   const EditPassword = () => {
+   const EditPassword1 = () => {
     const formik = useFormik({
       initialValues: {
         currentpassword: '',
@@ -241,7 +218,7 @@ const UserSettings = (props: ProfileProps) => {
     )
    }
 
-   const EditDOB = () => {
+   const EditDOB1 = () => {
     const formik = useFormik({
       initialValues: {
         DOB: '',
@@ -276,7 +253,8 @@ const UserSettings = (props: ProfileProps) => {
             }
             { showDOB &&
               <Button type="submit">
-                Save</Button>
+                Save
+              </Button>
             }
           </div>
         </div>
@@ -284,7 +262,7 @@ const UserSettings = (props: ProfileProps) => {
     )
   }
 
-   const EditZipcode = () => {
+   const EditZipcode1 = () => {
     const formik = useFormik({
       initialValues: {
         zipcode: '',
@@ -312,7 +290,7 @@ const UserSettings = (props: ProfileProps) => {
               />
             }
           {!showZipcode &&
-            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
+            <Button  fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
               Edit
             </Button>
           }
@@ -332,7 +310,24 @@ const UserSettings = (props: ProfileProps) => {
       <div className="Values">
         <h3>Account Settings</h3>
         <hr></hr>
-        <EditEmail/>
+        <div>
+          <h5>Email: </h5>
+          <div className="account-settings-field-row">
+            {!showEmail &&
+              <span style={{fontSize: "18px"}}>
+                {store.email}
+              </span>
+            }
+            {!showEmail &&
+              <Button hidden={EmailDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditEmail}>
+                Edit
+              </Button>
+            }
+            { showEmail &&
+              <EditEmail stateProps={{setShowEmail}}/>
+            }
+            </div>
+        </div>
         <hr></hr>
         <div>
           <h5>Username: </h5>
@@ -343,7 +338,7 @@ const UserSettings = (props: ProfileProps) => {
               </span>
             }
             {!showUsername &&
-              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
+              <Button  hidden={UsernameDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
                 Edit
               </Button>
             }
@@ -353,11 +348,62 @@ const UserSettings = (props: ProfileProps) => {
             </div>
         </div>
         <hr></hr>
-        <EditPassword/>
+        <div>
+          <h5>Password: </h5>
+          <div className="account-settings-field-row">
+            {!showPassword &&
+              <span style={{fontSize: "18px"}}>
+                xxxxxxxxxxx
+              </span>
+            }
+            {!showPassword &&
+              <Button  hidden={PasswordDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditPassword}>
+                Edit
+              </Button>
+            }
+            { showPassword &&
+              <EditPassword stateProps={{setShowPassword}}/>
+            }
+            </div>
+        </div>
         <hr></hr>
-        <EditDOB/>
+        <div>
+          <h5>Date of Birth: </h5>
+          <div className="account-settings-field-row">
+            {!showDOB &&
+              <span style={{fontSize: "18px"}}>
+                {store.profile.dob}
+              </span>
+            }
+            {!showDOB &&
+              <Button  hidden={DOBDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditDOB}>
+                Edit
+              </Button>
+            }
+            { showDOB &&
+              <EditDOB stateProps={{setShowDOB}}/>
+            }
+            </div>
+        </div>
         <hr></hr>
-        <EditZipcode/> 
+        <div>
+          <h5>Zipcode: </h5>
+          <div className="account-settings-field-row">
+            {!showZipcode &&
+              <span style={{fontSize: "18px"}}>
+                {store.profile.zipcode}
+              </span>
+            }
+            {!showZipcode &&
+              <Button hidden={ZipcodeDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
+                Edit
+              </Button>
+            }
+            { showZipcode &&
+              <EditZipcode stateProps={{setShowZipcode}}/>
+            }
+            </div>
+        </div>
       </div>
     </Default>
   );   

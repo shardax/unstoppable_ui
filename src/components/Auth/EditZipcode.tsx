@@ -6,39 +6,41 @@ import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
-import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
+import { SAVEZIPCODEURL } from "../../constants/matcher";
 import Button from '../Button/Button';
 import Input from '../Input/input';
 
 interface IStateProps {
   stateProps: {
-    setShowUsername: React.Dispatch<React.SetStateAction<boolean>>
+    setShowZipcode: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
+
+
   
-const EditUsername = (props: IStateProps) => {
+const EditZipcode = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
 
-    const handleCancelUsername = (event: React.MouseEvent) => {
+    const handleCancelZipcode = (event: React.MouseEvent) => {
       event.preventDefault();
-      props.stateProps.setShowUsername(false);
+      props.stateProps.setShowZipcode(false);
     }
 
     const ValidationSchema = Yup.object().shape({
-        username: Yup.string()
+        zipcode: Yup.string()
           .min(2, "Too Short!")
           .max(255, "Too Long!")
           .required("Required!!")
-          .test('Unique Username','Username already been taken', 
+      /*    .test('Unique Zipcode','Zipcode already been taken', 
               function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
+                  axios.post(VALIDZIPCODEURL,  { "zipcode": value, "id": store.current_user_id},{ withCredentials: true,
                   headers: {
                     contentType: "application/json; charset=utf-8",
                 }})
                  .then(res => {
-                   if(res.data.message === 'Username already been taken'){
+                   if(res.data.message === 'Zipcode already been taken'){
                      console.log(res.data.message);
                      resolve(false);
                   } else {
@@ -47,18 +49,18 @@ const EditUsername = (props: IStateProps) => {
                   }
                 })
               })}
-          )   
+          ) */  
       });
       
-    const setUsername = (name) => {
-      store.username = name;
-      localStorage.setItem("userStore", JSON.stringify(store));
+   const setZipcode = (name) => {
+     store.profile.zipcode = name;
+     localStorage.setItem("userStore", JSON.stringify(store));
     }
   
     return (
       <Formik
         initialValues={{
-          username: "",
+          zipcode: "",
         }}
         validationSchema={ValidationSchema}
         validate={values => {
@@ -76,16 +78,16 @@ const EditUsername = (props: IStateProps) => {
           const saveData = async () => {
        
             try {
-                const result = await axios.patch(SAVEUSERNAMEURL,
-                  { "username": values.username, "id": store.current_user_id},
+                const result = await axios.patch(SAVEZIPCODEURL,
+                  { "zipcode": values.zipcode, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
                 if (result.data.status != "error") {
-                  setUsername(values.username);
-                  values.username =  result.data.username;;
-                  console.log("updated username="+ store.username);
-                  props.stateProps.setShowUsername(false);
+                  setZipcode(values.zipcode);
+                  values.zipcode =  result.data.zipcode;;
+                  console.log("updated zipcodee="+ store.profile.zipcode);
+                  props.stateProps.setShowZipcode(false);
                   history.push("/settings");
                 }
                 else {
@@ -113,24 +115,23 @@ const EditUsername = (props: IStateProps) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-row">
-              <label>Name</label>
               <Input
                 type="text"
-                name="username"
+                name="zipcode"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.username}
-                className={"login-form " + (touched.username && errors.username ? "has-error" : null)}
+                value={values.zipcode}
+                className={"login-form " + (touched.zipcode && errors.zipcode ? "has-error" : null)}
               />
-              <Error touched={touched.username} message={errors.username} />
-              <Error touched={touched.username} message={errorMessage} />
+              <Error touched={touched.zipcode} message={errors.zipcode} />
+              <Error touched={touched.zipcode} message={errorMessage} />
             </div>
   
             <div className="input-row">
-            <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
+              <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
               </Button>
-              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelUsername}>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelZipcode}>
                 Cancel
               </Button>
             </div>
@@ -141,4 +142,4 @@ const EditUsername = (props: IStateProps) => {
   }
   
 
-export default EditUsername;
+export default EditZipcode;
