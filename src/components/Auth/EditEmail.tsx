@@ -21,6 +21,12 @@ const EditEmail = (props: IStateProps) => {
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
 
+    const handleCancelEmail = (event: React.MouseEvent) => {
+      event.preventDefault();
+      props.stateProps.setShowEmail(false);
+    }
+
+
     const ValidationSchema = Yup.object().shape({
         email: Yup.string()
           .required("Required!!")
@@ -120,8 +126,11 @@ const EditEmail = (props: IStateProps) => {
             </div>
   
             <div className="input-row">
-              <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
+              </Button>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelEmail}>
+                Cancel
               </Button>
             </div>
           </form>

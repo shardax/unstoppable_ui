@@ -21,6 +21,11 @@ const EditUsername = (props: IStateProps) => {
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
 
+    const handleCancelUsername = (event: React.MouseEvent) => {
+      event.preventDefault();
+      props.stateProps.setShowUsername(false);
+    }
+
     const ValidationSchema = Yup.object().shape({
         username: Yup.string()
           .min(2, "Too Short!")
@@ -122,8 +127,11 @@ const EditUsername = (props: IStateProps) => {
             </div>
   
             <div className="input-row">
-              <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
+              </Button>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelUsername}>
+                Cancel
               </Button>
             </div>
           </form>
