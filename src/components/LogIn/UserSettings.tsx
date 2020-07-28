@@ -66,9 +66,9 @@ const UserSettings = (props: ProfileProps) => {
     setShowZipcode(!showZipcode);
    }
 
-   const handleCancel = (event: React.MouseEvent) => {
+   const handleCancelZipcode = (event: React.MouseEvent) => {
     event.preventDefault();
-   // editControls.setEditMode(false)
+    setShowZipcode(!showZipcode);
   }
 
    const EditEmail1 = () => {

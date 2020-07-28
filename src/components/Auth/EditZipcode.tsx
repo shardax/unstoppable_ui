@@ -15,11 +15,18 @@ interface IStateProps {
     setShowZipcode: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
+
+
   
 const EditZipcode = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
+
+    const handleCancelZipcode = (event: React.MouseEvent) => {
+      event.preventDefault();
+      props.stateProps.setShowZipcode(false);
+    }
 
     const ValidationSchema = Yup.object().shape({
         zipcode: Yup.string()
@@ -108,7 +115,6 @@ const EditZipcode = (props: IStateProps) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-row">
-              <label>Name</label>
               <Input
                 type="text"
                 name="zipcode"
@@ -122,8 +128,11 @@ const EditZipcode = (props: IStateProps) => {
             </div>
   
             <div className="input-row">
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
+              </Button>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelZipcode}>
+                Cancel
               </Button>
             </div>
           </form>
