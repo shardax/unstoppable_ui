@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import Message from './Message';
-import Progress from './Progress';
+//import Message from './Message';
+//import Progress from './Progress';
 import axios from 'axios';
 import { ProfileStore, ProfileProps } from '../../UserStore';
 import AvatarEditor from 'react-avatar-editor';
@@ -60,7 +60,7 @@ const UploadPhoto = (props: ProfileProps) => {
 
   return (
     <Fragment>
-      {message ? <Message msg={message} /> : null}
+      {/** message ? <Message msg={message} /> : null **/}
       <form onSubmit={onSubmit}>
         <div className='custom-file mb-4'>
           <input
@@ -74,7 +74,7 @@ const UploadPhoto = (props: ProfileProps) => {
           </label>
         </div>
 
-        <Progress percentage={uploadPercentage} />
+        {/** <Progress percentage={uploadPercentage} /> **/}
 
         <input
           type='submit'
