@@ -40,6 +40,7 @@ const validationSchema = Yup.object().shape({
         .length(10, "Must be a valid US phone number!"),
     dob: Yup.date()
         .required("Required")
+        .nullable()
         .max(minDate, "You must be 18 years or older to sign up!"),
 });
 
@@ -183,19 +184,22 @@ const Register2 = () => {
                                             <h4>Date of Birth:</h4>
                                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                                 <KeyboardDatePicker
+                                                    id="dob"
+                                                    name="dob"
                                                     inputVariant="outlined"
                                                     disableFuture
                                                     openTo="year"
                                                     views={["year", "month", "date"]}
                                                     format="MM/dd/yyyy"
-                                                    className={errors.dob && touched.dob ? "error" : null}
                                                     onBlur={handleBlur}
                                                     value={values.dob}
-                                                    onChange={value => setFieldValue("dob", value)} />
-                                            </MuiPickersUtilsProvider>
-                                            {errors.dob && touched.dob ? (
+                                                    onChange={value => setFieldValue("dob", value)} 
+                                                    className={errors.dob && touched.dob ? "error" : null}
+                                                    />
+                                                    {errors.dob && touched.dob ? (
                                                 <div className="errorText">{errors.dob}</div>
                                             ) : null}
+                                            </MuiPickersUtilsProvider>
                                         </td>
                                     </tr>
                                     <tr>
