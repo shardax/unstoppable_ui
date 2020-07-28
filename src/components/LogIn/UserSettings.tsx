@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
 import EditEmail from '../Auth/EditEmail';
+import EditZipcode from '../Auth/EditZipcode';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
@@ -221,7 +222,7 @@ const UserSettings = (props: ProfileProps) => {
     )
   }
 
-   const EditZipcode = () => {
+   const EditZipcode1 = () => {
     const formik = useFormik({
       initialValues: {
         zipcode: '',
@@ -311,7 +312,24 @@ const UserSettings = (props: ProfileProps) => {
         <hr></hr>
         <EditDOB/>
         <hr></hr>
-        <EditZipcode/> 
+        <div>
+          <h5>Zipcode: </h5>
+          <div className="account-settings-field-row">
+            {!showZipcode &&
+              <span style={{fontSize: "18px"}}>
+                {store.profile.zipcode}
+              </span>
+            }
+            {!showZipcode &&
+              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
+                Edit
+              </Button>
+            }
+            { showZipcode &&
+              <EditZipcode stateProps={{setShowZipcode}}/>
+            }
+            </div>
+        </div>
       </div>
     </Default>
   );   
