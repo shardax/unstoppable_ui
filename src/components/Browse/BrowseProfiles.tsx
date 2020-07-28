@@ -23,12 +23,20 @@ import ChatIcon from '@material-ui/icons/Chat';
   useEffect(() => {
     const getProfiles = async () => {
       try {
-        let url = ALLPROFILESURL + `?&min_age=` + ageRange[0] + `&max_age=` + ageRange[1] + `&distance=` + distance + `""commit=Search&search=${filter}`;
-        const { data } = await axios.get(url,
-          { withCredentials: true,
+        const { data } = await axios.get(ALLPROFILESURL,
+          { 
+            params: {
+              min_age: ageRange[0],
+              max_age: ageRange[1],
+              distance: distance,
+              commit: "Search",
+              search: filter
+            },
+            withCredentials: true,
             headers: {
               contentType: "application/json; charset=utf-8",
-          }})
+            }
+          })
         setUserCollection(data)
       } catch (e) {
         console.log(`😱 Browse Fetch failed: ${e}`);
@@ -86,7 +94,7 @@ import ChatIcon from '@material-ui/icons/Chat';
             <h3>Browse Profiles</h3>
             <div className="browse-filter-row"> 
               <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
-                <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+              <RangeSlider ageRange={ageRange} onChange={handleChange}/>
               </div>
           </div>
           <div className="profile-browse-grid">
