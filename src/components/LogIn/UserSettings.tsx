@@ -5,6 +5,7 @@ import { ProfileStore, ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
 import EditEmail from '../Auth/EditEmail';
 import EditZipcode from '../Auth/EditZipcode';
+import EditDOB from '../Auth/EditDOB';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
@@ -34,11 +35,41 @@ const UserSettings = (props: ProfileProps) => {
   const [changeUsername, setChangeUsername] = useState(store.username);
   const [changeDOB, setChangeDOB] = useState(store.profile.dob);
   const [changeZipcode, setChangeZipcode] = useState(store.profile.zipcode);
+  const [ZipcodeDisable, setZipcodeDisable] = useState(true);
+  const [EmailDisable, setEmailDisable] = useState(true);
+  const [UsernameDisable, setUsernameDisable] = useState(true);
+  const [DOBDisable, setDOBDisable] = useState(true);
  
   const profile = props.profile;
  
   
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setEmailDisable(!EmailDisable);
+    setDOBDisable(!DOBDisable);
+  },
+  [showUsername]);
 
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setUsernameDisable(!UsernameDisable);
+    setDOBDisable(!DOBDisable);
+  },
+  [showEmail]);
+
+  useEffect(() => {
+    setUsernameDisable(!UsernameDisable);
+    setEmailDisable(!EmailDisable);
+    setDOBDisable(!DOBDisable);
+  },
+  [showZipcode]);
+
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setEmailDisable(!EmailDisable);
+    setUsernameDisable(!UsernameDisable);
+  },
+  [showDOB]);
   
 
   const setUsername = (name) => {
@@ -179,7 +210,7 @@ const UserSettings = (props: ProfileProps) => {
     )
    }
 
-   const EditDOB = () => {
+   const EditDOB1 = () => {
     const formik = useFormik({
       initialValues: {
         DOB: '',
@@ -214,7 +245,8 @@ const UserSettings = (props: ProfileProps) => {
             }
             { showDOB &&
               <Button type="submit">
-                Save</Button>
+                Save
+              </Button>
             }
           </div>
         </div>
@@ -250,7 +282,7 @@ const UserSettings = (props: ProfileProps) => {
               />
             }
           {!showZipcode &&
-            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
+            <Button  fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
               Edit
             </Button>
           }
@@ -279,7 +311,7 @@ const UserSettings = (props: ProfileProps) => {
               </span>
             }
             {!showEmail &&
-              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditEmail}>
+              <Button hidden={EmailDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditEmail}>
                 Edit
               </Button>
             }
@@ -298,7 +330,7 @@ const UserSettings = (props: ProfileProps) => {
               </span>
             }
             {!showUsername &&
-              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
+              <Button  hidden={UsernameDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
                 Edit
               </Button>
             }
@@ -310,7 +342,24 @@ const UserSettings = (props: ProfileProps) => {
         <hr></hr>
         <EditPassword/>
         <hr></hr>
-        <EditDOB/>
+        <div>
+          <h5>Date of Brith: </h5>
+          <div className="account-settings-field-row">
+            {!showDOB &&
+              <span style={{fontSize: "18px"}}>
+                {store.profile.dob}
+              </span>
+            }
+            {!showDOB &&
+              <Button  hidden={DOBDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditDOB}>
+                Edit
+              </Button>
+            }
+            { showDOB &&
+              <EditDOB stateProps={{setShowDOB}}/>
+            }
+            </div>
+        </div>
         <hr></hr>
         <div>
           <h5>Zipcode: </h5>
@@ -321,7 +370,7 @@ const UserSettings = (props: ProfileProps) => {
               </span>
             }
             {!showZipcode &&
-              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
+              <Button hidden={ZipcodeDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
                 Edit
               </Button>
             }
