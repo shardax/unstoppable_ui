@@ -3,6 +3,7 @@ import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
+import EditEmail from '../Auth/EditEmail';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
@@ -64,7 +65,12 @@ const UserSettings = (props: ProfileProps) => {
     setShowZipcode(!showZipcode);
    }
 
-   const EditEmail = () => {
+   const handleCancel = (event: React.MouseEvent) => {
+    event.preventDefault();
+   // editControls.setEditMode(false)
+  }
+
+   const EditEmail1 = () => {
     const formik = useFormik({
       initialValues: {
         email: '',
@@ -104,76 +110,7 @@ const UserSettings = (props: ProfileProps) => {
     )
    }
 
-   const EditUsername1 = () => {
-
-    const formik = useFormik({
-      initialValues: {
-        username: '',
-      },
-      onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
-        setShowUsername(!showUsername);
-        const saveData = async () => {
-          //setIsError(false);
-          try {
-              const result = await axios.patch(VALIDUSERNAMEURL,
-                { "username": formik.values.username, "id": store.current_user_id},
-                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
-              });
-              console.log(JSON.stringify(result));
-              if (result.data.status != "error") {
-                setUsername(formik.values.username);
-                formik.values.username =  result.data.username;;
-                console.log("updated username="+ store.username);
-                history.push("/settings");
-              }
-              else {
-
-                console.log("printint error  message")
-                console.log(result.data.message);
-                // parse and show error
-                formik.errors.username = result.data.message;
-
-              }
-          } catch (error) {
-            console.log(JSON.stringify(error));
-            //setErrorMessage(error.message);
-            //setIsError(true);
-          }
-        };
-        saveData();
-      },
-    });
-    return (
-      <form onSubmit={formik.handleSubmit}>
-        <div className="account-settings-field-row">
-            {!showUsername &&
-              <div style={{fontSize: 20}}>
-              {store.username}
-              </div>
-            }
-            { showUsername && 
-              <Input 
-                type="text"
-                name="username"
-                onChange={formik.handleChange}
-                value={formik.values.username}
-              />
-            }
-          {!showUsername &&
-            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
-              Edit
-            </Button>
-          }
-          { showUsername &&
-            <Button type="submit">
-              Save
-            </Button>
-          }
-      </div>
-    </form>
-    )
-   }
+  
 
    const EditPassword = () => {
     const formik = useFormik({
@@ -332,7 +269,24 @@ const UserSettings = (props: ProfileProps) => {
       <div className="Values">
         <h3>Account Settings</h3>
         <hr></hr>
-        <EditEmail/>
+        <div>
+          <h5>Email: </h5>
+          <div className="account-settings-field-row">
+            {!showEmail &&
+              <span style={{fontSize: "18px"}}>
+                {store.email}
+              </span>
+            }
+            {!showEmail &&
+              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditEmail}>
+                Edit
+              </Button>
+            }
+            { showEmail &&
+              <EditEmail stateProps={{setShowEmail}}/>
+            }
+            </div>
+        </div>
         <hr></hr>
         <div>
           <h5>Username: </h5>
