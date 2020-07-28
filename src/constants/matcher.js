@@ -11,3 +11,4 @@ export const RESETPASSWORDURL = ROOTURL + "/users/password/edit"
 // Account setting URLs
 export const VALIDUSERNAMEURL = ROOTURL + "/account_settings/valid_username"
 export const SAVEUSERNAMEURL = ROOTURL + "/account_settings/change_username"
+export const SAVEDOBURL = ROOTURL + "/account_settings/change_dob"

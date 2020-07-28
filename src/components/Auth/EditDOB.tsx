@@ -8,7 +8,7 @@ import '../LogIn/UserSettings.scss'
 import DatePicker from "./DatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Yup from 'yup';
-import { PROFILEURL } from "../../constants/matcher";
+import { SAVEDOBURL } from "../../constants/matcher";
 
 interface IStateProps {
   stateProps: {
@@ -37,7 +37,7 @@ const EditDOB= (props: IStateProps) => {
     return (
       <Formik
         initialValues={{
-          date: "",
+          dob: "",
         }}
         validationSchema={ValidationSchema}
         validate={values => {
@@ -51,7 +51,49 @@ const EditDOB= (props: IStateProps) => {
             resetForm();
             setSubmitting(false);
           }, 500);
-  
+
+          
+
+
+          
+          let newDOB = new Date(values.dob);
+          var year = newDOB.getFullYear();
+          var month = newDOB.getMonth()+1;
+          var day = newDOB.getDate();
+
+          console.log(year);
+          console.log(month);
+          console.log(day);
+          
+         //dob(3i)"=> values.day, "dob(2i)"=>values.month, "dob(1i)"=>values.year}
+
+         const saveData = async () => {
+          try {
+              const result = await axios.patch(SAVEDOBURL,
+                { "id": store.current_user_id, "dob(3i)": day, "dob(2i)": month, "dob(1i)": year},
+                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+              });
+              console.log(JSON.stringify(result));
+              if (result.data.status != "error") {
+                store.setDOB(result.data.dob);
+                //values.username =  result.data.username;;
+                //console.log("updated username="+ store.username);
+                //props.stateProps.setShowUsername(false);
+
+                history.push("/settings");
+              }
+              else {
+              console.log("printint error  message")
+              console.log(result.data.message);
+              setErrorMessage(result.data.message);
+              }
+          } catch (error) {
+          console.log(JSON.stringify(error));
+          setErrorMessage(error.message);
+          }
+      };
+      saveData();
+          
           
         }}
       >
@@ -69,7 +111,7 @@ const EditDOB= (props: IStateProps) => {
             <h2>Change DOB</h2>
             <div className="input-row">
               <label>Name</label>
-              <DatePicker name="date" />
+              <DatePicker name="dob" />
               
             </div>
   
