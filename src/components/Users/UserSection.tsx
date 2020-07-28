@@ -13,6 +13,7 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import WorkIcon from '@material-ui/icons/Work';
 import ExploreIcon from '@material-ui/icons/Explore';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import StarIcon from '@material-ui/icons/Star';
 
 const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
   const store = useDataStore()
@@ -92,9 +93,15 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
           <p>{user.cancer_location} cancer</p>
           <ProfileIconRow field={"Treatment description"} chips={false} answer={user.treatment_description} icon={null}/>
           <ProfileIconRow field={"Treatment status"} chips={false} answer={user.treatment_status} icon={null}/>
+          
+          <ProfileIconRow field={"Part of wellness program?"} chips={false} answer={user.part_of_wellness_program ? "✅" : "No"} icon={null}/>
+
+          {user.part_of_wellness_program ? <ProfileIconRow field={"Which wellness program?"} chips={false} answer={user.which_wellness_program} icon={null}/> : null}
 
           <hr></hr>
           <div className="profile-section-header">Activity/Fitness</div>
+
+          <ProfileIconRow field={"Reasons for Match"} chips={false} answer={user.reason_for_match} icon={null}/>
 
           <ProfileIconRow field={"Fitness Level"} chips={false} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
 
