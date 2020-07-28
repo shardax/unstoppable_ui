@@ -59,7 +59,7 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
     <div>
       <div className="user-section-wrapper">
         <div className="user-section-data">
-          <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">city, state</span></h1>
+          <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">{user.city}, {user.state}</span></h1>
 
           <hr></hr>
 

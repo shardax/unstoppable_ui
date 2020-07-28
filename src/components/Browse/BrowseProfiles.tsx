@@ -64,7 +64,7 @@ import ChatIcon from '@material-ui/icons/Chat';
         <div className="single-profile-body">
           <div>
             <Link to={"/user/" + profile.id}>
-              <h5 className="profile-username">{profile.name} · <span className="profile-location">city, state</span></h5>
+              <h5 className="profile-username">{profile.name} · <span className="profile-location">{profile.city}, {profile.state}</span></h5>
             </Link>
             <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
             <p className="other-profile-card-data">{profile.age} years old</p>
