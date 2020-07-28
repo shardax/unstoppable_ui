@@ -12,6 +12,7 @@ export const UPLOADAVATARURL = ROOTURL + "/attachment/photosave"
 // Account setting URLs
 export const VALIDUSERNAMEURL = ROOTURL + "/account_settings/valid_username"
 export const SAVEUSERNAMEURL = ROOTURL + "/account_settings/change_username"
+export const VALIDEMAILURL = ROOTURL + "/account_settings/valid_email"
 export const SAVEEMAILURL = ROOTURL + "/account_settings/change_email"
 export const SAVEDOBURL = ROOTURL + "/account_settings/change_dob"
 
