@@ -201,6 +201,11 @@ export class UserStore {
       this.profileId = 0;
       // this.editMode = false;
   }
+
+  setDOB(dob: string) {
+      this.profile.dob = dob;
+      localStorage.setItem("userStore", JSON.stringify(this));
+  }
 }
 
 
