@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import { ProfileStore, ProfileProps } from '../../UserStore';
+import EditUsername from '../Auth/EditUsername';
 import { useFormik } from 'formik';
 import axios from "axios";
 import {useObserver} from 'mobx-react'
-import { PROFILEURL, ROOTURL} from "../../constants/matcher";
+import { PROFILEURL, ROOTURL, SAVEUSERNAMEURL, VALIDUSERNAMEURL} from "../../constants/matcher";
 import AvatarEditor from 'react-avatar-editor';
 import FlexView from 'react-flexview';
 //import {PrintUserInfo, DisplayProfileActivityNames, DisplayExerciseReasons} from "./CommonElements";
@@ -15,6 +16,8 @@ import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
 import * as Yup from 'yup';
+import Input from '../Input/input';
+import Button from '../Button/Button'
 
 
 const UserSettings = (props: ProfileProps) => {
@@ -32,13 +35,9 @@ const UserSettings = (props: ProfileProps) => {
  
   const profile = props.profile;
  
-  useEffect(() => {
+  
 
-   // Gte user data from Server
-
-
-
-  }, [])
+  
 
   const setUsername = (name) => {
     store.username = name;
@@ -77,43 +76,35 @@ const UserSettings = (props: ProfileProps) => {
     });
     return(
       <form onSubmit={formik.handleSubmit}>
-      <table>
-      <tr>
-        <td>
-          <h5><b>Email: </b></h5>
-        </td>
-        <td>
+        <h5>Email: </h5>
+        <div className="account-settings-field-row">
             {!showEmail &&
-              <div style={{fontSize: 20}}>
-              {store.email}
-              </div>
+              <span style={{fontSize: "18px"}}>
+                {store.email}
+              </span>
             }
             { showEmail && 
-              <input 
-              type="text"
+              <Input 
+              type="email"
               name="email"
               onChange={formik.handleChange}
               value={formik.values.email}
               />
             }
-        </td>
-        <td>
           {!showEmail &&
-            <button className="editButton" onClick={handleEditEmail}>
-                  Edit
-            </button>
+            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditEmail}>
+              Edit
+            </Button>
           }
           { showEmail &&
-            <button type="submit">Save</button>
+            <Button type="submit">Save</Button>
           }
-        </td>
-      </tr>
-    </table>
+        </div>
     </form>
     )
    }
 
-   const EditUsername = () => {
+   const EditUsername1 = () => {
 
     const formik = useFormik({
       initialValues: {
@@ -125,8 +116,7 @@ const UserSettings = (props: ProfileProps) => {
         const saveData = async () => {
           //setIsError(false);
           try {
-              let url = "http://localhost:3001"+  "/account_settings/change_username";
-              const result = await axios.patch(url,
+              const result = await axios.patch(VALIDUSERNAMEURL,
                 { "username": formik.values.username, "id": store.current_user_id},
                 { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
               });
@@ -135,7 +125,7 @@ const UserSettings = (props: ProfileProps) => {
                 setUsername(formik.values.username);
                 formik.values.username =  result.data.username;;
                 console.log("updated username="+ store.username);
-                history.push("/usettings");
+                history.push("/settings");
               }
               else {
 
@@ -156,40 +146,31 @@ const UserSettings = (props: ProfileProps) => {
     });
     return (
       <form onSubmit={formik.handleSubmit}>
-      <table>
-      <tr>
-        <td>
-          <h5><b>Username: </b></h5>
-        </td>
-        <td>
+        <div className="account-settings-field-row">
             {!showUsername &&
               <div style={{fontSize: 20}}>
               {store.username}
               </div>
             }
             { showUsername && 
-              <input 
-              type="text"
-              name="username"
-              onChange={formik.handleChange}
-              value={formik.values.username}
+              <Input 
+                type="text"
+                name="username"
+                onChange={formik.handleChange}
+                value={formik.values.username}
               />
             }
-        </td>
-        <td>
           {!showUsername &&
-            <button className="editButton" onClick={handleEditUsername}>
-                  Edit
-            </button>
+            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
+              Edit
+            </Button>
           }
           { showUsername &&
-            <button type="submit">
+            <Button type="submit">
               Save
-            </button>
+            </Button>
           }
-        </td>
-      </tr>
-    </table>
+      </div>
     </form>
     )
    }
@@ -208,28 +189,25 @@ const UserSettings = (props: ProfileProps) => {
     });
     return(
       <form onSubmit={formik.handleSubmit}>
-      <table>
-      <tr>
-        <td>
-          <h5><b>Password: </b></h5>
-        </td>
-        <td>
-            {!showPassword &&
-              <div style={{fontSize: 20}}>
-               <h5><b>XXXXXXXX</b></h5>
-              </div>
-            }
-            {showPassword && 
-              <input 
-              type="text"
-              name="currentpassword"
-              placeholder="Current password"
-              onChange={formik.handleChange}
-              value={formik.values.currentpassword}
-              />
-            }
+      <p>Password: </p>
+      <div className="account-settings-field-row">
+        {!showPassword &&
+          <span style={{fontSize: "18px"}}>
+            ***********
+          </span>
+        }
+        {showPassword && 
+          <Input 
+            type="text"
+            name="currentpassword"
+            placeholder="Current password"
+            onChange={formik.handleChange}
+            value={formik.values.currentpassword}
+          />
+        }
+          <div>
             { showPassword && 
-              <input 
+              <Input 
               type="text"
               name="newpassword"
               placeholder="New Password"
@@ -238,7 +216,7 @@ const UserSettings = (props: ProfileProps) => {
               />
             }
             { showPassword && 
-              <input 
+              <Input 
               type="text"
               name="confirmnewpassword"
               placeholder="Confirm New Password"
@@ -246,20 +224,19 @@ const UserSettings = (props: ProfileProps) => {
               value={formik.values.confirmnewpassword}
               />
             }
-        </td>
-        <td>
+          </div>
+        <div>
           {!showPassword &&
-            <button className="editButton" onClick={handleEditPassword}>
-                  Edit
-            </button>
+            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditPassword}>
+              Edit
+            </Button>
           }
           { showPassword &&
-            <button type="submit">
-              Save</button>
+            <Button type="submit">
+              Save</Button>
           }
-        </td>
-      </tr>
-    </table>
+        </div>
+      </div>
     </form>
     )
    }
@@ -274,44 +251,38 @@ const UserSettings = (props: ProfileProps) => {
         setShowDOB(!showDOB);
       },
     });
-    return(
+    return (
       <form onSubmit={formik.handleSubmit}>
-      <table>
-      <tr>
-        <td>
-          <h5><b>Date of Birth: </b></h5>
-        </td>
-        <td>
-            {!showDOB &&
-              <div style={{fontSize: 20}}>
+        <h5>Date of Birth: </h5>
+        <div className="account-settings-field-row">
+          {!showDOB &&
+            <span style={{fontSize: "18px"}}>
               {store.profile.dob}
-              </div>
-            }
+            </span>
+          }
+          <div>
             { showDOB && 
-              <input 
+              <Input 
               type="text"
               name="DOB"
               onChange={formik.handleChange}
               value={formik.values.DOB}
               />
             }
-        </td>
-        <td>
-          {!showDOB &&
-            <button className="editButton" onClick={handleEditDOB}>
-                  Edit
-            </button>
-          }
-          { showDOB &&
-            <button type="submit">
-              Save</button>
-          }
-        </td>
-      </tr>
-    </table>
-    </form>
+            {!showDOB &&
+              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditDOB}>
+                Edit
+              </Button>
+            }
+            { showDOB &&
+              <Button type="submit">
+                Save</Button>
+            }
+          </div>
+        </div>
+      </form>
     )
-   }
+  }
 
    const EditZipcode = () => {
     const formik = useFormik({
@@ -325,39 +296,32 @@ const UserSettings = (props: ProfileProps) => {
     });
     return(
       <form onSubmit={formik.handleSubmit}>
-      <table>
-      <tr>
-        <td>
-          <h5><b>Zipcode: </b></h5>
-        </td>
-        <td>
+        <h6>Zipcode: </h6>
+        <div className="account-settings-field-row">
             {!showZipcode &&
-              <div style={{fontSize: 20}}>
-              {store.profile.zipcode}
-              </div>
+              <span style={{fontSize: "18px"}}>
+                {store.profile.zipcode}
+              </span>
             }
             { showZipcode && 
-              <input 
+              <Input 
               type="text"
               name="zipcode"
               onChange={formik.handleChange}
               value={formik.values.zipcode}
               />
             }
-        </td>
-        <td>
           {!showZipcode &&
-            <button className="editButton" onClick={handleEditZipcode}>
-                  Edit
-            </button>
+            <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
+              Edit
+            </Button>
           }
           { showZipcode &&
-            <button type="submit">
-              Save</button>
+            <Button type="submit">
+              Save
+            </Button>
           }
-        </td>
-      </tr>
-    </table>
+      </div>
     </form>
     )
    }
@@ -365,32 +329,38 @@ const UserSettings = (props: ProfileProps) => {
 
   return (
     <Default>
+      <div className="Values">
+        <h3>Account Settings</h3>
+        <hr></hr>
+        <EditEmail/>
+        <hr></hr>
         <div>
-          <React.Fragment>
-            <CssBaseline />
-              <Container maxWidth="xl"> 
-                <div className="profile-box">
-                  <table className="header">
-                      <tr>
-                        <td>
-                          <h1> Account Settings </h1>
-                      </td>
-                      </tr>
-                    </table>
-                </div>     
-                <div className="Values">
-                  <EditEmail/>
-                  <EditUsername/>
-                  <EditPassword/>
-                  <EditDOB/>
-                <EditZipcode/> 
-               </div>
-
-              </Container>
-         </React.Fragment> 
+          <h5>Username: </h5>
+          <div className="account-settings-field-row">
+            {!showUsername &&
+              <span style={{fontSize: "18px"}}>
+                {store.username}
+              </span>
+            }
+            {!showUsername &&
+              <Button fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
+                Edit
+              </Button>
+            }
+            { showUsername &&
+              <EditUsername stateProps={{setShowUsername}}/>
+            }
+            </div>
         </div>
+        <hr></hr>
+        <EditPassword/>
+        <hr></hr>
+        <EditDOB/>
+        <hr></hr>
+        <EditZipcode/> 
+      </div>
     </Default>
-      );   
+  );   
 }
 export default UserSettings;
   

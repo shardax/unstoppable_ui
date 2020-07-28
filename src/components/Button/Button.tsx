@@ -24,10 +24,6 @@ const Button = styled.button<ButtonProps>`
   outline:none;
   border: ${props => props.border ? props.border : "none"};
   margin: ${props => props.margin ? props.margin : "0"};
-  display: flex,
-  align-items: center,
-  &:hover {
-    cursor: pointer;
 `
 
 export default Button;

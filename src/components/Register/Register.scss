@@ -16,15 +16,21 @@
   p{
     color: gray;
   }
+  form .error {
+    border: 2px solid #e53e3e;
+  }
+  form .errorText {
+    color: #e53e3e;
+  }
   td{
     padding-bottom: 8px;
   }
-  input[type=text]{
+  input[type=text],input[type=email]{
     border-radius: 5px;
     width: 500px;
     height: 40px;
-    border: 1px solid darkgray;
   }
+  
   select{
     padding: 9px;
     border-radius: 5px;
