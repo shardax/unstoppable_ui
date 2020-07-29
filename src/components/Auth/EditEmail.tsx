@@ -29,10 +29,11 @@ const EditEmail = (props: IStateProps) => {
 
     const ValidationSchema = Yup.object().shape({
         email: Yup.string()
+          .email('Invalid email')
           .required("Required!!")
-    /* .test('Unique Email','Email already been taken', 
+     .test('Unique Email','Email already been taken', 
               function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.email},{ withCredentials: true,
+                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.current_user_id},{ withCredentials: true,
                   headers: {
                     contentType: "application/json; charset=utf-8",
                 }})
@@ -46,7 +47,7 @@ const EditEmail = (props: IStateProps) => {
                   }
                 })
               })}
-            )  */
+            )  
       });
       
     const setEmail = (email) => {
@@ -76,7 +77,7 @@ const EditEmail = (props: IStateProps) => {
        
             try {
                 const result = await axios.patch(SAVEEMAILURL,
-                  { "email": values.email, "id": store.email},
+                  { "email": values.email, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
