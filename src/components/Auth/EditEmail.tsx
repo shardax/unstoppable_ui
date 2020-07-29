@@ -7,8 +7,8 @@ import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEEMAILURL, VALIDEMAILURL } from "../../constants/matcher";
-import Button from '../Button/Button';
-import Input from '../Input/input';
+import Button from '../Styled/Button';
+import Input from '../Styled/input';
 
 interface IStateProps {
   stateProps: {

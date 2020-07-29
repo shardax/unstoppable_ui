@@ -8,7 +8,7 @@ import '../LogIn/UserSettings.scss'
 import DatePicker from "./DatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Yup from 'yup';
-import Button from '../Button/Button';
+import Button from '../Styled/Button';
 import { SAVEDOBURL } from "../../constants/matcher";
 
 interface IStateProps {

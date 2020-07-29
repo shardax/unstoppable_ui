@@ -8,8 +8,8 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
-import Input from '../Input/input'
-import Button from '../Button/Button'
+import Input from '../Styled/input'
+import Button from '../Styled/Button'
 
 const ValidationSchema = Yup.object().shape({
   username: Yup.string()

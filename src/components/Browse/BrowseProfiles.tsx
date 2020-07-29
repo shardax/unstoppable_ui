@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 
 import './Browse.scss'
 import { useObserver } from "mobx-react";
-import Button from '../Button/Button'
+import Button from '../Styled/Button'
 import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {

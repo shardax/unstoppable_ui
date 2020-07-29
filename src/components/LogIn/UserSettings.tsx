@@ -20,8 +20,8 @@ import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
 import * as Yup from 'yup';
-import Input from '../Input/input';
-import Button from '../Button/Button'
+import Input from '../Styled/input';
+import Button from '../Styled/Button'
 
 
 const UserSettings = (props: ProfileProps) => {
