@@ -14,7 +14,9 @@ import styled from '@emotion/styled';
 import Input from '../Styled/input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
-import Select from '../Styled/Select'
+import Select from '../Styled/Select';
+
+import { displayToast } from '../Toast/Toast';
 
 const store = useDataStore();
 
@@ -121,9 +123,9 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         return errors;
       }}
       onSubmit={async values => {
-        await sleep(1000);
-          alert(JSON.stringify(profile, null, 2));
-          alert(JSON.stringify(values.part_of_wellness_program, null, 2));
+        try {
+          // alert(JSON.stringify(profile, null, 2));
+          // alert(JSON.stringify(values.part_of_wellness_program, null, 2));
           let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
           //About Me
           profile.activity_ids = values.activity_ids.map(Number);
@@ -144,24 +146,25 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           profile.part_of_wellness_program = values.part_of_wellness_program;
           profile.which_wellness_program = values.which_wellness_program;
 
-          axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} ).then(res => {
-            // do good things
-            store.profile = profile;
-            console.log(JSON.stringify(res));
-            editControls.setEditMode(false)
-            console.log("In handleBackToView");
-            history.push("/profile");
-        })
-        .catch(err => {
-              if (err.response) {
-                // client received an error response (5xx, 4xx)
-              } else if (err.request) {
-                // client never received a response, or request never left
-              } else {
-                // anything else
-              }
-            }) // end of error block
-        }} // end of onSubmit
+          const res = await axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
+          store.profile = profile;
+          console.log(JSON.stringify(res));
+          editControls.setEditMode(false)
+          console.log("In handleBackToView");
+          history.push("/profile");
+          
+          displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
+        } catch (err) {
+          displayToast("Failed to update profile", "error", 3000, "top-right")
+          if (err.response) {
+            // client received an error response (5xx, 4xx)
+          } else if (err.request) {
+            // client never received a response, or request never left
+          } else {
+            // anything else
+          }
+        }}
+      } // end of onSubmit
     >
       {({
         values,

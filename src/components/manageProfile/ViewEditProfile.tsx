@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
-import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
 import UserSection from "../Users/UserSection";
 import { useObserver } from "mobx-react";
