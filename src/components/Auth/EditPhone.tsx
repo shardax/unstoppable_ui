@@ -77,7 +77,7 @@ const EditPhone = (props: IStateProps) => {
           const saveData = async () => {
        
             try {
-                const result = await axios.patch(SAVEUSERNAMEURL,
+                const result = await axios.patch(SAVEPHONEURL,
                   { "phone": values.phone, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
