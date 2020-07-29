@@ -99,6 +99,7 @@ export class ProfileStore {
   liked_profiles: number[];
   activity_ids: number[];
   exercise_reason_ids: number[];
+  phone: string;
 
   constructor() {
     this.id = 0;
@@ -134,6 +135,7 @@ export class ProfileStore {
     this.liked_profiles = [];
     this.activity_ids = [];
     this.exercise_reason_ids = [];
+    this.phone = "";
     hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 }
