@@ -6,59 +6,60 @@ import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
-import { SAVEEMAILURL, VALIDEMAILURL } from "../../constants/matcher";
-import Button from '../Styled/Button';
-import Input from '../Styled/input';
+import { SAVEPHONEURL, VALIDPHONEURL } from "../../constants/matcher";
+import Button from '../Button/Button';
+import Input from '../Input/input';
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 interface IStateProps {
   stateProps: {
-    setShowEmail: React.Dispatch<React.SetStateAction<boolean>>
+    setShowPhone: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
   
-const EditEmail = (props: IStateProps) => {
+const EditPhone = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
 
-    const handleCancelEmail = (event: React.MouseEvent) => {
+    const handleCancelPhone = (event: React.MouseEvent) => {
       event.preventDefault();
-      props.stateProps.setShowEmail(false);
+      props.stateProps.setShowPhone(false);
     }
 
-
     const ValidationSchema = Yup.object().shape({
-        email: Yup.string()
-          .email('Invalid email')
+        phone: Yup.string()
+          .matches(phoneRegExp, 'Phone number is not valid')
           .required("Required!!")
-     .test('Unique Email','Email already been taken', 
+        /*  .test('Unique Username','Username already been taken', 
               function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.current_user_id},{ withCredentials: true,
+                  axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
                   headers: {
                     contentType: "application/json; charset=utf-8",
                 }})
                  .then(res => {
-                   if(res.data.message === 'Email already been taken'){
+                   if(res.data.message === 'Username already been taken'){
                      console.log(res.data.message);
                      resolve(false);
                   } else {
-                    console.log("Email valid")
+                    console.log("User valid")
                     resolve(true);
                   }
                 })
               })}
-            )  
+          )  */ 
       });
       
-    const setEmail = (email) => {
-      store.email = email;
+    const setPhone = (name) => {
+      store.profile.phone = name;
       localStorage.setItem("userStore", JSON.stringify(store));
     }
   
     return (
       <Formik
         initialValues={{
-          email: "",
+          phone: "",
         }}
         validationSchema={ValidationSchema}
         validate={values => {
@@ -76,16 +77,16 @@ const EditEmail = (props: IStateProps) => {
           const saveData = async () => {
        
             try {
-                const result = await axios.patch(SAVEEMAILURL,
-                  { "email": values.email, "id": store.current_user_id},
+                const result = await axios.patch(SAVEPHONEURL,
+                  { "phone": values.phone, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
                 if (result.data.status != "error") {
-                  setEmail(values.email);
-                  values.email =  result.data.email;;
-                  console.log("updated email="+ store.email);
-                  props.stateProps.setShowEmail(false);
+                  setPhone(values.phone);
+                  values.phone =  result.data.phone;;
+                  console.log("updated phone="+ store.profile.phone);
+                  props.stateProps.setShowPhone(false);
                   history.push("/settings");
                 }
                 else {
@@ -113,24 +114,23 @@ const EditEmail = (props: IStateProps) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-row">
-              <label>Name</label>
               <Input
                 type="text"
-                name="email"
+                name="phone"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.email}
-                className={"login-form " + (touched.email && errors.email ? "has-error" : null)}
+                value={values.phone}
+                className={"login-form " + (touched.phone && errors.phone ? "has-error" : null)}
               />
-              <Error touched={touched.email} message={errors.email} />
-              <Error touched={touched.email} message={errorMessage} />
+              <Error touched={touched.phone} message={errors.phone} />
+              <Error touched={touched.phone} message={errorMessage} />
             </div>
   
             <div className="input-row">
             <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
               </Button>
-              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelEmail}>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelPhone}>
                 Cancel
               </Button>
             </div>
@@ -141,4 +141,4 @@ const EditEmail = (props: IStateProps) => {
   }
   
 
-export default EditEmail;
+export default EditPhone;
