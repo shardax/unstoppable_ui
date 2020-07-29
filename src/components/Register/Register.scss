@@ -18,6 +18,7 @@
   }
   form .error {
     border: 2px solid #e53e3e;
+    border-radius: 5px;
   }
   form .errorText {
     color: #e53e3e;
@@ -38,7 +39,6 @@
   }
   .container{
     padding-bottom: 30px;
-    
   }
   .submitButtons{
     padding-left: 15%;

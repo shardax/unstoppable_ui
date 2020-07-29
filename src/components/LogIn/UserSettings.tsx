@@ -5,6 +5,7 @@ import { ProfileStore, ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
 import EditEmail from '../Auth/EditEmail';
 import EditZipcode from '../Auth/EditZipcode';
+import EditPassword from '../Auth/EditPassword';
 import EditDOB from '../Auth/EditDOB';
 import { useFormik } from 'formik';
 import axios from "axios";
@@ -39,7 +40,7 @@ const UserSettings = (props: ProfileProps) => {
   const [EmailDisable, setEmailDisable] = useState(true);
   const [UsernameDisable, setUsernameDisable] = useState(true);
   const [DOBDisable, setDOBDisable] = useState(true);
- 
+  const [PasswordDisable, setPasswordDisable] = useState(true);
   const profile = props.profile;
  
   
@@ -47,6 +48,7 @@ const UserSettings = (props: ProfileProps) => {
     setZipcodeDisable(!ZipcodeDisable);
     setEmailDisable(!EmailDisable);
     setDOBDisable(!DOBDisable);
+    setPasswordDisable(!PasswordDisable);
   },
   [showUsername]);
 
@@ -54,6 +56,7 @@ const UserSettings = (props: ProfileProps) => {
     setZipcodeDisable(!ZipcodeDisable);
     setUsernameDisable(!UsernameDisable);
     setDOBDisable(!DOBDisable);
+    setPasswordDisable(!PasswordDisable);
   },
   [showEmail]);
 
@@ -61,6 +64,7 @@ const UserSettings = (props: ProfileProps) => {
     setUsernameDisable(!UsernameDisable);
     setEmailDisable(!EmailDisable);
     setDOBDisable(!DOBDisable);
+    setPasswordDisable(!PasswordDisable);
   },
   [showZipcode]);
 
@@ -68,8 +72,17 @@ const UserSettings = (props: ProfileProps) => {
     setZipcodeDisable(!ZipcodeDisable);
     setEmailDisable(!EmailDisable);
     setUsernameDisable(!UsernameDisable);
+    setPasswordDisable(!PasswordDisable);
   },
   [showDOB]);
+
+  useEffect(() => {
+    setZipcodeDisable(!ZipcodeDisable);
+    setEmailDisable(!EmailDisable);
+    setUsernameDisable(!UsernameDisable);
+    setDOBDisable(!DOBDisable);
+  },
+  [showPassword]);
   
 
   const setUsername = (name) => {
@@ -96,11 +109,6 @@ const UserSettings = (props: ProfileProps) => {
     event.preventDefault();
     setShowZipcode(!showZipcode);
    }
-
-   const handleCancelZipcode = (event: React.MouseEvent) => {
-    event.preventDefault();
-    setShowZipcode(!showZipcode);
-  }
 
    const EditEmail1 = () => {
     const formik = useFormik({
@@ -144,7 +152,7 @@ const UserSettings = (props: ProfileProps) => {
 
   
 
-   const EditPassword = () => {
+   const EditPassword1 = () => {
     const formik = useFormik({
       initialValues: {
         currentpassword: '',
@@ -340,10 +348,27 @@ const UserSettings = (props: ProfileProps) => {
             </div>
         </div>
         <hr></hr>
-        <EditPassword/>
+        <div>
+          <h5>Password: </h5>
+          <div className="account-settings-field-row">
+            {!showPassword &&
+              <span style={{fontSize: "18px"}}>
+                xxxxxxxxxxx
+              </span>
+            }
+            {!showPassword &&
+              <Button  hidden={PasswordDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditPassword}>
+                Edit
+              </Button>
+            }
+            { showPassword &&
+              <EditPassword stateProps={{setShowPassword}}/>
+            }
+            </div>
+        </div>
         <hr></hr>
         <div>
-          <h5>Date of Brith: </h5>
+          <h5>Date of Birth: </h5>
           <div className="account-settings-field-row">
             {!showDOB &&
               <span style={{fontSize: "18px"}}>

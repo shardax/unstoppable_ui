@@ -36,7 +36,6 @@ const UploadPhoto = (props: ProfileProps) => {
               Math.round((progressEvent.loaded * 100) / progressEvent.total)
             )
           );
-
           // Clear percentage
           setTimeout(() => setUploadPercentage(0), 10000);
         }
