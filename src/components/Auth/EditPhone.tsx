@@ -6,7 +6,7 @@ import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
-import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
+import { SAVEPHONEURL, VALIDPHONEURL } from "../../constants/matcher";
 import Button from '../Button/Button';
 import Input from '../Input/input';
 
