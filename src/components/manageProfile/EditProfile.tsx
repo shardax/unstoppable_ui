@@ -10,9 +10,11 @@ import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import './EditProfile.scss'
 import styled from '@emotion/styled';
+
 import Input from '../Styled/input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
+import Select from '../Styled/Select'
 
 const store = useDataStore();
 
@@ -179,17 +181,17 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
             logic will be taken care of for you.
           */}
           <div className="form-container">
-            <div className="Questions">
+            <div className="question-title">
               Favorite activities (check all that apply)
             </div>
             <div className="Answers">
-            <label>
-              {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
-            </label>
+              <label>
+                {stringActivities.map(item => (<label> {item.name} <Field type="checkbox" name="activity_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
+              </label>
             </div>
 
           <div className="question-wrapper">          
-            <div className="questions-titles">
+            <div className="question-title">
               Do you have any other favorite activities?
             </div>
               <label>
@@ -198,12 +200,12 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           </div>
 
           <div className="question-wrapper">   
-            <div className="question-titles">
+            <div className="question-title">
               <label htmlFor="fitnessLevel">How would you describe your current fitness level?</label>
             </div>
             <div className="Answers">
               <Field
-                component="select"
+                as={Select}
                 id="fitness_level"
                 name="fitness_level"
               >
@@ -215,46 +217,47 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
           
         </select>*/}
-
-          <div className="Questions">
-            Identify your top reasons for wanting to become more active:
+          <div className="question-wrapper">
+            <div className="question-title">
+              Identify your top reasons for wanting to become more active:
+            </div>
             <div className="Answers">
-          <label>
-            {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercise_reason_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
-          </label>
-          </div>
-          </div>
-
-          <div className="Questions">
-          <label htmlFor="prefered_exercise_location"><b>Where do you prefer to be active?</b> </label>
-          <div className="Answers">
-          <Field
-            component="select"
-            id="prefered_exercise_location"
-            name="prefered_exercise_location"
-          >
-          <option value="" label="- Select One -" />
-          {PREFERRED_EXERCISE_LOCATIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-          </Field>
-          </div>
+              <label>
+                {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercise_reason_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>	)  )}
+              </label>
+            </div>
           </div>
 
-          <div className="Questions">
-          <label htmlFor="prefered_exercise_time">When do you prefer to be active?</label>
-          <div className="Answers">
-          <Field
-            component="select"
-            id="prefered_exercise_time"
-            name="prefered_exercise_time"
-          >
-          <option value="" label="- Select One -" />
-          {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-          </Field>
-          </div>
+          <div className="question-wrapper">
+            <label htmlFor="prefered_exercise_location">Where do you prefer to be active?</label>
+            <div className="Answers">
+              <Field
+                as={Select}
+                id="prefered_exercise_location"
+                name="prefered_exercise_location"
+              >
+              <option value="" label="- Select One -" />
+              {PREFERRED_EXERCISE_LOCATIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+              </Field>
+            </div>
           </div>
 
-          <div className="Questions">
-            <label htmlFor="reason_for_match"><b>What is the main reason you want to be matched with an exercise partner?  </b> </label>
+          <div className="question-wrapper">
+            <label htmlFor="prefered_exercise_time">When do you prefer to be active?</label>
+            <div className="Answers">
+              <Field
+                as={Select}
+                id="prefered_exercise_time"
+                name="prefered_exercise_time"
+              >
+              <option value="" label="- Select One -" />
+              {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+              </Field>
+            </div>
+          </div>
+
+          <div className="question-wrapper">
+            <label htmlFor="reason_for_match">What is the main reason you want to be matched with an exercise partner?  </label>
             <div className="Answers">
             <Field name="reason_for_match"  as={Textarea} placeHolder="Reason for Matching With Partner" />
             {/* <Input></Input> */}
@@ -263,25 +266,25 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           </div>
 
 
-          <div className="Questions">
-            <label htmlFor="personality"><b>How would you describe your personality?</b> </label>
+          <div className="question-wrapper">
+            <label htmlFor="personality">How would you describe your personality?</label>
             <div className="Answers">
-            <Field
-              component="select"
-              id="personality"
-              name="personality"
-            >
-            <option value="" label="- Select One -" />
-            {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-            </Field>
-          </div>
+              <Field
+                as={Select}
+                id="personality"
+                name="personality"
+              >
+              <option value="" label="- Select One -" />
+              {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+              </Field>
+            </div>
           </div>
 
-          <div className="Questions">
-            <label htmlFor="work_status"><b> Which of the following best describes your work situation?</b> </label>
+          <div className="question-wrapper">
+            <label htmlFor="work_status">Which of the following best describes your work situation?</label>
             <div className="Answers">
             <Field
-              component="select"
+              as={Select}
               id="work_status"
               name="work_status"
             >
@@ -291,18 +294,18 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           </div>
           </div>
 
-          <div className="Questions">
-            <label htmlFor="details_about_self"><b>About Me: Use this space for anything else you would like to share.  </b></label>
+          <div className="question-wrapper">
+            <label htmlFor="details_about_self">About Me: Use this space for anything else you would like to share.</label>
             <div className="Answers">
             <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
             </div>
           </div>
 
-          <div className="Questions">
-          <label htmlFor="cancer_location"><b>What was your primary cancer diagnosis?</b></label>
+          <div className="question-wrapper">
+          <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
           <div className="Answers">
           <Field
-            component="select"
+            as={Select}
             id="cancer_location"
             name="cancer_location"
           >
@@ -313,18 +316,18 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           </div>
           </div>
 
-          <div className="Questions">
-            <label htmlFor="other_cancer_location"><b>Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </b></label>
+          <div className="question-wrapper">
+            <label htmlFor="other_cancer_location">Additional Cancer Information (e.g., stage, year diagnosed, DCIS, TNBC):  </label>
             <div className="Answers">
             <Field name="other_cancer_location" as={Textarea} placeHolder="Additional Cancer Information" rows={2} cols={50}/>
           </div>
           </div>
 
-          <div className="Questions">
-          <label htmlFor="treatment_status"><b>Which of the following best describes you?</b></label>
+          <div className="question-wrapper">
+          <label htmlFor="treatment_status">Which of the following best describes you?</label>
           <div className="Answers">
           <Field
-            component="select"
+            as={Select}
             id="treatment_status"
             name="treatment_status"
           >
@@ -334,15 +337,15 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           </div>
 
 
-          <div className="Questions">
-            <label htmlFor="treatment_description"><b> Please briefly describe your cancer treatments:  </b></label>
+          <div className="question-wrapper">
+            <label htmlFor="treatment_description">Please briefly describe your cancer treatments: </label>
             <div className="Answers">
             <Field name="treatment_description" as={Textarea} placeHolder="Treatment description" rows={2} cols={50}/>
           </div>
           </div>
 
-          <div className="Questions">
-              <label htmlFor="treatment_status"><b> Have you ever been part of a support group or wellness program following your cancer diagnosis?:</b></label>
+          <div className="question-wrapper">
+              <label htmlFor="treatment_status">Have you ever been part of a support group or wellness program following your cancer diagnosis?:</label>
 
                       <Field
                         component={RadioButton}
@@ -360,8 +363,8 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           
              
             <div>
-              <div className="Questions">
-                <label htmlFor="which_wellness_program"><b>If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax):  </b></label>
+              <div className="question-wrapper">
+                <label htmlFor="which_wellness_program">If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax): </label>
                 <Field  name="which_wellness_program" as={Input} placeoHlder="Which wellness program" />
               </div> 
             </div>

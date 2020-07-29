@@ -13,7 +13,7 @@ const ViewEditProfile: React.FC = ({  }) => {
   const [currentProfile, setCurrentProfile] = useState(store.profile);
   const [dataLoading, setDataLoading] = useState("");
   const history = useHistory()
-  const [editMode, setEditMode] = useState(true)
+  const [editMode, setEditMode] = useState(false)
   
   return (
     <div>

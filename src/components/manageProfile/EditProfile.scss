@@ -9,11 +9,15 @@
     text-align: center;
 }
 
-.question-titles {
+.question-title {
+    
 }
 
 .question-wrapper {
     margin: 1em 0em;
+    label {
+        font-weight: 500;
+    }
 }
 
 .Answers{
@@ -22,12 +26,7 @@
     font-weight: bold;
     margin-top: 12px;
     padding-bottom: 10px;
-    // width: 100%;
 }
-
-// .form-container {
-//     margin-bottom: 8em;
-// }
 
 .Checkbox{
     text-align: left;
