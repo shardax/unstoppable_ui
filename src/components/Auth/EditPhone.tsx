@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { SAVEPHONEURL, VALIDPHONEURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
 import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -88,11 +89,13 @@ const EditPhone = (props: IStateProps) => {
                   console.log("updated phone="+ store.profile.phone);
                   props.stateProps.setShowPhone(false);
                   history.push("/settings");
+                  displayToast("Successfully updated phone number ✅", "success", 3000, "top-right")
                 }
                 else {
                 console.log("printint error  message")
                 console.log(result.data.message);
                 setErrorMessage(result.data.message);
+                displayToast("Failed to update phone number", "error", 3000, "top-right") 
                 }
             } catch (error) {
             console.log(JSON.stringify(error));

@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { SAVEEMAILURL, VALIDEMAILURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
 import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -87,6 +88,7 @@ const EditEmail = (props: IStateProps) => {
                   console.log("updated email="+ store.email);
                   props.stateProps.setShowEmail(false);
                   history.push("/settings");
+                  displayToast("Successfully updated email ✅", "success", 3000, "top-right")
                 }
                 else {
                 console.log("printint error  message")

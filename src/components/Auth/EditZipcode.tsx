@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { SAVEZIPCODEURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
 import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -88,11 +89,13 @@ const EditZipcode = (props: IStateProps) => {
                   console.log("updated zipcodee="+ store.profile.zipcode);
                   props.stateProps.setShowZipcode(false);
                   history.push("/settings");
+                  displayToast("Successfully updated zipcode ✅", "success", 3000, "top-right")
                 }
                 else {
                 console.log("printint error  message")
                 console.log(result.data.message);
                 setErrorMessage(result.data.message);
+                displayToast("Failed to update zipcode", "error", 3000, "top-right") 
                 }
             } catch (error) {
             console.log(JSON.stringify(error));

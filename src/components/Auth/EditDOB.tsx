@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import * as Yup from 'yup';
 import Button from '../Styled/Button';
 import { SAVEDOBURL } from "../../constants/matcher";
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -87,6 +88,7 @@ const EditDOB= (props: IStateProps) => {
                 console.log("updated username="+ store.profile.dob);
                 props.stateProps.setShowDOB(false);
                 history.push("/settings");
+                displayToast("Successfully updated date of birth ✅", "success", 3000, "top-right")
               }
               else {
               console.log("printint error  message")

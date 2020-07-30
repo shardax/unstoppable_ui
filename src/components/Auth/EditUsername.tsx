@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
 import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -87,8 +88,10 @@ const EditUsername = (props: IStateProps) => {
                   console.log("updated username="+ store.username);
                   props.stateProps.setShowUsername(false);
                   history.push("/settings");
+                  displayToast("Successfully updated username ✅", "success", 3000, "top-right")
                 }
                 else {
+                displayToast("Failed to update username", "error", 3000, "top-right")  
                 console.log("printint error  message")
                 console.log(result.data.message);
                 setErrorMessage(result.data.message);
