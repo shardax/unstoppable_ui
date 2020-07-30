@@ -9,7 +9,6 @@ import { useDataStore } from "../../UserContext";
 import { REGISTERURL, VALIDUSERNAMEURL } from "../../constants/matcher";
 //import DatePicker from "../Auth/DatePicker";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
-import "react-datepicker/dist/react-datepicker.css";
 import { values } from "mobx";
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -50,7 +49,7 @@ const Register2 = () => {
     const url = REGISTERURL;
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [selectedDate, handleDateChange] = useState(new Date());
+
     const store = useDataStore();
 
 
@@ -100,8 +99,10 @@ const Register2 = () => {
                             {
                                 withCredentials: true,
                                 headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json" }
-                            })
+                            });
+                        store.isLoggedIn = true;
                     } catch (err) {
+                        console.log(err.message);
                         if (err.response) {
                             // client received an error response (5xx, 4xx)
                             setErrorMessage(err.message);
@@ -112,6 +113,7 @@ const Register2 = () => {
                             // anything else
                             setErrorMessage(err.message);
                         }
+                        setIsError(true);
                     }
                     // end of error block
                     if (store.isLoggedIn) {
@@ -193,12 +195,12 @@ const Register2 = () => {
                                                     format="MM/dd/yyyy"
                                                     onBlur={handleBlur}
                                                     value={values.dob}
-                                                    onChange={value => setFieldValue("dob", value)} 
+                                                    onChange={value => setFieldValue("dob", value)}
                                                     className={errors.dob && touched.dob ? "error" : null}
-                                                    />
-                                                    {errors.dob && touched.dob ? (
-                                                <div className="errorText">{errors.dob}</div>
-                                            ) : null}
+                                                />
+                                                {errors.dob && touched.dob ? (
+                                                    <div className="errorText">{errors.dob}</div>
+                                                ) : null}
                                             </MuiPickersUtilsProvider>
                                         </td>
                                     </tr>
