@@ -307,13 +307,13 @@ const Register2 = () => {
                                     </tr>
                                 </table>
                             </div>
-                            <div className="recaptcha">
+                            <form onSubmit={() => { recaptchaRef.current.execute(); }}>
                                 <ReCAPTCHA
-                                ref={recaptchaRef}
-                                size="invisible"
-                                sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-                                />,
-                            </div>
+                                    ref={recaptchaRef}
+                                    size="invisible"
+                                    sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+                                />
+                            </form>
                         </form>
                     </div>
                 )}
