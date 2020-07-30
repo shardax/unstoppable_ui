@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cab5076da6554643e3683eda4f0e9d0f",
+    "revision": "68e9ea61a2ede1d88e6e2cf43d3a87a5",
     "url": "/unstoppable_ui/index.html"
   },
   {
-    "revision": "29bfe23f7b8f3a832633",
-    "url": "/unstoppable_ui/static/css/2.6ef4c1a0.chunk.css"
+    "revision": "7ab42d4e20c0bbd729cd",
+    "url": "/unstoppable_ui/static/css/2.b27e0294.chunk.css"
   },
   {
-    "revision": "2d287c8a8bf16dc2a252",
-    "url": "/unstoppable_ui/static/css/main.99a7a1b1.chunk.css"
+    "revision": "0fd30d5e75d9087addab",
+    "url": "/unstoppable_ui/static/css/main.3309f38a.chunk.css"
   },
   {
-    "revision": "29bfe23f7b8f3a832633",
-    "url": "/unstoppable_ui/static/js/2.795899bf.chunk.js"
+    "revision": "7ab42d4e20c0bbd729cd",
+    "url": "/unstoppable_ui/static/js/2.ee9539b3.chunk.js"
   },
   {
     "revision": "b85e7adfa87415f6f79cfa78116c6551",
-    "url": "/unstoppable_ui/static/js/2.795899bf.chunk.js.LICENSE.txt"
+    "url": "/unstoppable_ui/static/js/2.ee9539b3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2d287c8a8bf16dc2a252",
-    "url": "/unstoppable_ui/static/js/main.ad6456de.chunk.js"
+    "revision": "0fd30d5e75d9087addab",
+    "url": "/unstoppable_ui/static/js/main.203a411b.chunk.js"
   },
   {
     "revision": "5a2a063c52c01a0c58dc",
