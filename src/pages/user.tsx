@@ -4,7 +4,7 @@ import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../constants/matcher";
 import axios from 'axios'
 import Default from '../layouts/Default';
 import UserSection from '../components/Users/UserSection'
-import Button from '../components/Button/Button';
+import Button from '../components/Styled/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const User = () => {

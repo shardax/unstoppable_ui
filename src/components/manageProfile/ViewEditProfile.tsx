@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
-import ViewProfile from "./ViewProfile"
 import EditProfile from "./EditProfile"
 import UserSection from "../Users/UserSection";
 import { useObserver } from "mobx-react";
-import Button from '../Button/Button';
+import Button from '../Styled/Button';
 import {useHistory, Prompt} from 'react-router-dom'
 
 
@@ -14,35 +13,7 @@ const ViewEditProfile: React.FC = ({  }) => {
   const [dataLoading, setDataLoading] = useState("");
   const history = useHistory()
   const [editMode, setEditMode] = useState(false)
-  /*
-
- useEffect(() => {
-  const fetchProfile = async () => {
-    try {
-      setDataLoading("Loading");
-      const { result } = await axios.get(PROFILEURL + `/${store.profileId}.json`,
-        { withCredentials: true,
-          headers: {
-            contentType: "application/json; charset=utf-8",
-        }})
-      setCurrentProfile(result.data.profile);
-    } catch (e) {
-      console.log(`😱 Profile Fetch failed: ${e}`);
-    }
-  }
-  fetchProfile()
-  }, []);
-
-*/
-  // useEffect(() => {
-  //   setCurrentProfile(store.profile);
-  // }, [store.editMode]);
   
-  // const handleEdit = (event: React.MouseEvent) => {
-  //   event.preventDefault();
-  //   store.editMode = true;
-  // }
-
   return (
     <div>
       <Prompt
@@ -50,7 +21,12 @@ const ViewEditProfile: React.FC = ({  }) => {
         message="Are you sure you want to leave? Your changes will not be saved."
       />
       <div>
-        <h3 className="profile-title">My Profile</h3>
+        { editMode ? (
+        <div>
+          <h3 className="profile-title">Edit Profile</h3>
+          <p>All changes will become part of your profile.</p>
+        </div> 
+        ) : <h3>My Profile</h3>}
         { editMode ? null : <Button onClick={() => setEditMode(true)}>Edit Profile</Button> }
       </div>
       { editMode ? <EditProfile editControls={{editMode, setEditMode}} /> : <UserSection user={currentProfile} me={true} /> }

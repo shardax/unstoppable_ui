@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 
 import './Browse.scss'
 import { useObserver } from "mobx-react";
-import Button from '../Button/Button'
+import Button from '../Styled/Button'
 import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {
@@ -72,7 +72,7 @@ import ChatIcon from '@material-ui/icons/Chat';
         <div className="single-profile-body">
           <div>
             <Link to={"/user/" + profile.id}>
-              <h5 className="profile-username">{profile.name} · <span className="profile-location">{profile.city}, {profile.state}</span></h5>
+              <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">{profile.city}, {profile.state}</span></h5>
             </Link>
             <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
             <p className="other-profile-card-data">{profile.age} years old</p>
