@@ -32,17 +32,17 @@ const EditPassword = (props: IStateProps) => {
         currentpassword: Yup.string()
           .min(8, "Must be at least 8 characters long!")
           .required("Required")
-          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/)
+          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Does not meet requirements")
           .required("Current Password Required!!"), 
         newpassword: Yup.string()
           .min(8, "Must be at least 8 characters long!")
           .required("Required")
-          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/)
+          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Does not meet requirements")
           .required("New Password Required!!"), 
         confirmnewpassword: Yup.string()
           .min(8, "Must be at least 8 characters long!")
           .required("Required")
-          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/)
+          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Does not meet requirements")
           .when("newpassword", {
             is: val => (val && val.length > 0 ? true : false),
             then: Yup.string().oneOf(
@@ -89,9 +89,9 @@ const EditPassword = (props: IStateProps) => {
           setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
-            <div className="input-row">
+            <div>
               <Input
-                type="text"
+                type="password"
                 name="currentpassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -99,7 +99,7 @@ const EditPassword = (props: IStateProps) => {
                 className={"login-form " + (touched.currentpassword && errors.currentpassword ? "has-error" : null)}
               />
               <Input
-                type="text"
+                type="password"
                 name="newpassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -107,7 +107,7 @@ const EditPassword = (props: IStateProps) => {
                 className={"login-form " + (touched.newpassword && errors.newpassword ? "has-error" : null)}
               />
               <Input
-                type="text"
+                type="password"
                 name="confirmnewpassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -121,8 +121,10 @@ const EditPassword = (props: IStateProps) => {
               <Error touched={touched.confirmnewpassword} message={errors.confirmnewpassword} />
               <Error touched={touched.confirmnewpassword} message={errorMessage} />
             </div>
-  
-            <div className="input-row">
+            <div>
+            (8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 number)
+            </div>
+            <div>
               <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
               </Button>

@@ -120,6 +120,7 @@ const EditPhone = (props: IStateProps) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.phone}
+                placeholder={store.profile.phone}
                 className={"login-form " + (touched.phone && errors.phone ? "has-error" : null)}
               />
               <Error touched={touched.phone} message={errors.phone} />

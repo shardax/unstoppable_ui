@@ -30,9 +30,8 @@ const EditZipcode = (props: IStateProps) => {
 
     const ValidationSchema = Yup.object().shape({
         zipcode: Yup.string()
-          .min(2, "Too Short!")
-          .max(255, "Too Long!")
-          .required("Required!!")
+          .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
+          .required("Required"),
       /*    .test('Unique Zipcode','Zipcode already been taken', 
               function(value){return new Promise((resolve, reject) => {        
                   axios.post(VALIDZIPCODEURL,  { "zipcode": value, "id": store.current_user_id},{ withCredentials: true,
@@ -121,6 +120,7 @@ const EditZipcode = (props: IStateProps) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.zipcode}
+                placeholder={store.profile.zipcode}
                 className={"login-form " + (touched.zipcode && errors.zipcode ? "has-error" : null)}
               />
               <Error touched={touched.zipcode} message={errors.zipcode} />

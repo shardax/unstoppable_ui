@@ -113,13 +113,13 @@ const EditEmail = (props: IStateProps) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-row">
-              <label>Name</label>
               <Input
                 type="text"
                 name="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
+                placeholder={store.email}
                 className={"login-form " + (touched.email && errors.email ? "has-error" : null)}
               />
               <Error touched={touched.email} message={errors.email} />

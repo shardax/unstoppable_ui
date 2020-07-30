@@ -120,6 +120,7 @@ const EditUsername = (props: IStateProps) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.username}
+                placeholder={store.username}
                 className={"login-form " + (touched.username && errors.username ? "has-error" : null)}
               />
               <Error touched={touched.username} message={errors.username} />
