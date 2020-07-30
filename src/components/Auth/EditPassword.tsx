@@ -22,6 +22,7 @@ const EditPassword = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
+    const [isError, setIsError] = useState(false);
 
     const handleCancelPassword = (event: React.MouseEvent) => {
       event.preventDefault();
@@ -73,10 +74,35 @@ const EditPassword = (props: IStateProps) => {
             setSubmitting(false);
           }, 500);
   
-          const saveData = async () => {
+          const fetchData = async () => {
+            //setIsError(false);
+            store.isLoggedIn = false;
        
-        saveData();
-        }}}
+            try {
+              const result = await axios.post(SAVEPASSWORDURL,
+                { user: {"current_password": values.currentpassword, "password": values.newpassword,"password_confirmation": values.confirmnewpassword}},
+                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+              });
+                console.log(JSON.stringify(result));
+                console.log(result.data.username);
+            } catch (error) {
+              console.log(error.message);
+              if (error.message.includes("401")) {
+                setErrorMessage("Invalid Username or Password.");
+              } else {
+                setErrorMessage(error.message);
+              }
+              setIsError(true);
+            }
+            if(store.isLoggedIn){
+              history.push("/home");
+            } else {
+              history.push("/login")
+            }
+          };
+          /* Login and fetch initial data */
+          fetchData();
+        }}
       >
         {({
           values,
