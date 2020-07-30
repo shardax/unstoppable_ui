@@ -16,7 +16,7 @@ export const VALIDEMAILURL = ROOTURL + "/account_settings/valid_email"
 export const SAVEEMAILURL = ROOTURL + "/account_settings/change_email"
 export const SAVEDOBURL = ROOTURL + "/account_settings/change_dob"
 export const SAVEZIPCODEURL = ROOTURL + "/account_settings/change_zipcode"
-export const SAVEPASSWORDURL = ROOTURL + "/users/update_password"
+export const SAVEPASSWORDURL = ROOTURL + "/account_settings/update_password"
 export const SAVEPHONEURL = ROOTURL + "/account_settings/change_phone"
 export const VALIDPHONEURL = ROOTURL + "/account_settings/valid_phone"
 

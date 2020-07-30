@@ -80,8 +80,8 @@ const EditPassword = (props: IStateProps) => {
           //  store.isLoggedIn = false;
        
             try {
-              const result = await axios.post(SAVEPASSWORDURL,
-                { user: {"current_password": values.currentpassword, "password": values.newpassword,"password_confirmation": values.confirmnewpassword}},
+              const result = await axios.patch(SAVEPASSWORDURL,
+                { user: {"current_password": values.currentpassword, "password": values.newpassword,"password_confirmation": values.confirmnewpassword}, id:store.current_user_id},
                 { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
               });
                 console.log(JSON.stringify(result));
