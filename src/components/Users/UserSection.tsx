@@ -5,7 +5,7 @@ import './index.scss';
 import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
 
-import Button from '../Button/Button';
+import Button from '../Styled/Button';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import NotesIcon from '@material-ui/icons/Notes';
 import SportsTennisIcon from '@material-ui/icons/SportsTennis';

@@ -8,8 +8,9 @@ import '../LogIn/UserSettings.scss'
 import DatePicker from "./DatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Yup from 'yup';
-import Button from '../Button/Button';
+import Button from '../Styled/Button';
 import { SAVEDOBURL } from "../../constants/matcher";
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -54,7 +55,7 @@ const EditDOB= (props: IStateProps) => {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+           // alert(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
           }, 500);
@@ -83,11 +84,11 @@ const EditDOB= (props: IStateProps) => {
               console.log(JSON.stringify(result));
               if (result.data.status != "error") {
                 store.setDOB(result.data.dob);
-                //values.username =  result.data.username;;
-                //console.log("updated username="+ store.username);
-                //props.stateProps.setShowUsername(false);
-
+                values.dob =  result.data.dob;;
+                console.log("updated username="+ store.profile.dob);
+                props.stateProps.setShowDOB(false);
                 history.push("/settings");
+                displayToast("Successfully updated date of birth ✅", "success", 3000, "top-right")
               }
               else {
               console.log("printint error  message")
@@ -117,9 +118,7 @@ const EditDOB= (props: IStateProps) => {
           <form onSubmit={handleSubmit}>
             <h2>Change DOB</h2>
             <div className="input-row">
-              <label>Name</label>
               <DatePicker name="dob" />
-              
             </div>
   
             <div className="input-row">

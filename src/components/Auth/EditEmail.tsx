@@ -7,8 +7,9 @@ import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEEMAILURL, VALIDEMAILURL } from "../../constants/matcher";
-import Button from '../Button/Button';
-import Input from '../Input/input';
+import Button from '../Styled/Button';
+import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -29,10 +30,11 @@ const EditEmail = (props: IStateProps) => {
 
     const ValidationSchema = Yup.object().shape({
         email: Yup.string()
+          .email('Invalid email')
           .required("Required!!")
-    /* .test('Unique Email','Email already been taken', 
+     .test('Unique Email','Email already been taken', 
               function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.email},{ withCredentials: true,
+                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.current_user_id},{ withCredentials: true,
                   headers: {
                     contentType: "application/json; charset=utf-8",
                 }})
@@ -46,7 +48,7 @@ const EditEmail = (props: IStateProps) => {
                   }
                 })
               })}
-            )  */
+            )  
       });
       
     const setEmail = (email) => {
@@ -76,7 +78,7 @@ const EditEmail = (props: IStateProps) => {
        
             try {
                 const result = await axios.patch(SAVEEMAILURL,
-                  { "email": values.email, "id": store.email},
+                  { "email": values.email, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
@@ -86,6 +88,7 @@ const EditEmail = (props: IStateProps) => {
                   console.log("updated email="+ store.email);
                   props.stateProps.setShowEmail(false);
                   history.push("/settings");
+                  displayToast("Successfully updated email ✅", "success", 3000, "top-right")
                 }
                 else {
                 console.log("printint error  message")
@@ -112,13 +115,13 @@ const EditEmail = (props: IStateProps) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-row">
-              <label>Name</label>
               <Input
                 type="text"
                 name="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
+                placeholder={store.email}
                 className={"login-form " + (touched.email && errors.email ? "has-error" : null)}
               />
               <Error touched={touched.email} message={errors.email} />

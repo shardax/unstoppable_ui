@@ -8,8 +8,9 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
-import Input from '../Input/input'
-import Button from '../Button/Button'
+import Input from '../Styled/input'
+import Button from '../Styled/Button'
+// import {displayToast} from "../Toast/Toast";
 
 const ValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -78,7 +79,7 @@ const SignIn2 = () => {
             }
             setIsError(true);
           }
-          if(store.isLoggedIn){
+          if (store.isLoggedIn){
             history.push("/home");
           } else {
             history.push("/login")
@@ -124,6 +125,7 @@ const SignIn2 = () => {
             <Input
               type="password"
               name="password"
+              placeholder="password"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}

@@ -1,0 +1,30 @@
+@import '../../assets/scss/variables';
+
+.success-toast {
+  background-color: $primaryPurple;
+}
+
+.info-toast {
+  background-color: #1d34b9;
+}
+
+.warning-toast {
+  background-color: #1db9a2;
+}
+
+.error-toast {
+  background-color: #b91d82;
+}
+
+.splash-toast {
+  background-color: #541db9;
+}
+
+.toast-class {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0.4em 1em;
+  border-radius: 5px;
+  padding: 0.8em 1.2em;
+}

@@ -45,7 +45,7 @@ $cardHeight: 240px;
   // margin-bottom: 0.2em;
   border-radius: 50%;
   padding: 0.1em;
-  margin-right: 0.4em;
+  // margin-right: 0.4em;
   position: relative;
   z-index: 10;
 }
@@ -61,6 +61,7 @@ $cardHeight: 240px;
     display: none;
   }
 }
+
 .single-profile-wrapper {
   margin: 1em;
   margin-bottom: 2em;
@@ -91,7 +92,6 @@ $cardHeight: 240px;
     // background-color: rgba($primaryPurple, 0.06);
     .profile-username {
       font-size: 16px;
-      display: inline;
     }
     .profile-location {
       color: rgb(113, 113,113);
@@ -102,6 +102,13 @@ $cardHeight: 240px;
       margin-bottom: 0;
     }
   }
+}
+
+.profile-name-loc {
+  width: 170px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .single-profile-image {

@@ -7,8 +7,9 @@ import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEZIPCODEURL } from "../../constants/matcher";
-import Button from '../Button/Button';
-import Input from '../Input/input';
+import Button from '../Styled/Button';
+import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -30,9 +31,8 @@ const EditZipcode = (props: IStateProps) => {
 
     const ValidationSchema = Yup.object().shape({
         zipcode: Yup.string()
-          .min(2, "Too Short!")
-          .max(255, "Too Long!")
-          .required("Required!!")
+          .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
+          .required("Required"),
       /*    .test('Unique Zipcode','Zipcode already been taken', 
               function(value){return new Promise((resolve, reject) => {        
                   axios.post(VALIDZIPCODEURL,  { "zipcode": value, "id": store.current_user_id},{ withCredentials: true,
@@ -89,11 +89,13 @@ const EditZipcode = (props: IStateProps) => {
                   console.log("updated zipcodee="+ store.profile.zipcode);
                   props.stateProps.setShowZipcode(false);
                   history.push("/settings");
+                  displayToast("Successfully updated zipcode ✅", "success", 3000, "top-right")
                 }
                 else {
                 console.log("printint error  message")
                 console.log(result.data.message);
                 setErrorMessage(result.data.message);
+                displayToast("Failed to update zipcode", "error", 3000, "top-right") 
                 }
             } catch (error) {
             console.log(JSON.stringify(error));
@@ -121,6 +123,7 @@ const EditZipcode = (props: IStateProps) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.zipcode}
+                placeholder={store.profile.zipcode}
                 className={"login-form " + (touched.zipcode && errors.zipcode ? "has-error" : null)}
               />
               <Error touched={touched.zipcode} message={errors.zipcode} />

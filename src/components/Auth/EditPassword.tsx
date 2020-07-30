@@ -7,8 +7,9 @@ import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEPASSWORDURL } from "../../constants/matcher";
-import Button from '../Button/Button';
-import Input from '../Input/input';
+import Button from '../Styled/Button';
+import Input from '../Styled/input';
+import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
   stateProps: {
@@ -22,6 +23,7 @@ const EditPassword = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
+    const [isError, setIsError] = useState(false);
 
     const handleCancelPassword = (event: React.MouseEvent) => {
       event.preventDefault();
@@ -32,17 +34,17 @@ const EditPassword = (props: IStateProps) => {
         currentpassword: Yup.string()
           .min(8, "Must be at least 8 characters long!")
           .required("Required")
-          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/)
+          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Does not meet requirements")
           .required("Current Password Required!!"), 
         newpassword: Yup.string()
           .min(8, "Must be at least 8 characters long!")
           .required("Required")
-          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/)
+          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Does not meet requirements")
           .required("New Password Required!!"), 
         confirmnewpassword: Yup.string()
           .min(8, "Must be at least 8 characters long!")
           .required("Required")
-          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/)
+          .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Does not meet requirements")
           .when("newpassword", {
             is: val => (val && val.length > 0 ? true : false),
             then: Yup.string().oneOf(
@@ -73,10 +75,36 @@ const EditPassword = (props: IStateProps) => {
             setSubmitting(false);
           }, 500);
   
-          const saveData = async () => {
+          const fetchData = async () => {
+            //setIsError(false);
+          //  store.isLoggedIn = false;
        
-        saveData();
-        }}}
+            try {
+              const result = await axios.patch(SAVEPASSWORDURL,
+                { user: {"current_password": values.currentpassword, "password": values.newpassword,"password_confirmation": values.confirmnewpassword}, id:store.current_user_id},
+                { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+              });
+                console.log(JSON.stringify(result));
+                console.log(result.data.username);
+                displayToast("Successfully updated password ✅", "success", 3000, "top-right")
+            } catch (error) {
+              console.log(error.message);
+              if (error.message.includes("401")) {
+                setErrorMessage("Invalid Username or Password.");
+              } else {
+                setErrorMessage(error.message);
+              }
+              setIsError(true);
+            }
+            if(store.isLoggedIn){
+              history.push("/home");
+            } else {
+              history.push("/login")
+            }
+          };
+          /* Login and fetch initial data */
+          fetchData();
+        }}
       >
         {({
           values,
@@ -89,9 +117,9 @@ const EditPassword = (props: IStateProps) => {
           setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
-            <div className="input-row">
+            <div>
               <Input
-                type="text"
+                type="password"
                 name="currentpassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -99,7 +127,7 @@ const EditPassword = (props: IStateProps) => {
                 className={"login-form " + (touched.currentpassword && errors.currentpassword ? "has-error" : null)}
               />
               <Input
-                type="text"
+                type="password"
                 name="newpassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -107,7 +135,7 @@ const EditPassword = (props: IStateProps) => {
                 className={"login-form " + (touched.newpassword && errors.newpassword ? "has-error" : null)}
               />
               <Input
-                type="text"
+                type="password"
                 name="confirmnewpassword"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -121,8 +149,10 @@ const EditPassword = (props: IStateProps) => {
               <Error touched={touched.confirmnewpassword} message={errors.confirmnewpassword} />
               <Error touched={touched.confirmnewpassword} message={errorMessage} />
             </div>
-  
-            <div className="input-row">
+            <div>
+            (8 characters minimum, must contain at least 1 uppercase, 1 lowercase, and 1 number)
+            </div>
+            <div>
               <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
               </Button>

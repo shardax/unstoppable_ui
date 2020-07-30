@@ -6,33 +6,34 @@ import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
-import { SAVEUSERNAMEURL, VALIDUSERNAMEURL } from "../../constants/matcher";
+import { SAVEPHONEURL, VALIDPHONEURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
 import Input from '../Styled/input';
 import { displayToast } from '../Toast/Toast';
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 interface IStateProps {
   stateProps: {
-    setShowUsername: React.Dispatch<React.SetStateAction<boolean>>
+    setShowPhone: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
   
-const EditUsername = (props: IStateProps) => {
+const EditPhone = (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
 
-    const handleCancelUsername = (event: React.MouseEvent) => {
+    const handleCancelPhone = (event: React.MouseEvent) => {
       event.preventDefault();
-      props.stateProps.setShowUsername(false);
+      props.stateProps.setShowPhone(false);
     }
 
     const ValidationSchema = Yup.object().shape({
-        username: Yup.string()
-          .min(2, "Too Short!")
-          .max(255, "Too Long!")
+        phone: Yup.string()
+          .matches(phoneRegExp, 'Phone number is not valid')
           .required("Required!!")
-          .test('Unique Username','Username already been taken', 
+        /*  .test('Unique Username','Username already been taken', 
               function(value){return new Promise((resolve, reject) => {        
                   axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
                   headers: {
@@ -48,18 +49,18 @@ const EditUsername = (props: IStateProps) => {
                   }
                 })
               })}
-          )   
+          )  */ 
       });
       
-    const setUsername = (name) => {
-      store.username = name;
+    const setPhone = (name) => {
+      store.profile.phone = name;
       localStorage.setItem("userStore", JSON.stringify(store));
     }
   
     return (
       <Formik
         initialValues={{
-          username: "",
+          phone: "",
         }}
         validationSchema={ValidationSchema}
         validate={values => {
@@ -77,24 +78,24 @@ const EditUsername = (props: IStateProps) => {
           const saveData = async () => {
        
             try {
-                const result = await axios.patch(SAVEUSERNAMEURL,
-                  { "username": values.username, "id": store.current_user_id},
+                const result = await axios.patch(SAVEPHONEURL,
+                  { "phone": values.phone, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
                 if (result.data.status != "error") {
-                  setUsername(values.username);
-                  values.username =  result.data.username;;
-                  console.log("updated username="+ store.username);
-                  props.stateProps.setShowUsername(false);
+                  setPhone(values.phone);
+                  values.phone =  result.data.phone;;
+                  console.log("updated phone="+ store.profile.phone);
+                  props.stateProps.setShowPhone(false);
                   history.push("/settings");
-                  displayToast("Successfully updated username ✅", "success", 3000, "top-right")
+                  displayToast("Successfully updated phone number ✅", "success", 3000, "top-right")
                 }
                 else {
-                displayToast("Failed to update username", "error", 3000, "top-right")  
                 console.log("printint error  message")
                 console.log(result.data.message);
                 setErrorMessage(result.data.message);
+                displayToast("Failed to update phone number", "error", 3000, "top-right") 
                 }
             } catch (error) {
             console.log(JSON.stringify(error));
@@ -116,25 +117,24 @@ const EditUsername = (props: IStateProps) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-row">
-              <label>Name</label>
               <Input
                 type="text"
-                name="username"
+                name="phone"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.username}
-                placeholder={store.username}
-                className={"login-form " + (touched.username && errors.username ? "has-error" : null)}
+                value={values.phone}
+                placeholder={store.profile.phone}
+                className={"login-form " + (touched.phone && errors.phone ? "has-error" : null)}
               />
-              <Error touched={touched.username} message={errors.username} />
-              <Error touched={touched.username} message={errorMessage} />
+              <Error touched={touched.phone} message={errors.phone} />
+              <Error touched={touched.phone} message={errorMessage} />
             </div>
   
             <div className="input-row">
             <Button type="submit" margin="0em 0em" disabled={isSubmitting}>
                 Submit
               </Button>
-              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelUsername}>
+              <Button type="submit" margin="0em 1.5em"  onClick={handleCancelPhone}>
                 Cancel
               </Button>
             </div>
@@ -145,4 +145,4 @@ const EditUsername = (props: IStateProps) => {
   }
   
 
-export default EditUsername;
+export default EditPhone;
