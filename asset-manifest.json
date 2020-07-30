@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/unstoppable_ui/static/css/main.99a7a1b1.chunk.css",
+    "main.js": "/unstoppable_ui/static/js/main.ad6456de.chunk.js",
+    "main.js.map": "/unstoppable_ui/static/js/main.ad6456de.chunk.js.map",
+    "runtime-main.js": "/unstoppable_ui/static/js/runtime-main.b3ab1ddb.js",
+    "runtime-main.js.map": "/unstoppable_ui/static/js/runtime-main.b3ab1ddb.js.map",
+    "static/css/2.6ef4c1a0.chunk.css": "/unstoppable_ui/static/css/2.6ef4c1a0.chunk.css",
+    "static/js/2.795899bf.chunk.js": "/unstoppable_ui/static/js/2.795899bf.chunk.js",
+    "static/js/2.795899bf.chunk.js.map": "/unstoppable_ui/static/js/2.795899bf.chunk.js.map",
+    "index.html": "/unstoppable_ui/index.html",
+    "precache-manifest.fe1442535576b1509e3f900bbfa09187.js": "/unstoppable_ui/precache-manifest.fe1442535576b1509e3f900bbfa09187.js",
+    "service-worker.js": "/unstoppable_ui/service-worker.js",
+    "static/css/2.6ef4c1a0.chunk.css.map": "/unstoppable_ui/static/css/2.6ef4c1a0.chunk.css.map",
+    "static/css/main.99a7a1b1.chunk.css.map": "/unstoppable_ui/static/css/main.99a7a1b1.chunk.css.map",
+    "static/js/2.795899bf.chunk.js.LICENSE.txt": "/unstoppable_ui/static/js/2.795899bf.chunk.js.LICENSE.txt",
+    "static/media/2Unstoppable_logo.png": "/unstoppable_ui/static/media/2Unstoppable_logo.6b411738.png",
+    "static/media/2unstoppable.png": "/unstoppable_ui/static/media/2unstoppable.77d71a9a.png",
+    "static/media/ionicons-v4.css": "/unstoppable_ui/static/media/ionicons.99b86349.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b3ab1ddb.js",
+    "static/css/2.6ef4c1a0.chunk.css",
+    "static/js/2.795899bf.chunk.js",
+    "static/css/main.99a7a1b1.chunk.css",
+    "static/js/main.ad6456de.chunk.js"
+  ]
+}
