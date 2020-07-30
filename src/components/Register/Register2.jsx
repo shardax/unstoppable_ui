@@ -7,10 +7,10 @@ import axios from "axios";
 import UnsIcon from '../../images/2Unstoppable_logo.png'
 import { useDataStore } from "../../UserContext";
 import { REGISTERURL, VALIDUSERNAMEURL } from "../../constants/matcher";
-//import DatePicker from "../Auth/DatePicker";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
-import { values } from "mobx";
 import DateFnsUtils from '@date-io/date-fns';
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 var today = new Date();
 var year = today.getFullYear();
@@ -22,11 +22,12 @@ const validationSchema = Yup.object().shape({
     username: Yup.string()
         .min(1, "Too Short!")
         .max(255, "Too Long!")
+        .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
         .required("Required"),
     password: Yup.string()
         .min(8, "Must be at least 8 characters long!")
         .required("Required")
-        .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/),
+        .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Invalid Password"),
     email: Yup.string()
         .email("Email is invalid")
         .required("Required"),
@@ -51,7 +52,7 @@ const Register2 = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const store = useDataStore();
-
+    const recaptchaRef = React.useRef();
 
     return (
         <Formik
@@ -161,6 +162,7 @@ const Register2 = () => {
                                             {touched.username && errors.username ? (
                                                 <div className="errorText">{errors.username}</div>
                                             ) : null}
+                                            <p><i>User name must be 5-12 characters long, with only lowercase letters followed by digits.</i></p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -304,6 +306,13 @@ const Register2 = () => {
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+                            <div className="recaptcha">
+                                <ReCAPTCHA
+                                ref={recaptchaRef}
+                                size="invisible"
+                                sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+                                />,
                             </div>
                         </form>
                     </div>
