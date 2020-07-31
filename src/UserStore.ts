@@ -178,7 +178,11 @@ export class UserStore {
       this.activities = [];
       this.exerciseReasons = [];
       }
-     hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
+     //hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
+     Promise.all([
+      hydrate('userStore', this),
+    ])
+      .then(() => console.log('userStore has been hydrated'));
   }
 
   @action
