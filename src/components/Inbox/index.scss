@@ -2,6 +2,9 @@
 
 .messages-wrapper {
   display: flex;
+  .inbox-wrapper {
+
+  }
   .single-message-wrapper {
     // background-color: rgb(225,225,225);
     cursor: pointer;
@@ -25,19 +28,29 @@
   }
   .conversation-wrapper {
     margin-left: 3em;
-    border: 1px solid rgb(240,240,240);
+    // border: 1px solid rgb(240,240,240);
     border-radius: 5px;
     width: 100%;
-    .conversation-nav-wrapper {
-      background-color: rgba($primaryPurple, 0.6);
-      padding: 1em;
-      text-align: center;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
-      .conv-nav-text {
-        color: white;
-      }
+  }
+
+  .conversation-nav-wrapper {
+    padding: 1em;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+    margin-bottom: 20px;
+    .conv-nav-text {
+      color: white;
     }
   }
+  .purple-nav {
+    background-color: rgba($primaryPurple, 0.6);
+  }
+
+  .pink-nav {
+    background-color: rgba($pinkNav, 0.6);
+  }
+
   .active-conversation {
     background-color: rgb(235,235,235);
   }

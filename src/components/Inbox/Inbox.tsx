@@ -53,7 +53,12 @@ const Inbox = () => {
 
   return (
     <div className="messages-wrapper">
-      <div>
+      <div className="inbox-wrapper">
+        <nav className="pink-nav conversation-nav-wrapper">
+          <div className="conv-nav-text">
+          My Inbox
+          </div>
+        </nav>
         {exampleList.map((message: any) => (
           <>
             <Message message={message} />
@@ -62,7 +67,7 @@ const Inbox = () => {
         ))}
       </div>
       <div className="conversation-wrapper">
-        <nav className="conversation-nav-wrapper">
+        <nav className="purple-nav conversation-nav-wrapper">
           <div className="conv-nav-text">
            {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
           </div>
