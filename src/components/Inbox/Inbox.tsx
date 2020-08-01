@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Avatar} from 'antd';
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
@@ -29,10 +29,11 @@ const exampleList = [
 
 const Inbox = () => {
   const store = useDataStore();
+  const [currChat, setCurrChat] = useState('')
   
   const Message = ({ message }) => {
     return (
-      <div className="single-message-wrapper">
+      <div onClick={() => setCurrChat(message.name)} className={"single-message-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
         <div className="single-message-avatar">
           <Avatar src={ROOTURL + message.image}  size= "large" />
           <div className="message-from-title">{message.name}</div>
@@ -51,11 +52,17 @@ const Inbox = () => {
   }
 
   return (
-    <div>
-      <div className="messages-wrapper">
+    <div className="messages-wrapper">
+      <div>
         {exampleList.map((message: any) => (
-          <Message message={message} />
+          <>
+            <Message message={message} />
+          <hr></hr>
+          </>
         ))}
+      </div>
+      <div className="conversation-wrapper">
+        {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
       </div>
     </div>
   )

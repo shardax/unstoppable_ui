@@ -1,9 +1,8 @@
 .messages-wrapper {
-  width: 40%;
+  display: flex;
   .single-message-wrapper {
     // background-color: rgb(225,225,225);
     cursor: pointer;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     margin: 1em 0em;
     border-radius: 5px;
     padding: 10px;
@@ -21,5 +20,14 @@
         font-weight: 600;
       }
     }
+  }
+  .conversation-wrapper {
+    margin-left: 3em;
+    border: 1px solid rgb(240,240,240);
+    border-radius: 5px;
+    width: 100%;
+  }
+  .active-conversation {
+    background-color: rgb(225,225,225);;
   }
 }
