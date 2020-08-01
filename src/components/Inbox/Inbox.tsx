@@ -62,6 +62,11 @@ const Inbox = () => {
         ))}
       </div>
       <div className="conversation-wrapper">
+        <nav className="conversation-nav-wrapper">
+          <div className="conv-nav-text">
+           {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
+          </div>
+        </nav>
         {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 import './index.scss';
 import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
-
+import {Link} from 'react-router-dom';
 import Button from '../Styled/Button';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import NotesIcon from '@material-ui/icons/Notes';
@@ -78,7 +78,9 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
             <img className="user-section-image" src={ROOTURL + user.photo} />
             {me ?  null : (
               <div style={{ display: "flex" }}>
-                <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
+                <Link style={{ textDecoration: "underline" }} to="/messages">
+                  <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
+                </Link>
                 <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
               </div>
             )}
