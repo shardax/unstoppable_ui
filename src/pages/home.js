@@ -7,11 +7,10 @@ import SignIn2 from '../components/LogIn/SignIn2'
 export default function Home() {
   const storedData = localStorage.getItem("userStore");
   const store = useDataStore();
-
   if (!storedData) {
     return (<SignIn2 />)
   } else {
-    if (!store.isLoggedIn) {
+    if (store && !store.isLoggedIn) {
       return (<SignIn2 />)
     } else {
       return (
@@ -21,3 +20,4 @@ export default function Home() {
       )
     }
   }
+}
