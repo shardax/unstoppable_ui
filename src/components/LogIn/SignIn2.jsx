@@ -144,16 +144,13 @@ const SignIn2 = () => {
             </Button>
           </div>
           <div className="register">
-            <Link to='/register' activeClassName="active">Sign Up</Link>
+            <Link to='/register' activeclassname="active">Sign Up</Link>
           </div>
           <div className="register">
-            <Link to='/fusername' activeClassName="active">Forgot Your Username?</Link>
+            <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
           </div>
           <div className="register">
-            <Link to='/fpassword' activeClassName="active">Forgot Your Password?</Link>
-          </div>
-          <div className="register">
-            <Link to='/resetpassword' activeClassName="active">Reset Password</Link>
+            <Link to='/fpassword' activeclassname="active">Forgot Your Password?</Link>
           </div>
         </form>
       )}
