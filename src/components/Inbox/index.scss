@@ -59,12 +59,14 @@
 .flex-row {
   display: flex;
   .from-me-message {
-    background-color: rgba($primaryPurple, 0.6);;
+    background-color: rgba($primaryPurple, 0.6);
+    // background-color: #9696ff;
     color: white;
     width: 40%;
   }
   .from-them-message {
     background-color: rgba($pinkNav, 0.6);
+    // background-color: rgb(150,150,150);
     color: white;
     width: 40%;
   }
