@@ -27,19 +27,39 @@ const exampleList = [
   }
 ]
 
+const exampleMessages = {
+  "sparky": [
+    {
+      to: "Cynthia",
+      from: "me",
+      content: "Hello!"  
+    },
+    {
+      to: "Sparky",
+      from: "me",
+      content: "Just reaching out to see if you would want to play tennis together! I am usually free after 5 on weekdays."  
+    },
+    {
+      to: "me",
+      from: "Sparky",
+      content: "Yes I would love to play tennis with you!"  
+    },
+  ]
+}
+
 const Inbox = () => {
   const store = useDataStore();
-  const [currChat, setCurrChat] = useState('')
+  const [currChat, setCurrChat] = useState("sparky")
   
-  const Message = ({ message }) => {
+  const Conversation = ({ message }) => {
     return (
-      <div onClick={() => setCurrChat(message.name)} className={"single-message-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
-        <div className="single-message-avatar">
+      <div onClick={() => setCurrChat(message.name)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
+        <div className="single-conversation-avatar">
           <Avatar src={ROOTURL + message.image}  size= "large" />
-          <div className="message-from-title">{message.name}</div>
+          <div className="conversation-from-title">{message.name}</div>
         </div>
-        <div className="single-message-recent">
-          <div className="message-subject">
+        <div className="single-conversation-recent">
+          <div className="conversation-subject">
             {message.recent.subject}
           </div>
           <div>
@@ -47,6 +67,24 @@ const Inbox = () => {
           </div>
         </div>
         <ArrowForwardIcon />
+      </div>
+    )
+  }
+
+  const Message = ({ content, from, to }) => {
+    const isMe = (from: string, me: string) => from === "me"
+
+    return (
+      <div className={
+        "flex-row " +
+        (isMe(from, store.username) ? "from-me-row" : "from-them-row")
+        }>
+        <span className={
+          "single-message-wrapper " +
+          (isMe(from, store.username) ? "from-me-message" : "from-them-message")
+          }>
+          {content}
+        </span>
       </div>
     )
   }
@@ -59,10 +97,10 @@ const Inbox = () => {
           My Inbox
           </div>
         </nav>
-        {exampleList.map((message: any) => (
+        {exampleList.map((conversation: any) => (
           <>
-            <Message message={message} />
-          <hr></hr>
+            <Conversation message={conversation} />
+            <hr></hr>
           </>
         ))}
       </div>
@@ -72,7 +110,13 @@ const Inbox = () => {
            {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
           </div>
         </nav>
-        {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
+        {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
+        {(exampleMessages[currChat] ? exampleMessages[currChat] : []).map((message: any) => (
+          <>
+            <Message content={message.content} from={message.from} to={message.to} />
+            {/* <hr></hr> */}
+          </>
+        ))}
       </div>
     </div>
   )

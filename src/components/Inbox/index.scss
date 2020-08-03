@@ -3,9 +3,10 @@
 .messages-wrapper {
   display: flex;
   .inbox-wrapper {
-
+    // border-right: 1px solid rgb(240,240,240);
+    // padding-right: 2em;
   }
-  .single-message-wrapper {
+  .single-conversation-wrapper {
     // background-color: rgb(225,225,225);
     cursor: pointer;
     margin: 1em 0em;
@@ -14,21 +15,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .single-message-avatar {
+    .single-conversation-avatar {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .single-message-recent {
+    .single-conversation-recent {
       margin: 0px 20px;
-      .message-subject {
+      .conversation-subject {
         font-weight: 600;
       }
     }
   }
   .conversation-wrapper {
     margin-left: 3em;
-    // border: 1px solid rgb(240,240,240);
     border-radius: 5px;
     width: 100%;
   }
@@ -54,4 +54,32 @@
   .active-conversation {
     background-color: rgb(235,235,235);
   }
+}
+
+.flex-row {
+  display: flex;
+  .from-me-message {
+    background-color: rgba($primaryPurple, 0.6);;
+    color: white;
+    width: 40%;
+  }
+  .from-them-message {
+    background-color: rgba($pinkNav, 0.6);
+    color: white;
+    width: 40%;
+  }
+}
+
+.single-message-wrapper {
+  border-radius: 5px;
+  padding: 6px;
+  margin: 6px 0px;
+}
+
+.from-me-row {
+  justify-content: flex-end;
+}
+
+.from-me-row {
+  justify-content: flex-end;
 }
