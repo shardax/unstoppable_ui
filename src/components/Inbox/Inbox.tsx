@@ -5,7 +5,7 @@ import { useDataStore } from "../../UserContext";
 import messages from '../../pages/messages';
 import './index.scss';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-
+import Textarea from '../Styled/Textarea';
 const exampleList = [
   {
     image: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f14010b9eb432b4af4cccebc17bbccb5cf16ec7/DSC00071.JPG",
@@ -117,6 +117,7 @@ const Inbox = () => {
             {/* <hr></hr> */}
           </>
         ))}
+        <Textarea margin="1em 0em" height="40px" width="100%" padding="10px" fontSize="12px" placeholder={"Send a message to " + currChat + " 👋"}></Textarea>
       </div>
     </div>
   )

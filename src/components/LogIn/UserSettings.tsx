@@ -21,7 +21,7 @@ import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
 import * as Yup from 'yup';
-import Input from '../Styled/input';
+import Input from '../Styled/Input';
 import Button from '../Styled/Button'
 
 

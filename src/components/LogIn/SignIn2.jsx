@@ -8,7 +8,7 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
-import Input from '../Styled/input'
+import Input from '../Styled/Input'
 import Button from '../Styled/Button'
 // import {displayToast} from "../Toast/Toast";
 
