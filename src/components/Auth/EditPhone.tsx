@@ -83,7 +83,7 @@ const EditPhone = (props: IStateProps) => {
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
-                if (result.data.status != "error") {
+                if (result.data.status !== "error") {
                   setPhone(values.phone);
                   values.phone =  result.data.phone;;
                   console.log("updated phone="+ store.profile.phone);

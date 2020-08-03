@@ -83,7 +83,7 @@ const EditZipcode = (props: IStateProps) => {
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
-                if (result.data.status != "error") {
+                if (result.data.status !== "error") {
                   setZipcode(values.zipcode);
                   values.zipcode =  result.data.zipcode;;
                   console.log("updated zipcodee="+ store.profile.zipcode);

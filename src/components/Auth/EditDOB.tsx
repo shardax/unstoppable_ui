@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
 import {Formik} from 'formik';
-import Error from "../LogIn/Error";
 import axios from "axios";
 import '../LogIn/UserSettings.scss'
 import DatePicker from "./DatePicker";
@@ -24,7 +23,6 @@ const EditDOB= (props: IStateProps) => {
     const store = useDataStore();
     const history = useHistory();
     const [errorMessage, setErrorMessage] = useState("");
-    const [startDate, setStartDate] = useState(new Date());
 
     const handleCancelDOB = (event: React.MouseEvent) => {
       event.preventDefault();
@@ -36,11 +34,6 @@ const EditDOB= (props: IStateProps) => {
       age: Yup.number()
       .min(18, "Must be 18 years old or older to register"),
       });
-      
-    const setUsername = (name) => {
-      store.username = name;
-      localStorage.setItem("userStore", JSON.stringify(store));
-    }
   
     return (
       <Formik
@@ -82,7 +75,7 @@ const EditDOB= (props: IStateProps) => {
                 { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
               });
               console.log(JSON.stringify(result));
-              if (result.data.status != "error") {
+              if (result.data.status !== "error") {
                 store.setDOB(result.data.dob);
                 values.dob =  result.data.dob;;
                 console.log("updated username="+ store.profile.dob);

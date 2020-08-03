@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {useDataStore} from "../../UserContext";
-import {useHistory} from 'react-router-dom';
 import { ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
 import EditEmail from '../Auth/EditEmail';
@@ -8,43 +7,25 @@ import EditZipcode from '../Auth/EditZipcode';
 import EditPassword from '../Auth/EditPassword';
 import EditPhone from '../Auth/EditPhone';
 import EditDOB from '../Auth/EditDOB';
-import { useFormik } from 'formik';
-//import axios from "axios";
-//import {useObserver} from 'mobx-react'
-//import { PROFILEURL, ROOTURL, SAVEUSERNAMEURL, VALIDUSERNAMEURL} from "../../constants/matcher";
-//import AvatarEditor from 'react-avatar-editor';
-//import FlexView from 'react-flexview';
-//import {PrintUserInfo, DisplayProfileActivityNames, DisplayExerciseReasons} from "./CommonElements";
-//import CssBaseline from '@material-ui/core/CssBaseline';
-//import Typography from '@material-ui/core/Typography';
-//import Container from '@material-ui/core/Container';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
-//import * as Yup from 'yup';
-import Input from '../Styled/input';
 import Button from '../Styled/Button'
 
 
 const UserSettings = (props: ProfileProps) => {
   const store = useDataStore();
- // const history = useHistory();
   const [showEmail, setShowEmail] = useState(false);
   const [showUsername, setShowUsername] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPhone, setShowPhone] = useState(false);
   const [showDOB, setShowDOB] = useState(false);
   const [showZipcode, setShowZipcode] = useState(false);
- // const [changeEmail, setChangeEmail] = useState(store.email);
- // const [changeUsername, setChangeUsername] = useState(store.username);
-  //const [changeDOB, setChangeDOB] = useState(store.profile.dob);
- // const [changeZipcode, setChangeZipcode] = useState(store.profile.zipcode);
   const [ZipcodeDisable, setZipcodeDisable] = useState(true);
   const [EmailDisable, setEmailDisable] = useState(true);
   const [UsernameDisable, setUsernameDisable] = useState(true);
   const [DOBDisable, setDOBDisable] = useState(true);
   const [PasswordDisable, setPasswordDisable] = useState(true);
   const [PhoneDisable, setPhoneDisable] = useState(true);
- // const profile = props.profile;
  
   
   useEffect(() => {
@@ -101,11 +82,6 @@ const UserSettings = (props: ProfileProps) => {
   },
   [showPhone]);
   
-
- // const setUsername = (name) => {
-   // store.username = name;
-    //localStorage.setItem("userStore", JSON.stringify(store));
-  //}
   const handleEditEmail = (event: React.MouseEvent) => {
    event.preventDefault();
    setShowEmail(!showEmail);
