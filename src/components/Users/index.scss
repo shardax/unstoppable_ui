@@ -2,22 +2,23 @@
   display: flex;
   margin-top: 3em;
   width: 100%;
-  // height: 100%;
   .user-section-data {
     margin-right: 3em;
     width: 100%;
     flex-grow: 3;
   }
-  .user-metadata {
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 1 !important;
-    align-self: flex-start;
-    flex-grow: 2;
-  }
 }
 
+.user-metadata {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 80px !important;
+  z-index: 1 !important;
+  align-self: flex-start;
+  flex-grow: 2;
+  // padding: 0.5em;
+  border-radius: 5px;
+}
 
 
 .full-profile-icon-row {
@@ -46,18 +47,16 @@
   padding: 0.2em 0em;
 }
 
-.user-section-other-wrapper {
-  .profile-chip-list {
-    display: flex;
-    flex-wrap: wrap;
-    position: -webkit-sticky;
-    .profile-single-chip {
-      padding: 0.2em 0.6em;
-      margin: 0em .3em 0.3em 0.3em;
-      border-radius: 30px;
-      cursor: pointer;
-      background-color: rgb(240, 240, 240);
-    }
+.profile-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: -webkit-sticky;
+  .profile-single-chip {
+    padding: 0.2em 0.6em;
+    margin: 0em .3em 0.3em 0.3em;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: rgb(240, 240, 240);
   }
 }
 
@@ -89,7 +88,8 @@
 .user-section-image {
   height: 240px;
   width: 300px;
-  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  border-radius: 5px;
   margin-bottom: 1em;
 }
 
@@ -97,4 +97,23 @@
   font-size: 14px !important;
   margin-bottom: 3px;
   margin-right: 0.1em;
+}
+
+.liked-profile-wrapper {
+  display: flex;
+  align-items: center;
+  // box-shadow:rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  border: 1px solid rgb(240, 240, 240);
+  padding: 0.3em;
+  margin: 1em 0em;
+  border-radius: 5px;
+  .liked-profile-data {
+    margin-left: 1em;
+    color: #260F45 !important;
+  }
+  .liked-profile-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

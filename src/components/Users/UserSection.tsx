@@ -6,6 +6,7 @@ import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom';
 import Button from '../Styled/Button';
+import LikedProfile from '../Users/LikedProfile'
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import NotesIcon from '@material-ui/icons/Notes';
 import SportsTennisIcon from '@material-ui/icons/SportsTennis';
@@ -73,22 +74,7 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
             </div>} icon={<NotesIcon className="full-profile-icon" />}/>
 
           <ProfileIconRow field={"Work Status"} chips={false} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />}/>
-        </div>
-        <div className="user-metadata">
-            <img className="user-section-image" src={ROOTURL + user.photo} />
-            {me ?  null : (
-              <div style={{ display: "flex" }}>
-                <Link style={{ textDecoration: "underline" }} to="/messages">
-                  <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
-                </Link>
-                <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
-              </div>
-            )}
-        </div>
-      </div>
-
-      <hr></hr>
-      <div className="user-section-other-wrapper">
+        <hr></hr>
       
           <div className="profile-section-header">Details about Diagnosis</div>
           
@@ -113,9 +99,28 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
 
           <ProfileIconRow field={"Prefered exercise time"} chips={true} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
           
-        </div>
+      </div>
+      <div className="user-metadata">
+        <img className="user-section-image" src={ROOTURL + user.photo} />
+        {me ?  null : (
+          <div style={{ display: "flex" }}>
+            <Link style={{ textDecoration: "underline" }} to="/messages">
+              <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
+            </Link>
+            <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
+          </div>
+        )}
+        {me ? (
+          <div>
+            <h6>Liked Profiles</h6>
+            {store.profile.liked_profiles.map((id: number) => (
+              <LikedProfile id={id} />
+            ))}
+          </div>
+        ) : null}
+      </div>
     </div>
-    // </div>
+    </div>
   )
 }
 
