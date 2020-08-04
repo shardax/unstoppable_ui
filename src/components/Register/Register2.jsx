@@ -26,27 +26,23 @@ const validationSchema = Yup.object().shape({
         .min(1, "Too Short!")
         .max(255, "Too Long!")
         .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
-        .test('UsernameCheck', 'Username already been taken',
-            function (value) {
-                return new Promise((resolve, reject) => {
-                    axios.post(VALIDUSERNAMEURL, { "username": value, "id": store.current_user_id }, {
-                        withCredentials: true,
-                        headers: {
-                            contentType: "application/json; charset=utf-8",
-                        }
-                    })
-                        .then(res => {
-                            if (res.data.message === 'Username already been taken') {
-                                console.log(res.data.message);
-                                resolve(false);
-                            } else {
-                                console.log("User valid")
-                                resolve(true);
-                            }
-                        })
+        .test('Unique Username','Username already been taken', 
+              function(value){return new Promise((resolve, reject) => {        
+                  axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
+                  headers: {
+                    contentType: "application/json; charset=utf-8",
+                }})
+                 .then(res => {
+                   if(res.data.message === 'Username already been taken'){
+                     console.log(res.data.message);
+                     resolve(false);
+                  } else {
+                    console.log("User valid")
+                    resolve(true);
+                  }
                 })
-            }
-        )
+              })}
+          )
         .required("Required"),
     password: Yup.string()
         .min(8, "Must be at least 8 characters long!")
@@ -120,9 +116,9 @@ const Register2 = () => {
                             {
                                 "username": values.username,
                                 "email": values.email,
-                                "dob(3i)": "12",
-                                "dob(2i)": "4",
-                                "dob(1i)": "1998",
+                                "dob(3i)": day,
+                                "dob(2i)": month,
+                                "dob(1i)": year,
                                 "zipcode": values.zipcode,
                                 "password": values.password,
                                 "referred_by": values.referred_by,
@@ -265,7 +261,7 @@ const Register2 = () => {
                                             <input
                                                 id="password"
                                                 name="password"
-                                                type="text"
+                                                type="password"
                                                 value={values.password}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
