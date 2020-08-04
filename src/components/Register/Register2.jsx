@@ -212,6 +212,7 @@ const Register2 = () => {
                                                     value={values.dob}
                                                     onChange={value => setFieldValue("dob", value)}
                                                     className={errors.dob && touched.dob ? "error" : null}
+                                                    autoComplete="new-password"
                                                 />
                                                 {errors.dob && touched.dob ? (
                                                     <div className="errorText">{errors.dob}</div>
@@ -231,6 +232,7 @@ const Register2 = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={errors.zipcode && touched.zipcode ? "error" : null}
+                                                autoComplete="new-password"
                                             />
                                             {errors.zipcode && touched.zipcode ? (
                                                 <span className="errorText">{errors.zipcode}</span>
@@ -243,7 +245,7 @@ const Register2 = () => {
                                             <input
                                                 id="password"
                                                 name="password"
-                                                type="text"
+                                                type="password"
                                                 value={values.password}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
