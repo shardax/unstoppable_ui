@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import UnsIcon from '../../images/2Unstoppable_logo.png'
 import { useDataStore } from "../../UserContext";
-import { REGISTERURL, VALIDUSERNAMEURL } from "../../constants/matcher";
+import { REGISTERURL, VALIDUSERNAMEURL, VALIDEMAILURL } from "../../constants/matcher";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -50,6 +50,23 @@ const validationSchema = Yup.object().shape({
         .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Invalid Password"),
     email: Yup.string()
         .email("Email is invalid")
+        .test('Unique Email','Email already been taken', 
+              function(value){return new Promise((resolve, reject) => {        
+                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.current_user_id},{ withCredentials: true,
+                  headers: {
+                    contentType: "application/json; charset=utf-8",
+                }})
+                 .then(res => {
+                   if(res.data.message === 'Email already been taken'){
+                     console.log(res.data.message);
+                     resolve(false);
+                  } else {
+                    console.log("Email valid")
+                    resolve(true);
+                  }
+                })
+              })}
+        )
         .required("Required"),
     zipcode: Yup.string()
         .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
