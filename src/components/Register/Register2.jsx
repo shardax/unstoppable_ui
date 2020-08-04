@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
 import './Register.scss'
 import { Formik } from 'formik';
@@ -10,7 +10,9 @@ import { REGISTERURL, VALIDUSERNAMEURL } from "../../constants/matcher";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
 import ReCAPTCHA from "react-google-recaptcha";
-
+//import { ReCaptcha } from 'react-recaptcha-google'
+//import { loadReCaptcha } from 'react-recaptcha-google'
+//import { Recaptcha } from "./recaptcha";
 
 var today = new Date();
 var year = today.getFullYear();
@@ -50,6 +52,7 @@ const Register2 = () => {
     const url = REGISTERURL;
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [recaptchaToken, setRecaptchaToken] = useState("");
 
     const store = useDataStore();
     const recaptchaRef = React.useRef();
@@ -61,11 +64,12 @@ const Register2 = () => {
                 email: "",
                 zipcode: "",
                 password: "",
-                hear: "",
+                recaptchaResponse: "",
                 referred_by: "",
                 dob: null,
                 age: "",
                 phone: ""
+                //recaptchaToken =recaptchaToken 
             }}
             validationSchema={validationSchema}
             validate={values => {
@@ -75,16 +79,21 @@ const Register2 = () => {
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
                 setTimeout(() => {
-                    // alert(JSON.stringify(values, null, 2));
+                     alert(JSON.stringify(values, null, 2));
                     resetForm();
                     setSubmitting(false);
                 }, 500);
 
-                console.log(values);
+                console.log(JSON.stringify(values));
+                let newDOB = new Date(values.dob);
+                var year = newDOB.getFullYear().toString();
+                var month = (newDOB.getMonth()+1).toString();
+                var day = (newDOB.getDate()).toString();
 
                 const createAcc = async () => {
                     try {
                         const result = await axios.post(url, {
+                            "g-recaptcha-response": values.recaptchaResponse,
                             user:
                             {
                                 "username": values.username,
@@ -94,7 +103,8 @@ const Register2 = () => {
                                 "dob(1i)": year,
                                 "zipcode": values.zipcode,
                                 "password": values.password,
-                                "phone": values.phone,
+                                "referred_by": values.referred_by,
+                                //"phone_number": values.phone,
                             }
                         },
                             {
@@ -158,6 +168,7 @@ const Register2 = () => {
                                                 className={errors.username && touched.username ? "error" : null}
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
+                                                autoComplete="new-password"
                                             />
                                             {touched.username && errors.username ? (
                                                 <div className="errorText">{errors.username}</div>
@@ -177,12 +188,14 @@ const Register2 = () => {
                                                 onBlur={handleBlur}
                                                 value={values.email}
                                                 onChange={handleChange}
+                                                autoComplete="new-password"
                                             />
                                             {errors.email && touched.email ? (
                                                 <div className="errorText">{errors.email}</div>
                                             ) : null}
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>
                                             <h4>Date of Birth:</h4>
@@ -294,7 +307,7 @@ const Register2 = () => {
                                         </td>
                                     </tr>
                                 </table>
-                            </div >
+                            </div>
                             <div className="submitButtons">
                                 <table>
                                     <tr>
@@ -307,13 +320,14 @@ const Register2 = () => {
                                     </tr>
                                 </table>
                             </div>
-                            <div className="recaptcha">
+                            <form onSubmit={() => { recaptchaRef.current.execute(); }}>
                                 <ReCAPTCHA
                                 ref={recaptchaRef}
-                                size="invisible"
+                                //size="invisible"
                                 sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-                                />,
-                            </div>
+                                onChange={(value) => {values.recaptchaResponse = value}}
+                                />
+                            </form>
                         </form>
                     </div>
                 )}

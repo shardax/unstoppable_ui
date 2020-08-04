@@ -82,7 +82,7 @@ const EditUsername = (props: IStateProps) => {
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
-                if (result.data.status != "error") {
+                if (result.data.status !== "error") {
                   setUsername(values.username);
                   values.username =  result.data.username;;
                   console.log("updated username="+ store.username);

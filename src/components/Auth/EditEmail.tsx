@@ -82,7 +82,7 @@ const EditEmail = (props: IStateProps) => {
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
-                if (result.data.status != "error") {
+                if (result.data.status !== "error") {
                   setEmail(values.email);
                   values.email =  result.data.email;;
                   console.log("updated email="+ store.email);
