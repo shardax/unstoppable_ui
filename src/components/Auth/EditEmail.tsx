@@ -8,7 +8,7 @@ import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEEMAILURL, VALIDEMAILURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
-import Input from '../Styled/input';
+import Input from '../Styled/Input';
 import { displayToast } from '../Toast/Toast';
 
 interface IStateProps {
@@ -82,7 +82,7 @@ const EditEmail = (props: IStateProps) => {
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
-                if (result.data.status != "error") {
+                if (result.data.status !== "error") {
                   setEmail(values.email);
                   values.email =  result.data.email;;
                   console.log("updated email="+ store.email);

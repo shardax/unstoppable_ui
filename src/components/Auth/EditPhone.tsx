@@ -8,7 +8,7 @@ import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEPHONEURL, VALIDPHONEURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
-import Input from '../Styled/input';
+import Input from '../Styled/Input';
 import { displayToast } from '../Toast/Toast';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -83,7 +83,7 @@ const EditPhone = (props: IStateProps) => {
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
-                if (result.data.status != "error") {
+                if (result.data.status !== "error") {
                   setPhone(values.phone);
                   values.phone =  result.data.phone;;
                   console.log("updated phone="+ store.profile.phone);

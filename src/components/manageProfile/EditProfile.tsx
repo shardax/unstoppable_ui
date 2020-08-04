@@ -11,7 +11,7 @@ import Error from "../LogIn/Error";
 import './EditProfile.scss'
 import styled from '@emotion/styled';
 
-import Input from '../Styled/input';
+import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
@@ -115,6 +115,7 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         treatment_status: profile.treatment_status,
         treatment_description:profile.treatment_description,
         part_of_wellness_program: (profile.part_of_wellness_program),
+        part_of_wellness_string: profile.part_of_wellness_program ? "Yes":"No",
         which_wellness_program: profile.which_wellness_program,
       }}
       validationSchema={ValidationSchema}
@@ -122,49 +123,57 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         let errors = {};
         return errors;
       }}
-      onSubmit={async values => {
-        try {
-          // alert(JSON.stringify(profile, null, 2));
-          // alert(JSON.stringify(values.part_of_wellness_program, null, 2));
-          let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
-          //About Me
-          profile.activity_ids = values.activity_ids.map(Number);
-          profile.other_favorite_activities = values.other_favorite_activities;
-          profile.fitness_level = values.fitness_level;
-          profile.exercise_reason_ids = values.exercise_reason_ids.map(Number);
-          profile.prefered_exercise_location = values.prefered_exercise_location;
-          profile.prefered_exercise_time = values.prefered_exercise_time;
-          profile.reason_for_match = values.reason_for_match;
-          profile.personality = values.personality;
-          profile.work_status = values.work_status;
-          profile.details_about_self = values.details_about_self;
-          //Cancer History
-          profile.cancer_location = values.cancer_location;
-          profile.other_cancer_location = values.other_cancer_location;
-          profile.treatment_status = values.treatment_status;
-          profile.treatment_description = values.treatment_description;
-          profile.part_of_wellness_program = values.part_of_wellness_program;
-          profile.which_wellness_program = values.which_wellness_program;
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setSubmitting(true);
+        setTimeout(() => {
+          //alert(JSON.stringify(values, null, 2));
+          resetForm();
+          setSubmitting(false);
+        }, 500);
 
-          const res = await axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
-          store.profile = profile;
-          console.log(JSON.stringify(res));
-          editControls.setEditMode(false)
-          console.log("In handleBackToView");
-          history.push("/profile");
-          
-          displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
-        } catch (err) {
-          displayToast("Failed to update profile", "error", 3000, "top-right")
-          if (err.response) {
-            // client received an error response (5xx, 4xx)
-          } else if (err.request) {
-            // client never received a response, or request never left
-          } else {
-            // anything else
+        const fetchData = async () => {
+          try {
+            //alert(JSON.stringify(profile, null, 2));
+            let url = PROFILEURL + "/"  + store.profile.id + ".json" ;
+            //About Me
+            profile.activity_ids = values.activity_ids.map(Number);
+            profile.other_favorite_activities = values.other_favorite_activities;
+            profile.fitness_level = values.fitness_level;
+            profile.exercise_reason_ids = values.exercise_reason_ids.map(Number);
+            profile.prefered_exercise_location = values.prefered_exercise_location;
+            profile.prefered_exercise_time = values.prefered_exercise_time;
+            profile.reason_for_match = values.reason_for_match;
+            profile.personality = values.personality;
+            profile.work_status = values.work_status;
+            profile.details_about_self = values.details_about_self;
+            //Cancer History
+            profile.cancer_location = values.cancer_location;
+            profile.other_cancer_location = values.other_cancer_location;
+            profile.treatment_status = values.treatment_status;
+            profile.treatment_description = values.treatment_description;
+            profile.part_of_wellness_program = (values.part_of_wellness_string == "Yes")? true:false
+            profile.which_wellness_program = values.which_wellness_program;
+            // Saving data on server
+            const res = await axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
+            store.profile = profile;
+            console.log(JSON.stringify(res));
+            editControls.setEditMode(false)
+            console.log("In handleBackToView");
+            history.push("/profile");
+            displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
+          } catch (err) {
+            displayToast("Failed to update profile", "error", 3000, "top-right")
+            if (err.response) {
+              // client received an error response (5xx, 4xx)
+            } else if (err.request) {
+              // client never received a response, or request never left
+            } else {
+              // anything else
+            }
           }
-        }}
-      } // end of onSubmit
+        };
+      fetchData();
+      }}
     >
       {({
         values,
@@ -348,18 +357,18 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           </div>
 
           <div className="question-wrapper">
-              <label htmlFor="treatment_status">Have you ever been part of a support group or wellness program following your cancer diagnosis?:</label>
+              <label htmlFor="part_of_wellness_program">Have you ever been part of a support group or wellness program following your cancer diagnosis?:</label>
 
                       <Field
                         component={RadioButton}
-                        name="part_of_wellness_program"
-                        id="true"
+                        name="part_of_wellness_string"
+                        id="Yes"
                         label="Yes"
                       />
                       <Field
                         component={RadioButton}
-                        name="part_of_wellness_program"
-                        id="false"
+                        name="part_of_wellness_string"
+                        id="No"
                         label="No"
                       />
           </div>  

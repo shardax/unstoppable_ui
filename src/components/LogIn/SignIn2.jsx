@@ -8,7 +8,7 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
-import Input from '../Styled/input'
+import Input from '../Styled/Input'
 import Button from '../Styled/Button'
 // import {displayToast} from "../Toast/Toast";
 
@@ -144,16 +144,13 @@ const SignIn2 = () => {
             </Button>
           </div>
           <div className="register">
-            <Link to='/register' activeClassName="active">Sign Up</Link>
+            <Link to='/register' activeclassname="active">Sign Up</Link>
           </div>
           <div className="register">
-            <Link to='/fusername' activeClassName="active">Forgot Your Username?</Link>
+            <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
           </div>
           <div className="register">
-            <Link to='/fpassword' activeClassName="active">Forgot Your Password?</Link>
-          </div>
-          <div className="register">
-            <Link to='/resetpassword' activeClassName="active">Reset Password</Link>
+            <Link to='/fpassword' activeclassname="active">Forgot Your Password?</Link>
           </div>
         </form>
       )}

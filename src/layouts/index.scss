@@ -5,14 +5,13 @@
   display: flex;
   background: white;
   justify-content: flex-start;
-  overflow-y: hidden;
   width: 100%;
   .format-children-default {
     margin-left: 16em;
     padding-left: 3%;
     padding-right: 3%;
     margin-top: 1em;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
     width: 100%;
