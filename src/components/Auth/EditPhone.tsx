@@ -8,7 +8,7 @@ import '../LogIn/UserSettings.scss'
 import * as Yup from 'yup';
 import { SAVEPHONEURL, VALIDPHONEURL } from "../../constants/matcher";
 import Button from '../Styled/Button';
-import Input from '../Styled/input';
+import Input from '../Styled/Input';
 import { displayToast } from '../Toast/Toast';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
