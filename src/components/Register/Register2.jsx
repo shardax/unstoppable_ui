@@ -325,7 +325,7 @@ const Register2 = () => {
                             <form onSubmit={() => { recaptchaRef.current.execute(); }}>
                                 <ReCAPTCHA
                                 ref={recaptchaRef}
-                                //size="invisible"
+                                size="invisible"
                                 sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
                                 onChange={(value) => {values.recaptchaResponse = value}}
                                 />
