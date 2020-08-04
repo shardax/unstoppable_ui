@@ -17,12 +17,34 @@ var year = today.getFullYear();
 var month = today.getMonth();
 var day = today.getDate();
 const minDate = new Date(year - 18, month, day);
+const store = useDataStore();
 
 const validationSchema = Yup.object().shape({
     username: Yup.string()
         .min(1, "Too Short!")
         .max(255, "Too Long!")
         .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
+        .test('UsernameCheck', 'Username already been taken',
+            function (value) {
+                return new Promise((resolve, reject) => {
+                    axios.post(VALIDUSERNAMEURL, { "username": value, "id": store.current_user_id }, {
+                        withCredentials: true,
+                        headers: {
+                            contentType: "application/json; charset=utf-8",
+                        }
+                    })
+                        .then(res => {
+                            if (res.data.message === 'Username already been taken') {
+                                console.log(res.data.message);
+                                resolve(false);
+                            } else {
+                                console.log("User valid")
+                                resolve(true);
+                            }
+                        })
+                })
+            }
+        )
         .required("Required"),
     password: Yup.string()
         .min(8, "Must be at least 8 characters long!")
@@ -89,12 +111,13 @@ const Register2 = () => {
                             {
                                 "username": values.username,
                                 "email": values.email,
-                                "dob(3i)": day,
-                                "dob(2i)": month,
-                                "dob(1i)": year,
+                                "dob(3i)": "12",
+                                "dob(2i)": "4",
+                                "dob(1i)": "1998",
                                 "zipcode": values.zipcode,
                                 "password": values.password,
                                 "phone": values.phone,
+                                "referred_by": values.referred_by
                             }
                         },
                             {
@@ -307,13 +330,6 @@ const Register2 = () => {
                                     </tr>
                                 </table>
                             </div>
-                            <form onSubmit={() => { recaptchaRef.current.execute(); }}>
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    size="invisible"
-                                    sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-                                />
-                            </form>
                         </form>
                     </div>
                 )}
