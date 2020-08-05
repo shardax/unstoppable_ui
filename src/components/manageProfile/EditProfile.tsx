@@ -10,13 +10,14 @@ import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import './EditProfile.scss'
 import styled from '@emotion/styled';
-
 import Input from '../Styled/input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
+import UploadPhoto from './UploadPhoto.js'
 
 import { displayToast } from '../Toast/Toast';
+import { ProfileProps } from "../../UserStore";
 
 const store = useDataStore();
 
@@ -50,7 +51,6 @@ const RadioButton = ({
     </div>
   );
 };
-
 
 // with styled-components/emotion
 const MyStyledInput = styled.input`
@@ -96,6 +96,8 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
   return(
   
   <div>
+    <UploadPhoto/>
+   {/* <UploadPhoto profile={store.profile}/>*/}
     <Formik
       initialValues={{
         // About Me
