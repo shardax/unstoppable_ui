@@ -10,7 +10,9 @@ interface TextareaProps {
   padding?: string,
   margin?: string,
   fontSize?: string,
-  borderRadius?: string
+  borderRadius?: string,
+  height?: string,
+  width?: string
 }
 
 const Textarea = styled.textarea<TextareaProps>`
@@ -21,8 +23,9 @@ const Textarea = styled.textarea<TextareaProps>`
   font-size: ${props => props.fontSize ? props.fontSize : "14px"};
   border: ${props => props.border ? props.border : "1px solid #b9b9b9"};
   margin: ${props => props.margin ? props.margin : "0"};
+  height: ${props => props.height ? props.height : "100px"};
   min-width: 25em;
-  height: 100px;
+  width: ${props => props.width ? props.width : "auto"};
   font-weight: 400;
   outline:none;
   overflow: none;
