@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import './EditProfile.scss'
 import styled from '@emotion/styled';
-import Input from '../Styled/input';
+//import Input from '../Styled/input';
 import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
