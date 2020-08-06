@@ -8,7 +8,7 @@ export const REGISTERURL = ROOTURL + "/users"
 export const FORGOTUSERNAMEURL = ROOTURL + "/send_username"
 export const SAVEUSERURL = ROOTURL + "/users"
 export const RESETPASSWORDURL = ROOTURL + "/users/password/edit"
-export const UPLOADAVATARURL = ROOTURL + "/attachment/photosave"
+export const UPLOADAVATARURL = ROOTURL + "/attachment/photosavejson"
 // Account setting URLs
 export const VALIDUSERNAMEURL = ROOTURL + "/account_settings/valid_username"
 export const SAVEUSERNAMEURL = ROOTURL + "/account_settings/change_username"
