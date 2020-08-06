@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
-import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
+import { ALLPROFILESURL, ROOTURL, PROFILEURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 
 const FileUpload = () => {
@@ -13,6 +13,7 @@ const FileUpload = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const uploadedImage = React.useRef(null);
   const [showPhoto, setShowPhoto] = useState(false);
+  const [newPhoto, setNewPhoto] = useState("");;
   const store = useDataStore();
 
   const handleImageUpload = e => {
@@ -31,9 +32,11 @@ const FileUpload = () => {
   
   const uploadPhoto = () => {
     const formData = new FormData();
-    formData.append("file", this.state.newPhoto);
+    formData.append("file", newPhoto);
     
     // configure your fetch url appropriately
+
+    /** 
     fetch(`${baseURL}/photo/${this.props.profile.id}`, {
       method: "PATCH",
       body: formData
@@ -42,8 +45,18 @@ const FileUpload = () => {
       .then(data => {
        // do something with the returned data
       });
+    **/
   };
   
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      alert("setting newPhoto");
+      setNewPhoto( e.target.files[0] );
+    }
+    alert(e.target.files[0]);
+    alert(newPhoto);
+};
 
   const onChange = e => {
     setFile(e.target.files[0]);
@@ -52,45 +65,70 @@ const FileUpload = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    const formData = new FormData();
+    //const formData = new FormData();
    // formData.append('file', file);
-    console.log(file);
-    console.log(filename);
-    console.log(uploadedFile);
+    
    // setShowPhoto(!showPhoto);
     
 
-    try {
-      const res = await axios.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      const formData = new FormData();
+      formData.append("file", newPhoto);
+
+      fetch(UPLOADAVATARURL + "?id=" +  store.current_user_id.toString(),{
+        body: formData,
+        method: "POST",
+        params: {
+          profile: {"avatar": formData},
         },
-        onUploadProgress: progressEvent => {
-          setUploadPercentage(
-            parseInt(
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            )
-          );
+        withCredentials: true,
+    
+      },)
+      .then(res => {
+        console.log("res");
+        console.log(res.json());
+        store.avatarPath = res.photo;
+      })
+      .then(data => {
+        console.log("Uploaded file");
+        console.log(JSON.stringify(data));
+       // do something with the returned data
+      });
+    };
+  
+        //onUploadProgress: progressEvent => {
+        //  setUploadPercentage(
+        //    parseInt(
+        //      Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        //    )
+       //   );
 
           // Clear percentage
-          setTimeout(() => setUploadPercentage(0), 10000);
-        }
-      });
+     //     setTimeout(() => setUploadPercentage(0), 10000);
+     //   }
+     // });
 
+   /*  
+      console.log("Uploaded file");
+      console.log(JSON.stringify(res));
       const { fileName, filePath } = res.data;
+      store.avatarPath = res.data.photo;
+
 
       setUploadedFile({ fileName, filePath });
 
       setMessage('File Uploaded');
     } catch (err) {
+     // alert(JSON.stringify(res));
+      alert(JSON.stringify(err));
       if (err.response.status === 500) {
         setMessage('There was a problem with the server');
       } else {
         setMessage(err.response.data.msg);
       }
     }
-  };
-
+    
+  
+*/
   return (
     <Fragment>
       {message ? <Message msg={message} /> : null}
@@ -121,6 +159,9 @@ const FileUpload = () => {
           <label className='custom-file-label' htmlFor='customFile'>
             {filename}
           </label>
+        </div>
+        <div className='custom-file mb-4'>
+          <input type="file" name="newPhoto"accept="image/png, image/jpeg" onChange={handleImageChange} />
         </div>
 
         <Progress percentage={uploadPercentage} />
