@@ -13,8 +13,15 @@ const FileUpload = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const uploadedImage = React.useRef(null);
   const [showPhoto, setShowPhoto] = useState(false);
-  const [newPhoto, setNewPhoto] = useState("");;
+  //const [newPhoto, setNewPhoto] = useState("");;
+  const [newPhoto, setNewPhoto] = useState("");
   const store = useDataStore();
+  const [profileImg, setProfileImg] = useState(ROOTURL + store.avatarPath);
+  
+  const setAvatarPath = (newPhoto) => {
+    store.avatarPath = newPhoto;
+    localStorage.setItem("userStore", JSON.stringify(store));
+  }
 
   const handleImageUpload = e => {
     const [file] = e.target.files;
@@ -26,7 +33,7 @@ const FileUpload = () => {
         current.src = e.target.result;
       };
       reader.readAsDataURL(file);
-      setShowPhoto(!showPhoto);
+     // setShowPhoto(!showPhoto);
     }
   };
   
@@ -48,11 +55,22 @@ const FileUpload = () => {
     **/
   };
   
+  
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      alert("setting newPhoto");
+    //  alert("setting newPhoto");
       setNewPhoto( e.target.files[0] );
+   //   console.log(newPhoto);
+      const reader = new FileReader();
+      reader.onload = () =>{
+        if(reader.readyState === 2){
+          setProfileImg(reader.result);
+        //  setAvatarPath(newPhoto);
+          console.log(newPhoto)
+        }
+      }
+      reader.readAsDataURL(e.target.files[0])
     }
     alert(e.target.files[0]);
     alert(newPhoto);
@@ -86,7 +104,9 @@ const FileUpload = () => {
       .then(res => {
         console.log("res");
         console.log(res.json());
+        res.photo = newPhoto;
         store.avatarPath = res.photo;
+        localStorage.setItem("userStore", JSON.stringify(store));
       })
       .then(data => {
         console.log("Uploaded file");
@@ -136,20 +156,20 @@ const FileUpload = () => {
       <table>
       <tr>
       <td>
-      <div style={{ border: "1px dashed black" }}>
-      <img style={{ width: '400px', padding:"10px 0px", margin:"0px 0px" }} ref={uploadedImage} />
-      <label>New Profile Picture</label>
+      <div classname='btn btn-primary btn-block mt-4'> 
+      <img  style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}} src={profileImg} />
+     {/* <label>New Profile Picture</label>*/}
       </div>
       </td>
       <td>
       <div>
-      <img style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}}  src={ROOTURL + store.profile.photo} />
-      <label>Current Profile Picture</label>
+     {/* <img style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}}  src={ROOTURL + store.avatarPath} />
+      <label>Current Profile Picture</label>*/}
       </div>
       </td>
       </tr>
       </table>
-        <div className='custom-file mb-4'>
+       {/* <div className='custom-file mb-4'>
           <input
             type='file'
             className='custom-file-input'
@@ -159,12 +179,12 @@ const FileUpload = () => {
           <label className='custom-file-label' htmlFor='customFile'>
             {filename}
           </label>
-        </div>
-        <div className='custom-file mb-4'>
-          <input type="file" name="newPhoto"accept="image/png, image/jpeg" onChange={handleImageChange} />
+        </div>*/}
+        <div className='Photo'>
+          <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
         </div>
 
-        <Progress percentage={uploadPercentage} />
+       {/* <Progress percentage={uploadPercentage} />*/}
 
         <input
           type='submit'
