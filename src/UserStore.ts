@@ -76,6 +76,7 @@ export class ProfileStore {
   time_zone: string;
   dob: string;
   age: number;
+  virtual_partner: boolean;
   other_favorite_activities: string;
   fitness_level: string;
   cancer_location: string;
@@ -112,6 +113,7 @@ export class ProfileStore {
     this.time_zone = "";
     this.dob = "";
     this.age = 18;
+    this.virtual_partner = false;
     this.other_favorite_activities = "";
     this.fitness_level = "";
     this.cancer_location = "";

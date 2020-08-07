@@ -97,13 +97,12 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
   return(
   
   <div>
-    <UploadPhoto/>
-   {/* <UploadPhoto profile={store.profile}/>*/}
     <Formik
       initialValues={{
         // About Me
         activity_ids: profile.activity_ids.map(String),
         other_favorite_activities: profile.other_favorite_activities,
+        virtual_partner: profile.virtual_partner ? "Yes":"No",
         fitness_level: profile.fitness_level,
         exercise_reason_ids: profile.exercise_reason_ids.map(String),
         prefered_exercise_location: profile.prefered_exercise_location,
@@ -141,6 +140,7 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
             //About Me
             profile.activity_ids = values.activity_ids.map(Number);
             profile.other_favorite_activities = values.other_favorite_activities;
+            profile.virtual_partner = (values.virtual_partner == "Yes")? true:false
             profile.fitness_level = values.fitness_level;
             profile.exercise_reason_ids = values.exercise_reason_ids.map(Number);
             profile.prefered_exercise_location = values.prefered_exercise_location;
@@ -189,12 +189,6 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         setFieldValue 
       }) => (
         <Form>
-          {/* 
-            Multiple checkboxes with the same name attribute, but different
-            value attributes will be considered a "checkbox group". Formik will automagically
-            bind the checked values to a single array for your benefit. All the add and remove
-            logic will be taken care of for you.
-          */}
           <div className="form-container">
             <div className="question-title">
               Favorite activities (check all that apply)
@@ -229,9 +223,26 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
               </Field>
             </div>
           </div>
-        {/*} <select onChange={e => props.inputChange(e, "fitness_level")} defaultValue={props.currentEditProfile.fitness_level}>	
-          
-        </select>*/}
+
+          <div className="question-wrapper">
+            <div className="question-title">
+              Would you like a virtual partner?
+            </div>
+
+            <Field
+              component={RadioButton}
+              name="virtual_partner"
+              id="Yes"
+              label="Yes"
+            />
+            <Field
+              component={RadioButton}
+              name="virtual_partner"
+              id="No"
+              label="No"
+            />
+          </div>
+
           <div className="question-wrapper">
             <div className="question-title">
               Identify your top reasons for wanting to become more active:
