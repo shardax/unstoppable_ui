@@ -6,6 +6,7 @@ import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom';
 import Button from '../Styled/Button';
+import Paper from '../Styled/Paper';
 import LikedProfile from '../Users/LikedProfile'
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import NotesIcon from '@material-ui/icons/Notes';
@@ -63,42 +64,43 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
         <div className="user-section-data">
           <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">{user.city}, {user.state}</span></h1>
 
-          <hr></hr>
+          <Paper margin="2em 0em">
+            <div className="profile-section-header">About me 😀</div>
+            <p className="muted-text">{user.age} years old</p>
+            <ProfileIconRow field={"Personality"} chips={false} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />}/>
 
-          <div className="profile-section-header">About me 😀</div>
-          <p className="muted-text">{user.age} years old</p>
-          <ProfileIconRow field={"Personality"} chips={false} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />}/>
+            <ProfileIconRow field={"Details"} chips={false} answer={<div className="full-profile-das">
+              <p>{user.details_about_self}</p>
+              </div>} icon={<NotesIcon className="full-profile-icon" />}/>
 
-          <ProfileIconRow field={"Details"} chips={false} answer={<div className="full-profile-das">
-            <p>{user.details_about_self}</p>
-            </div>} icon={<NotesIcon className="full-profile-icon" />}/>
+            <ProfileIconRow field={"Work Status"} chips={false} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />}/>
+          </Paper>
 
-          <ProfileIconRow field={"Work Status"} chips={false} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />}/>
-        <hr></hr>
-      
-          <div className="profile-section-header">Details about Diagnosis</div>
-          
-          <p>{user.cancer_location} cancer</p>
-          <ProfileIconRow field={"Treatment description"} chips={false} answer={user.treatment_description} icon={null}/>
-          <ProfileIconRow field={"Treatment status"} chips={false} answer={user.treatment_status} icon={null}/>
-          
-          <ProfileIconRow field={"Part of wellness program?"} chips={false} answer={user.part_of_wellness_program ? "✅" : "No"} icon={null}/>
+          <Paper margin="2em 0em">
+            <div className="profile-section-header">Details about Diagnosis</div>
+            
+            <p>{user.cancer_location} cancer</p>
+            <ProfileIconRow field={"Treatment description"} chips={false} answer={user.treatment_description} icon={null}/>
+            <ProfileIconRow field={"Treatment status"} chips={false} answer={user.treatment_status} icon={null}/>
+            
+            <ProfileIconRow field={"Part of wellness program?"} chips={false} answer={user.part_of_wellness_program ? "✅" : "No"} icon={null}/>
 
-          {user.part_of_wellness_program ? <ProfileIconRow field={"Which wellness program?"} chips={false} answer={user.which_wellness_program} icon={null}/> : null}
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Which wellness program?"} chips={false} answer={user.which_wellness_program} icon={null}/> : null}
+          </Paper>
 
-          <hr></hr>
-          <div className="profile-section-header">Activity/Fitness</div>
+          <Paper margin="2em 0em">
+            <div className="profile-section-header">Activity/Fitness</div>
 
-          <ProfileIconRow field={"Reasons for Match"} chips={false} answer={user.reason_for_match} icon={null}/>
+            <ProfileIconRow field={"Reasons for Match"} chips={false} answer={user.reason_for_match} icon={null}/>
 
-          <ProfileIconRow field={"Fitness Level"} chips={false} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
+            <ProfileIconRow field={"Fitness Level"} chips={false} answer={user.fitness_level} icon={<FitnessCenterIcon className="full-profile-icon" />}/>
 
-          <ProfileIconRow field={"Activities"} chips={true} answer={<ChipList />} icon={<SportsTennisIcon className={"full-profile-icon"} />} />
+            <ProfileIconRow field={"Activities"} chips={true} answer={<ChipList />} icon={<SportsTennisIcon className={"full-profile-icon"} />} />
 
-          <ProfileIconRow field={"Prefered exercise location"} chips={true} answer={user.preferred_excercise_location} icon={<ExploreIcon className={"full-profile-icon"} />} />
+            <ProfileIconRow field={"Prefered exercise location"} chips={true} answer={user.preferred_excercise_location} icon={<ExploreIcon className={"full-profile-icon"} />} />
 
-          <ProfileIconRow field={"Prefered exercise time"} chips={true} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
-          
+            <ProfileIconRow field={"Prefered exercise time"} chips={true} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
+          </Paper>
       </div>
       <div className="user-metadata">
         <img className="user-section-image" src={ROOTURL + user.photo} />
