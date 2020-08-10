@@ -97,6 +97,7 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
   return(
   
   <div>
+    <UploadPhoto />
     <Formik
       initialValues={{
         // About Me

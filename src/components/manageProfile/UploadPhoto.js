@@ -1,9 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
 import { ALLPROFILESURL, ROOTURL, PROFILEURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
+import {useObserver} from 'mobx-react'
 
 const FileUpload = () => {
   const [file, setFile] = useState('');
@@ -54,7 +55,7 @@ const FileUpload = () => {
       alert("setting newPhoto");
       setNewPhoto( e.target.files[0] );
     }
-    alert(e.target.files[0]);
+    alert(JSON.stringify(e.target.files[0]));
     alert(newPhoto);
 };
 
@@ -63,6 +64,27 @@ const FileUpload = () => {
     setFilename(e.target.files[0].name);
   };
 
+  const refreshPhoto = () => {
+      const fetchProfile = async () => {
+        try {
+          //setDataLoading("Loading");
+          const result  = await axios.get(PROFILEURL + `/${store.profileId}.json`,
+            { withCredentials: true,
+              headers: {
+                contentType: "application/json; charset=utf-8",
+            }})
+            console.log(JSON.stringify(result));
+            if(result){
+              console.log(JSON.stringify(result.data.profile.photo));
+              store.avatarPath = result.data.profile.photo;
+              store.profile.avatar =  result.data.profile.photo;
+            }
+        } catch (e) {
+          console.log(`😱 Profile Fetch failed: ${e}`);
+        }
+      }
+      fetchProfile();
+  }
   const onSubmit = async e => {
     e.preventDefault();
     //const formData = new FormData();
@@ -85,14 +107,16 @@ const FileUpload = () => {
       },)
       .then(res => {
         console.log("res");
-        console.log(res.json());
-        store.avatarPath = res.photo;
+        console.log(res);
+        //store.avatarPath = res.photo;
       })
       .then(data => {
         console.log("Uploaded file");
         console.log(JSON.stringify(data));
-       // do something with the returned data
-      });
+        setTimeout(() => {
+        }, 3000);
+        });
+       refreshPhoto();
     };
   
         //onUploadProgress: progressEvent => {
@@ -129,7 +153,7 @@ const FileUpload = () => {
     
   
 */
-  return (
+return useObserver(() => (
     <Fragment>
       {message ? <Message msg={message} /> : null}
       <form onSubmit={onSubmit}>
@@ -143,7 +167,7 @@ const FileUpload = () => {
       </td>
       <td>
       <div>
-      <img style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}}  src={ROOTURL + store.profile.photo} />
+      <img style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}}  src={ROOTURL + store.avatarPath} />
       <label>Current Profile Picture</label>
       </div>
       </td>
@@ -190,7 +214,7 @@ const FileUpload = () => {
         </div>
       ) : null}*/}
     </Fragment>
-  );
+  ));
 };
 
 export default FileUpload;
