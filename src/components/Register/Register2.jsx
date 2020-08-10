@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect} from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import './Register.scss'
 import { Formik } from 'formik';
@@ -10,6 +10,7 @@ import { REGISTERURL, VALIDUSERNAMEURL, VALIDEMAILURL } from "../../constants/ma
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
 import ReCAPTCHA from "react-google-recaptcha";
+import { LOGINURL } from "../../constants/matcher";
 //import { ReCaptcha } from 'react-recaptcha-google'
 //import { loadReCaptcha } from 'react-recaptcha-google'
 //import { Recaptcha } from "./recaptcha";
@@ -20,29 +21,39 @@ var month = today.getMonth();
 var day = today.getDate();
 const minDate = new Date(year - 18, month, day);
 const store = useDataStore();
+const history = useHistory();
+
+const handleCancel = ({}) => {
+  //  event.preventDefault();
+    history.push("/login");
+};
 
 const validationSchema = Yup.object().shape({
     username: Yup.string()
         .min(1, "Too Short!")
         .max(255, "Too Long!")
         .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
-        .test('Unique Username','Username already been taken', 
-              function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
-                  headers: {
-                    contentType: "application/json; charset=utf-8",
-                }})
-                 .then(res => {
-                   if(res.data.message === 'Username already been taken'){
-                     console.log(res.data.message);
-                     resolve(false);
-                  } else {
-                    console.log("User valid")
-                    resolve(true);
-                  }
+        .test('Unique Username', 'Username already been taken',
+            function (value) {
+                return new Promise((resolve, reject) => {
+                    axios.post(VALIDUSERNAMEURL, { "username": value, "id": store.current_user_id }, {
+                        withCredentials: true,
+                        headers: {
+                            contentType: "application/json; charset=utf-8",
+                        }
+                    })
+                        .then(res => {
+                            if (res.data.message === 'Username already been taken') {
+                                console.log(res.data.message);
+                                resolve(false);
+                            } else {
+                                console.log("User valid")
+                                resolve(true);
+                            }
+                        })
                 })
-              })}
-          )
+            }
+        )
         .required("Required"),
     password: Yup.string()
         .min(8, "Must be at least 8 characters long!")
@@ -50,22 +61,26 @@ const validationSchema = Yup.object().shape({
         .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Invalid Password"),
     email: Yup.string()
         .email("Email is invalid")
-        .test('Unique Email','Email already been taken', 
-              function(value){return new Promise((resolve, reject) => {        
-                  axios.post(VALIDEMAILURL,  { "email": value, "id": store.current_user_id},{ withCredentials: true,
-                  headers: {
-                    contentType: "application/json; charset=utf-8",
-                }})
-                 .then(res => {
-                   if(res.data.message === 'Email already been taken'){
-                     console.log(res.data.message);
-                     resolve(false);
-                  } else {
-                    console.log("Email valid")
-                    resolve(true);
-                  }
+        .test('Unique Email', 'Email already been taken',
+            function (value) {
+                return new Promise((resolve, reject) => {
+                    axios.post(VALIDEMAILURL, { "email": value, "id": store.current_user_id }, {
+                        withCredentials: true,
+                        headers: {
+                            contentType: "application/json; charset=utf-8",
+                        }
+                    })
+                        .then(res => {
+                            if (res.data.message === 'Email already been taken') {
+                                console.log(res.data.message);
+                                resolve(false);
+                            } else {
+                                console.log("Email valid")
+                                resolve(true);
+                            }
+                        })
                 })
-              })}
+            }
         )
         .required("Required"),
     zipcode: Yup.string()
@@ -114,7 +129,7 @@ const Register2 = () => {
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
                 setTimeout(() => {
-                     alert(JSON.stringify(values, null, 2));
+                    alert(JSON.stringify(values, null, 2));
                     resetForm();
                     setSubmitting(false);
                 }, 500);
@@ -122,7 +137,7 @@ const Register2 = () => {
                 console.log(JSON.stringify(values));
                 let newDOB = new Date(values.dob);
                 var year = newDOB.getFullYear().toString();
-                var month = (newDOB.getMonth()+1).toString();
+                var month = (newDOB.getMonth() + 1).toString();
                 var day = (newDOB.getDate()).toString();
 
                 const createAcc = async () => {
@@ -163,7 +178,7 @@ const Register2 = () => {
                     }
                     // end of error block
                     if (store.isLoggedIn) {
-                       // history.push("/profile");
+                        // history.push("/profile");
                     } else {
                         history.push("/register")
                     }
@@ -352,17 +367,17 @@ const Register2 = () => {
                                             <input className="buttons" type="submit" value="Create Account" disabled={isSubmitting} />
                                         </td>
                                         <td>
-                                            <button className="buttons" disabled={isSubmitting}>Cancel</button>
+                                            <button className="buttons" disabled={isSubmitting} onClick={handleCancel}>Cancel</button>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <form onSubmit={() => { recaptchaRef.current.execute(); }}>
                                 <ReCAPTCHA
-                                ref={recaptchaRef}
-                                size="invisible"
-                                sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-                                onChange={(value) => {values.recaptchaResponse = value}}
+                                    ref={recaptchaRef}
+                                    size="invisible"
+                                    sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+                                    onChange={(value) => { values.recaptchaResponse = value }}
                                 />
                             </form>
                         </form>
