@@ -1,0 +1,73 @@
+@import "../../assets/scss/variables";
+
+//View Profile
+
+.Photo{
+    width: 100%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.NewPhoto{
+    align-items: left;
+    padding-bottom: 10px;
+    border-radius: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.account-settings-field-row {
+    display: flex;
+    align-items: center;
+}
+
+.well-ProgressGroup {
+    display: flex;
+    background: #d3d4d5;
+    flex-direction: row;
+    border-radius: 0.5em;
+    overflow: auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  @keyframes loadbar {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .well-ProgressGroup--progress {
+    transform: translateX(-100%);
+    animation: loadbar 0.5s linear forwards; 
+    opacity: 0;
+    background: blue;
+  }
+  
+  .well-ProgressGroup--progress:not(:last-child) {
+    border-right: 1px solid white;
+  } 
+  
+  .well-background--concept1 {
+    background: tomato;
+  }
+  
+  .well-background--concept2 {
+    background: blue;
+  }
+  
+  .well-background--concept3 {
+    background: purple;
+  }
+  
+  .well-background--concept4 {
+    background: red;
+  }
+  
+  .well-background--concept5 {
+    background: green;
+  } 

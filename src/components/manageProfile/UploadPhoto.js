@@ -1,10 +1,14 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
 import { ALLPROFILESURL, ROOTURL, PROFILEURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import {useObserver} from 'mobx-react'
+import './UploadPhoto.scss'
+import ProgressBar from "./Progress-Bar";
+import Cropper from 'react-easy-crop'
+import Button from '../Styled/Button'
 
 const FileUpload = () => {
   const [file, setFile] = useState('');
@@ -18,11 +22,28 @@ const FileUpload = () => {
   const [newPhoto, setNewPhoto] = useState("");
   const store = useDataStore();
   const [profileImg, setProfileImg] = useState(ROOTURL + store.avatarPath);
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    console.log(croppedArea, croppedAreaPixels)
+  }, [])
   
   const setAvatarPath = (newPhoto) => {
     store.avatarPath = newPhoto;
     localStorage.setItem("userStore", JSON.stringify(store));
   }
+
+  const handleCropPhoto = () => {
+    setShowPhoto(!showPhoto);
+   }
+
+  const [completed, setCompleted] = useState(0);
+
+ // useEffect(() => {
+    //setInterval(() => setCompleted(Math.floor(Math.random() * 100) + 1), 2000);
+   // setInterval(() => setCompleted(Math.floor(100)), 2000);
+  //}, []);
+  
 
   const handleImageUpload = e => {
     const [file] = e.target.files;
@@ -61,6 +82,8 @@ const FileUpload = () => {
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
     //  alert("setting newPhoto");
+      setCompleted(0);
+      setShowPhoto(!showPhoto);
       setNewPhoto( e.target.files[0] );
    //   console.log(newPhoto);
       const reader = new FileReader();
@@ -105,6 +128,7 @@ const FileUpload = () => {
   }
   const onSubmit = async e => {
     e.preventDefault();
+    setInterval(() => setCompleted(Math.floor(100)), 10000);
     //const formData = new FormData();
    // formData.append('file', file);
     
@@ -130,24 +154,24 @@ const FileUpload = () => {
         console.log("Uploaded file");
         console.log(JSON.stringify(data));
         setTimeout(() => {
-        }, 3000);
+         // const percentage= parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+         // setUploadPercentage(percentage);
+          refreshPhoto();
+        }, 10000);
         });
-       refreshPhoto();
     };
   
-        //onUploadProgress: progressEvent => {
-        //  setUploadPercentage(
-        //    parseInt(
-        //      Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        //    )
-       //   );
+       /*     onUploadProgress: progressEvent => {
+          setUploadPercentage(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+          setTimeout(() => setUploadPercentage(0), 10000);
+       }
+      });
 
-          // Clear percentage
-     //     setTimeout(() => setUploadPercentage(0), 10000);
-     //   }
-     // });
-
-   /*  
+    
       console.log("Uploaded file");
       console.log(JSON.stringify(res));
       const { fileName, filePath } = res.data;
@@ -178,6 +202,23 @@ return useObserver(() => (
       <td>
       <div classname='btn btn-primary btn-block mt-4'> 
       <img  style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}} src={profileImg} />
+     {/* {showPhoto &&
+         <Cropper
+          image= {profileImg} 
+          crop={crop}
+          zoom={zoom}
+          aspect={4 / 3}
+          onCropChange={setCrop}
+          onCropComplete={onCropComplete}
+          onZoomChange={setZoom}
+     />
+      }
+      {showPhoto &&
+     <Button  fontSize="12px"  background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleCropPhoto}>
+                save changes
+              </Button>
+      }
+    */}
      {/* <label>New Profile Picture</label>*/}
       </div>
       </td>
@@ -204,8 +245,11 @@ return useObserver(() => (
           <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
         </div>
 
-       {/* <Progress percentage={uploadPercentage} />*/}
-
+       {/* <Progress percentage={uploadPercentage} />
+       
+       <div class="well-background--concept3 well-ProgressGroup--progress" style="width: 100%; animation-delay: 1.5s; z-index: -3; height: 50px;"></div>
+      */}
+      <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />
         <input
           type='submit'
           value='Upload'
