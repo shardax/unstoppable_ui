@@ -26,6 +26,7 @@ const validationSchema = Yup.object().shape({
         .min(1, "Too Short!")
         .max(255, "Too Long!")
         .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
+        /*
         .test('Unique Username','Username already been taken', 
               function(value){return new Promise((resolve, reject) => {        
                   axios.post(VALIDUSERNAMEURL,  { "username": value, "id": store.current_user_id},{ withCredentials: true,
@@ -42,7 +43,7 @@ const validationSchema = Yup.object().shape({
                   }
                 })
               })}
-          )
+          ) */
         .required("Required"),
     password: Yup.string()
         .min(8, "Must be at least 8 characters long!")
@@ -50,6 +51,7 @@ const validationSchema = Yup.object().shape({
         .matches(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/, "Invalid Password"),
     email: Yup.string()
         .email("Email is invalid")
+        /*
         .test('Unique Email','Email already been taken', 
               function(value){return new Promise((resolve, reject) => {        
                   axios.post(VALIDEMAILURL,  { "email": value, "id": store.current_user_id},{ withCredentials: true,
@@ -67,6 +69,7 @@ const validationSchema = Yup.object().shape({
                 })
               })}
         )
+        */
         .required("Required"),
     zipcode: Yup.string()
         .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
@@ -146,7 +149,7 @@ const Register2 = () => {
                                 withCredentials: true,
                                 headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json" }
                             });
-                        store.isLoggedIn = true;
+                        //store.isLoggedIn = true;
                     } catch (err) {
                         console.log(err.message);
                         if (err.response) {
