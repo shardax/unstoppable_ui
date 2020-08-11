@@ -6,10 +6,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
-
+import {CANCERLOCATIONLIST} from '../../constants/ProfileConstants';
 import './Browse.scss'
 import { useObserver } from "mobx-react";
-import Button from '../Styled/Button'
+import Button from '../Styled/Button';
+import Select from '../Styled/Select';
 import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {
@@ -93,8 +94,15 @@ import ChatIcon from '@material-ui/icons/Chat';
           <div className="browse-sticky-nav">
             <h3>Browse Profiles</h3>
             <div className="browse-filter-row"> 
-              <input className="mdc-elevation--z1 browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type OR Zipcode OR City" />
-              <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+              <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type, Zipcode, or City" />
+              <Select onChange={e => setFilter(e.target.value)} margin="0em 2em">
+              <option className="selector" value="" label="- Select cancer type -" />
+              {CANCERLOCATIONLIST.map((cancerLoc: any) => (
+                <option className="selector" value={cancerLoc} label={cancerLoc} />
+              ))}
+              </Select>
+              <div className="range-slider">
+              <RangeSlider ageRange={ageRange} onChange={handleChange}/></div>
               </div>
           </div>
           <div className="profile-browse-grid">
