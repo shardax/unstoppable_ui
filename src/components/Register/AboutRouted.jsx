@@ -118,7 +118,7 @@ const Wizard = ({ children, initialValues, onSubmit }) => {
 
 const WizardStep = ({ children }) => children;
 
-const About = (values,
+const AboutRouted = (values,
     errors,
     touched,
     handleChange,
@@ -176,4 +176,4 @@ const About = (values,
   </div>
 );
 
-export default About;
+export default AboutRouted;
