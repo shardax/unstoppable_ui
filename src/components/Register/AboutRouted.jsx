@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Link,
-    Redirect
-  } from "react-router-dom";
-import {useDataStore} from "../../UserContext";
-import {useHistory} from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
+import { Formik, Field, ErrorMessage } from "formik";
+import { useDataStore } from "../../UserContext";
+import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
-import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
+import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../LogIn/Error";
@@ -22,158 +16,211 @@ import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
 import { displayToast } from '../Toast/Toast';
+
+// the root path. locations should extend from this
+const formRootPath = "/step"
+
+// the specific path for each page
+const locations = ["/step/1", "/step/2"];
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const required = value => (value ? undefined : "Required");
 const store = useDataStore();
 const history = useHistory();
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-var profile = store.profile;
-
 const ValidationSchema = Yup.object().shape({
-    reason_for_match: Yup.string()
-      .min(1, "Too Short!")
-      .max(255, "Too Long!")
-      .required("Required"),
-    cancer_location: Yup.string()
-      .required("Required"),
-  });
-// Wizard is a single Formik instance whose children are each page of the
-// multi-step form. The form is submitted on each forward transition (can only
-// progress with valid input), whereas a backwards step is allowed with
-// incomplete data. A snapshot of form state is used as initialValues after each
-// transition. Each page has an optional submit handler, and the top-level
-// submit is called when the final page is submitted.
-const Wizard = ({ children, initialValues, onSubmit }) => {
-  const [stepNumber, setStepNumber] = useState(0);
-  const steps = React.Children.toArray(children);
-  const [snapshot, setSnapshot] = useState(initialValues);
+  reason_for_match: Yup.string()
+    .min(1, "Too Short!")
+    .max(255, "Too Long!")
+    .required("Required"),
+  cancer_location: Yup.string()
+    .required("Required"),
+});
 
-  const step = steps[stepNumber];
-  const totalSteps = steps.length;
-  const isLastStep = stepNumber === totalSteps - 1;
+class WizardBase extends React.Component {
+  static Page = ({ children }) => children;
 
-  const next = values => {
-    setSnapshot(values);
-    setStepNumber(Math.min(stepNumber + 1, totalSteps - 1));
+  constructor(props) {
+    super(props);
+    this.state = {
+      values: props.initialValues
+    };
+  }
+
+  next = values => {
+    const { location, history } = this.props;
+    this.setState(() => ({ values }));
+
+    // withRouter provides current location and history.push() to go to next page
+    const nextPath = locations.indexOf(location.pathname) + 1;
+    history.push(locations[nextPath]);
   };
 
-  const previous = values => {
-    setSnapshot(values);
-    setStepNumber(Math.max(stepNumber - 1, 0));
+  previous = () => {
+    const { location, history } = this.props;
+
+    const prevPath = locations.indexOf(location.pathname) - 1;
+    history.push(locations[prevPath]);
   };
 
-  const handleSubmit = async (values, bag) => {
-    if (step.props.onSubmit) {
-      await step.props.onSubmit(values, bag);
-    }
-    if (isLastStep) {
+  validate = values => {
+    const { location, children } = this.props;
+
+    const page = locations.indexOf(location.pathname);
+    const activePage = React.Children.toArray(children)[page];
+    return activePage.props.validate ? activePage.props.validate(values) : {};
+  };
+
+  handleSubmit = (values, bag) => {
+    const { children, onSubmit, location } = this.props;
+    const page = locations.indexOf(location.pathname);
+    const isLastPage = page === React.Children.count(children) - 1;
+    if (isLastPage) {
       return onSubmit(values, bag);
-    } else {
-      bag.setTouched({});
-      next(values);
     }
+    // otherwise update values from page
+    bag.setTouched({});
+    bag.setSubmitting(false);
+    this.next(values);
   };
 
-  let stringActivities= Object.keys(store.activities).map(function (key) {
-    const id = store.activities[key].id.toString()
-    const name = store.activities[key].name.toString();
-    return ({ id, name});
-  });
-  let stringReasons=Object.keys(store.exerciseReasons).map(function (key) {
-    const id = store.exerciseReasons[key].id.toString()
-    const name = store.exerciseReasons[key].name.toString();
-    return ({ id, name});
-  });
+  render() {
+    const { children, location } = this.props;
+    const { values } = this.state;
+    // current page is determined by matching path in locations
+    const page = locations.indexOf(location.pathname);
 
-  return (
-    <Formik
-      initialValues={snapshot}
-      onSubmit={handleSubmit}
-      validationSchema={step.props.validationSchema}
-    >
-      {formik => (
-        <Form>
-          <p>
-            Step {stepNumber + 1} of {totalSteps}
-          </p>
-          {step}
-          <div style={{ display: "flex" }}>
-            {stepNumber > 0 && (
-              <button onClick={() => previous(formik.values)} type="button">
-                Back
-              </button>
-            )}
-            <div>
-              <button disabled={formik.isSubmitting} type="submit">
-                {isLastStep ? "Submit" : "Next"}
-              </button>
+    const activePage = React.Children.toArray(children)[page];
+    const isLastPage = page === React.Children.count(children) - 1;
+    return (
+      <Formik
+        initialValues={values}
+        enableReinitialize={false}
+        validationSchema={validationSchema}
+        validate={this.validate}
+        onSubmit={this.handleSubmit}
+        render={({ values, handleSubmit, isSubmitting, handleReset }) => (
+          <form onSubmit={handleSubmit}>
+            {activePage}
+            <div className="buttons">
+              {page > 0 && (
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={this.previous}
+                >
+                  « Previous
+                </button>
+              )}
+
+              {!isLastPage && <button type="submit">Next »</button>}
+              {isLastPage && (
+                <button type="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+              )}
             </div>
-          </div>
-        </Form>
-      )}
-    </Formik>
-  );
-};
+          </form>
+        )}
+      />
+    );
+  }
+}
 
-const WizardStep = ({ children }) => children;
+const Wizard = withRouter(WizardBase);
 
-const AboutRouted = (values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting,
-    setFieldValue) => (
-  <div>
-    <h1>Unstoppable About Me Questions</h1>
-    <Wizard
-      initialValues={{
-        reason_for_match: "",
-        cancer_location: "",
-      }}
-      onSubmit={async values =>
-        sleep(300).then(() => console.log("Wizard submit", values))
-      }
-    >
-      <WizardStep
-        onSubmit={() => console.log("Step1 onSubmit")}
-        validationSchema={ValidationSchema}
-      >
-        <div>
-          <label htmlFor="reason_for_match">What is the main reason you want to be matched with an exercise partner?  </label>
-            <div className="Answers">
-            <Field 
-                name="reason_for_match"  
-                as={Textarea} 
-                placeHolder="Reason for Matching With Partner" />
-            {/* <Input></Input> */}
-            {/*<Error touched={touched.reason_for_match} message={errors.reason_for_match} />*/}
-            </div>
-        </div>
-      </WizardStep>
-      <WizardStep
-        onSubmit={() => console.log("Step2 onSubmit")}
-        validationSchema={ValidationSchema}
-      >
-        <div>
-        <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
-          <div className="Answers">
-          <Field
-            as={Select}
-            id="cancer_location"
-            name="cancer_location"
+
+const About = () => (
+  <Router>
+    <div className="About">
+      <h1>Multistep / Form Wizard </h1>
+      <Route
+        path={formRootPath}
+        render={routeProps => (
+          <Wizard
+            {...routeProps}
+            initialValues={{
+              reason_for_match: "",
+              cancer_location: "",
+            }}
+            onSubmit={(values, actions) => {
+              sleep(300).then(() => {
+                window.alert(JSON.stringify(values, null, 2));
+                actions.setSubmitting(false);
+              });
+            }}
           >
-          <option value="" label="- Select One -" />
-          {CANCERLOCATIONLIST.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-          </Field>
-          {/*<Error touched={touched.cancer_location} message={errors.cancer_location} />*/}
-          </div>
-        </div>
-      </WizardStep>
-    </Wizard>
-  </div>
+            <Wizard.Page
+            validationSchema={ValidationSchema}>
+              <div>
+                <label>Reason for Match</label>
+                <Field
+                  name="reason_for_match"
+                  as={Textarea}
+                  placeHolder="Reason for Matching With Partner"
+                />
+                {/*<ErrorMessage
+                  name="firstName"
+                  component="div"
+                  className="field-error"
+                />*/}
+              </div>
+              {/*<div>
+                <label>Last Name</label>
+                <Field
+                  name="lastName"
+                  component="input"
+                  type="text"
+                  placeholder="Last Name"
+                  validate={required}
+                />
+                <ErrorMessage
+                  name="lastName"
+                  component="div"
+                  className="field-error"
+                />
+              </div>*/}
+            </Wizard.Page>
+            <Wizard.Page
+              validationSchema={ValidationSchema}
+            >
+              <div>
+                <label>What was your primary cancer diagnosis?</label>
+                <Field
+                  as={Select}
+                  id="cancer_location"
+                  name="cancer_location"
+                >
+                  <option value="" label="- Select One -" />
+                  {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}
+                </Field>
+                {/*<ErrorMessage
+                  name="email"
+                  component="div"
+                  className="field-error"
+                />*/}
+              </div>
+              {/*<div>
+                <label>Favorite Color</label>
+                <Field name="favoriteColor" component="select">
+                  <option value="">Select a Color</option>
+                  <option value="#ff0000">❤️ Red</option>
+                  <option value="#00ff00">💚 Green</option>
+                  <option value="#0000ff">💙 Blue</option>
+                </Field>
+                <ErrorMessage
+                  name="favoriteColor"
+                  component="div"
+                  className="field-error"
+                />
+              </div>*/}
+            </Wizard.Page>
+          </Wizard>
+        )}
+      />
+    </div>
+  </Router>
 );
 
-export default AboutRouted;
+export default App;
