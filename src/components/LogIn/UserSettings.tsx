@@ -10,7 +10,9 @@ import EditDOB from '../Auth/EditDOB';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
 import Button from '../Styled/Button'
-
+//import pinpoint from './PhoneMessage.js';
+import ScriptTag from 'react-script-tag';
+import {Helmet} from "react-helmet";
 
 const UserSettings = (props: ProfileProps) => {
   const store = useDataStore();
@@ -27,6 +29,42 @@ const UserSettings = (props: ProfileProps) => {
   const [PasswordDisable, setPasswordDisable] = useState(true);
   const [PhoneDisable, setPhoneDisable] = useState(true);
  
+  
+//'use strict';
+var AWS = require('aws-sdk');
+var aws_region = "us-east-1";
+var originationNumber = "+16303945691";
+var destinationNumber = "+13015181805";
+var message = "This message was sent through Amazon Pinpoint "
+            + "using the AWS SDK for JavaScript in Node.js. Reply STOP to "
+            + "opt out.";
+var applicationId = "178e06a71b9d45deb50c34e2d587de44";
+var messageType = "TRANSACTIONAL";
+var registeredKeyword = "myKeyword";
+var senderId = "MySenderID";
+var credentials = new AWS.Credentials('AKIA2SGZ46URBABVL6EW', 'BME3G6zUuthf5pc3WSV4MSdJcC84AzqrBFKFrMjQ');
+AWS.config.credentials = credentials;
+AWS.config.update({region:aws_region});
+var pinpoint = new AWS.Pinpoint();
+var params = {
+  ApplicationId: applicationId,
+  MessageRequest: {
+    Addresses: {
+      [destinationNumber]: {
+        ChannelType: 'SMS'
+      }
+    },
+    MessageConfiguration: {
+      SMSMessage: {
+        Body: message,
+        Keyword: registeredKeyword,
+        MessageType: messageType,
+        OriginationNumber: originationNumber,
+        SenderId: senderId,
+      }
+    }
+  }
+};
   
   useEffect(() => {
     setZipcodeDisable(!ZipcodeDisable);
@@ -105,6 +143,16 @@ const UserSettings = (props: ProfileProps) => {
    const handleEditPhone = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowPhone(!showPhone);
+   {/* pinpoint.sendMessages(params, function(err, data) {
+      // If something goes wrong, print an error message.
+      if(err) {
+        console.log(err.message);
+      // Otherwise, show the unique ID for the message.
+      } else {
+        console.log("Message sent! " 
+            + data['MessageResponse']['Result'][destinationNumber]['StatusMessage']);
+      }
+    });*/}
    }
 
   return (
