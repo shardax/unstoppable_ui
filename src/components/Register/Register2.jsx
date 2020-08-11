@@ -163,7 +163,7 @@ const Register2 = () => {
                     }
                     // end of error block
                     if (store.isLoggedIn) {
-                        history.push("/profile");
+                        history.push("/about")
                     } else {
                         history.push("/register")
                     }
