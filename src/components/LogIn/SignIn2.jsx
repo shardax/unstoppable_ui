@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
-import './SignIn.scss'
+import './SignIn.scss';
 //import Autosuggest from "react-autosuggest";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -99,42 +99,46 @@ const SignIn2 = () => {
         isSubmitting,
         setFieldValue
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form className="form-spacing" onSubmit={handleSubmit}>
           <h2>Login</h2>
           { errorMessage && <h3 className="error"> { errorMessage } </h3> }
           <div className="input-row">
-            <label>Name</label>
-            <Input
-              type="text"
-              name="username"
-              placeholder="username"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.username}
-              className={"global-input " + (touched.username && errors.username ? "has-error" : null)}
-              padding={"1em"}
-              border="1px solid #f0f0f0"
-              focusBorder="1px solid #6429B9"
-              fontSize="14px"
-            />
+            <div className="input-format">
+              <label>Name</label>
+              <Input
+                type="text"
+                name="username"
+                placeholder="username"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.username}
+                className={(touched.username && errors.username ? "has-error" : null)}
+                padding={"1em"}
+                border="1px solid #f0f0f0"
+                focusBorder="1px solid #6429B9"
+                fontSize="14px"
+              />
+            </div>
             <Error touched={touched.username} message={errors.username} />
           </div>
 
           <div className="input-row">
-            <label>Password</label>
-            <Input
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
-              className={"global-input " + (touched.password && errors.password ? "has-error" : null)}
-              padding={"1em"}
-              border="1px solid #f0f0f0"
-              focusBorder="1px solid #6429B9"
-              fontSize="14px"
-            />
+            <div className="input-format">
+              <label>Password</label>
+              <Input
+                type="password"
+                name="password"
+                placeholder="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                className={(touched.password && errors.password ? "has-error" : null)}
+                padding={"1em"}
+                border="1px solid #f0f0f0"
+                focusBorder="1px solid #6429B9"
+                fontSize="14px"
+              />
+            </div>
             <Error touched={touched.password} message={errors.password} />
           </div>
 

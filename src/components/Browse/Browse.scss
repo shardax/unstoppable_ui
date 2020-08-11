@@ -17,12 +17,13 @@ $cardHeight: 240px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   border-radius: 10px;
   .browse-search {
     height: 40px;
     border-radius: 8px;
-    width: 30em;
-    margin-right: 3em;
+    width: 25em;
+    margin-right: 1em;
     font-size: 16px;
     background-color: rgb(240,240,240);
     color: black;
@@ -135,6 +136,10 @@ $cardHeight: 240px;
 .slider-styling {
   color: $primaryPurple !important;
 };
+
+.range-slider {
+  margin-left: 1em;
+}
 
 @media only screen and (max-width: 1300px) {
   .single-profile-image {
