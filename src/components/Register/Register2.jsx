@@ -163,7 +163,7 @@ const Register2 = () => {
                     }
                     // end of error block
                     if (store.isLoggedIn) {
-                        history.push("/about")
+                       // history.push("/profile");
                     } else {
                         history.push("/register")
                     }
@@ -247,6 +247,7 @@ const Register2 = () => {
                                                     value={values.dob}
                                                     onChange={value => setFieldValue("dob", value)}
                                                     className={errors.dob && touched.dob ? "error" : null}
+                                                    autoComplete="new-password"
                                                 />
                                                 {errors.dob && touched.dob ? (
                                                     <div className="errorText">{errors.dob}</div>
@@ -266,6 +267,7 @@ const Register2 = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={errors.zipcode && touched.zipcode ? "error" : null}
+                                                autoComplete="new-password"
                                             />
                                             {errors.zipcode && touched.zipcode ? (
                                                 <span className="errorText">{errors.zipcode}</span>
@@ -358,7 +360,7 @@ const Register2 = () => {
                             <form onSubmit={() => { recaptchaRef.current.execute(); }}>
                                 <ReCAPTCHA
                                 ref={recaptchaRef}
-                                //size="invisible"
+                                size="invisible"
                                 sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
                                 onChange={(value) => {values.recaptchaResponse = value}}
                                 />

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import {useDataStore} from "../../UserContext";
-import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import axios from "axios";
 import Error from "./Error";
-import './SignIn.scss'
+import './SignIn.scss';
 import { FORGOTUSERNAMEURL } from "../../constants/matcher";
 import ReCAPTCHA from "react-google-recaptcha";
+import Paper from '../Styled/Paper';
+import Input from '../Styled/Input';
+import Button from '../Styled/Button';
 
 const store = useDataStore();
 
@@ -77,37 +79,43 @@ const ForgotUsername = () => {
         isSubmitting,
         setFieldValue
       }) => (
-        <form onSubmit={handleSubmit}>
-          <h2>Forgot Username</h2>
-          <h5>Please enter the email you used to sign up and we will send you an email with your username.</h5>
-         
-          <div className="input-row">
-            <label>Email</label>
-            <input
-              type="text"
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              className={"global-input login-form " + (touched.email && errors.email ? "has-error" : null)}
-            />
-            <Error touched={touched.email} message={errors.email} />
-          </div>
+        <div style={{ margin: "25px auto", maxWidth: "600px"}} className="form-spacing">
+          <form onSubmit={handleSubmit}>
+            <Paper>
+              <h2>Forgot Username</h2>
+              <h5>Please enter the email you used to sign up and we will send you an email with your username.</h5>
+            
+              <div className="input-row">
+                <label>Email</label>
+                <Input
+                  margin="0em 1em"
+                  type="text"
+                  name="email"
+                  placeholder="Enter email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  className={(touched.email && errors.email ? "has-error" : null)}
+                />
+                <Error touched={touched.email} message={errors.email} />
+              </div>
 
-          <div className="input-row">
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
+              <div className="input-row">
+                <Button type="submit" disabled={isSubmitting}>
+                  Submit
+                </Button>
+              </div>
+              <form onSubmit={() => { recaptchaRef.current.execute(); }}>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  size="invisible"
+                  sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
+                />
+            </form>
+            </Paper>
+          </form>
           </div>
-          <form onSubmit={() => { recaptchaRef.current.execute(); }}>
-            <ReCAPTCHA
-               ref={recaptchaRef}
-               size="invisible"
-               sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
-            />
-          </form>,
-        </form>
-      )}
+        )}
     </Formik>
   );
 }
