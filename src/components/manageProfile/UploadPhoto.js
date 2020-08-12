@@ -201,7 +201,7 @@ return useObserver(() => (
       <tr>
       <td>
       <div className='Photo'> 
-      <img  style={{ width: '400px', padding:"20px 0px", margin:"0px 90%"}} src={profileImg} />
+      <img  style={{ width: '400px', padding:"20px 0px"}} src={profileImg} />
      {/* {showPhoto &&
          <Cropper
           image= {profileImg} 
@@ -242,7 +242,7 @@ return useObserver(() => (
           </label>
         </div>*/}
         <div className='Photo'>
-          <input type="file" name="Photo123" accept="image/png, image/jpeg" style={{ margin:"0px 44%"}}   onChange={handleImageChange} />
+          <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
         </div>
 
        {/* <Progress percentage={uploadPercentage} />
@@ -250,12 +250,10 @@ return useObserver(() => (
        <div class="well-background--concept3 well-ProgressGroup--progress" style="width: 100%; animation-delay: 1.5s; z-index: -3; height: 50px;"></div>
       */}
       <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />
-        <input
+        <Button
           type='submit'
           value='Upload'
-          className='btn btn-primary btn-lg mt-4'
-          style={{width: '400px',  margin:"0px 31%"}}
-        />
+        >Submit</Button>
       </form>
      {/* <div>
             {!showPhoto &&

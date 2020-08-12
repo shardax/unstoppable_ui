@@ -91,10 +91,6 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
   return(
   
   <div>
-    <Paper>
-    <div className="profile-section-header">Profile Picture</div>
-    <UploadPhoto />
-    </Paper>
     <Formik
       initialValues={{
         // About Me
@@ -187,46 +183,46 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         setFieldValue 
       }) => (
         <Form>
-          <div className="form-container">
-          <Paper>
-            <div className="profile-section-header">About me 😀</div>
+          <div className="form-container user-section-wrapper">
+            <div className="user-section-data">
+              <Paper>
+                <div className="profile-section-header">About me 😀</div>
+                <div className="question-wrapper">
+                  <label htmlFor="personality">How would you describe your personality?</label>
+                  <div className="Answers">
+                    <Field
+                      as={Select}
+                      id="personality"
+                      name="personality"
+                    >
+                    <option value="" label="- Select One -" />
+                    {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+                    </Field>
+                  </div>
+                </div>
 
-            <div className="question-wrapper">
-              <label htmlFor="personality">How would you describe your personality?</label>
-              <div className="Answers">
-                <Field
-                  as={Select}
-                  id="personality"
-                  name="personality"
-                >
-                <option value="" label="- Select One -" />
-                {PERSONALITY_DESCRIPTION.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-                </Field>
-              </div>
-            </div>
+                <div className="question-wrapper">
+                  <label htmlFor="work_status">Which of the following best describes your work situation?</label>
+                  <div className="Answers">
+                  <Field
+                    as={Select}
+                    id="work_status"
+                    name="work_status"
+                  >
+                  <option value="" label="- Select One -" />
+                  {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
+                  </Field>
+                </div>
+                </div>
 
-            <div className="question-wrapper">
-              <label htmlFor="work_status">Which of the following best describes your work situation?</label>
-              <div className="Answers">
-              <Field
-                as={Select}
-                id="work_status"
-                name="work_status"
-              >
-              <option value="" label="- Select One -" />
-              {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item}	value={item}>	{item}</option>	))}
-              </Field>
-            </div>
-            </div>
-
-            <div className="question-wrapper">
-              <label htmlFor="details_about_self">About Me: Use this space for anything else you would like to share.</label>
-              <div className="Answers">
-              <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
-              </div>
-            </div>
-          </Paper>
-          <Paper>
+                <div className="question-wrapper">
+                  <label htmlFor="details_about_self">About Me: Use this space for anything else you would like to share.</label>
+                  <div className="Answers">
+                  <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
+                  </div>
+                </div>
+              </Paper>
+            <Paper>
           <div className="profile-section-header">Details about Diagnosis</div>
           <div className="question-wrapper">
           <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
@@ -402,13 +398,21 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
             </div>
           </div>
         </Paper>
-            <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
+        <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
                 Submit
             </Button>
             <Button background="white" color="#6429B9" border="1px solid #6429B9" margin="2em 1.5em" padding="10px 20px" onClick={handleCancel}>
                 Cancel
             </Button>
-          </div>
+        </div>
+        <div className="user-metadata">
+          <Paper>
+            <div className="profile-section-header">Profile Picture</div>
+            <UploadPhoto />
+          </Paper>
+        </div>
+            
+        </div>
         </Form>
       )}
     </Formik>
