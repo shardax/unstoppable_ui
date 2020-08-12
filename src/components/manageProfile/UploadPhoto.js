@@ -91,7 +91,7 @@ const FileUpload = () => {
         if(reader.readyState === 2){
           setProfileImg(reader.result);
         //  setAvatarPath(newPhoto);
-          console.log(newPhoto)
+         // console.log(newPhoto)
         }
       }
       reader.readAsDataURL(e.target.files[0])
@@ -114,9 +114,9 @@ const FileUpload = () => {
               headers: {
                 contentType: "application/json; charset=utf-8",
             }})
-            console.log(JSON.stringify(result));
+         //   console.log(JSON.stringify(result));
             if(result){
-              console.log(JSON.stringify(result.data.profile.photo));
+           //   console.log(JSON.stringify(result.data.profile.photo));
               store.avatarPath = result.data.profile.photo;
               store.profile.photo =  result.data.profile.photo;
             }
@@ -148,11 +148,11 @@ const FileUpload = () => {
     
       },)
       .then(res => {
-        console.log("res");
+     //   console.log("res");
       })
       .then(data => {
-        console.log("Uploaded file");
-        console.log(JSON.stringify(data));
+     //   console.log("Uploaded file");
+       // console.log(JSON.stringify(data));
         setTimeout(() => {
          // const percentage= parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
          // setUploadPercentage(percentage);
