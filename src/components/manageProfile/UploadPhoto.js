@@ -7,7 +7,7 @@ import { useDataStore } from "../../UserContext";
 import {useObserver} from 'mobx-react'
 import './UploadPhoto.scss'
 import ProgressBar from "./Progress-Bar";
-import Cropper from 'react-easy-crop'
+//import Cropper from 'react-easy-crop'
 import Button from '../Styled/Button'
 
 const FileUpload = () => {
@@ -28,14 +28,14 @@ const FileUpload = () => {
     console.log(croppedArea, croppedAreaPixels)
   }, [])
   
-  const setAvatarPath = (newPhoto) => {
-    store.avatarPath = newPhoto;
-    localStorage.setItem("userStore", JSON.stringify(store));
-  }
+ // const setAvatarPath = (newPhoto) => {
+   // store.avatarPath = newPhoto;
+    //localStorage.setItem("userStore", JSON.stringify(store));
+  //}
 
-  const handleCropPhoto = () => {
-    setShowPhoto(!showPhoto);
-   }
+  //const handleCropPhoto = () => {
+    //setShowPhoto(!showPhoto);
+   //}
 
   const [completed, setCompleted] = useState(0);
 
@@ -45,7 +45,7 @@ const FileUpload = () => {
   //}, []);
   
 
-  const handleImageUpload = e => {
+  {/*const handleImageUpload = e => {
     const [file] = e.target.files;
     if (file) {
       const reader = new FileReader();
@@ -57,7 +57,7 @@ const FileUpload = () => {
       reader.readAsDataURL(file);
      // setShowPhoto(!showPhoto);
     }
-  };
+  };*/}
   
   const uploadPhoto = () => {
     const formData = new FormData();
@@ -200,8 +200,8 @@ return useObserver(() => (
       <table>
       <tr>
       <td>
-      <div classname='btn btn-primary btn-block mt-4'> 
-      <img  style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}} src={profileImg} />
+      <div className='Photo'> 
+      <img  style={{ width: '400px', padding:"20px 0px", margin:"0px 90%"}} src={profileImg} />
      {/* {showPhoto &&
          <Cropper
           image= {profileImg} 
@@ -224,8 +224,8 @@ return useObserver(() => (
       </td>
       <td>
       <div>
-      <img style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}}  src={ROOTURL + store.avatarPath} />
-      <label>Current Profile Picture</label>
+     {/* <img style={{ width: '400px', padding:"10px 0px", margin:"0px 70%"}}  src={ROOTURL + store.avatarPath} />
+      <label>Current Profile Picture</label>*/}
       </div>
       </td>
       </tr>
@@ -242,7 +242,7 @@ return useObserver(() => (
           </label>
         </div>*/}
         <div className='Photo'>
-          <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
+          <input type="file" name="Photo123" accept="image/png, image/jpeg" style={{ margin:"0px 44%"}}   onChange={handleImageChange} />
         </div>
 
        {/* <Progress percentage={uploadPercentage} />
@@ -253,7 +253,8 @@ return useObserver(() => (
         <input
           type='submit'
           value='Upload'
-          className='btn btn-primary btn-block mt-4'
+          className='btn btn-primary btn-lg mt-4'
+          style={{width: '400px',  margin:"0px 31%"}}
         />
       </form>
      {/* <div>
