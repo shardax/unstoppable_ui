@@ -82,6 +82,7 @@ const validationSchema = Yup.object().shape({
                 })
             }
         )
+        
         .required("Required"),
     zipcode: Yup.string()
         .matches(/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/, "Please enter a valid US or CA zip/postal code.")
@@ -161,7 +162,18 @@ const Register2 = () => {
                                 withCredentials: true,
                                 headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json" }
                             });
-                        store.isLoggedIn = true;
+
+                          console.log(JSON.stringify(result));
+                          store.username =  result.data.username;
+                          store.current_user_id = result.data.current_user_id;
+                          store.email = result.data.email;
+                          store.profile = result.data.profile;
+                          store.profileId = result.data.profile.id;
+                          store.activities = result.data.all_activities;
+                          store.exerciseReasons = result.data.all_exercise_reasons;
+                          store.isLoggedIn = true;
+                          localStorage.setItem("userStore", JSON.stringify(store));
+                        //store.isLoggedIn = true;
                     } catch (err) {
                         console.log(err.message);
                         if (err.response) {
