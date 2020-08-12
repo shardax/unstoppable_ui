@@ -149,6 +149,17 @@ const Register2 = () => {
                                 withCredentials: true,
                                 headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json" }
                             });
+
+                          console.log(JSON.stringify(result));
+                          store.username =  result.data.username;
+                          store.current_user_id = result.data.current_user_id;
+                          store.email = result.data.email;
+                          store.profile = result.data.profile;
+                          store.profileId = result.data.profile.id;
+                          store.activities = result.data.all_activities;
+                          store.exerciseReasons = result.data.all_exercise_reasons;
+                          store.isLoggedIn = true;
+                          localStorage.setItem("userStore", JSON.stringify(store));
                         //store.isLoggedIn = true;
                     } catch (err) {
                         console.log(err.message);
@@ -165,11 +176,11 @@ const Register2 = () => {
                         setIsError(true);
                     }
                     // end of error block
-                    if (store.isLoggedIn) {
+                    //if (store.isLoggedIn) {
                        // history.push("/profile");
-                    } else {
-                        history.push("/register")
-                    }
+                    //} else {
+                        history.push("/about")
+                    //}
                 };
                 createAcc();
             }}
