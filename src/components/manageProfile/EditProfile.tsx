@@ -16,8 +16,8 @@ import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
 import Paper from '../Styled/Paper';
-
-import UploadPhoto from './UploadPhoto.js'
+import UploadPhoto from './UploadPhoto'
+//import UploadPhoto from './UploadPhoto.js'
 
 import { displayToast } from '../Toast/Toast';
 import { ProfileProps } from "../../UserStore";
