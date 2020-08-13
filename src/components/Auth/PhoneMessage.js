@@ -90,4 +90,4 @@ pinpoint.sendMessages(params, function(err, data) {
 });
 }
 
-export default pinpoint;
+//export default pinpoint;
