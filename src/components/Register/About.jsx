@@ -29,12 +29,23 @@ import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
 import { displayToast } from '../Toast/Toast';
 import EditProfile from '../manageProfile/EditProfile';
+import AboutStep from './AboutStep';
+import CancerStep from './CancerStep';
+import FitnessStep from './FitnessStep';
+import UploadPhoto from '../manageProfile/UploadPhoto'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  logo: {
+    width: '300px',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   button: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(4),
   },
   instructions: {
     marginTop: theme.spacing(1),
@@ -50,75 +61,53 @@ const ValidationSchema = Yup.object().shape({
     .required("Required"),
 });
 function getSteps() {
-  return ['About Me', 'Cancer History', 'Upload Photo', 'Confirm Email'];
+  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email'];
 }
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <EditProfile />;
+      return <AboutStep />;
     case 1:
-      return 'Cancer History';
+      return <CancerStep />;
     case 2:
-      return 'Upload Photo';
+        return <FitnessStep />;
     case 3:
+      return <UploadPhoto />;
+    case 4:
       return 'Confirm Email';
     default:
       return 'Unknown step';
   }
 }
 export default function About() {
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    scrollToTop();
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
   const handleReset = () => {
     setActiveStep(0);
   };
   return (
+
     <div className={classes.root}>
-      <img src={UnsIcon} className="logo" />
-      <h1>Create Your Profile</h1>
+      <img src={UnsIcon} className={classes.logo} />
+      <h2>Create Your Profile</h2>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = <Typography variant="caption">Optional</Typography>;
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
@@ -140,23 +129,20 @@ export default function About() {
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
-              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+              <Button 
+                margin="2em 1.5em" 
+                padding="10px 20px" 
+                disabled={activeStep === 0} 
+                onClick={handleBack} 
+                className={classes.button}
+              >
                 Back
               </Button>
-              {isStepOptional(activeStep) && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSkip}
-                  className={classes.button}
-                >
-                  Skip
-                </Button>
-              )}
               <Button
                 variant="contained"
-                color="primary"
                 onClick={handleNext}
+                margin="2em 1.5em" 
+                padding="10px 20px"
                 className={classes.button}
               >
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
@@ -166,5 +152,6 @@ export default function About() {
         )}
       </div>
     </div>
+ 
   );
 }

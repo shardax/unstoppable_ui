@@ -250,10 +250,6 @@ return useObserver(() => (
        <div class="well-background--concept3 well-ProgressGroup--progress" style="width: 100%; animation-delay: 1.5s; z-index: -3; height: 50px;"></div>
       */}
       <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />
-        <Button
-          type='submit'
-          value='Upload'
-        >Submit</Button>
       </form>
      {/* <div>
             {!showPhoto &&

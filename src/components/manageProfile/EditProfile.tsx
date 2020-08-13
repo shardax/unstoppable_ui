@@ -409,6 +409,10 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
           <Paper>
             <div className="profile-section-header">Profile Picture</div>
             <UploadPhoto />
+            <Button
+              type='submit'
+              value='Upload'
+        >Submit</Button>
           </Paper>
         </div>
             
