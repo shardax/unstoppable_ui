@@ -289,28 +289,6 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }, props) => {
                     </div>
                   </Paper>
                 </div>
-                <div>
-                  <Button
-                    margin="2em 1.5em"
-                    padding="10px 20px"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.button}
-                    type="submit"
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    onClick={handleNext}
-                    margin="2em 1.5em"
-                    padding="10px 20px"
-                    className={classes.button}
-                    type="submit"
-                  >
-                    Next
-                  </Button>
-                </div>
-
               </div>
             </Form>
           )}

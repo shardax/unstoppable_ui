@@ -128,7 +128,7 @@ export default function About() {
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            {/*<div>
+            <div>
               <Button 
                 margin="2em 1.5em" 
                 padding="10px 20px" 
@@ -147,7 +147,7 @@ export default function About() {
               >
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
-            </div>*/}
+            </div>
           </div>
         )}
       </div>
