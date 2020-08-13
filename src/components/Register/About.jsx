@@ -63,22 +63,6 @@ const ValidationSchema = Yup.object().shape({
 function getSteps() {
   return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email'];
 }
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AboutStep />;
-    case 1:
-      return <CancerStep />;
-    case 2:
-        return <FitnessStep />;
-    case 3:
-      return <UploadPhoto />;
-    case 4:
-      return 'Confirm Email';
-    default:
-      return 'Unknown step';
-  }
-}
 export default function About() {
   const scrollToTop = () =>{
     window.scrollTo({
@@ -99,6 +83,22 @@ export default function About() {
   const handleReset = () => {
     setActiveStep(0);
   };
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AboutStep handleBack={handleBack} handleNext={handleNext} activeStep={activeStep}/>;
+      case 1:
+        return <CancerStep handleBack={handleBack} handleNext={handleNext} activeStep={activeStep}/>;
+      case 2:
+          return <FitnessStep handleBack={handleBack} handleNext={handleNext} activeStep={activeStep}/>;
+      case 3:
+        return <UploadPhoto />;
+      case 4:
+        return 'Confirm Email';
+      default:
+        return 'Unknown step';
+    }
+  }
   return (
 
     <div className={classes.root}>
@@ -128,7 +128,7 @@ export default function About() {
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            <div>
+            {/*<div>
               <Button 
                 margin="2em 1.5em" 
                 padding="10px 20px" 
@@ -147,7 +147,7 @@ export default function About() {
               >
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
-            </div>
+            </div>*/}
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect, Component } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -23,6 +24,24 @@ import { displayToast } from '../Toast/Toast';
 import { ProfileProps } from "../../UserStore";
 
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        marginBottom: theme.spacing(2),
+    },
+    logo: {
+        width: '300px',
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+    button: {
+        marginRight: theme.spacing(4),
+    },
+    instructions: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+    },
+}));
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -60,17 +79,21 @@ const ValidationSchema = Yup.object().shape({
         .required("Required"),
 });
 
-interface ICancerStep {
+interface ICancerStep extends Component {
     editControls: {
         editMode: boolean,
         setEditMode: React.Dispatch<React.SetStateAction<boolean>>
     }
 }
 
-const CancerStep: React.FC<ICancerStep> = ({ editControls }) => {
+const CancerStep: React.FC<ICancerStep> = ({ editControls }, props) => {
     const store = useDataStore();
     const history = useHistory();
     let profile = store.profile;
+
+    const classes = useStyles();
+    const { handleBack, handleNext, activeStep } = props;
+
 
     let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
         const id = store.activities[key].id.toString()
@@ -228,6 +251,25 @@ const CancerStep: React.FC<ICancerStep> = ({ editControls }) => {
                                             </div>
                                         </div>
                                     </Paper>
+                                    <Button
+                                        margin="2em 1.5em"
+                                        padding="10px 20px"
+                                        disabled={activeStep === 0}
+                                        onClick={handleBack}
+                                        className={classes.button}
+                                        type="submit"
+                                    >
+                                        Back
+                  </Button>
+                                    <Button
+                                        onClick={handleNext}
+                                        margin="2em 1.5em"
+                                        padding="10px 20px"
+                                        className={classes.button}
+                                        type="submit"
+                                    >
+                                        Next
+                  </Button>
                                 </div>
                             </div>
                         </Form>

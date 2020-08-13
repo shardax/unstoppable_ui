@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../UserContext";
@@ -23,6 +24,24 @@ import { displayToast } from '../Toast/Toast';
 import { ProfileProps } from "../../UserStore";
 
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  logo: {
+    width: '300px',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  button: {
+    marginRight: theme.spacing(4),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -67,10 +86,13 @@ interface IFitnessStep {
   }
 }
 
-const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
+const FitnessStep: React.FC<IFitnessStep> = ({ editControls }, props) => {
   const store = useDataStore();
   const history = useHistory();
   let profile = store.profile;
+
+  const classes = useStyles();
+  const { handleBack, handleNext, activeStep } = props;
 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
     const id = store.activities[key].id.toString()
@@ -82,11 +104,6 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
     const name = store.exerciseReasons[key].name.toString();
     return ({ id, name });
   });
-
-  const handleCancel = (event: React.MouseEvent) => {
-    event.preventDefault();
-    editControls.setEditMode(false)
-  }
 
   return (
 
@@ -272,6 +289,28 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                     </div>
                   </Paper>
                 </div>
+                <div>
+                  <Button
+                    margin="2em 1.5em"
+                    padding="10px 20px"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.button}
+                    type="submit"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    margin="2em 1.5em"
+                    padding="10px 20px"
+                    className={classes.button}
+                    type="submit"
+                  >
+                    Next
+                  </Button>
+                </div>
+
               </div>
             </Form>
           )}
