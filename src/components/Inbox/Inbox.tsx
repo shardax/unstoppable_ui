@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState,  useEffect} from 'react'
 import {Avatar} from 'antd';
-import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
+import { ALLPROFILESURL, ROOTURL, SENDMESSAGEURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import messages from '../../pages/messages';
 import './index.scss';
+import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Textarea from '../Styled/Textarea';
+import { Formik, Field, Form } from 'formik';
 const exampleList = [
   {
     image: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f14010b9eb432b4af4cccebc17bbccb5cf16ec7/DSC00071.JPG",
@@ -49,8 +51,40 @@ const exampleMessages = {
 
 const Inbox = () => {
   const store = useDataStore();
-  const [currChat, setCurrChat] = useState("sparky")
-  
+  const [currChat, setCurrChat] = useState("sparky");
+  const [testing, setTesting] = useState("test");
+  const [text123, setText123] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log(event.target.value)
+      event.preventDefault();
+      setTesting('');
+      setText123('');
+      //resetForm();
+    }
+  }
+  useEffect(() => {
+    setIsError(false);
+    const fetchData = async () => {
+ 
+      try {
+        if (messageSent) {
+          let data =  {"user_id": "48", "subject": "test", "body": "test biden Harris"}
+          const result = await axios.post(SENDMESSAGEURL, data, { withCredentials: true });
+        }
+      } catch (error) {
+        //console.log(JSON.stringify(error));
+        console.log(error.message);
+        setIsError(true);
+      }
+      
+    };
+    fetchData();
+
+  }, [messageSent]);
+
   const Conversation = ({ message }) => {
     return (
       <div onClick={() => setCurrChat(message.name)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
@@ -117,7 +151,9 @@ const Inbox = () => {
             {/* <hr></hr> */}
           </>
         ))}
-        <Textarea margin="1em 0em" height="40px" width="100%" padding="10px" fontSize="12px" placeholder={"Send a message to " + currChat + " 👋"}></Textarea>
+       <form>
+        <Textarea value={text123} onChange={event => setText123(event.target.value)} margin="1em 0em" height="40px" width="100%" name="tars" padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
+       </form>
       </div>
     </div>
   )
