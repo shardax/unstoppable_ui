@@ -1,4 +1,4 @@
-const sendMessage = () => {
+//const sendMessage = () => {
 'use strict';
 var AWS = require('aws-sdk');
 //var AWS_ACCESS_KEY_ID = "AKIA2SGZ46URBABVL6EW"
@@ -88,6 +88,6 @@ pinpoint.sendMessages(params, function(err, data) {
         + data['MessageResponse']['Result'][destinationNumber]['StatusMessage']);
   }
 });
-}
+//}
 
 //export default pinpoint;
