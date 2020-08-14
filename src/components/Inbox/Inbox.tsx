@@ -52,7 +52,6 @@ const exampleMessages = {
 const Inbox = () => {
   const store = useDataStore();
   const [currChat, setCurrChat] = useState("sparky");
-  const [testing, setTesting] = useState("test");
   const [text123, setText123] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
@@ -60,8 +59,8 @@ const Inbox = () => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
       event.preventDefault();
-      setTesting('');
       setText123('');
+      setMessageSent(true);
       //resetForm();
     }
   }
@@ -71,7 +70,7 @@ const Inbox = () => {
  
       try {
         if (messageSent) {
-          let data =  {"user_id": "48", "subject": "test", "body": "test biden Harris"}
+          let data =  {"user_id": "48", "subject": "test", "body": text123}
           const result = await axios.post(SENDMESSAGEURL, data, { withCredentials: true });
         }
       } catch (error) {
