@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../UserContext";
@@ -18,7 +19,24 @@ import './Steps.scss'
 import { displayToast } from '../Toast/Toast';
 import { ProfileProps } from "../../UserStore";
 
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  logo: {
+    width: '300px',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  button: {
+    marginRight: theme.spacing(4),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -63,10 +81,12 @@ interface IAboutStep {
   }
 }
 
-const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
+const AboutStep: React.FC<IAboutStep> = ({ editControls },props) => {
   const store = useDataStore();
   const history = useHistory();
   let profile = store.profile;
+  const { handleNext, handleBack, activeStep} = props;
+  const classes = useStyles();
 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
     const id = store.activities[key].id.toString()
@@ -187,6 +207,24 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
                       </div>
                     </div>
                   </Paper>
+                  <Button 
+                margin="2em 1.5em" 
+                padding="10px 20px" 
+                disabled={activeStep === 0} 
+                onClick={handleBack} 
+                className={classes.button}
+              >
+                Back
+              </Button>
+              <Button
+                onClick={handleNext}
+                margin="2em 1.5em" 
+                padding="10px 20px"
+                className={classes.button}
+                type="submit"
+              >
+                Next
+              </Button>
                 </div>
               </div>
             </Form>
