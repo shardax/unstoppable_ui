@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../../UserContext";
@@ -19,24 +18,7 @@ import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { ProfileProps } from "../../../UserStore";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  logo: {
-    width: '300px',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  button: {
-    marginRight: theme.spacing(4),
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-}));
+
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -79,14 +61,12 @@ interface IAboutStep {
     editMode: boolean,
     setEditMode: React.Dispatch<React.SetStateAction<boolean>>
   }
-  handleNext:{}
 }
 
-const AboutStep: React.FC<IAboutStep> = ({ editControls,handleNext }, props) => {
+const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
   const store = useDataStore();
   const history = useHistory();
   let profile = store.profile;
-  const classes = useStyles();
 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
     const id = store.activities[key].id.toString()
@@ -105,6 +85,7 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls,handleNext }, props) => 
   }
 
   return (
+
     <div>
       <Formik
         initialValues={{

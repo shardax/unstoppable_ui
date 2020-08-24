@@ -282,8 +282,6 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
               label="No"
             />
           </div>  
-          
-             
             <div>
               <div className="question-wrapper">
                 <label htmlFor="which_wellness_program">If yes, what program? (list the name and location if possible, for example: INOVA Life with Cancer-Breast Cancer Support Group, Fairfax): </label>
@@ -291,6 +289,8 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
               </div> 
             </div>
             </Paper>
+
+            
             <Paper>
               <div className="profile-section-header">Activity/Fitness</div>
               <div className="question-title">
