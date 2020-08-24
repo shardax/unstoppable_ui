@@ -1,6 +1,6 @@
 import React, {useState,  useEffect} from 'react'
 import {Avatar} from 'antd';
-import { ALLPROFILESURL, ROOTURL, SENDMESSAGEURL } from "../../constants/matcher";
+import { ALLPROFILESURL, ROOTURL, SENDMESSAGEURL, CONVERSATIONSURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import messages from '../../pages/messages';
 import './index.scss';
@@ -83,6 +83,25 @@ const Inbox = () => {
     fetchData();
 
   }, [messageSent]);
+
+  useEffect(() => {
+    setIsError(false);
+    const fetchData = async () => {
+ 
+      try {
+          //let data =  {"user_id": "48", "subject": "test", "body": text123}
+          const result = await axios.get(CONVERSATIONSURL + "user_id=53");
+          console.log(JSON.stringify(result));
+      } catch (error) {
+        //console.log(JSON.stringify(error));
+        console.log(error.message);
+        setIsError(true);
+      }
+      
+    };
+    fetchData();
+
+  }, []);
 
   const Conversation = ({ message }) => {
     return (
