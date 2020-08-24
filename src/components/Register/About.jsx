@@ -3,7 +3,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import UnsIcon from '../../images/2Unstoppable_logo.png'
 import './About.scss'
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -23,16 +23,20 @@ import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import styled from '@emotion/styled';
-import Input from '../Styled/Input';
+//import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
-import { displayToast } from '../Toast/Toast';
-import EditProfile from '../manageProfile/EditProfile';
-import AboutStep from './AboutStep';
-import CancerStep from './CancerStep';
-import FitnessStep from './FitnessStep';
+
+import AboutStep from './Forms/AboutStep';
+import CancerStep from './Forms/CancerStep';
+import FitnessStep from './Forms/FitnessStep';
 import UploadPhoto from '../manageProfile/UploadPhoto'
+
+import validationSchema from './FormModel/validationSchema';
+import AboutFormModel from './FormModel/AboutFormModel';
+import InitialValues from './FormModel/InitialValues';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,25 +64,25 @@ const ValidationSchema = Yup.object().shape({
   cancer_location: Yup.string()
     .required("Required"),
 });
-function getSteps() {
-  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email'];
+const steps = ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email'];
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return <AboutStep />;
+    case 1:
+      return <CancerStep />;
+    case 2:
+        return <FitnessStep />;
+    case 3:
+      return <UploadPhoto />;
+    case 4:
+      return 'Confirm Email';
+    default:
+      return 'Unknown step';
+  }
 }
-
-export default function About(){
-  const store = useDataStore();
-  const history = useHistory();
-  let profile = store.profile;
-
-  let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
-    const id = store.activities[key].id.toString()
-    const name = store.activities[key].name.toString();
-    return ({ id, name});
-  });
-  let stringReasons: { id: string, name: string }[] = Object.keys(store.exerciseReasons).map(function (key) {
-    const id = store.exerciseReasons[key].id.toString()
-    const name = store.exerciseReasons[key].name.toString();
-    return ({ id, name});
-  }); 
+export default function About() {
   const scrollToTop = () =>{
     window.scrollTo({
       top: 0,
@@ -87,28 +91,6 @@ export default function About(){
   }
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
-  const [formData, setFormData] = useState{
-    activity_ids: profile.activity_ids.map(String),
-        other_favorite_activities: profile.other_favorite_activities,
-        virtual_partner: profile.virtual_partner ? "Yes":"No",
-        fitness_level: profile.fitness_level,
-        exercise_reason_ids: profile.exercise_reason_ids.map(String),
-        prefered_exercise_location: profile.prefered_exercise_location,
-        prefered_exercise_time: profile.prefered_exercise_time,
-        reason_for_match: profile.reason_for_match,
-        personality: profile.personality,
-        work_status: profile.work_status,
-        details_about_self: profile.details_about_self,
-        //Cancer History
-        cancer_location: profile.cancer_location,
-        other_cancer_location: profile.other_cancer_location,
-        treatment_status: profile.treatment_status,
-        treatment_description:profile.treatment_description,
-        part_of_wellness_program: (profile.part_of_wellness_program),
-        part_of_wellness_string: profile.part_of_wellness_program ? "Yes":"No",
-        which_wellness_program: profile.which_wellness_program,
-  }
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     scrollToTop();
@@ -119,22 +101,6 @@ export default function About(){
   const handleReset = () => {
     setActiveStep(0);
   };
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return <AboutStep handleNext={handleNext} handleBack={handleBack} activeStep={activeStep} />;
-      case 1:
-        return <CancerStep handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
-      case 2:
-          return <FitnessStep handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
-      case 3:
-        return <UploadPhoto />;
-      case 4:
-        return 'Confirm Email';
-      default:
-        return 'Unknown step';
-    }
-  }
   return (
 
     <div className={classes.root}>
@@ -164,7 +130,7 @@ export default function About(){
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            {/*<div>
+            <div>
               <Button 
                 margin="2em 1.5em" 
                 padding="10px 20px" 
@@ -183,7 +149,7 @@ export default function About(){
               >
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
-            </div>*/}
+            </div>
           </div>
         )}
       </div>

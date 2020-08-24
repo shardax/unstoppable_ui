@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
-import { useDataStore } from "../../UserContext";
+import { useDataStore } from "../../../UserContext";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../constants/ProfileConstants"
-import Default from '../../layouts/Default'
+import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
+import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
-import Error from "../LogIn/Error";
+import Error from "../../LogIn/Error";
 import styled from '@emotion/styled';
 //import Input from '../Styled/input';
-import Input from '../Styled/Input';
-import Button from '../Styled/Button';
-import Textarea from '../Styled/Textarea';
-import Select from '../Styled/Select';
-import Paper from '../Styled/Paper';
-import UploadPhoto from '../manageProfile/UploadPhoto'
+import Input from '../../Styled/Input';
+import Button from '../../Styled/Button';
+import Textarea from '../../Styled/Textarea';
+import Select from '../../Styled/Select';
+import Paper from '../../Styled/Paper';
+import UploadPhoto from '../../manageProfile/UploadPhoto'
 import './Steps.scss'
 //import UploadPhoto from './UploadPhoto.js'
 
-import { displayToast } from '../Toast/Toast';
-import { ProfileProps } from "../../UserStore";
+import { displayToast } from '../../Toast/Toast';
+import { ProfileProps } from "../../../UserStore";
 
 
 
@@ -65,6 +65,8 @@ interface IFitnessStep {
     editMode: boolean,
     setEditMode: React.Dispatch<React.SetStateAction<boolean>>
   }
+  handleNext:{}
+  handleBack:{}
 }
 
 const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
