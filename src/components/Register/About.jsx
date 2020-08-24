@@ -23,7 +23,7 @@ import Default from '../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../LogIn/Error";
 import styled from '@emotion/styled';
-import Input from '../Styled/Input';
+//import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 import Textarea from '../Styled/Textarea';
 import Select from '../Styled/Select';
