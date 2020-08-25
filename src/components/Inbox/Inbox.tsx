@@ -72,15 +72,17 @@ const Inbox = () => {
   const [currChat, setCurrChat] = useState("");
   const [currConversation, setCurrConversation] = useState({
     messages: [],
+    id: "",
     image: "",
     name: "",
+    participant_id: "",
     recent: {
       subject: "",
       content: "",
       timestamp: ""
     }
   });
-  const [text123, setText123] = useState("");
+  const [text, setText] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [conversationList, setConversationList] = React.useState<any>([]);
@@ -89,7 +91,7 @@ const Inbox = () => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
       event.preventDefault();
-      setText123('');
+      setText('');
       setMessageSent(true);
       //resetForm();
     }
@@ -100,8 +102,8 @@ const Inbox = () => {
  
       try {
         if (messageSent) {
-          let data =  {"user_id": "48", "subject": "test", "body": text123}
-          const result = await axios.post(SENDMESSAGEURL, data, { withCredentials: true });
+          let data =  {"user_id": currConversation.participant_id, "subject": currConversation.recent.subject, "body": text}
+          const result = await axios.post(SENDMESSAGEURL + "/" + currConversation.id +  "/messages", data, { withCredentials: true });
         }
       } catch (error) {
         //console.log(JSON.stringify(error));
@@ -131,7 +133,7 @@ const Inbox = () => {
             );
           console.log(JSON.stringify(result));
           setConversationList(result.data.conversations);
-          console.log(JSON.stringify(conversationList));
+          console.log(JSON.stringify(conversationList))
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
@@ -221,7 +223,7 @@ const Inbox = () => {
           </>
         ))}
        <form>
-        <Textarea value={text123} onChange={event => setText123(event.target.value)} margin="1em 0em" height="40px" width="100%" name="tars" padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
+        <Textarea value={text} onChange={event => setText(event.target.value)} margin="1em 0em" height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
        </form>
       </div>
     </div>
