@@ -1,7 +1,6 @@
 import React, {useState,  useEffect} from 'react'
-import { useParams } from "react-router-dom";
-import {Avatar} from 'antd';
-import { ALLPROFILESURL, ROOTURL, SENDMESSAGEURL, ALLCONVERSATIONSURL } from "../../constants/matcher";
+import { useParams,  useHistory } from "react-router-dom";
+import { SENDMESSAGEURL, ALLCONVERSATIONSURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import messages from '../../pages/messages';
 import './index.scss';
@@ -82,16 +81,18 @@ const Inbox = () => {
       timestamp: ""
     }
   });
-  const [text, setText] = useState("");
+  const [msgText, setMsgText] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [conversationList, setConversationList] = React.useState<any>([]);
+
+  const history = useHistory();
   
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
       event.preventDefault();
-      setText('');
+      setMsgText('');
       setMessageSent(true);
       //resetForm();
     }
@@ -102,13 +103,13 @@ const Inbox = () => {
  
       try {
         if (messageSent) {
-          let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": "abcd"}
+          let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": "test123"}
           let url = SENDMESSAGEURL + "/" + currConversation.id +  "/messages/createwithjson";
-          console.log(url);
           const result = await axios.post(url, data, { withCredentials: true, headers: {
             contentType: "application/json; charset=utf-8",
           } });
         }
+        history.push("/messages");
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
@@ -181,7 +182,7 @@ const Inbox = () => {
     return true;
 }
   const Message = ({ content, from, to }) => {
-    const isMe = (from: string, me: string) => from === "me"
+    const isMe = (from: string, me: string) => from === me
 
     return (
       <div className={
@@ -227,7 +228,7 @@ const Inbox = () => {
           </>
         ))}
        <form>
-        <Textarea value={text} onChange={event => setText(event.target.value)} margin="1em 0em" height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
+        <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em" height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
        </form>
       </div>
     </div>
