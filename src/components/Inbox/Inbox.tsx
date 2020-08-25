@@ -1,6 +1,7 @@
 import React, {useState,  useEffect} from 'react'
+import { useParams } from "react-router-dom";
 import {Avatar} from 'antd';
-import { ALLPROFILESURL, ROOTURL, SENDMESSAGEURL, CONVERSATIONSURL } from "../../constants/matcher";
+import { ALLPROFILESURL, ROOTURL, SENDMESSAGEURL, ALLCONVERSATIONSURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import messages from '../../pages/messages';
 import './index.scss';
@@ -8,6 +9,23 @@ import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Textarea from '../Styled/Textarea';
 import { Formik, Field, Form } from 'formik';
+import Qs from 'qs';
+
+// TODO need to move up
+// Format nested params correctly
+axios.interceptors.request.use(config => {
+
+  config.paramsSerializer = params => {
+    // Qs is not included in the Axios package
+    return Qs.stringify(params, {
+      arrayFormat: "brackets",
+      encode: false
+    });
+  };
+
+  return config;
+});
+
 const exampleList = [
   {
     image: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f14010b9eb432b4af4cccebc17bbccb5cf16ec7/DSC00071.JPG",
@@ -55,6 +73,7 @@ const Inbox = () => {
   const [text123, setText123] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
+  let conversationList = [];
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
@@ -89,9 +108,18 @@ const Inbox = () => {
     const fetchData = async () => {
  
       try {
-          //let data =  {"user_id": "48", "subject": "test", "body": text123}
-          const result = await axios.get(CONVERSATIONSURL + "user_id=53");
+          const result = await axios.get(ALLCONVERSATIONSURL
+            ,{
+              params: {
+            },
+            withCredentials: true,
+            headers: {
+              contentType: "application/json; charset=utf-8",
+            }
+          }
+            );
           console.log(JSON.stringify(result));
+          conversationList = result.data.conversations;
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
