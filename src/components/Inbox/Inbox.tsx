@@ -69,11 +69,12 @@ const exampleMessages = {
 
 const Inbox = () => {
   const store = useDataStore();
-  const [currChat, setCurrChat] = useState("sparky");
+  const [currChat, setCurrChat] = useState("");
   const [text123, setText123] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
-  let conversationList = [];
+  const [conversationList, setConversationList] = React.useState<any>([]);
+  
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
@@ -119,7 +120,8 @@ const Inbox = () => {
           }
             );
           console.log(JSON.stringify(result));
-          conversationList = result.data.conversations;
+          setConversationList(result.data.conversations);
+          console.log(JSON.stringify(conversationList));
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
@@ -132,10 +134,11 @@ const Inbox = () => {
   }, []);
 
   const Conversation = ({ message }) => {
+    {/*alert(JSON.stringify(message));*/}
     return (
       <div onClick={() => setCurrChat(message.name)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
         <div className="single-conversation-avatar">
-          <Avatar src={ROOTURL + message.image}  size= "large" />
+         {/** <Avatar src={ROOTURL + message.image}  size= "large" />  */}
           <div className="conversation-from-title">{message.name}</div>
         </div>
         <div className="single-conversation-recent">
@@ -177,7 +180,7 @@ const Inbox = () => {
           My Inbox
           </div>
         </nav>
-        {exampleList.map((conversation: any) => (
+        {conversationList.map((conversation: any) => (
           <>
             <Conversation message={conversation} />
             <hr></hr>
