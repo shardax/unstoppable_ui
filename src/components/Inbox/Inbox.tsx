@@ -70,6 +70,16 @@ const exampleMessages = {
 const Inbox = () => {
   const store = useDataStore();
   const [currChat, setCurrChat] = useState("");
+  const [currConversation, setCurrConversation] = useState({
+    messages: [],
+    image: "",
+    name: "",
+    recent: {
+      subject: "",
+      content: "",
+      timestamp: ""
+    }
+  });
   const [text123, setText123] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
@@ -133,10 +143,14 @@ const Inbox = () => {
 
   }, []);
 
+  useEffect(() => {
+    setCurrChat(currConversation.name);
+  }, [currConversation]);
+
   const Conversation = ({ message }) => {
     {/*alert(JSON.stringify(message));*/}
     return (
-      <div onClick={() => setCurrChat(message.name)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
+      <div onClick={() => setCurrConversation(message)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
         <div className="single-conversation-avatar">
          {/** <Avatar src={ROOTURL + message.image}  size= "large" />  */}
           <div className="conversation-from-title">{message.name}</div>
@@ -153,7 +167,13 @@ const Inbox = () => {
       </div>
     )
   }
-
+  function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
   const Message = ({ content, from, to }) => {
     const isMe = (from: string, me: string) => from === "me"
 
@@ -194,7 +214,7 @@ const Inbox = () => {
           </div>
         </nav>
         {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
-        {(exampleMessages[currChat] ? exampleMessages[currChat] : []).map((message: any) => (
+        {currConversation.messages.map((message: any) => (
           <>
             <Message content={message.content} from={message.from} to={message.to} />
             {/* <hr></hr> */}
