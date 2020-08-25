@@ -103,7 +103,9 @@ const Inbox = () => {
       try {
         if (messageSent) {
           let data =  {"user_id": currConversation.participant_id, "subject": currConversation.recent.subject, "body": text}
-          const result = await axios.post(SENDMESSAGEURL + "/" + currConversation.id +  "/messages", data, { withCredentials: true });
+          const result = await axios.post(SENDMESSAGEURL + "/" + currConversation.id +  "/messages", data, { withCredentials: true, headers: {
+            contentType: "application/json; charset=utf-8",
+          } });
         }
       } catch (error) {
         //console.log(JSON.stringify(error));
