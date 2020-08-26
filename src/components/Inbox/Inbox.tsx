@@ -119,6 +119,7 @@ const Inbox = () => {
             } });
             console.log("existing conversation");
             console.log(JSON.stringify(result));
+            setCurrConversation(result.data);
             //let msg = {to: "Cynthia", from: "me",content: "Hello!"  }
             //currConversation.messages.push(msg);
           }
