@@ -8,24 +8,11 @@ import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Textarea from '../Styled/Textarea';
 import { Formik, Field, Form } from 'formik';
-import Qs from 'qs';
 
 // TODO need to move up
 // Format nested params correctly
-axios.interceptors.request.use(config => {
 
-  config.paramsSerializer = params => {
-    // Qs is not included in the Axios package
-    return Qs.stringify(params, {
-      arrayFormat: "brackets",
-      encode: false
-    });
-  };
-
-  return config;
-});
-
-const exampleList = [
+{/*const exampleList = [
   {
     image: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f14010b9eb432b4af4cccebc17bbccb5cf16ec7/DSC00071.JPG",
     name: "sparky",
@@ -64,7 +51,7 @@ const exampleMessages = {
       content: "Yes I would love to play tennis with you!"  
     },
   ]
-}
+}*/}
 
 const Inbox = () => {
   const store = useDataStore();
@@ -109,6 +96,7 @@ const Inbox = () => {
             console.log("new conversation");
             console.log(JSON.stringify(result));
             setCurrConversation(result.data);
+            setMsgText("");
           }
           else {
             let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": msgText}
@@ -119,6 +107,7 @@ const Inbox = () => {
             console.log("existing conversation");
             console.log(JSON.stringify(result));
             setCurrConversation(result.data);
+            setMsgText("");
           }
         }
         history.push("/messages");
