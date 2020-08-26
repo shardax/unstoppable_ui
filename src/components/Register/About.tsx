@@ -1,17 +1,23 @@
-import { Box, Button, Card, CardContent, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
+import { Box, Card, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
 import { Field, Form, Formik, FormikConfig, FormikValues } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-material-ui';
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 
 import { useDataStore } from "../../UserContext";
 import { useHistory } from 'react-router-dom';
 import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../constants/ProfileConstants"
+import UnsIcon from '../../images/2Unstoppable_logo.png';
+import './About.scss';
 
 import Select from '../Styled/Select';
 import Textarea from '../Styled/Textarea';
 import Error from "../LogIn/Error";
 import Input from '../Styled/Input';
+import Paper from '../Styled/Paper';
+import Button from '../Styled/Button';
+import colors from '../../assets/colors';
 
 import UploadPhoto from '../manageProfile/UploadPhoto'
 
@@ -81,6 +87,13 @@ export default function Home() {
   const history = useHistory();
   let profile = store.profile;
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
     const id = store.activities[key].id.toString()
     const name = store.activities[key].name.toString();
@@ -93,8 +106,10 @@ export default function Home() {
   });
 
   return (
-    <Card>
-      <CardContent>
+    <div className="container">
+      <img src={UnsIcon} className="logo" />
+      <h2><b>Complete Your Profile</b></h2>
+      <Paper className="instructions">
         <FormikStepper
           initialValues={{
             activity_ids: '',
@@ -330,8 +345,8 @@ export default function Home() {
             <UploadPhoto />
           </FormikStep>
         </FormikStepper>
-      </CardContent>
-    </Card>
+      </Paper>
+    </div>
   );
 }
 
@@ -383,10 +398,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
             {step > 0 ? (
               <Grid item>
                 <Button
-                  disabled={isSubmitting}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setStep((s) => s - 1)}
+                  margin="2em 1.5em"
+                  padding="10px 20px"
                 >
                   Back
                 </Button>
@@ -394,11 +407,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
             ) : null}
             <Grid item>
               <Button
-                startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null}
-                disabled={isSubmitting}
-                variant="contained"
-                color="primary"
-                type="submit"
+                margin="2em 1.5em"
+                padding="10px 20px"
               >
                 {isSubmitting ? 'Submitting' : isLastStep() ? 'Submit' : 'Next'}
               </Button>
