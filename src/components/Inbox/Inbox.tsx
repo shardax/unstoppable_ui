@@ -92,7 +92,6 @@ const Inbox = () => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
       event.preventDefault();
-      setMsgText('');
       setMessageSent(true);
       //resetForm();
     }
@@ -103,13 +102,29 @@ const Inbox = () => {
  
       try {
         if (messageSent) {
-          let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": "test123"}
-          let url = SENDMESSAGEURL + "/" + currConversation.id +  "/messages/createwithjson";
-          const result = await axios.post(url, data, { withCredentials: true, headers: {
-            contentType: "application/json; charset=utf-8",
-          } });
+          if (currConversation.messages.length == 0){
+            let data =  {"user_id": 1, "subject": "cba", "body": msgText}
+            let url = SENDMESSAGEURL;
+            const result = await axios.post(url, data, { withCredentials: true, headers: {
+              contentType: "application/json; charset=utf-8",
+            } });
+            console.log("new conversation");
+            console.log(JSON.stringify(result));
+          }
+          else {
+            let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": msgText}
+            let url = SENDMESSAGEURL + "/" + currConversation.id +  "/messages/createwithjson";
+            const result = await axios.post(url, data, { withCredentials: true, headers: {
+              contentType: "application/json; charset=utf-8",
+            } });
+            console.log("existing conversation");
+            console.log(JSON.stringify(result));
+            //let msg = {to: "Cynthia", from: "me",content: "Hello!"  }
+            //currConversation.messages.push(msg);
+          }
         }
         history.push("/messages");
+        setMessageSent(false);
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
