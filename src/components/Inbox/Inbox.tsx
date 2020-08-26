@@ -105,23 +105,20 @@ const Inbox = () => {
           if (currConversation.messages.length == 0){
             let data =  {"user_id": 1, "subject": "cba", "body": msgText}
             let url = SENDMESSAGEURL;
-            const result = await axios.post(url, data, { withCredentials: true, headers: {
-              contentType: "application/json; charset=utf-8",
-            } });
+            const result = await axios.post(url, data, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}});
             console.log("new conversation");
             console.log(JSON.stringify(result));
+            setCurrConversation(result.data);
           }
           else {
             let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": msgText}
             let url = SENDMESSAGEURL + "/" + currConversation.id +  "/messages/createwithjson";
             const result = await axios.post(url, data, { withCredentials: true, headers: {
-              contentType: "application/json; charset=utf-8",
+              contentType: "application/json; charset=utf-8", "Accept": "application/json"
             } });
             console.log("existing conversation");
             console.log(JSON.stringify(result));
             setCurrConversation(result.data);
-            //let msg = {to: "Cynthia", from: "me",content: "Hello!"  }
-            //currConversation.messages.push(msg);
           }
         }
         history.push("/messages");
@@ -190,13 +187,7 @@ const Inbox = () => {
       </div>
     )
   }
-  function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
+  
   const Message = ({ content, from, to }) => {
     const isMe = (from: string, me: string) => from === me
 
