@@ -68,14 +68,14 @@ const cancerValidate = Yup.object().shape({
 });
 
 const fitnessValidate = Yup.object().shape({
-  /*activity_ids: Yup.string()
-    .required("Required"),*/
+  activity_ids: Yup.string()
+    .required("Required"),
   virtual_partner: Yup.string()
     .required("Required"),
   fitness_level: Yup.string()
     .required("Required"),
-  /*exercise_reason_ids: Yup.string()
-    .required("Required"),*/
+  exercise_reason_ids: Yup.string()
+    .required("Required"),
   prefered_exercise_location: Yup.string()
     .required("Required"),
   prefered_exercise_time: Yup.string()
@@ -112,11 +112,11 @@ export default function Home() {
       <Paper className="instructions">
         <FormikStepper
           initialValues={{
-            /*activity_ids: '',*/
+            activity_ids: '',
             other_favorite_activities: '',
             virtual_partner: false,
             fitness_level: '',
-            /*exercise_reason_ids: '',*/
+            exercise_reason_ids: '',
             prefered_exercise_location: '',
             prefered_exercise_time: '',
             reason_for_match: '',
@@ -243,7 +243,7 @@ export default function Home() {
             label="Fitness Status"
             validationSchema={fitnessValidate}
           >
-            {/*<Box paddingBottom={2}>
+            <Box paddingBottom={2}>
               <div className="question-title">
                 Favorite activities (check all that apply)
               </div>
@@ -256,7 +256,7 @@ export default function Home() {
                   </label>
                 ))}
               </div>
-                </Box>*/}
+            </Box>
             <Box paddingBottom={2}>
               <div className="question-title">
                 Do you have any other favorite activities?
@@ -296,7 +296,7 @@ export default function Home() {
                 label="No"
               />
             </Box>
-            {/*<Box>
+            <Box>
               <div className="question-title">
                 Identify your top reasons for wanting to become more active:
             </div>
@@ -305,7 +305,7 @@ export default function Home() {
                   {stringReasons.map(item => (<label> {item.name} <Field type="checkbox" name="exercise_reason_ids" value={item.id}></Field>&nbsp;&nbsp;&nbsp; </label>))}
                 </label>
               </div>
-            </Box>*/}
+            </Box>
             <Box>
               <label htmlFor="prefered_exercise_location">Where do you prefer to be active?</label>
               <div className="Answers">
@@ -344,11 +344,6 @@ export default function Home() {
           >
             <UploadPhoto />
           </FormikStep>
-          <FormikStep
-            label="Confirm Email"
-          >
-            <h3> An Email has been sent to your mailbox for a confirmation.</h3>
-          </FormikStep>
         </FormikStepper>
       </Paper>
     </div>
@@ -373,10 +368,6 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
   function isLastStep() {
     return step === childrenArray.length - 1;
   }
-
-  const isStepOptional = (step: number) => {
-    return step === 3;
-  };
 
   return (
     <Formik
@@ -414,16 +405,6 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                 </Button>
               </Grid>
             ) : null}
-            {isStepOptional(step) && (
-              <Grid item>
-              <Button
-                margin="2em 1.5em"
-                padding="10px 20px"
-              >
-                Skip
-              </Button>
-            </Grid>
-            )}
             <Grid item>
               <Button
                 margin="2em 1.5em"
