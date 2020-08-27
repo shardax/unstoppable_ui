@@ -1,12 +1,18 @@
-import React, {useState} from 'react'
-import {Avatar} from 'antd';
-import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
+import React, {useState,  useEffect} from 'react'
+import { useParams,  useHistory } from "react-router-dom";
+import { SENDMESSAGEURL, ALLCONVERSATIONSURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import messages from '../../pages/messages';
 import './index.scss';
+import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Textarea from '../Styled/Textarea';
-const exampleList = [
+import { Formik, Field, Form } from 'formik';
+
+// TODO need to move up
+// Format nested params correctly
+
+{/*const exampleList = [
   {
     image: "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f14010b9eb432b4af4cccebc17bbccb5cf16ec7/DSC00071.JPG",
     name: "sparky",
@@ -45,17 +51,117 @@ const exampleMessages = {
       content: "Yes I would love to play tennis with you!"  
     },
   ]
-}
+}*/}
 
 const Inbox = () => {
   const store = useDataStore();
-  const [currChat, setCurrChat] = useState("sparky")
+  const [currChat, setCurrChat] = useState("");
+  const [currConversation, setCurrConversation] = useState({
+    messages: [],
+    id: "",
+    image: "",
+    name: "",
+    participant_id: "",
+    recent: {
+      subject: "",
+      content: "",
+      timestamp: ""
+    }
+  });
+  const [msgText, setMsgText] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
+  const [conversationList, setConversationList] = React.useState<any>([]);
+
+  const history = useHistory();
   
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log(event.target.value)
+      event.preventDefault();
+      setMessageSent(true);
+      //resetForm();
+    }
+  }
+  useEffect(() => {
+    setIsError(false);
+    const fetchData = async () => {
+ 
+      try {
+        if (messageSent) {
+          if (currConversation.messages.length == 0){
+            let data =  {"user_id": 1, "subject": "cba", "body": msgText}
+            let url = SENDMESSAGEURL;
+            const result = await axios.post(url, data, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}});
+            console.log("new conversation");
+            console.log(JSON.stringify(result));
+            setCurrConversation(result.data);
+            setMsgText("");
+          }
+          else {
+            let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": msgText}
+            let url = SENDMESSAGEURL + "/" + currConversation.id +  "/messages/createwithjson";
+            const result = await axios.post(url, data, { withCredentials: true, headers: {
+              contentType: "application/json; charset=utf-8", "Accept": "application/json"
+            } });
+            console.log("existing conversation");
+            console.log(JSON.stringify(result));
+            setCurrConversation(result.data);
+            setMsgText("");
+          }
+        }
+        history.push("/messages");
+        setMessageSent(false);
+      } catch (error) {
+        //console.log(JSON.stringify(error));
+        console.log(error.message);
+        setIsError(true);
+      }
+      
+    };
+    fetchData();
+
+  }, [messageSent]);
+
+  useEffect(() => {
+    setIsError(false);
+    const fetchData = async () => {
+ 
+      try {
+          const result = await axios.get(ALLCONVERSATIONSURL
+            ,{
+              params: {
+            },
+            withCredentials: true,
+            headers: {
+              contentType: "application/json; charset=utf-8",
+            }
+          }
+            );
+          console.log(JSON.stringify(result));
+          setConversationList(result.data.conversations);
+          console.log(JSON.stringify(conversationList))
+      } catch (error) {
+        //console.log(JSON.stringify(error));
+        console.log(error.message);
+        setIsError(true);
+      }
+      
+    };
+    fetchData();
+
+  }, []);
+
+  useEffect(() => {
+    setCurrChat(currConversation.name);
+  }, [currConversation]);
+
   const Conversation = ({ message }) => {
+    {/*alert(JSON.stringify(message));*/}
     return (
-      <div onClick={() => setCurrChat(message.name)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
+      <div onClick={() => setCurrConversation(message)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
         <div className="single-conversation-avatar">
-          <Avatar src={ROOTURL + message.image}  size= "large" />
+         {/** <Avatar src={ROOTURL + message.image}  size= "large" />  */}
           <div className="conversation-from-title">{message.name}</div>
         </div>
         <div className="single-conversation-recent">
@@ -70,9 +176,9 @@ const Inbox = () => {
       </div>
     )
   }
-
+  
   const Message = ({ content, from, to }) => {
-    const isMe = (from: string, me: string) => from === "me"
+    const isMe = (from: string, me: string) => from === me
 
     return (
       <div className={
@@ -97,7 +203,7 @@ const Inbox = () => {
           My Inbox
           </div>
         </nav>
-        {exampleList.map((conversation: any) => (
+        {conversationList.map((conversation: any) => (
           <>
             <Conversation message={conversation} />
             <hr></hr>
@@ -111,13 +217,15 @@ const Inbox = () => {
           </div>
         </nav>
         {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
-        {(exampleMessages[currChat] ? exampleMessages[currChat] : []).map((message: any) => (
+        {currConversation.messages.map((message: any) => (
           <>
             <Message content={message.content} from={message.from} to={message.to} />
             {/* <hr></hr> */}
           </>
         ))}
-        <Textarea margin="1em 0em" height="40px" width="100%" padding="10px" fontSize="12px" placeholder={"Send a message to " + currChat + " 👋"}></Textarea>
+       <form>
+        <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em" height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
+       </form>
       </div>
     </div>
   )

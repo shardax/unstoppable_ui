@@ -9,7 +9,7 @@ import './SignIn.scss'
 import { FORGOTUSERNAMEURL } from "../../constants/matcher";
 import ReCAPTCHA from "react-google-recaptcha";
 import Paper from '../Styled/Paper';
-import Input from '../Styled/Input';
+//import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 
 const store = useDataStore();
@@ -88,7 +88,7 @@ const ForgotPassword = () => {
           
             <div className="input-row">
               <label>Email</label>
-              <Input
+             {/* <Input
                 margin="0em 1em"
                 type="text"
                 name="email"
@@ -97,7 +97,7 @@ const ForgotPassword = () => {
                 onBlur={handleBlur}
                 value={values.email}
                 className={"global-input login-form " + (touched.email && errors.email ? "has-error" : null)}
-              />
+             /> */}
               <Error touched={touched.email} message={errors.email} />
             </div>
 
