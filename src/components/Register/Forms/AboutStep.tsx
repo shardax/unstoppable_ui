@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, useFormikContext  } from 'formik';
 import { useDataStore } from "../../../UserContext";
-import { useHistory, Prompt } from 'react-router-dom';
+import { useHistory, Prompt, Redirect } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
@@ -57,15 +57,6 @@ const RadioButton = ({
   );
 };
 
-const ValidationSchema = Yup.object().shape({
-  reason_for_match: Yup.string()
-    .min(1, "Too Short!")
-    .max(255, "Too Long!")
-    .required("Required"),
-  cancer_location: Yup.string()
-    .required("Required"),
-});
-
 interface IAboutStep {
   editControls: {
     editMode: boolean,
@@ -104,17 +95,13 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
         }}
-        validationSchema={ValidationSchema}
-        validate={values => {
-          let errors = {};
-          return errors;
-        }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           setTimeout(() => {
-            //alert(JSON.stringify(values, null, 2));
+            alert(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
+            return <Redirect to="/wizard/1" />
           }, 500);
 
           const fetchData = async () => {
@@ -144,7 +131,7 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
               }
             }
           };
-          fetchData();
+       //   fetchData();
         }}
       >
         {({
