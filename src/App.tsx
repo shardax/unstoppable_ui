@@ -6,6 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // Pages
 import User from './pages/user';
+import About from './components/Register/About';
 
 const NoMatchPage = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           <div className="App">
             <Switch>
               <Route path="/user/:id" component={User} />
+              <Route path="/wizard/:stepId" component={About} />
               <Route path="/:page" component={PageRenderer} />
               <Route path="/" render={() => <Redirect to="/home" />} />
               <Route component={NoMatchPage} />

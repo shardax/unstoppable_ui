@@ -6,13 +6,13 @@ import Typography from '@material-ui/core/Typography';
 import React, { useState } from "react";
 import UnsIcon from '../../images/2Unstoppable_logo.png'
 import './About.scss'
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Link,
-  Redirect
+  Redirect,
+  useParams
 } from "react-router-dom";
 import { useDataStore } from "../../UserContext";
 import { useHistory } from 'react-router-dom';
@@ -87,8 +87,12 @@ export default function About() {
       behavior: "smooth"
     });
   }
+  let { stepId } = useParams();
+  //console.log("printing stepId");
+  //console.log(stepId);
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(parseInt(stepId));
+  //const [activeStep, setActiveStep] = React.useState(parseInt(step));
   const steps = getSteps();
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
