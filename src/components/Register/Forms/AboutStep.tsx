@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, useFormikContext  } from 'formik';
 import { useDataStore } from "../../../UserContext";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
@@ -21,6 +21,16 @@ import { ProfileProps } from "../../../UserStore";
 
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+
+const PromptIfDirty = () => {
+  const formik = useFormikContext();
+  return (
+    <Prompt
+      when={formik.dirty && formik.submitCount === 0}
+      message="Are you sure you want to leave? You have with unsaved changes."
+    />
+  );
+};
 
 const RadioButton = ({
   field: { name, value, onChange, onBlur },
@@ -148,6 +158,7 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
           setFieldValue
         }) => (
             <Form>
+              <PromptIfDirty />
               <div className="form-container user-section-wrapper">
                 <div className="user-section-data">
                   <Paper>
@@ -187,6 +198,9 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
                       </div>
                     </div>
                   </Paper>
+                  <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
+                     Submit
+                  </Button>
                 </div>
               </div>
             </Form>

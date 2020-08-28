@@ -179,7 +179,7 @@ const Register2 = () => {
                     //if (store.isLoggedIn) {
                        // history.push("/profile");
                     //} else {
-                        history.push("/about")
+                        history.push("/wizard/0")
                     //}
                 };
                 createAcc();
