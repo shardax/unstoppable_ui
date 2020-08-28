@@ -48,10 +48,6 @@ const RadioButton = ({
 };
 
 const ValidationSchema = Yup.object().shape({
-    reason_for_match: Yup.string()
-        .min(1, "Too Short!")
-        .max(255, "Too Long!")
-        .required("Required"),
     cancer_location: Yup.string()
         .required("Required"),
 });

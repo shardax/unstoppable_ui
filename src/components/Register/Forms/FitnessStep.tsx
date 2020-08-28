@@ -52,8 +52,6 @@ const ValidationSchema = Yup.object().shape({
     .min(1, "Too Short!")
     .max(255, "Too Long!")
     .required("Required"),
-  cancer_location: Yup.string()
-    .required("Required"),
 });
 
 interface IFitnessStep {
