@@ -17,8 +17,7 @@ import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { ProfileProps } from "../../../UserStore";
-
-
+import { createBrowserHistory } from 'history'
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -66,19 +65,9 @@ interface IAboutStep {
 
 const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
   const store = useDataStore();
-  const history = useHistory();
+  //const history = useHistory();
+  const history = createBrowserHistory({ forceRefresh: true });
   let profile = store.profile;
-
-  let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
-    const id = store.activities[key].id.toString()
-    const name = store.activities[key].name.toString();
-    return ({ id, name });
-  });
-  let stringReasons: { id: string, name: string }[] = Object.keys(store.exerciseReasons).map(function (key) {
-    const id = store.exerciseReasons[key].id.toString()
-    const name = store.exerciseReasons[key].name.toString();
-    return ({ id, name });
-  });
 
   const handleCancel = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -101,9 +90,9 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
             alert(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
-            return <Redirect to="/wizard/1" />
           }, 500);
-
+          history.push("/wizard/1");
+          //return <Redirect to="/wizard/1" />
           const fetchData = async () => {
             try {
               //alert(JSON.stringify(profile, null, 2));
@@ -145,7 +134,6 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
           setFieldValue
         }) => (
             <Form>
-              <PromptIfDirty />
               <div className="form-container user-section-wrapper">
                 <div className="user-section-data">
                   <Paper>
@@ -185,6 +173,7 @@ const AboutStep: React.FC<IAboutStep> = ({ editControls }) => {
                       </div>
                     </div>
                   </Paper>
+                  <PromptIfDirty />
                   <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
                      Submit
                   </Button>
