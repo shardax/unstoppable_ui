@@ -17,6 +17,7 @@ import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { ProfileProps } from "../../../UserStore";
+import { createBrowserHistory } from 'history'
 
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
@@ -64,7 +65,8 @@ interface IFitnessStep {
 
 const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
   const store = useDataStore();
-  const history = useHistory();
+  //const history = useHistory();
+  const history = createBrowserHistory({ forceRefresh: true });
   let profile = store.profile;
 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
@@ -110,6 +112,7 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
             resetForm();
             setSubmitting(false);
           }, 500);
+          history.push("/wizard/3");
 
           const fetchData = async () => {
             try {
@@ -266,6 +269,9 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                       </div>
                     </div>
                   </Paper>
+                  <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
+                     Submit
+                  </Button>
                 </div>
               </div>
             </Form>
