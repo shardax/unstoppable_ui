@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../../UserContext";
-import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import { CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../../LogIn/Error";
-import styled from '@emotion/styled';
 import Input from '../../Styled/Input';
 import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
@@ -16,7 +14,6 @@ import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
-import { ProfileProps } from "../../../UserStore";
 import { createBrowserHistory } from 'history'
 
 
@@ -52,33 +49,15 @@ const ValidationSchema = Yup.object().shape({
         .required("Required"),
 });
 
-interface ICancerStep {
-    editControls: {
-        editMode: boolean,
-        setEditMode: React.Dispatch<React.SetStateAction<boolean>>
-    }
-}
-
-const CancerStep: React.FC<ICancerStep> = ({ editControls }) => {
+const CancerStep = () => {
     const store = useDataStore();
     const history = createBrowserHistory({ forceRefresh: true });
     //const history = useHistory();
     let profile = store.profile;
 
-    let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
-        const id = store.activities[key].id.toString()
-        const name = store.activities[key].name.toString();
-        return ({ id, name });
-    });
-    let stringReasons: { id: string, name: string }[] = Object.keys(store.exerciseReasons).map(function (key) {
-        const id = store.exerciseReasons[key].id.toString()
-        const name = store.exerciseReasons[key].name.toString();
-        return ({ id, name });
-    });
-
     const handleCancel = (event: React.MouseEvent) => {
         event.preventDefault();
-        editControls.setEditMode(false)
+
     }
 
     return (
@@ -102,17 +81,17 @@ const CancerStep: React.FC<ICancerStep> = ({ editControls }) => {
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-                    setTimeout(() => {
-                        //alert(JSON.stringify(values, null, 2));
+                    /**setTimeout(() => {
+                        alert(JSON.stringify(values, null, 2));
                         resetForm();
                         setSubmitting(false);
-                    }, 500);
+                    }, 500);**/
                     history.push("/wizard/2");
 
                     const fetchData = async () => {
                         try {
                             //alert(JSON.stringify(profile, null, 2));
-                            let url = PROFILEURL + "/" + store.profile.id + ".json";
+                            let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
                             //Cancer History
                             profile.cancer_location = values.cancer_location;
                             profile.other_cancer_location = values.other_cancer_location;
@@ -124,7 +103,6 @@ const CancerStep: React.FC<ICancerStep> = ({ editControls }) => {
                             const res = await axios.patch(url, { profile: profile }, { withCredentials: true, headers: { "Access-Control-Allow-Origin": "*" } })
                             store.profile = profile;
                             console.log(JSON.stringify(res));
-                            editControls.setEditMode(false)
                             console.log("In handleBackToView");
                             history.push("/profile");
                             displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
