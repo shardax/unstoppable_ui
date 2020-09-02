@@ -118,6 +118,10 @@ return useObserver(() => (
             <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
           </div>
           <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />
+          <Button
+              type='submit'
+              value='Upload'
+        >Submit</Button>
       </form>
     </Fragment>
   ));
