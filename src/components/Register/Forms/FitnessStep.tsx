@@ -115,7 +115,7 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
           const fetchData = async () => {
             try {
               //alert(JSON.stringify(profile, null, 2));
-              let url = PROFILEURL + "/" + store.profile.id + ".json";
+              let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
               //About Me
               profile.activity_ids = values.activity_ids.map(Number);
               profile.other_favorite_activities = values.other_favorite_activities;
@@ -126,7 +126,7 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
               profile.prefered_exercise_time = values.prefered_exercise_time;
               profile.reason_for_match = values.reason_for_match;
               // Saving data on server
-              const res = await axios.patch(url, { profile: profile }, { withCredentials: true, headers: { "Access-Control-Allow-Origin": "*" } })
+              const res = await axios.patch(url, { profile: profile }, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}  })
               store.profile = profile;
               console.log(JSON.stringify(res));
               editControls.setEditMode(false)

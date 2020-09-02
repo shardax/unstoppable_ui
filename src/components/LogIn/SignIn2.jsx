@@ -80,7 +80,11 @@ const SignIn2 = () => {
             setIsError(true);
           }
           if (store.isLoggedIn){
-            history.push("/home");
+            if (store.profile.step_status == "Confirmed Email")
+              history.push("/home");
+            else {
+              history.push("/wizard/0");
+            }
           } else {
             history.push("/login")
           }
