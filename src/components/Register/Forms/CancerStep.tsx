@@ -86,7 +86,7 @@ const CancerStep = () => {
                         resetForm();
                         setSubmitting(false);
                     }, 500);**/
-                    history.push("/wizard/2");
+                   
 
                     const fetchData = async () => {
                         try {
@@ -100,12 +100,15 @@ const CancerStep = () => {
                             profile.part_of_wellness_program = (values.part_of_wellness_string == "Yes") ? true : false
                             profile.which_wellness_program = values.which_wellness_program;
                             // Saving data on server
-                            const res = await axios.patch(url, { profile: profile }, { withCredentials: true, headers: { "Access-Control-Allow-Origin": "*" } })
+                            const res = await axios.patch(url, 
+                                                    { profile: profile },
+                                                    { withCredentials: true,
+                                                        headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}}
+                                                    )
                             store.profile = profile;
                             console.log(JSON.stringify(res));
-                            console.log("In handleBackToView");
-                            history.push("/profile");
                             displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
+                            history.push("/wizard/2");
                         } catch (err) {
                             displayToast("Failed to update profile", "error", 3000, "top-right")
                             if (err.response) {

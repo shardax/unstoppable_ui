@@ -3,7 +3,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
-import React, { useState } from "react";
+import React from "react";
 import UnsIcon from '../../images/2Unstoppable_logo.png'
 import './About.scss'
 import {
@@ -14,26 +14,13 @@ import {
   Redirect,
   useParams
 } from "react-router-dom";
-import { useDataStore } from "../../UserContext";
-import { useHistory } from 'react-router-dom';
-import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../constants/ProfileConstants"
-import Default from '../../layouts/Default'
-import * as Yup from 'yup';
-
-import Error from "../LogIn/Error";
-import styled from '@emotion/styled';
-import Input from '../Styled/Input';
 import Button from '../Styled/Button';
-import Textarea from '../Styled/Textarea';
-import Select from '../Styled/Select';
-import { displayToast } from '../Toast/Toast';
-
 import AboutStep from './Forms/AboutStep';
 import CancerStep from './Forms/CancerStep';
 import FitnessStep from './Forms/FitnessStep';
 import UploadPhoto from '../manageProfile/UploadPhoto'
+import ConfirmStep from './Forms/ConfirmStep';
+import VerifyStep from './Forms/VerifyStep';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,14 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
-const ValidationSchema = Yup.object().shape({
-  reason_for_match: Yup.string()
-    .min(1, "Too Short!")
-    .max(255, "Too Long!")
-    .required("Required"),
-  cancer_location: Yup.string()
-    .required("Required"),
-});
+
 function getSteps() {
   return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email'];
 }
@@ -75,7 +55,9 @@ function getStepContent(step) {
     case 3:
       return <UploadPhoto />;
     case 4:
-      return 'Confirm Email';
+      return <ConfirmStep />;
+    case 5:
+      return <VerifyStep />;
     default:
       return 'Unknown step';
   }
@@ -88,8 +70,7 @@ export default function About() {
     });
   }
   let { stepId } = useParams();
-  //console.log("printing stepId");
-  //console.log(stepId);
+  
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(parseInt(stepId));
   //const [activeStep, setActiveStep] = React.useState(parseInt(step));

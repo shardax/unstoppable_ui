@@ -7,7 +7,7 @@ import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
-import Error from "../../LogIn/Error";
+import Error from "../Error";
 import styled from '@emotion/styled';
 import Input from '../../Styled/Input';
 import Button from '../../Styled/Button';
@@ -110,7 +110,7 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
             resetForm();
             setSubmitting(false);
           }, 500);
-          history.push("/wizard/3");
+          
 
           const fetchData = async () => {
             try {
@@ -126,13 +126,14 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
               profile.prefered_exercise_time = values.prefered_exercise_time;
               profile.reason_for_match = values.reason_for_match;
               // Saving data on server
-              const res = await axios.patch(url, { profile: profile }, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}  })
+              const res = await axios.patch(url, 
+                                      { profile: profile }, 
+                                      { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}}
+                                    )
               store.profile = profile;
               console.log(JSON.stringify(res));
-              editControls.setEditMode(false)
-              console.log("In handleBackToView");
-              history.push("/profile");
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
+              history.push("/wizard/3");
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
