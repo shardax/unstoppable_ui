@@ -26,19 +26,18 @@ const ConfirmStep = () => {
   useEffect(() => {
     const fetchData = async () => {
      
-      try {
-          const result = await axios.get(REGISTERURL + "/" + store.current_user_id + "/email_confirmation", { withCredentials: true });
-          console.log(JSON.stringify(result));
-          console.log(result.data.username);
-        
-      } catch (error) {
-        //console.log(JSON.stringify(error));
-        console.log(error.message);
-        
-        //setIsError(true);
+      if (inputSubmitted) {
+        try {
+            const result = await axios.get(REGISTERURL + "/" + store.current_user_id + "/email_confirmation", { withCredentials: true });
+            console.log(JSON.stringify(result));
+            console.log(result.data.username);
+            history.push("/wizard/5");
+        } catch (error) {
+          //console.log(JSON.stringify(error));
+          console.log(error.message);
+          //setIsError(true);
+        }
       }
-      history.push("/confirm");
-
     };
     fetchData();
 

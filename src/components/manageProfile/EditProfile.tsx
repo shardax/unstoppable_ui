@@ -408,7 +408,7 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         <div className="user-metadata">
           <Paper>
             <div className="profile-section-header">Profile Picture</div>
-            <UploadPhoto />
+            <UploadPhoto fromWizard={false}/>
           </Paper>
         </div>
             

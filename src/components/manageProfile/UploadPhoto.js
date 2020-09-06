@@ -9,8 +9,9 @@ import './UploadPhoto.scss'
 import ProgressBar from "./Progress-Bar";
 //import Cropper from 'react-easy-crop'
 import Button from '../Styled/Button'
+import { createBrowserHistory } from 'history'
 
-const FileUpload = () => {
+const UploadPhoto = (props) => {
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
   const [uploadedFile, setUploadedFile] = useState({});
@@ -18,7 +19,6 @@ const FileUpload = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const uploadedImage = React.useRef(null);
   const [showPhoto, setShowPhoto] = useState(false);
-  //const [newPhoto, setNewPhoto] = useState("");;
   const [newPhoto, setNewPhoto] = useState("");
   const store = useDataStore();
   const [profileImg, setProfileImg] = useState(ROOTURL + store.avatarPath);
@@ -27,6 +27,7 @@ const FileUpload = () => {
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     console.log(croppedArea, croppedAreaPixels)
   }, [])
+  const history = createBrowserHistory({ forceRefresh: true });
   const [completed, setCompleted] = useState(0);
 
   const handleImageChange = (e) => {
@@ -70,6 +71,9 @@ const FileUpload = () => {
         }
       }
       fetchProfile();
+      if (props.fromWizard) {
+        history.push("/wizard/4");
+      }
   }
   const onSubmit = async e => {
     e.preventDefault();
@@ -127,4 +131,4 @@ return useObserver(() => (
   ));
 };
 
-export default FileUpload;
+export default UploadPhoto;

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email'];
+  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email', 'Verify Email'];
 }
 function getStepContent(step) {
   switch (step) {
@@ -53,7 +53,7 @@ function getStepContent(step) {
     case 2:
       return <FitnessStep />;
     case 3:
-      return <UploadPhoto />;
+      return <UploadPhoto fromWizard={true} />;
     case 4:
       return <ConfirmStep />;
     case 5:
