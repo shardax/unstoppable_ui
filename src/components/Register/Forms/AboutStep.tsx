@@ -27,11 +27,9 @@ const PromptIfDirty = () => {
 
 const AboutStep = () => {
   const store = useDataStore();
-  //const history = useHistory();
   const history = createBrowserHistory({ forceRefresh: true });
   let profile = store.profile;
-  alert("hi");
-  alert(JSON.stringify(profile));
+
   const handleCancel = (event: React.MouseEvent) => {
     event.preventDefault();
   }
@@ -49,26 +47,25 @@ const AboutStep = () => {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           setTimeout(() => {
-            //alert(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
           }, 500);
           
-          //return <Redirect to="/wizard/1" />
+          
           const fetchData = async () => {
             try {
-              alert(JSON.stringify(profile, null, 2));
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              alert(url);
               //About Me
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
               // Saving data on server
-              const res = await axios.patch(url, { profile: profile }, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"} })
+              const res = await axios.patch(url,
+                              { profile: profile },
+                              { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"} }
+                            )
               store.profile = profile;
-              console.log(JSON.stringify(res));
-              console.log("In handleBackToView");
+              localStorage.setItem("userStore", JSON.stringify(store));
               history.push("/wizard/1");
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
             } catch (err) {
@@ -83,6 +80,8 @@ const AboutStep = () => {
             }
           };
           fetchData();
+          //alert("Fetch Data Done!!");
+          //alert(JSON.stringify(store.profile));
         }}
       >
         {({

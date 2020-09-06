@@ -106,7 +106,7 @@ const CancerStep = () => {
                                                         headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}}
                                                     )
                             store.profile = profile;
-                            console.log(JSON.stringify(res));
+                            localStorage.setItem("userStore", JSON.stringify(store));
                             displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
                             history.push("/wizard/2");
                         } catch (err) {

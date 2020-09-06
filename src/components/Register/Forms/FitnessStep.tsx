@@ -104,12 +104,12 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(true);
-          setTimeout(() => {
+          //setSubmitting(true);
+         // setTimeout(() => {
             //alert(JSON.stringify(values, null, 2));
-            resetForm();
-            setSubmitting(false);
-          }, 500);
+            //resetForm();
+           // setSubmitting(false);
+          //}, 500);
           
 
           const fetchData = async () => {
@@ -131,7 +131,7 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                                       { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}}
                                     )
               store.profile = profile;
-              console.log(JSON.stringify(res));
+              localStorage.setItem("userStore", JSON.stringify(store));
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               history.push("/wizard/3");
             } catch (err) {
