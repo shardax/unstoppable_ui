@@ -25,7 +25,9 @@ const validationSchema = Yup.object().shape({
     username: Yup.string()
         .min(1, "Too Short!")
         .max(255, "Too Long!")
-        .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
+        .matches(/^[a-zA-Z0-9_\.]*$/, "Invalid Username")
+        // .matches(/^[a-z\d]{5,12}$/i, "Invalid Username")
+        //<p><i>User name must be 5-12 characters long, with only lowercase letters followed by digits.</i></p>
         /*
         .test('Unique Username','Username already been taken', 
               function(value){return new Promise((resolve, reject) => {        
@@ -109,15 +111,15 @@ const Register2 = () => {
                 phone: ""
                 //recaptchaToken =recaptchaToken 
             }}
-            validationSchema={validationSchema}
-            validate={values => {
-                let errors = {};
-                return errors;
-            }}
+           // validationSchema={validationSchema}
+           // validate={values => {
+            //    let errors = {};
+            //    return errors;
+           // }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
                 setTimeout(() => {
-                     alert(JSON.stringify(values, null, 2));
+                     //alert(JSON.stringify(values, null, 2));
                     resetForm();
                     setSubmitting(false);
                 }, 500);
@@ -143,6 +145,19 @@ const Register2 = () => {
                                 "password": values.password,
                                 "referred_by": values.referred_by,
                                 //"phone_number": values.phone,
+
+                                /**
+                                 * "username": "raghuji1",//values.username,
+                                "email": "raghu.chintala@gmail.com",//values.email,
+                                "dob(3i)": "1", //day,
+                                "dob(2i)": "2", //month,
+                                "dob(1i)": "1959", //year,
+                                "zipcode": "20854", //values.zipcode,
+                                "password": "Dash1234", //values.password,
+                                "referred_by": "Web search" //values.referred_by,
+                                //"phone_number": values.phone,
+                                 * 
+                                 */
                             }
                         },
                             {
@@ -151,36 +166,45 @@ const Register2 = () => {
                             });
 
                           console.log(JSON.stringify(result));
-                          store.username =  result.data.username;
-                          store.current_user_id = result.data.current_user_id;
-                          store.email = result.data.email;
-                          store.profile = result.data.profile;
-                          store.profileId = result.data.profile.id;
-                          store.activities = result.data.all_activities;
-                          store.exerciseReasons = result.data.all_exercise_reasons;
-                          store.isLoggedIn = true;
-                          localStorage.setItem("userStore", JSON.stringify(store));
+                          if (result.data.status != "error") {
+                            store.username =  result.data.username;
+                            store.current_user_id = result.data.current_user_id;
+                            store.email = result.data.email;
+                            store.profile = result.data.profile;
+                            store.profileId = result.data.profile.id;
+                            store.activities = result.data.all_activities;
+                            store.exerciseReasons = result.data.all_exercise_reasons;
+                            store.isLoggedIn = true;
+                            localStorage.setItem("userStore", JSON.stringify(store));
+                          } else {
+                            setIsError(true);
+                            setErrorMessage(result.data.messages);
+                          }
+                          
                         //store.isLoggedIn = true;
                     } catch (err) {
-                        console.log(err.message);
+                        console.log(JSON.stringify(err));
                         if (err.response) {
                             // client received an error response (5xx, 4xx)
+                            console.log("1");
                             setErrorMessage(err.message);
                         } else if (err.request) {
                             // client never received a response, or request never left
+                            console.log("2");
                             setErrorMessage(err.message);
                         } else {
                             // anything else
+                            console.log("3");
                             setErrorMessage(err.message);
                         }
                         setIsError(true);
                     }
                     // end of error block
-                    //if (store.isLoggedIn) {
-                       // history.push("/profile");
-                    //} else {
-                        history.push("/wizard/0")
-                    //}
+                    if (!isError && store.isLoggedIn) {
+                        history.push("/wizard/0");
+                    } else {
+                        //
+                    }
                 };
                 createAcc();
             }}
@@ -201,6 +225,7 @@ const Register2 = () => {
                             <div className="container">
                                 <h1>Sign Up</h1>
                                 <p>Please fill in this form to create an account.</p>
+                                { errorMessage && <h3 className="error"> { errorMessage } </h3> }
                                 <table>
                                     <th>
                                         <h2>Account Information</h2>
@@ -222,7 +247,7 @@ const Register2 = () => {
                                             {touched.username && errors.username ? (
                                                 <div className="errorText">{errors.username}</div>
                                             ) : null}
-                                            <p><i>User name must be 5-12 characters long, with only lowercase letters followed by digits.</i></p>
+                                            
                                         </td>
                                     </tr>
                                     <tr>
