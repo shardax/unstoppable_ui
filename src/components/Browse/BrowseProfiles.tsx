@@ -79,7 +79,8 @@ import ChatIcon from '@material-ui/icons/Chat';
             <p className="other-profile-card-data">{profile.age} years old</p>
           </div>
           <div>
-          <Link to={"/messages"}>
+            {console.log(JSON.stringify(profile))}
+          <Link to={"/userMessage" + "/" + profile.user_id}>
             <ChatIcon className="favorite-profile-icon"></ChatIcon>
           </Link>
           {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}

@@ -53,9 +53,12 @@ const exampleMessages = {
   ]
 }*/}
 
+
 const Inbox = () => {
+//const Inbox: React.FC<UserProp> = (props) => {  
   const store = useDataStore();
   const [currChat, setCurrChat] = useState("");
+  let { user_id } = useParams();
   const [currConversation, setCurrConversation] = useState({
     messages: [],
     id: "",
@@ -68,6 +71,8 @@ const Inbox = () => {
       timestamp: ""
     }
   });
+  //console.log("user id");
+  //console.log(user_id);
   const [msgText, setMsgText] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
@@ -90,7 +95,7 @@ const Inbox = () => {
       try {
         if (messageSent) {
           if (currConversation.messages.length == 0){
-            let data =  {"user_id": 1, "subject": "cba", "body": msgText}
+            let data =  {"user_id": user_id, "subject": "cba", "body": msgText}
             let url = SENDMESSAGEURL;
             const result = await axios.post(url, data, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}});
             console.log("new conversation");
@@ -104,9 +109,13 @@ const Inbox = () => {
             const result = await axios.post(url, data, { withCredentials: true, headers: {
               contentType: "application/json; charset=utf-8", "Accept": "application/json"
             } });
-            console.log("existing conversation");
-            console.log(JSON.stringify(result));
+            //console.log("existing conversation");
+            //console.log(JSON.stringify(currConversation));
+            //console.log(JSON.stringify(result));
             setCurrConversation(result.data);
+           // console.log("AFTER");
+            //console.log(JSON.stringify(currConversation));
+            //setCurrChat(currConversation.name);
             setMsgText("");
           }
         }
@@ -115,6 +124,7 @@ const Inbox = () => {
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
+        setMessageSent(false);
         setIsError(true);
       }
       
@@ -153,7 +163,9 @@ const Inbox = () => {
   }, []);
 
   useEffect(() => {
+    console.log("in useEffect settting currChat");
     setCurrChat(currConversation.name);
+    console.log(currChat);
   }, [currConversation]);
 
   const Conversation = ({ message }) => {
