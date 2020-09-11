@@ -79,7 +79,6 @@ import ChatIcon from '@material-ui/icons/Chat';
             <p className="other-profile-card-data">{profile.age} years old</p>
           </div>
           <div>
-            {console.log(JSON.stringify(profile))}
           <Link to={"/userMessage" + "/" + profile.user_id}>
             <ChatIcon className="favorite-profile-icon"></ChatIcon>
           </Link>

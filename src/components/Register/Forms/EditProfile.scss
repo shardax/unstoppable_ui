@@ -1,0 +1,56 @@
+@import "../../../assets/scss/variables";
+
+.editProfile{
+    padding-top: 12px;
+    color: black;
+    background-color: white;
+    border: 2px solid violet;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.question-title {
+    
+}
+
+.question-wrapper {
+    margin: 1em 0em;
+    label {
+        font-weight: 500;
+    }
+}
+
+.Answers {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.Checkbox{
+    text-align: left;
+    font-size: 18px;
+    width: 50px;
+    margin-top: 12px;
+}
+.Button{
+    margin-top: 15px;
+    font-size: 25px;
+    background-color: white;
+    color: black;
+    border: 2px solid violet;
+    border-radius: 3px;
+}
+
+.submition-row {
+    position: fixed;
+    z-index: 20 !important;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    margin-left: -4%;
+    margin-right: -4%;
+    width: calc(100% - 16em);
+    border-top: 1px solid rgb(200,200,200);
+}

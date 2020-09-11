@@ -6,13 +6,14 @@ import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
 import { CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
-import Error from "../../LogIn/Error";
+import Error from "./Error";
 import Input from '../../Styled/Input';
 import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
+import './EditProfile.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
 
@@ -66,7 +67,7 @@ const CancerStep = () => {
             <Formik
                 initialValues={{
                     //Cancer History
-                    cancer_location: profile.cancer_location,
+                    cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location,
                     other_cancer_location: profile.other_cancer_location,
                     treatment_status: profile.treatment_status,
                     treatment_description: profile.treatment_description,
@@ -81,11 +82,11 @@ const CancerStep = () => {
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-                    /**setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
+                    setTimeout(() => {
+                        //alert(JSON.stringify(values, null, 2));
                         resetForm();
                         setSubmitting(false);
-                    }, 500);**/
+                    }, 500);
                    
 
                     const fetchData = async () => {
