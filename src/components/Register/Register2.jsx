@@ -174,6 +174,7 @@ const Register2 = () => {
                             store.profileId = result.data.profile.id;
                             store.activities = result.data.all_activities;
                             store.exerciseReasons = result.data.all_exercise_reasons;
+                            store.confirm_token = result.data.confirm_token;
                             store.isLoggedIn = true;
                             localStorage.setItem("userStore", JSON.stringify(store));
                           } else {

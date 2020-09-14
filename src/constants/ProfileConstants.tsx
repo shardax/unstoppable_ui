@@ -75,3 +75,4 @@ export const CANCERLOCATIONLIST = [
       'Other'
     ]
     
+    export const STEP_CONFIRMED_EMAIL =  "Confirmed Email"

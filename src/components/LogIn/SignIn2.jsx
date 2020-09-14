@@ -8,6 +8,7 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
+import {STEP_CONFIRMED_EMAIL} from "../../constants/ProfileConstants";
 import Input from '../Styled/Input'
 import Button from '../Styled/Button'
 // import {displayToast} from "../Toast/Toast";
@@ -69,6 +70,8 @@ const SignIn2 = () => {
               store.avatarPath = result.data.photo;
               store.activities = result.data.all_activities;
               store.exerciseReasons = result.data.all_exercise_reasons;
+              store.confirm_token = result.data.confirm_token;
+              store.user_confirmed = (store.profile.step_status == STEP_CONFIRMED_EMAIL) ? true:false
               localStorage.setItem("userStore", JSON.stringify(store));
           } catch (error) {
             console.log(error.message);
@@ -80,7 +83,7 @@ const SignIn2 = () => {
             setIsError(true);
           }
           if (store.isLoggedIn){
-            if (store.profile.step_status == "Confirmed Email")
+            if (store.user_confirmed)
               history.push("/home");
             else {
               history.push("/wizard/0");

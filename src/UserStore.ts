@@ -153,6 +153,8 @@ export class UserStore {
   @persist @observable email: string;
   @persist activities: ActivitiesStore[];
   @persist exerciseReasons: ExerciseReasonsStore[];
+  @persist confirm_token:string;
+  @persist user_confirmed:boolean;
 
   constructor(){
      // When the User hits refresh, get the values from the local storage.
@@ -168,6 +170,8 @@ export class UserStore {
       this.email = localStorageData.email;
       this.activities = localStorageData.activities;
       this.exerciseReasons = localStorageData.exerciseReasons;
+      this.confirm_token = localStorageData.confirm_token;
+      this.user_confirmed = localStorageData.user_confirmed;
     } else {
       this.username = "";
       this.email = "";
@@ -179,6 +183,8 @@ export class UserStore {
       // this.editMode = false;
       this.activities = [];
       this.exerciseReasons = [];
+      this.confirm_token = "";
+      this.user_confirmed = false;
       }
      //hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
      Promise.all([
