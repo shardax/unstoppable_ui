@@ -51,14 +51,14 @@ const VerifyStep = () => {
     const fetchData = async () => {
       if (confirmationTokenMatch) {
         try {
-            let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-            let profile = store.profile;
-            profile.step_status = STEP_CONFIRMED_EMAIL;
-            const res = await axios.patch(url, 
-              { profile: profile },
+            //let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
+            //let profile = store.profile;
+            //profile.step_status = STEP_CONFIRMED_EMAIL;
+            const res = await axios.get(REGISTERURL + "/" + store.confirm_token + "/confirm_email_json",
               { withCredentials: true,
                   headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}}
               )
+              //# confirm_email_json_user GET    /users/:id/confirm_email_json(.:format) 
             console.log(JSON.stringify(res));
             store.profile.step_status = STEP_CONFIRMED_EMAIL;
             store.user_confirmed = true;
@@ -79,7 +79,7 @@ const VerifyStep = () => {
     const fetchData = async () => {
       if (inputSubmitted) {
         try {
-            const result = await axios.get(REGISTERURL + "/" + store.current_user_id + "/email_confirmation", { withCredentials: true });
+            const result = await axios.get(REGISTERURL + "/" + store.confirm_token + "/email_confirmation", { withCredentials: true });
             console.log(JSON.stringify(result));
             console.log(result.data.username);
         } catch (error) {
