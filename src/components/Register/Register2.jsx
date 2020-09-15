@@ -111,11 +111,11 @@ const Register2 = () => {
                 phone: ""
                 //recaptchaToken =recaptchaToken 
             }}
-           // validationSchema={validationSchema}
-           // validate={values => {
-            //    let errors = {};
-            //    return errors;
-           // }}
+            validationSchema={validationSchema}
+            validate={values => {
+                let errors = {};
+                return errors;
+            }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
                 setTimeout(() => {
