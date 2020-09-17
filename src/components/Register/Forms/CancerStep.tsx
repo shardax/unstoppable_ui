@@ -53,6 +53,7 @@ const ValidationSchema = Yup.object().shape({
 const CancerStep = () => {
     const store = useDataStore();
     const history = createBrowserHistory({ forceRefresh: true });
+    const [prevSubmitted, setPrevSubmitted] = useState(false);
     //const history = useHistory();
     let profile = store.profile;
 
@@ -109,7 +110,11 @@ const CancerStep = () => {
                             store.profile = profile;
                             localStorage.setItem("userStore", JSON.stringify(store));
                             displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
-                            history.push("/wizard/2");
+                            if (prevSubmitted){
+                                history.push("/wizard/0");
+                            } else {
+                                history.push("/wizard/2");
+                            }
                         } catch (err) {
                             displayToast("Failed to update profile", "error", 3000, "top-right")
                             if (err.response) {
@@ -204,9 +209,13 @@ const CancerStep = () => {
                                             </div>
                                         </div>
                                     </Paper>
-                                    <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
-                                        Submit
+                                    <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                                        onClick={(e)=>{setPrevSubmitted(true)}}>
+                                        Prev
                                     </Button>
+                                    { (profile.cancer_location != null)  && <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                                        Next
+                                    </Button>}
                                 </div>
                             </div>
                         </Form>

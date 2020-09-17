@@ -64,6 +64,7 @@ interface IFitnessStep {
 
 const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
   const store = useDataStore();
+  const [prevSubmitted, setPrevSubmitted] = useState(false);
   //const history = useHistory();
   const history = createBrowserHistory({ forceRefresh: true });
   let profile = store.profile;
@@ -134,7 +135,11 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
-              history.push("/wizard/3");
+              if (prevSubmitted){
+                history.push("/wizard/1");
+            } else {
+                history.push("/wizard/3");
+            }
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
@@ -269,9 +274,13 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                       </div>
                     </div>
                   </Paper>
-                  <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
-                     Submit
+                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                      onClick={(e)=>{setPrevSubmitted(true)}}>
+                      Prev
                   </Button>
+                  { (profile.reason_for_match != null)  && <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                      Next
+                  </Button>}
                 </div>
               </div>
             </Form>

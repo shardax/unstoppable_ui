@@ -34,6 +34,10 @@ const AboutStep = () => {
     event.preventDefault();
   }
 
+  const handleNext = (event: React.MouseEvent) => {
+    event.preventDefault();
+    history.push("/wizard/1");
+  }
   return (
 
     <div>
@@ -64,10 +68,10 @@ const AboutStep = () => {
                               { profile: profile },
                               { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"} }
                             )
+              displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
               history.push("/wizard/1");
-              displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
@@ -135,8 +139,8 @@ const AboutStep = () => {
                     </div>
                   </Paper>
                   <PromptIfDirty />
-                  <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
-                     Submit
+                  <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                     Next
                   </Button>
                 </div>
               </div>
