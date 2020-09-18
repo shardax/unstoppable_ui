@@ -47,8 +47,6 @@ const UploadPhoto = (props) => {
       }
       reader.readAsDataURL(e.target.files[0])
     }
-    alert(JSON.stringify(e.target.files[0]));
-    alert(newPhoto);
 };
 
   const refreshPhoto = () => {
@@ -71,11 +69,11 @@ const UploadPhoto = (props) => {
         }
       }
       fetchProfile();
-      if (props.fromWizard) {
-        history.push("/wizard/4");
-      }
+      //if (props.fromWizard) {
+      //  history.push("/wizard/4");
+      //}
   }
-  const onSubmit = async e => {
+  const onSubmitUpload = async e => {
     e.preventDefault();
     setInterval(() => setCompleted(Math.floor(100)), 10000);
 
@@ -108,7 +106,7 @@ const UploadPhoto = (props) => {
 return useObserver(() => (
     <Fragment>
       {message ? <Message msg={message} /> : null}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitUpload}>
         <table>
           <tr>
             <td>
@@ -125,7 +123,7 @@ return useObserver(() => (
           <Button
               type='submit'
               value='Upload'
-        >Submit</Button>
+        >Upload Photo</Button>
       </form>
     </Fragment>
   ));

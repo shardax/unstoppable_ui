@@ -70,6 +70,7 @@ interface IEditProfile {
 const EditProfile: React.FC<IEditProfile> = ({editControls}) => { 
   const store = useDataStore();
   const history = useHistory();
+  const [inputSubmitted, setInputSubmitted] = useState(false);
   let profile = store.profile;
 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
@@ -400,22 +401,21 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
         </Paper>
         <Button margin="2em 0em" padding="10px 20px" disabled={isSubmitting}>
                 Submit
-            </Button>
-            <Button background="white" color="#6429B9" border="1px solid #6429B9" margin="2em 1.5em" padding="10px 20px" onClick={handleCancel}>
-                Cancel
-            </Button>
+        </Button>
+        <Button background="white" color="#6429B9" border="1px solid #6429B9" margin="2em 1.5em" padding="10px 20px" onClick={handleCancel}>
+            Cancel
+        </Button>
         </div>
-        <div className="user-metadata">
-          <Paper>
-            <div className="profile-section-header">Profile Picture</div>
-            <UploadPhoto fromWizard={false}/>
-          </Paper>
-        </div>
-            
         </div>
         </Form>
       )}
     </Formik>
+    <div className="user-metadata">
+        <Paper>
+          <div className="profile-section-header">Profile Picture</div>
+          <UploadPhoto fromWizard={false}/>
+        </Paper>
+    </div>
   </div>
 );
 }
