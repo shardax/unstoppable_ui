@@ -11,11 +11,14 @@ import ProgressBar from "./Progress-Bar";
 import Button from '../Styled/Button'
 import { createBrowserHistory } from 'history'
 
+
+
 const UploadPhoto = (props) => {
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadStart, setUploadStart] = useState(false);
+  const [fileChosen, setFileChosen] = useState(false);
   const [message, setMessage] = useState('');
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const uploadedImage = React.useRef(null);
@@ -32,6 +35,7 @@ const UploadPhoto = (props) => {
   const [completed, setCompleted] = useState(0);
 
   const handleImageChange = (e) => {
+    setFileChosen(true);
     if (e.target.files[0]) {
     //  alert("setting newPhoto");
       setCompleted(0);
@@ -51,6 +55,10 @@ const UploadPhoto = (props) => {
   const handleCancelUpload = (e) => {
     e.preventDefault();
     setProfileImg(ROOTURL + store.avatarPath);
+    setUploadedFile(false);
+    setUploadStart(false);
+    setFileChosen(false);
+    setCompleted(0);
   }
 
   const refreshPhoto = () => {
@@ -78,10 +86,12 @@ const UploadPhoto = (props) => {
       //}
       setUploadedFile(false);
       setUploadStart(false);
+      setFileChosen(false);
+      setCompleted(0);
   }
   const onSubmitUpload = async e => {
     e.preventDefault();
-    setUploadedFile(true);
+    //props.handleUploadHappening(true);
     setInterval(() => setCompleted(Math.floor(100)), 10000);
 
       const formData = new FormData();
@@ -129,12 +139,12 @@ return useObserver(() => (
           {(uploadStart) && <p> File Uploading... </p> }
           {(uploadedFile) && <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />}
           </div>
-          <Button type='submit' value='Upload'>
+          {(fileChosen) && <Button type='submit' value='Upload'  onClick={(e)=>{setUploadedFile(true)}}  >
             Upload Photo
-          </Button>
-          <Button type="submit" margin="0em 1.5em"  onClick={handleCancelUpload}>
+          </Button>}
+          {(fileChosen) && (!uploadedFile) && <Button margin="0em 1.5em"  onClick={handleCancelUpload}>
                 Cancel
-         </Button>
+         </Button>}
       </form>
     </Fragment>
   ));
