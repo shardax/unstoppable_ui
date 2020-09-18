@@ -14,7 +14,8 @@ import { createBrowserHistory } from 'history'
 const UploadPhoto = (props) => {
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
-  const [uploadedFile, setUploadedFile] = useState({});
+  const [uploadedFile, setUploadedFile] = useState(false);
+  const [uploadStart, setUploadStart] = useState(false);
   const [message, setMessage] = useState('');
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const uploadedImage = React.useRef(null);
@@ -41,13 +42,16 @@ const UploadPhoto = (props) => {
       reader.onload = () =>{
         if(reader.readyState === 2){
           setProfileImg(reader.result);
-        //  setAvatarPath(newPhoto);
-         // console.log(newPhoto)
         }
       }
       reader.readAsDataURL(e.target.files[0])
     }
-};
+  };
+
+  const handleCancelUpload = (e) => {
+    e.preventDefault();
+    setProfileImg(ROOTURL + store.avatarPath);
+  }
 
   const refreshPhoto = () => {
       const fetchProfile = async () => {
@@ -72,9 +76,12 @@ const UploadPhoto = (props) => {
       //if (props.fromWizard) {
       //  history.push("/wizard/4");
       //}
+      setUploadedFile(false);
+      setUploadStart(false);
   }
   const onSubmitUpload = async e => {
     e.preventDefault();
+    setUploadedFile(true);
     setInterval(() => setCompleted(Math.floor(100)), 10000);
 
       const formData = new FormData();
@@ -90,11 +97,9 @@ const UploadPhoto = (props) => {
     
       },)
       .then(res => {
-     //   console.log("res");
       })
       .then(data => {
-       // console.log("Uploaded file");
-       // console.log(JSON.stringify(data));
+        setUploadStart(true);
         setTimeout(() => {
          // const percentage= parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
          // setUploadPercentage(percentage);
@@ -119,11 +124,17 @@ return useObserver(() => (
           <div className='Photo'>
             <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
           </div>
-          <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />
-          <Button
-              type='submit'
-              value='Upload'
-        >Upload Photo</Button>
+          <div>
+          <br/><br/>
+          {(uploadStart) && <p> File Uploading... </p> }
+          {(uploadedFile) && <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />}
+          </div>
+          <Button type='submit' value='Upload'>
+            Upload Photo
+          </Button>
+          <Button type="submit" margin="0em 1.5em"  onClick={handleCancelUpload}>
+                Cancel
+         </Button>
       </form>
     </Fragment>
   ));
