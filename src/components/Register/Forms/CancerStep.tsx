@@ -6,14 +6,14 @@ import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
 import { CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
-import Error from "./Error";
+import Error from "../../LogIn/Error";
 import Input from '../../Styled/Input';
 import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
-import './EditProfile.scss'
+import '../../manageProfile/EditProfile.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
 
@@ -208,14 +208,16 @@ const CancerStep = () => {
                                                 <Field name="which_wellness_program" as={Input} placeoHlder="Which wellness program" />
                                             </div>
                                         </div>
+                                        { errors && <h3 className="error"> { console.log(JSON.stringify(errors)) } </h3> }
                                     </Paper>
+                                    {(!values.cancer_location) && <Error touched={touched.cancer_location} message="Cancer Location is a required field. Please select value." />}
                                     <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
                                         onClick={(e)=>{setPrevSubmitted(true)}}>
                                         Prev
                                     </Button>
-                                    { (profile.cancer_location != null)  && <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
                                         Next
-                                    </Button>}
+                                    </Button>
                                 </div>
                             </div>
                         </Form>

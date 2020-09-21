@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../../UserContext";
-import { useHistory } from 'react-router-dom';
 import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import { PROFILEURL } from "../../../constants/matcher";
+import { PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
-import Error from "./Error";
-import styled from '@emotion/styled';
+import Error from "../../LogIn/Error";
 import Input from '../../Styled/Input';
 import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
-import './EditProfile.scss'
+import '../../manageProfile/EditProfile.scss'
 import { displayToast } from '../../Toast/Toast';
-import { ProfileProps } from "../../../UserStore";
 import { createBrowserHistory } from 'history'
 
 
@@ -278,9 +275,9 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                       onClick={(e)=>{setPrevSubmitted(true)}}>
                       Prev
                   </Button>
-                  { (profile.reason_for_match != null)  && <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                  <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  onClick={(e)=>{setPrevSubmitted(false)}}>
                       Next
-                  </Button>}
+                  </Button>
                 </div>
               </div>
             </Form>

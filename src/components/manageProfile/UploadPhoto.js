@@ -26,6 +26,7 @@ const UploadPhoto = (props) => {
   const [newPhoto, setNewPhoto] = useState("");
   const store = useDataStore();
   const [profileImg, setProfileImg] = useState(ROOTURL + store.avatarPath);
+  const [fromWizard, setFromWizard] = useState(props.fromWizard);
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
@@ -52,6 +53,13 @@ const UploadPhoto = (props) => {
     }
   };
 
+  const handleNext = () => {
+    history.push("/wizard/4");
+  };
+  const handlePrev = () => {
+    history.push("/wizard/2");
+  };
+
   const handleCancelUpload = (e) => {
     e.preventDefault();
     setProfileImg(ROOTURL + store.avatarPath);
@@ -72,9 +80,11 @@ const UploadPhoto = (props) => {
             }})
          //   console.log(JSON.stringify(result));
             if(result){
-           //   console.log(JSON.stringify(result.data.profile.photo));
+              console.log("In refresh photo");
+              console.log(JSON.stringify(result.data.profile.photo));
               store.avatarPath = result.data.profile.photo;
               store.profile.photo =  result.data.profile.photo;
+              localStorage.setItem("userStore", JSON.stringify(store));
             }
         } catch (e) {
           console.log(`😱 Profile Fetch failed: ${e}`);
@@ -121,6 +131,7 @@ const UploadPhoto = (props) => {
 return useObserver(() => (
     <Fragment>
       {message ? <Message msg={message} /> : null}
+      <p> <em> Including a photo will help other members feel more comfortable.</em></p>
       <form onSubmit={onSubmitUpload}>
         <table>
           <tr>
@@ -131,20 +142,26 @@ return useObserver(() => (
             </td>
           </tr>
         </table>
-          <div className='Photo'>
-            <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
-          </div>
-          <div>
+        <div className='Photo'>
+              <input type="file" name="Photo123" accept="image/png, image/jpeg" onChange={handleImageChange} />
+        </div>
+        <div>
           <br/><br/>
           {(uploadStart) && <p> File Uploading... </p> }
           {(uploadedFile) && <ProgressBar bgcolor={"#6a1b9a"} completed={completed} />}
-          </div>
-          {(fileChosen) && <Button type='submit' value='Upload'  onClick={(e)=>{setUploadedFile(true)}}  >
-            Upload Photo
-          </Button>}
-          {(fileChosen) && (!uploadedFile) && <Button margin="0em 1.5em"  onClick={handleCancelUpload}>
-                Cancel
-         </Button>}
+        </div>
+        {(fileChosen) && <Button type='submit' value='Upload'  onClick={(e)=>{setUploadedFile(true)}}  >
+          Upload Photo
+        </Button>}
+        {(fileChosen) && (!uploadedFile) && <Button margin="0em 1.5em"  onClick={handleCancelUpload}>
+              Cancel
+        </Button>}
+        {(fromWizard) && <Button margin="0em 1.5em"  onClick={handlePrev}>
+              Prev
+        </Button>}
+        {(fromWizard) && <Button margin="0em 1.5em"  onClick={handleNext}>
+              Next
+        </Button>}
       </form>
     </Fragment>
   ));
