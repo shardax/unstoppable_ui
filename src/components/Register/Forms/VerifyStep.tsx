@@ -94,47 +94,6 @@ const VerifyStep = () => {
   }, [inputSubmitted]);
 
 
-  const VerifyConfirmToken = () => {
-    {/*alert(JSON.stringify(message));*/}
-    return (
-      <div >
-        <h1><span>Welcome to 2Unstoppable  {store.username} !</span></h1>
-        <p> <span>We are so glad that you signed up and created a profile.</span></p>
-        <p > Before you can begin connecting with other members, please confirm your account. </p>
-        <p> An email has been sent to  {store.email} </p>
-        <p> If you cannot find your confirmation email, click below. </p>
-        <Fragment>
-          <form onSubmit={handleResendConfirmationLink}>
-              <Button
-                  type='submit'
-                  value='resend'
-            >Resend</Button>
-          </form>
-          <br/>
-          <p> <b>Please Enter Confirmation token </b> </p>
-        </Fragment>
-        
-      <form onSubmit={handleCheckConfirmationToken}>
-      { errorMessage && <h5 className=".has-error "> { errorMessage } </h5> }
-        <div className="form-group">
-          <input
-            type="confirmationToken"
-            name="confirmationToken"
-            placeholder="Token"
-            value={confirmationToken}
-            onChange={event => setConfirmationToken(event.target.value)}
-            required
-            />
-        </div> 
-        
-         {!isError &&  <button type="submit">Check Confirmation Token</button>}
-         {isError &&  <button name="refresh" onClick={handleRefresh as any}>Refresh and Renter</button>}
-      </form>       
-
-      </div>
-    )
-  }
-
   const handleLogin = async e => {
     e.preventDefault();
     history.push("/logout");
@@ -153,12 +112,10 @@ const VerifyStep = () => {
             >Login</Button>
           </form>
           <br/>
-          <p> Please Enter Confirmation token </p>
         </Fragment>
       </div>
     )
   }
-
 
   return(
   <div>
