@@ -208,16 +208,15 @@ const CancerStep = () => {
                                                 <Field name="which_wellness_program" as={Input} placeoHlder="Which wellness program" />
                                             </div>
                                         </div>
-                                        { errors && <h3 className="error"> { console.log(JSON.stringify(errors)) } </h3> }
+                                        {(!values.cancer_location) && <Error touched={touched.cancer_location} message="Cancer Location is a required field. Please select value." />}
+                                        <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                                            onClick={(e)=>{setPrevSubmitted(true)}}>
+                                            Prev
+                                        </Button>
+                                        <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                                            Next
+                                        </Button>
                                     </Paper>
-                                    {(!values.cancer_location) && <Error touched={touched.cancer_location} message="Cancer Location is a required field. Please select value." />}
-                                    <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
-                                        onClick={(e)=>{setPrevSubmitted(true)}}>
-                                        Prev
-                                    </Button>
-                                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
-                                        Next
-                                    </Button>
                                 </div>
                             </div>
                         </Form>

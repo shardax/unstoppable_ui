@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email', 'Verify Email'];
+  //return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email', 'Verify Email'];
+  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email'];
 }
 function getStepContent(step) {
   switch (step) {

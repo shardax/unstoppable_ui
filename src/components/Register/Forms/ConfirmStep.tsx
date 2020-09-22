@@ -4,6 +4,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { REGISTERURL} from "../../../constants/matcher";
 import Button from '../../Styled/Button';
+import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -43,17 +44,24 @@ const ConfirmStep = () => {
 
   }, [inputSubmitted]);
 
-  return ( 
-    <Fragment>
-      
-      <form onSubmit={handleSubmit}>
-        
-          <Button
-              type='submit'
-              value='Upload'
-        >Submit Profile</Button>
-      </form>
-    </Fragment>
+  return (
+    <div className="form-container user-section-wrapper">
+      <div className="user-section-data">
+        <Paper>
+          <div className="profile-section-header">Email Confirmation</div>
+            <Fragment>
+              
+              <form onSubmit={handleSubmit}>
+                  <p> Click button below to submit your profile. An email will be sent to you with instructions to confirm your email.</p>
+                  <Button
+                      type='submit'
+                      value='Upload'
+                >Submit Profile</Button>
+              </form>
+            </Fragment>
+        </Paper>
+      </div>
+    </div>
   
   );
 }

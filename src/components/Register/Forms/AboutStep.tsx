@@ -137,11 +137,12 @@ const AboutStep = () => {
                         <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
                       </div>
                     </div>
+                  
+                    <PromptIfDirty />
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                        Next
+                    </Button>
                   </Paper>
-                  <PromptIfDirty />
-                  <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
-                     Next
-                  </Button>
                 </div>
               </div>
             </Form>

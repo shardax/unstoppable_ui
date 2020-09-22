@@ -270,14 +270,14 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                         <Error touched={touched.reason_for_match} message={errors.reason_for_match} />
                       </div>
                     </div>
+                    <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                        onClick={(e)=>{setPrevSubmitted(true)}}>
+                        Prev
+                    </Button>
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  onClick={(e)=>{setPrevSubmitted(false)}}>
+                        Next
+                    </Button>
                   </Paper>
-                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
-                      onClick={(e)=>{setPrevSubmitted(true)}}>
-                      Prev
-                  </Button>
-                  <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  onClick={(e)=>{setPrevSubmitted(false)}}>
-                      Next
-                  </Button>
                 </div>
               </div>
             </Form>

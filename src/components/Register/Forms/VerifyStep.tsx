@@ -1,12 +1,12 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useDataStore } from "../../../UserContext";
-import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { REGISTERURL, PROFILEURL} from "../../../constants/matcher";
 import {STEP_CONFIRMED_EMAIL} from "../../../constants/ProfileConstants";
 import Button from '../../Styled/Button';
+import Input from '../../Styled/Input';
+import Paper from '../../Styled/Paper';
 import './Steps.scss'
-import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
@@ -111,11 +111,11 @@ const VerifyStep = () => {
             >Resend</Button>
           </form>
           <br/>
-          <p> Please Enter Confirmation token </p>
+          <p> <b>Please Enter Confirmation token </b> </p>
         </Fragment>
         
       <form onSubmit={handleCheckConfirmationToken}>
-      { errorMessage && <h3 className="error"> { errorMessage } </h3> }
+      { errorMessage && <h5 className=".has-error "> { errorMessage } </h5> }
         <div className="form-group">
           <input
             type="confirmationToken"
@@ -162,41 +162,45 @@ const VerifyStep = () => {
 
   return(
   <div>
-    {confirmationTokenMatch ? (<ForwardUserToLogin />) :  (<div >
-        <h1><span>Welcome to 2Unstoppable  {store.username} !</span></h1>
-        <p> <span>We are so glad that you signed up and created a profile.</span></p>
-        <p > Before you can begin connecting with other members, please confirm your account. </p>
-        <p> An email has been sent to  {store.email} </p>
-        <p> If you cannot find your confirmation email, click below. </p>
-        <Fragment>
-          <form onSubmit={handleResendConfirmationLink}>
-              <Button
-                  type='submit'
-                  value='resend'
-            >Resend</Button>
-          </form>
-          <br/>
-          <p> Please Enter Confirmation token </p>
-        </Fragment>
-        
-      <form onSubmit={handleCheckConfirmationToken}>
-      { errorMessage && <h3 className="error"> { errorMessage } </h3> }
-        <div className="form-group">
-          <input
-            type="confirmationToken"
-            name="confirmationToken"
-            placeholder="Token"
-            value={confirmationToken}
-            onChange={event => setConfirmationToken(event.target.value)}
-            required
-            />
-        </div> 
-        
-         {!isError &&  <button type="submit">Check Confirmation Token</button>}
-         {isError &&  <button name="refresh" onClick={handleRefresh as any}>Refresh and Renter</button>}
-      </form>       
-
-      </div>)}
+    <div className="form-container user-section-wrapper">
+      <div className="user-section-data">
+        <Paper>
+          <div className="profile-section-header">Email Confirmation</div>
+          {confirmationTokenMatch ? (<ForwardUserToLogin />) :  (<div >
+              <h2><span>Welcome to 2Unstoppable  {store.username} !</span></h2>
+              <p> <span>We are so glad that you signed up and created a profile.</span></p>
+              <p > Before you can begin connecting with other members, please confirm your account. </p>
+              <p> An email has been sent to  {store.email} </p>
+              <p> If you cannot find your confirmation email, click below. </p>
+              <Fragment>
+                <form onSubmit={handleResendConfirmationLink}>
+                    <Button
+                        type='submit'
+                        value='resend'
+                  >Resend</Button>
+                </form>
+                <br/>
+                <p> Please Enter Confirmation token </p>
+              </Fragment>
+            <form onSubmit={handleCheckConfirmationToken}>
+            { errorMessage && <h3 className="error"> { errorMessage } </h3> }
+              <div className="form-group">
+                <Input
+                  type="confirmationToken"
+                  name="confirmationToken"
+                  placeholder="Token"
+                  value={confirmationToken}
+                  onChange={event => setConfirmationToken(event.target.value)}
+                  required
+                  />
+              </div> 
+              {!isError &&  <Button type="submit">Check Confirmation Token</Button>}
+              {/**isError &&  <button name="refresh" onClick={handleRefresh as any}>Refresh and Renter</button> **/}
+            </form>       
+            </div>)}
+        </Paper>
+      </div>
+    </div>
    </div>   
       
   )
