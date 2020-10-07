@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
-import './Browse/Browse.scss';
+import '../Browse/Browse.scss';
 
 const RangeSlider = ( (props) => {
 

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
-import RangeSlider from "../RangeSlider";
+import RangeSlider from "../Common/RangeSlider";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import DiscreteSlider from "../Common/DiscreteSlider";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
@@ -45,11 +46,15 @@ import ChatIcon from '@material-ui/icons/Chat';
       }
     }
     getProfiles()
-    }, [filter, ageRange]);
+    }, [filter, ageRange, distance]);
 
   const handleChange = (event: any, newAgeRange: number[]) => {
       setAgeRange(newAgeRange);
   };
+
+  const handleDistanceChange = (event: any, newDistance: number) => {
+    setDistance(newDistance);
+};
 
   const updateLikedProfiles = async (type: 'like' | 'unlike', id: number) => {
     try {
@@ -102,8 +107,12 @@ import ChatIcon from '@material-ui/icons/Chat';
               ))}
               </Select>
               <div className="range-slider">
-              <RangeSlider ageRange={ageRange} onChange={handleChange}/></div>
+                <RangeSlider ageRange={ageRange} onChange={handleChange}/>
               </div>
+              <div className="range-slider">
+                <DiscreteSlider  onChange={handleDistanceChange}/>
+              </div>
+            </div>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
