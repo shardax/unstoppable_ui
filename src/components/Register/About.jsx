@@ -20,7 +20,7 @@ import CancerStep from './Forms/CancerStep';
 import FitnessStep from './Forms/FitnessStep';
 import UploadPhoto from '../manageProfile/UploadPhoto'
 import ConfirmStep from './Forms/ConfirmStep';
-import VerifyStep from './Forms/VerifyStep';
+import VerifyEmailStep from './Forms/VerifyEmailStep';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +58,7 @@ function getStepContent(step) {
     case 4:
       return <ConfirmStep />;
     case 5:
-      return <VerifyStep />;
+      return <VerifyEmailStep />;
     default:
       return 'Unknown step';
   }
