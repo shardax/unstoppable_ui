@@ -80,7 +80,7 @@ const VerifyStep = () => {
     const fetchData = async () => {
       if (inputSubmitted) {
         try {
-            const result = await axios.get(REGISTERURL + "/" + store.confirm_token + "/resend_confirmation_json",{ withCredentials: true});
+            const result = await axios.get(REGISTERURL + "/" + store.current_user_id + "/resend_confirmation_json",{ withCredentials: true});
             console.log(JSON.stringify(result));
             console.log(result.data.username);
         } catch (error) {
