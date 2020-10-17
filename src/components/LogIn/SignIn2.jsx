@@ -8,7 +8,7 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
-import {STEP_CONFIRMED_EMAIL} from "../../constants/ProfileConstants";
+import {STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
 import Input from '../Styled/Input'
 import Button from '../Styled/Button'
 // import {displayToast} from "../Toast/Toast";
@@ -86,6 +86,9 @@ const SignIn2 = () => {
             if (store.user_confirmed)
               history.push("/home");
             else {
+              if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT)
+                 history.push("/wizard/5");
+              else
               history.push("/wizard/0");
             }
           } else {

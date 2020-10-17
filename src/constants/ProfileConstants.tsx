@@ -76,3 +76,4 @@ export const CANCERLOCATIONLIST = [
     ]
     
     export const STEP_CONFIRMED_EMAIL =  "Confirmed Email"
+    export const STEP_EMAIL_CONFIRMATION_SENT =  "Email Confirmation Sent"
