@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../../UserContext";
 import axios from "axios";
 import { PROFILEURL } from "../../../constants/matcher";
 import { PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS } from "../../../constants/ProfileConstants"
-import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../../LogIn/Error";
 import Input from '../../Styled/Input';
@@ -16,6 +15,7 @@ import './Steps.scss'
 import '../../manageProfile/EditProfile.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
+import {STEP_EMAIL_CONFIRMATION_SENT} from "../../../constants/ProfileConstants";
 
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
@@ -65,6 +65,12 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
   //const history = useHistory();
   const history = createBrowserHistory({ forceRefresh: true });
   let profile = store.profile;
+
+  useEffect(() => {
+    if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
+      history.push("/wizard/5");
+    }
+  }, [])
 
   let stringActivities: { id: string, name: string }[] = Object.keys(store.activities).map(function (key) {
     const id = store.activities[key].id.toString()

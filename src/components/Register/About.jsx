@@ -8,10 +8,6 @@ import UnsIcon from '../../images/2Unstoppable_logo.png'
 import './About.scss'
 import {
   BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
   useParams
 } from "react-router-dom";
 import Button from '../Styled/Button';

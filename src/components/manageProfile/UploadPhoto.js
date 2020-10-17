@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
-import { ALLPROFILESURL, ROOTURL, PROFILEURL, UPLOADAVATARURL } from "../../constants/matcher";
+import { ROOTURL, PROFILEURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
 import {useObserver} from 'mobx-react'
 import './UploadPhoto.scss'
@@ -11,8 +11,7 @@ import ProgressBar from "./Progress-Bar";
 import Paper from '../Styled/Paper';
 import Button from '../Styled/Button'
 import { createBrowserHistory } from 'history'
-
-
+import {STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
 
 const UploadPhoto = (props) => {
   const [file, setFile] = useState('');
@@ -35,6 +34,12 @@ const UploadPhoto = (props) => {
   }, [])
   const history = createBrowserHistory({ forceRefresh: true });
   const [completed, setCompleted] = useState(0);
+
+  useEffect(() => {
+    if (fromWizard && (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT)) {
+      history.push("/wizard/5");
+    }
+  }, []);
 
   const handleImageChange = (e) => {
     setFileChosen(true);

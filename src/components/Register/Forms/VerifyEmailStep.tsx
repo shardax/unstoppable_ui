@@ -33,26 +33,8 @@ const VerifyEmailStep = () => {
   useEffect(() => {
     setTimeout(() => {
       history.push("/logout");
-     }, 60000);
+     }, 10000);
   })
-
-  const ForwardUserToLogin = () => {
-   
-    return ( 
-      <div>
-        <p> Am email has been sent to your Account. Please confirm your email. </p>
-        <Fragment>
-          <form onSubmit={handleLogin}>
-              <Button
-                  type='submit'
-                  value='login'
-            >Login</Button>
-          </form>
-          <br/>
-        </Fragment>
-      </div>
-    )
-  }
 
   const ResendMessage = () => {
 
@@ -60,9 +42,11 @@ const VerifyEmailStep = () => {
       const fetchData = async () => {
         if (resendSubmitted) {
           try {
-              const result = await axios.get(REGISTERURL + "/" + store.current_user_id + "/resend_confirmation_json",{ withCredentials: true});
+              const result = axios.get(REGISTERURL + "/" + store.current_user_id + "/resend_confirmation_json",{ withCredentials: true});
               console.log(JSON.stringify(result));
-              console.log(result.data.username);
+              setTimeout(() => {
+                history.push("/logout");
+               }, 5000);
           } catch (error) {
             //console.log(JSON.stringify(error));
             console.log(error.message);
@@ -71,7 +55,6 @@ const VerifyEmailStep = () => {
         }
       };
       fetchData();
-  
     }, [resendSubmitted]);
 
    

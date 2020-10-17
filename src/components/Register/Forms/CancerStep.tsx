@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from 'formik';
 import { useDataStore } from "../../../UserContext";
 import axios from "axios";
-import { PROFILEURL, ROOTURL } from "../../../constants/matcher";
+import { PROFILEURL } from "../../../constants/matcher";
 import { CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
-import Default from '../../../layouts/Default'
 import * as Yup from 'yup';
 import Error from "../../LogIn/Error";
 import Input from '../../Styled/Input';
@@ -16,6 +15,7 @@ import './Steps.scss'
 import '../../manageProfile/EditProfile.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
+import {STEP_EMAIL_CONFIRMATION_SENT} from "../../../constants/ProfileConstants";
 
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
@@ -56,6 +56,12 @@ const CancerStep = () => {
     const [prevSubmitted, setPrevSubmitted] = useState(false);
     //const history = useHistory();
     let profile = store.profile;
+
+    useEffect(() => {
+        if (store.profile.step_status === STEP_EMAIL_CONFIRMATION_SENT) {
+          history.push("/wizard/5");
+        }
+      }, [])
 
     const handleCancel = (event: React.MouseEvent) => {
         event.preventDefault();
@@ -99,7 +105,7 @@ const CancerStep = () => {
                             profile.other_cancer_location = values.other_cancer_location;
                             profile.treatment_status = values.treatment_status;
                             profile.treatment_description = values.treatment_description;
-                            profile.part_of_wellness_program = (values.part_of_wellness_string == "Yes") ? true : false
+                            profile.part_of_wellness_program = (values.part_of_wellness_string === "Yes") ? true : false
                             profile.which_wellness_program = values.which_wellness_program;
                             // Saving data on server
                             const res = await axios.patch(url, 

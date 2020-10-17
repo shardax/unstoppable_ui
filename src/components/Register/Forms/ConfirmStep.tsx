@@ -6,8 +6,8 @@ import { REGISTERURL} from "../../../constants/matcher";
 import Button from '../../Styled/Button';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
-import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
+import {STEP_EMAIL_CONFIRMATION_SENT} from "../../../constants/ProfileConstants";
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -16,8 +16,12 @@ const ConfirmStep = () => {
   //const history = useHistory();
   const history = createBrowserHistory({ forceRefresh: true });
   const [inputSubmitted, setInputSubmitted] = useState(false);
-  let profile = store.profile;
  
+  useEffect(() => {
+    if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
+      history.push("/wizard/5");
+    }
+  }, []);
   
   const handleSubmit = async e => {
     e.preventDefault();
