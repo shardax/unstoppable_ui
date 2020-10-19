@@ -119,7 +119,7 @@ const Register2 = () => {
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
                 setTimeout(() => {
-                     //alert(JSON.stringify(values, null, 2));
+                    //alert(JSON.stringify(values, null, 2));
                     resetForm();
                     setSubmitting(false);
                 }, 500);
@@ -144,7 +144,7 @@ const Register2 = () => {
                                 "zipcode": values.zipcode,
                                 "password": values.password,
                                 "referred_by": values.referred_by,
-                                //"phone_number": values.phone,
+                                "phone_number": values.phone,
 
                                 /**
                                  * "username": "raghuji1",//values.username,

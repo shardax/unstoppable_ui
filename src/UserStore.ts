@@ -100,7 +100,6 @@ export class ProfileStore {
   liked_profiles: number[];
   activity_ids: number[];
   exercise_reason_ids: number[];
-  phone: string;
 
   constructor() {
     this.id = 0;
@@ -137,7 +136,6 @@ export class ProfileStore {
     this.liked_profiles = [];
     this.activity_ids = [];
     this.exercise_reason_ids = [];
-    this.phone = "";
     //hydrate('profileStore', this).then(() => console.log('profileStore has been hydrated'))
   }
 }
@@ -155,6 +153,7 @@ export class UserStore {
   @persist exerciseReasons: ExerciseReasonsStore[];
   @persist confirm_token:string;
   @persist user_confirmed:boolean;
+  @persist phone:string;
 
   constructor(){
      // When the User hits refresh, get the values from the local storage.
@@ -166,6 +165,7 @@ export class UserStore {
       this.avatarPath = localStorageData.avatarPath;
       this.profileId = localStorageData.profileId;
       this.current_user_id = localStorageData.current_user_id;
+      this.phone = localStorageData.phone;
       // this.editMode = localStorageData.editMode;
       this.email = localStorageData.email;
       this.activities = localStorageData.activities;
@@ -180,6 +180,7 @@ export class UserStore {
       this.avatarPath = "";
       this.profileId = 0;
       this.current_user_id=0;
+      this.phone = "";
       // this.editMode = false;
       this.activities = [];
       this.exerciseReasons = [];

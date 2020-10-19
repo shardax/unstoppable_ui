@@ -193,7 +193,7 @@ const UserSettings = (props: ProfileProps) => {
           <div className="account-settings-field-row">
             {!showPhone &&
               <span style={{fontSize: "18px"}}>
-                {store.profile.phone}
+                {store.phone}
               </span>
             }
             {!showPhone &&

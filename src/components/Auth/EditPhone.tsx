@@ -53,7 +53,7 @@ const EditPhone = (props: IStateProps) => {
       });
       
     const setPhone = (name) => {
-      store.profile.phone = name;
+      store.phone = name;
       localStorage.setItem("userStore", JSON.stringify(store));
     }
   
@@ -79,14 +79,14 @@ const EditPhone = (props: IStateProps) => {
        
             try {
                 const result = await axios.patch(SAVEPHONEURL,
-                  { "phone": values.phone, "id": store.current_user_id},
+                  { "phone_number": values.phone, "id": store.current_user_id},
                   { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
                 });
                 console.log(JSON.stringify(result));
                 if (result.data.status !== "error") {
                   setPhone(values.phone);
-                  values.phone =  result.data.phone;;
-                  console.log("updated phone="+ store.profile.phone);
+                  values.phone =  result.data.phone_number;
+                  console.log("updated phone="+ store.phone);
                   props.stateProps.setShowPhone(false);
                   history.push("/settings");
                   displayToast("Successfully updated phone number ✅", "success", 3000, "top-right")
@@ -123,7 +123,7 @@ const EditPhone = (props: IStateProps) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.phone}
-                placeholder={store.profile.phone}
+                placeholder={store.phone}
                 className={"login-form " + (touched.phone && errors.phone ? "has-error" : null)}
               />
               <Error touched={touched.phone} message={errors.phone} />

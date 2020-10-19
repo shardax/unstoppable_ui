@@ -68,6 +68,7 @@ const SignIn2 = () => {
               store.profile = result.data.profile;
               store.profileId = result.data.profile.id;
               store.avatarPath = result.data.photo;
+              store.phone = result.data.phone_number;
               store.activities = result.data.all_activities;
               store.exerciseReasons = result.data.all_exercise_reasons;
               store.confirm_token = result.data.confirm_token;
