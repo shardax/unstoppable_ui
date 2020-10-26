@@ -33,7 +33,7 @@ const VerifyEmailStep = () => {
   useEffect(() => {
     setTimeout(() => {
       history.push("/logout");
-     }, 10000);
+     }, 120000);
   })
 
   const ResendMessage = () => {
