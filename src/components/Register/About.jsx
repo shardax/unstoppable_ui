@@ -17,6 +17,7 @@ import FitnessStep from './Forms/FitnessStep';
 import UploadPhoto from '../manageProfile/UploadPhoto'
 import ConfirmStep from './Forms/ConfirmStep';
 import VerifyEmailStep from './Forms/VerifyEmailStep';
+import { createBrowserHistory } from 'history'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +60,12 @@ function getStepContent(step) {
       return 'Unknown step';
   }
 }
+
+
+
 export default function About() {
+  const history = createBrowserHistory({ forceRefresh: true });
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -68,6 +74,26 @@ export default function About() {
   }
   let { stepId } = useParams();
   
+  const handleLogout = async e => {
+    e.preventDefault();
+    history.push("/logout");
+  }
+
+  const ForwardUserToLogout = () => {
+    return ( 
+        <div>
+            <form onSubmit={handleLogout}>
+                <Button
+                    type='submit'
+                    value='login'
+              >Logout</Button>
+            </form>
+            <br/>
+        </div>
+      
+    )
+  }
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(parseInt(stepId));
   //const [activeStep, setActiveStep] = React.useState(parseInt(step));
@@ -82,11 +108,14 @@ export default function About() {
   const handleReset = () => {
     setActiveStep(0);
   };
+  
+
   return (
 
     <div className={classes.root}>
       <img src={UnsIcon} className={classes.logo} />
       <h2>Create Your Profile</h2>
+      <ForwardUserToLogout />
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
