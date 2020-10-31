@@ -8,6 +8,9 @@ import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Textarea from '../Styled/Textarea';
 import { Formik, Field, Form } from 'formik';
+import Button from '../Styled/Button';
+import Default from '../../layouts/Default'
+import { Hash } from 'crypto';
 
 // TODO need to move up
 // Format nested params correctly
@@ -54,32 +57,37 @@ const exampleMessages = {
 }*/}
 
 
+
 const Inbox = () => {
 //const Inbox: React.FC<UserProp> = (props) => {  
+  let newConversationInitialize = {messages: [], id: "",
+  image: "",
+  name: "",
+  participant_id: "", recent: {
+    subject: "",
+    content: "",
+    timestamp: ""
+  }};
   const store = useDataStore();
   const [currChat, setCurrChat] = useState("");
   let { user_id } = useParams();
-  const [currConversation, setCurrConversation] = useState({
-    messages: [],
-    id: "",
-    image: "",
-    name: "",
-    participant_id: "",
-    recent: {
-      subject: "",
-      content: "",
-      timestamp: ""
-    }
-  });
+  const [currConversation, setCurrConversation] = useState(newConversationInitialize);
   //console.log("user id");
   //console.log(user_id);
   const [msgText, setMsgText] = useState("");
+  const [subject, setSubject] = useState("");
+  const [username, setUsername] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [conversationList, setConversationList] = React.useState<any>([]);
+  const [newConversation, setNewConversation] = useState(false);
 
   const history = useHistory();
   
+  if (user_id === "") {
+    setNewConversation(false);
+  }
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       console.log(event.target.value)
@@ -94,14 +102,20 @@ const Inbox = () => {
  
       try {
         if (messageSent) {
-          if (currConversation.messages.length == 0){
-            let data =  {"user_id": user_id, "subject": "cba", "body": msgText}
+          //if (currConversation.messages.length == 0){
+            console.log("New Conversation");
+            console.log(newConversation);
+            console.log(user_id);
+          if (newConversation){  
+            let data =  {"user_id": user_id, "subject": subject, "body": msgText}
             let url = SENDMESSAGEURL;
             const result = await axios.post(url, data, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}});
             console.log("new conversation");
-            console.log(JSON.stringify(result));
+            console.log(JSON.stringify(result.data));
             setCurrConversation(result.data);
+            refreshData();
             setMsgText("");
+            setNewConversation(false);
           }
           else {
             let data =  {"recipients": currConversation.participant_id, "subject": currConversation.recent.subject, "body": msgText}
@@ -113,13 +127,15 @@ const Inbox = () => {
             //console.log(JSON.stringify(currConversation));
             //console.log(JSON.stringify(result));
             setCurrConversation(result.data);
+            refreshData();
            // console.log("AFTER");
             //console.log(JSON.stringify(currConversation));
             //setCurrChat(currConversation.name);
             setMsgText("");
+           // history.push("/messages");
           }
         }
-        history.push("/messages");
+        
         setMessageSent(false);
       } catch (error) {
         //console.log(JSON.stringify(error));
@@ -133,38 +149,45 @@ const Inbox = () => {
 
   }, [messageSent]);
 
-  useEffect(() => {
-    setIsError(false);
-    const fetchData = async () => {
- 
+  async function refreshData() {
+    let paramsStr = user_id ? user_id : "";
       try {
-          const result = await axios.get(ALLCONVERSATIONSURL
-            ,{
-              params: {
-            },
-            withCredentials: true,
-            headers: {
-              contentType: "application/json; charset=utf-8",
-            }
+        const result = await axios.get(ALLCONVERSATIONSURL
+          ,{
+            params: {
+              participant_id : paramsStr
+          },
+          withCredentials: true,
+          headers: {
+            contentType: "application/json; charset=utf-8",
           }
-            );
-          console.log(JSON.stringify(result));
-          setConversationList(result.data.conversations);
-          console.log(JSON.stringify(conversationList))
-      } catch (error) {
-        //console.log(JSON.stringify(error));
-        console.log(error.message);
-        setIsError(true);
-      }
-      
-    };
-    fetchData();
+        }
+          );
 
+        console.log(JSON.stringify(result));
+        setConversationList(result.data.conversations);
+        if (user_id) {
+          setUsername(result.data.participant_name);
+        }   
+        console.log(JSON.stringify(conversationList))
+    } catch (error) {
+      //console.log(JSON.stringify(error));
+      console.log(error.message);
+      setIsError(true);
+    }
+  }
+
+
+  useEffect(() => { 
+    refreshData();
   }, []);
 
   useEffect(() => {
     console.log("in useEffect settting currChat");
+    console.log(currConversation);
     setCurrChat(currConversation.name);
+    setNewConversation(false);
+    setSubject(currConversation.recent.subject);
     console.log(currChat);
   }, [currConversation]);
 
@@ -207,39 +230,67 @@ const Inbox = () => {
     )
   }
 
+  const handleNewConversation = (event: any) => {
+    event.preventDefault();
+    setNewConversation(true);
+    setCurrChat("");
+    setMsgText("");
+    setSubject("");
+  }
+
+
   return (
-    <div className="messages-wrapper">
-      <div className="inbox-wrapper">
-        <nav className="pink-nav conversation-nav-wrapper">
-          <div className="conv-nav-text">
-          My Inbox
-          </div>
-        </nav>
-        {conversationList.map((conversation: any) => (
-          <>
-            <Conversation message={conversation} />
-            <hr></hr>
-          </>
-        ))}
-      </div>
-      <div className="conversation-wrapper">
-        <nav className="purple-nav conversation-nav-wrapper">
-          <div className="conv-nav-text">
-           {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat}
-          </div>
-        </nav>
-        {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
-        {currConversation.messages.map((message: any) => (
-          <>
-            <Message content={message.content} from={message.from} to={message.to} />
-            {/* <hr></hr> */}
-          </>
-        ))}
-       <form>
-        <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em" height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
-       </form>
+    <Default>
+    <div>
+      {!(user_id === "") && <Button margin="2em 0em" padding="10px 20px" onClick={handleNewConversation}> New Conversation </Button>
+      }
+      <div className="messages-wrapper">    
+        <div className="inbox-wrapper">
+          <nav className="pink-nav conversation-nav-wrapper">
+            <div className="conv-nav-text">
+            My Inbox
+            </div>
+          </nav>
+          {conversationList.map((conversation: any) => (
+            <>
+              <Conversation message={conversation} />
+              <hr></hr>
+            </>
+          ))}
+        </div>
+        <div className="conversation-wrapper">
+          <nav className="purple-nav conversation-nav-wrapper">
+            <div className="conv-nav-text">
+            {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat + ", Subject: " + subject}
+            </div>
+          </nav>
+          {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
+          {!newConversation && currConversation.messages.map((message: any) => (
+            <>
+              <Message content={message.content} from={message.from} to={message.to} />
+              {/* <hr></hr> */}
+            </>
+          ))}
+        <form>
+        {newConversation && <div className="form-group">
+            To: {currChat}
+          </div>}
+        {newConversation && <div className="form-group">
+            <input
+              type="subject"
+              name="subject"
+              placeholder="Subject"
+              value={subject}
+              onChange={event => setSubject(event.target.value)}
+              required
+              />
+          </div>}
+          <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em"   height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
+        </form>
+        </div>
       </div>
     </div>
+    </Default>
   )
 }
 
