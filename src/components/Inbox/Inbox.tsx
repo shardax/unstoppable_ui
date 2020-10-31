@@ -1,16 +1,14 @@
 import React, {useState,  useEffect} from 'react'
 import { useParams,  useHistory } from "react-router-dom";
-import { SENDMESSAGEURL, ALLCONVERSATIONSURL } from "../../constants/matcher";
+import { SENDMESSAGEURL, ALLCONVERSATIONSURL, ROOTURL } from "../../constants/matcher";
 import { useDataStore } from "../../UserContext";
-import messages from '../../pages/messages';
 import './index.scss';
 import axios from "axios";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Textarea from '../Styled/Textarea';
-import { Formik, Field, Form } from 'formik';
 import Button from '../Styled/Button';
 import Default from '../../layouts/Default'
-import { Hash } from 'crypto';
+import {Avatar} from 'antd';
 
 // TODO need to move up
 // Format nested params correctly
@@ -61,7 +59,7 @@ const exampleMessages = {
 const Inbox = () => {
 //const Inbox: React.FC<UserProp> = (props) => {  
   let newConversationInitialize = {messages: [], id: "",
-  image: "",
+  photo: "",
   name: "",
   participant_id: "", recent: {
     subject: "",
@@ -196,7 +194,7 @@ const Inbox = () => {
     return (
       <div onClick={() => setCurrConversation(message)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
         <div className="single-conversation-avatar">
-         {/** <Avatar src={ROOTURL + message.image}  size= "large" />  */}
+          <Avatar src={ROOTURL + currConversation.photo}  size= "small" />
           <div className="conversation-from-title">{message.name}</div>
         </div>
         <div className="single-conversation-recent">
@@ -262,6 +260,7 @@ const Inbox = () => {
           <nav className="purple-nav conversation-nav-wrapper">
             <div className="conv-nav-text">
             {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat + ", Subject: " + subject}
+           <Avatar src={ROOTURL + currConversation.photo}  size= "large" />
             </div>
           </nav>
           {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
