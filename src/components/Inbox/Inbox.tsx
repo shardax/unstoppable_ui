@@ -75,6 +75,7 @@ const Inbox = () => {
   const [msgText, setMsgText] = useState("");
   const [subject, setSubject] = useState("");
   const [username, setUsername] = useState("");
+  const [userPhoto, setUserPhoto] = useState("");
   const [isError, setIsError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [conversationList, setConversationList] = React.useState<any>([]);
@@ -149,23 +150,23 @@ const Inbox = () => {
 
   async function refreshData() {
     let paramsStr = user_id ? user_id : "";
-      try {
+    try {
         const result = await axios.get(ALLCONVERSATIONSURL
-          ,{
-            params: {
-              participant_id : paramsStr
-          },
-          withCredentials: true,
-          headers: {
-            contentType: "application/json; charset=utf-8",
+            ,{
+              params: {
+                participant_id : paramsStr
+            },
+            withCredentials: true,
+            headers: {
+              contentType: "application/json; charset=utf-8",
+            }
           }
-        }
-          );
-
+        );
         console.log(JSON.stringify(result));
         setConversationList(result.data.conversations);
         if (user_id) {
           setUsername(result.data.participant_name);
+          setUserPhoto(result.data.participant_photo);
         }   
         console.log(JSON.stringify(conversationList))
     } catch (error) {
@@ -194,7 +195,7 @@ const Inbox = () => {
     return (
       <div onClick={() => setCurrConversation(message)} className={"single-conversation-wrapper " + (message.name === currChat ? "active-conversation" : "" )}>
         <div className="single-conversation-avatar">
-          <Avatar src={ROOTURL + currConversation.photo}  size= "small" />
+          <Avatar src={ROOTURL + message.photo}  size= "small" />
           <div className="conversation-from-title">{message.name}</div>
         </div>
         <div className="single-conversation-recent">
@@ -240,7 +241,7 @@ const Inbox = () => {
   return (
     <Default>
     <div>
-      {!(user_id === "") && <Button margin="2em 0em" padding="10px 20px" onClick={handleNewConversation}> New Conversation </Button>
+      {user_id && <Button margin="2em 0em" padding="10px 20px" onClick={handleNewConversation}> New Conversation </Button>
       }
       <div className="messages-wrapper">    
         <div className="inbox-wrapper">
