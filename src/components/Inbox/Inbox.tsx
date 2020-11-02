@@ -149,13 +149,11 @@ const Inbox = () => {
             }
           }
         );
-        console.log(JSON.stringify(result));
         setConversationList(result.data.conversations);
         if (user_id) {
           setUsername(result.data.participant_name);
           setUserPhoto(result.data.participant_photo);
-        }   
-        console.log(JSON.stringify(conversationList))
+        }
     } catch (error) {
       //console.log(JSON.stringify(error));
       console.log(error.message);
@@ -229,7 +227,7 @@ const Inbox = () => {
   return (
     <Default>
     <div>
-      {user_id && <Button margin="2em 0em" padding="10px 20px" onClick={handleNewConversation}> New Conversation </Button>
+      {user_id && <Button margin="2em 0em" padding="10px 20px" onClick={handleNewConversation}> Click here for New Conversation with {username} </Button>
       }
       <div className="messages-wrapper">    
         <div className="inbox-wrapper">
