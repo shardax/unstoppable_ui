@@ -101,16 +101,10 @@ const Inbox = () => {
  
       try {
         if (messageSent) {
-          //if (currConversation.messages.length == 0){
-            console.log("New Conversation");
-            console.log(newConversation);
-            console.log(user_id);
           if (newConversation){  
             let data =  {"user_id": user_id, "subject": subject, "body": msgText}
             let url = SENDMESSAGEURL;
             const result = await axios.post(url, data, { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}});
-            console.log("new conversation");
-            console.log(JSON.stringify(result.data));
             setCurrConversation(result.data);
             refreshData();
             setMsgText("");
@@ -122,16 +116,9 @@ const Inbox = () => {
             const result = await axios.post(url, data, { withCredentials: true, headers: {
               contentType: "application/json; charset=utf-8", "Accept": "application/json"
             } });
-            //console.log("existing conversation");
-            //console.log(JSON.stringify(currConversation));
-            //console.log(JSON.stringify(result));
             setCurrConversation(result.data);
             refreshData();
-           // console.log("AFTER");
-            //console.log(JSON.stringify(currConversation));
-            //setCurrChat(currConversation.name);
             setMsgText("");
-           // history.push("/messages");
           }
         }
         
@@ -187,6 +174,7 @@ const Inbox = () => {
     setCurrChat(currConversation.name);
     setNewConversation(false);
     setSubject(currConversation.recent.subject);
+    setUserPhoto(currConversation.photo);
     console.log(currChat);
   }, [currConversation]);
 
@@ -261,7 +249,7 @@ const Inbox = () => {
           <nav className="purple-nav conversation-nav-wrapper">
             <div className="conv-nav-text">
             {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat + ", Subject: " + subject}
-           <Avatar src={ROOTURL + currConversation.photo}  size= "large" />
+           {currChat && <Avatar src={ROOTURL + currConversation.photo}  size= "large" />}
             </div>
           </nav>
           {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
