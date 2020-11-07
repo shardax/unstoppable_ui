@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import { create, persist} from 'mobx-persist';
+import {AGE_RANGE_CONSTANT} from './constants/ProfileConstants';
 
 /** 
 export type UserStoreType = {
@@ -155,6 +156,11 @@ export class UserStore {
   @persist user_confirmed:boolean;
   @persist phone:string;
 
+  // Search Parameters
+  @persist filter: string;
+  @persist ageRange: number[];
+  @persist distance: number;
+
   constructor(){
      // When the User hits refresh, get the values from the local storage.
     if (localStorage.userStore != null) {
@@ -172,6 +178,10 @@ export class UserStore {
       this.exerciseReasons = localStorageData.exerciseReasons;
       this.confirm_token = localStorageData.confirm_token;
       this.user_confirmed = localStorageData.user_confirmed;
+      // Initialize search parameters
+      this.filter =  localStorageData.filter;
+      this.ageRange = localStorageData.age;
+      this.distance = localStorageData.distance;
     } else {
       this.username = "";
       this.email = "";
@@ -186,6 +196,10 @@ export class UserStore {
       this.exerciseReasons = [];
       this.confirm_token = "";
       this.user_confirmed = false;
+      // Initialize search parameters
+      this.filter = "";
+      this.ageRange = AGE_RANGE_CONSTANT;
+      this.distance = 0;
       }
      //hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
      Promise.all([

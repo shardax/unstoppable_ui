@@ -8,7 +8,7 @@ import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
 import { LOGINURL } from "../../constants/matcher";
-import {STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
+import {STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT, AGE_RANGE_CONSTANT} from "../../constants/ProfileConstants";
 import Input from '../Styled/Input'
 import Button from '../Styled/Button'
 // import {displayToast} from "../Toast/Toast";
@@ -73,6 +73,9 @@ const SignIn2 = () => {
               store.exerciseReasons = result.data.all_exercise_reasons;
               store.confirm_token = result.data.confirm_token;
               store.user_confirmed = (store.profile.step_status == STEP_CONFIRMED_EMAIL) ? true:false
+              store.filter="";
+              store.distance="";
+              store.age=AGE_RANGE_CONSTANT;
               localStorage.setItem("userStore", JSON.stringify(store));
           } catch (error) {
             console.log(error.message);

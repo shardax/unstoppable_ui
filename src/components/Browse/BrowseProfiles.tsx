@@ -7,7 +7,7 @@ import DiscreteSlider from "../Common/DiscreteSlider";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
-import {CANCERLOCATIONLIST} from '../../constants/ProfileConstants';
+import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT} from '../../constants/ProfileConstants';
 import './Browse.scss'
 import { useObserver } from "mobx-react";
 import Button from '../Styled/Button';
@@ -17,10 +17,10 @@ import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const store = useDataStore()
-  const [filter, setFilter] = React.useState("");
+  const [filter, setFilter] = React.useState(store.filter);
   const [userCollection, setUserCollection] = React.useState<any>([]);
-  const [ageRange, setAgeRange] = useState([18,120]);
-  const [distance, setDistance] = useState(0);
+  const [ageRange, setAgeRange] = useState([store.ageRange[0],store.ageRange[1]]);
+  const [distance, setDistance] = useState(store.distance);
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -45,7 +45,8 @@ import ChatIcon from '@material-ui/icons/Chat';
         setUserCollection([]);
       }
     }
-    getProfiles()
+    getProfiles();
+    saveSearchCriteria();
     }, [filter, ageRange, distance]);
 
   const handleChange = (event: any, newAgeRange: number[]) => {
@@ -54,7 +55,14 @@ import ChatIcon from '@material-ui/icons/Chat';
 
   const handleDistanceChange = (event: any, newDistance: number) => {
     setDistance(newDistance);
-};
+  };
+
+  const saveSearchCriteria = () => {
+    store.filter = filter;
+    store.ageRange = ageRange;
+    store.distance = distance;
+    localStorage.setItem("userStore", JSON.stringify(store));
+  };
 
   const updateLikedProfiles = async (type: 'like' | 'unlike', id: number) => {
     try {
