@@ -180,7 +180,7 @@ export class UserStore {
       this.user_confirmed = localStorageData.user_confirmed;
       // Initialize search parameters
       this.filter =  localStorageData.filter;
-      this.ageRange = localStorageData.age;
+      this.ageRange = localStorageData.ageRange;
       this.distance = localStorageData.distance;
     } else {
       this.username = "";
