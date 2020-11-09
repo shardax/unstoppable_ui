@@ -4,6 +4,7 @@ import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 import RangeSlider from "../Common/RangeSlider";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DiscreteSlider from "../Common/DiscreteSlider";
+import Radio from '@material-ui/core/Radio';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
@@ -21,6 +22,7 @@ import ChatIcon from '@material-ui/icons/Chat';
   const [userCollection, setUserCollection] = React.useState<any>([]);
   const [ageRange, setAgeRange] = useState([store.ageRange[0],store.ageRange[1]]);
   const [distance, setDistance] = useState(store.distance);
+  const [keywordSearchType, setKeywordSearchType] = useState("OR");
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -32,7 +34,8 @@ import ChatIcon from '@material-ui/icons/Chat';
               max_age: ageRange[1],
               distance: distance,
               commit: "Search",
-              search: filter
+              search: filter,
+              keyword_search_type: keywordSearchType
             },
             withCredentials: true,
             headers: {
@@ -47,7 +50,7 @@ import ChatIcon from '@material-ui/icons/Chat';
     }
     getProfiles();
     saveSearchCriteria();
-    }, [filter, ageRange, distance]);
+    }, [filter, ageRange, distance, keywordSearchType]);
 
   const handleChange = (event: any, newAgeRange: number[]) => {
       setAgeRange(newAgeRange);
@@ -100,6 +103,10 @@ import ChatIcon from '@material-ui/icons/Chat';
         </div>
       </div>
   ))
+
+  const handleRadioSearch = (event) => {
+    setKeywordSearchType(event.target.value);
+  };
  
   return useObserver(() => (
     <>
@@ -113,9 +120,18 @@ import ChatIcon from '@material-ui/icons/Chat';
               {CANCERLOCATIONLIST.map((cancerLoc: any) => (
                 <option className="selector" value={cancerLoc} label={cancerLoc} />
               ))}
-              </Select>
+             </Select>
               <div className="range-slider">
                 <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+              </div>
+
+              <div>
+                <label>
+                  <Radio value="OR" color="primary" checked={keywordSearchType==="OR"} onChange={(e) => handleRadioSearch(e)}  />OR (Contains any of the keywords)
+                </label>
+                <label>
+                  <Radio value="AND" color="primary" checked={keywordSearchType === "AND"}  onChange={(e) => handleRadioSearch(e)}  />AND (Contains all of the keywords)
+                </label>
               </div>
               <div className="range-slider">
                 <DiscreteSlider  onChange={handleDistanceChange}/>
