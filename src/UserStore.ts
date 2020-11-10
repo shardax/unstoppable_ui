@@ -66,6 +66,17 @@ export class ExerciseReasonsStore {
   }
 }
 
+export class UniqueListStore {
+  unique_zipcodes: string[];
+  unique_state_codes: string[];
+  unique_cities: string[];
+  constructor(){
+    this.unique_zipcodes = [];
+    this.unique_state_codes=[];
+    this.unique_cities=[];
+  }
+}
+
 export class ProfileStore {
   id: number;
   zipcode: string;
@@ -147,6 +158,7 @@ export class UserStore {
   @persist @observable isLoggedIn: boolean;
   @persist @observable profileId: number;
   @persist('object') @observable profile: ProfileStore;
+  @persist('object')  uniqueLists: UniqueListStore;
   @persist @observable avatarPath: string;
   // @persist @observable editMode: boolean;
   @persist @observable email: string;
@@ -182,6 +194,7 @@ export class UserStore {
       this.filter =  localStorageData.filter;
       this.ageRange = localStorageData.ageRange;
       this.distance = localStorageData.distance;
+      this.uniqueLists = localStorage.uniqueLists;
     } else {
       this.username = "";
       this.email = "";
@@ -200,6 +213,8 @@ export class UserStore {
       this.filter = "";
       this.ageRange = AGE_RANGE_CONSTANT;
       this.distance = 0;
+      // Initialize dropdowns
+      this.uniqueLists = new UniqueListStore();
       }
      //hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
      Promise.all([

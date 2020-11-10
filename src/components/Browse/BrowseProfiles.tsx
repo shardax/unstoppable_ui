@@ -23,6 +23,12 @@ import ChatIcon from '@material-ui/icons/Chat';
   const [ageRange, setAgeRange] = useState([store.ageRange[0],store.ageRange[1]]);
   const [distance, setDistance] = useState(store.distance);
   const [keywordSearchType, setKeywordSearchType] = useState("OR");
+  const [cancerTypeKeyword, setCancerTypeKeyword] = useState("");
+  const [stateCodeKeyword, setStateCodeKeyword] = useState("");
+  const [zipcodeKeyword, setZipcodeKeyword] = useState("");
+  const [cityKeyword, setCityKeyword] = useState("");
+  const [filterPlusKeywords, setFilterPlusKeywords] = useState("");
+  const [numUsers, setNumUsers] = useState(0);
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -34,7 +40,7 @@ import ChatIcon from '@material-ui/icons/Chat';
               max_age: ageRange[1],
               distance: distance,
               commit: "Search",
-              search: filter,
+              search: filterPlusKeywords,
               keyword_search_type: keywordSearchType
             },
             withCredentials: true,
@@ -43,6 +49,7 @@ import ChatIcon from '@material-ui/icons/Chat';
             }
           })
         setUserCollection(data)
+        setNumUsers(userCollection.size);
       } catch (e) {
         console.log(`😱 Browse Fetch failed: ${e}`);
         setUserCollection([]);
@@ -50,7 +57,11 @@ import ChatIcon from '@material-ui/icons/Chat';
     }
     getProfiles();
     saveSearchCriteria();
-    }, [filter, ageRange, distance, keywordSearchType]);
+    }, [filterPlusKeywords, ageRange, distance, keywordSearchType]);
+
+    useEffect(() => {
+      addAllKeywordsToFilter();
+    }, [cancerTypeKeyword, stateCodeKeyword, zipcodeKeyword, cityKeyword, filter]);
 
   const handleChange = (event: any, newAgeRange: number[]) => {
       setAgeRange(newAgeRange);
@@ -59,6 +70,18 @@ import ChatIcon from '@material-ui/icons/Chat';
   const handleDistanceChange = (event: any, newDistance: number) => {
     setDistance(newDistance);
   };
+
+  const addAllKeywordsToFilter = () => {
+    let allKeywords = cancerTypeKeyword? cancerTypeKeyword : "";
+    allKeywords = stateCodeKeyword? allKeywords + " " + stateCodeKeyword : allKeywords;
+    allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
+    allKeywords = cityKeyword? allKeywords + " " + cityKeyword : allKeywords;
+    if (filter){
+      setFilterPlusKeywords(filter + " " + allKeywords);
+    } else {
+      setFilterPlusKeywords(allKeywords);
+    }
+  }
 
   const saveSearchCriteria = () => {
     store.filter = filter;
@@ -114,8 +137,8 @@ import ChatIcon from '@material-ui/icons/Chat';
           <div className="browse-sticky-nav">
             <h3>Browse Profiles</h3>
             <div className="browse-filter-row"> 
-              <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type, Zipcode, or City" />
-              <Select onChange={e => setFilter(e.target.value)} margin="0em 2em">
+              <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type, Zipcode, State Code or City" />
+              <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em">
               <option className="selector" value="" label="- Select cancer type -" />
               {CANCERLOCATIONLIST.map((cancerLoc: any) => (
                 <option className="selector" value={cancerLoc} label={cancerLoc} />
@@ -136,7 +159,34 @@ import ChatIcon from '@material-ui/icons/Chat';
               <div className="range-slider">
                 <DiscreteSlider  onChange={handleDistanceChange}/>
               </div>
+              {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
+                <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em">
+                  <option className="selector" value="" label="- Select State -" />
+                  {store.uniqueLists.unique_state_codes.map((sc: any) => (
+                  <option className="selector" value={sc} label={sc} />
+                ))}
+                </Select>
+              </div>}
+              {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
+                <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em">
+                  <option className="selector" value="" label="- Select Zipcode -" />
+                  {store.uniqueLists.unique_zipcodes.map((z: any) => (
+                  <option className="selector" value={z} label={z} />
+                ))}
+                </Select>
+              </div>}
+              {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div>
+                <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em">
+                  <option className="selector" value="" label="- Select City -" />
+                  {store.uniqueLists.unique_cities.map((c: any) => (
+                  <option className="selector" value={c} label={c} />
+                ))}
+                </Select>
+              </div>}
             </div>
+          </div>
+          <div className="range-slider">
+            <h4><b> {userCollection.length} Users</b></h4>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
