@@ -72,8 +72,6 @@ import ChatIcon from '@material-ui/icons/Chat';
   };
 
   const addAllKeywordsToFilter = () => {
-    console.log("YAMAHO");
-    console.log(cancerTypeKeyword);
     let allKeywords = cancerTypeKeyword? cancerTypeKeyword : "";
     allKeywords = stateCodeKeyword? allKeywords + " " + stateCodeKeyword : allKeywords;
     allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
@@ -90,8 +88,9 @@ import ChatIcon from '@material-ui/icons/Chat';
     store.savedSearchParams.ageRange = ageRange;
     store.savedSearchParams.distance = distance;
     store.savedSearchParams.cancerTypeKeyword = cancerTypeKeyword;
-    //store.filterPlusKeywords = filterPlusKeywords;
-    console.log(JSON.stringify(store));
+    store.savedSearchParams.stateCodeKeyword = stateCodeKeyword;
+    store.savedSearchParams.zipcodeKeyword = zipcodeKeyword;
+    store.savedSearchParams.cityKeyword = cityKeyword;
     localStorage.setItem("userStore", JSON.stringify(store));
   };
 
@@ -166,7 +165,7 @@ import ChatIcon from '@material-ui/icons/Chat';
                 <DiscreteSlider  onChange={handleDistanceChange}/>
               </div>
               {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
-                <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em">
+                <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
                   <option className="selector" value="" label="- Select State -" />
                   {store.uniqueLists.unique_state_codes.map((sc: any) => (
                   <option className="selector" value={sc} label={sc} />
@@ -174,7 +173,7 @@ import ChatIcon from '@material-ui/icons/Chat';
                 </Select>
               </div>}
               {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
-                <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em">
+                <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
                   <option className="selector" value="" label="- Select Zipcode -" />
                   {store.uniqueLists.unique_zipcodes.map((z: any) => (
                   <option className="selector" value={z} label={z} />
@@ -182,7 +181,7 @@ import ChatIcon from '@material-ui/icons/Chat';
                 </Select>
               </div>}
               {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div>
-                <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em">
+                <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em" value={cityKeyword} >
                   <option className="selector" value="" label="- Select City -" />
                   {store.uniqueLists.unique_cities.map((c: any) => (
                   <option className="selector" value={c} label={c} />
