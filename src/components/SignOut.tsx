@@ -19,6 +19,7 @@ const SignOut: React.FC = ({  }) => {
         store.username = "";
         store.isLoggedIn = false;
         store.clear();
+        localStorage.removeItem("userStore");
         localStorage.clear();
       } catch (e) {
         console.log(`😱 Axios request failed: ${e}`);

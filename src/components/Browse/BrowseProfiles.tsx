@@ -18,16 +18,16 @@ import ChatIcon from '@material-ui/icons/Chat';
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const store = useDataStore()
-  const [filter, setFilter] = React.useState(store.filter);
+  const [filter, setFilter] = React.useState(store.savedSearchParams.filter);
   const [userCollection, setUserCollection] = React.useState<any>([]);
-  const [ageRange, setAgeRange] = useState([store.ageRange[0],store.ageRange[1]]);
-  const [distance, setDistance] = useState(store.distance);
+  const [ageRange, setAgeRange] = useState([store.savedSearchParams.ageRange[0],store.savedSearchParams.ageRange[1]]);
+  const [distance, setDistance] = useState(store.savedSearchParams.distance);
   const [keywordSearchType, setKeywordSearchType] = useState("OR");
-  const [cancerTypeKeyword, setCancerTypeKeyword] = useState("");
-  const [stateCodeKeyword, setStateCodeKeyword] = useState("");
-  const [zipcodeKeyword, setZipcodeKeyword] = useState("");
-  const [cityKeyword, setCityKeyword] = useState("");
-  const [filterPlusKeywords, setFilterPlusKeywords] = useState("");
+  const [cancerTypeKeyword, setCancerTypeKeyword] = useState(store.savedSearchParams.cancerTypeKeyword);
+  const [stateCodeKeyword, setStateCodeKeyword] = useState(store.savedSearchParams.stateCodeKeyword);
+  const [zipcodeKeyword, setZipcodeKeyword] = useState(store.savedSearchParams.zipcodeKeyword);
+  const [cityKeyword, setCityKeyword] = useState(store.savedSearchParams.cityKeyword);
+  const [filterPlusKeywords, setFilterPlusKeywords] = useState(filter + " " + cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
   const [numUsers, setNumUsers] = useState(0);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ import ChatIcon from '@material-ui/icons/Chat';
     saveSearchCriteria();
     }, [filterPlusKeywords, ageRange, distance, keywordSearchType]);
 
-    useEffect(() => {
+  useEffect(() => {
       addAllKeywordsToFilter();
     }, [cancerTypeKeyword, stateCodeKeyword, zipcodeKeyword, cityKeyword, filter]);
 
@@ -72,6 +72,8 @@ import ChatIcon from '@material-ui/icons/Chat';
   };
 
   const addAllKeywordsToFilter = () => {
+    console.log("YAMAHO");
+    console.log(cancerTypeKeyword);
     let allKeywords = cancerTypeKeyword? cancerTypeKeyword : "";
     allKeywords = stateCodeKeyword? allKeywords + " " + stateCodeKeyword : allKeywords;
     allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
@@ -84,9 +86,12 @@ import ChatIcon from '@material-ui/icons/Chat';
   }
 
   const saveSearchCriteria = () => {
-    store.filter = filter;
-    store.ageRange = ageRange;
-    store.distance = distance;
+    store.savedSearchParams.filter = filter;
+    store.savedSearchParams.ageRange = ageRange;
+    store.savedSearchParams.distance = distance;
+    store.savedSearchParams.cancerTypeKeyword = cancerTypeKeyword;
+    //store.filterPlusKeywords = filterPlusKeywords;
+    console.log(JSON.stringify(store));
     localStorage.setItem("userStore", JSON.stringify(store));
   };
 
@@ -136,9 +141,10 @@ import ChatIcon from '@material-ui/icons/Chat';
       <div>
           <div className="browse-sticky-nav">
             <h3>Browse Profiles</h3>
+            <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
             <div className="browse-filter-row"> 
               <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type, Zipcode, State Code or City" />
-              <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em">
+              <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em" value={cancerTypeKeyword}>
               <option className="selector" value="" label="- Select cancer type -" />
               {CANCERLOCATIONLIST.map((cancerLoc: any) => (
                 <option className="selector" value={cancerLoc} label={cancerLoc} />
