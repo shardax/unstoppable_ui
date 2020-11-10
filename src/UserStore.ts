@@ -172,6 +172,7 @@ export class UserStore {
   @persist filter: string;
   @persist ageRange: number[];
   @persist distance: number;
+  //@persist filterPlusKeywords: string;
 
   constructor(){
      // When the User hits refresh, get the values from the local storage.
@@ -194,7 +195,8 @@ export class UserStore {
       this.filter =  localStorageData.filter;
       this.ageRange = localStorageData.ageRange;
       this.distance = localStorageData.distance;
-      this.uniqueLists = localStorage.uniqueLists;
+      this.uniqueLists = localStorageData.uniqueLists;
+      //this.filterPlusKeywords = localStorageData.filterPlusKeywords;
     } else {
       this.username = "";
       this.email = "";
@@ -213,6 +215,7 @@ export class UserStore {
       this.filter = "";
       this.ageRange = AGE_RANGE_CONSTANT;
       this.distance = 0;
+      //this.filterPlusKeywords="";
       // Initialize dropdowns
       this.uniqueLists = new UniqueListStore();
       }
