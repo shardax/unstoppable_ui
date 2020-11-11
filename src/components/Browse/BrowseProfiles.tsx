@@ -30,6 +30,7 @@ import ChatIcon from '@material-ui/icons/Chat';
   const [filterPlusKeywords, setFilterPlusKeywords] = useState(filter + " " + cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
   const [keywordsSelect, setKeywordSelect] = useState("");
   const [numUsers, setNumUsers] = useState(0);
+  const [searchTextDisplay, setSearchTextDisplay] = useState("");
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -79,6 +80,19 @@ import ChatIcon from '@material-ui/icons/Chat';
     allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
     allKeywords = cityKeyword? allKeywords + " " + cityKeyword : allKeywords;
     setKeywordSelect(allKeywords);
+    let displayText = "";
+    displayText = cancerTypeKeyword? ("CancerType: " + cancerTypeKeyword + ";"): "";
+    //if (stateCodeKeyword || zipcodeKeyword || cityKeyword) {
+      displayText = displayText + " Location: ";
+    //}
+    console.log(displayText);
+    displayText = stateCodeKeyword? displayText + " State: " + stateCodeKeyword : displayText;
+    displayText = zipcodeKeyword? displayText + " Zipcode: " + zipcodeKeyword : displayText;
+    displayText = cityKeyword? displayText + " City: " + cityKeyword : displayText;
+    displayText = filter? "; With Search filter:" + displayText + " " + filter : displayText;
+    setSearchTextDisplay(displayText);
+    console.log(displayText);
+    
     if (filter){
       setFilterPlusKeywords(filter + " " + allKeywords);
     } else {
@@ -194,7 +208,7 @@ import ChatIcon from '@material-ui/icons/Chat';
             </div>
           </div>
           <div className="range-slider">
-            <h4><b> {userCollection.length} Users</b></h4>
+            <h4><b> {userCollection.length} Users</b></h4><h6>{searchTextDisplay}</h6>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
