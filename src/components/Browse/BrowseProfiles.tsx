@@ -28,6 +28,7 @@ import ChatIcon from '@material-ui/icons/Chat';
   const [zipcodeKeyword, setZipcodeKeyword] = useState(store.savedSearchParams.zipcodeKeyword);
   const [cityKeyword, setCityKeyword] = useState(store.savedSearchParams.cityKeyword);
   const [filterPlusKeywords, setFilterPlusKeywords] = useState(filter + " " + cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
+  const [keywordsSelect, setKeywordSelect] = useState("");
   const [numUsers, setNumUsers] = useState(0);
 
   useEffect(() => {
@@ -40,7 +41,8 @@ import ChatIcon from '@material-ui/icons/Chat';
               max_age: ageRange[1],
               distance: distance,
               commit: "Search",
-              search: filterPlusKeywords,
+              search: filter,
+              keywordsSelect: keywordsSelect,
               keyword_search_type: keywordSearchType
             },
             withCredentials: true,
@@ -76,6 +78,7 @@ import ChatIcon from '@material-ui/icons/Chat';
     allKeywords = stateCodeKeyword? allKeywords + " " + stateCodeKeyword : allKeywords;
     allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
     allKeywords = cityKeyword? allKeywords + " " + cityKeyword : allKeywords;
+    setKeywordSelect(allKeywords);
     if (filter){
       setFilterPlusKeywords(filter + " " + allKeywords);
     } else {
