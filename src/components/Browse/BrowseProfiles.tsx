@@ -36,7 +36,8 @@ import SortBarDisplay from './SortBarDisplay'
   const [sortChange, setSortChange] = useState(false);
   const [distanceOrder, setDistanceOrder] = useState(store.savedSearchParams.distanceOrder);
   const [ageOrder, setAgeOrder] = useState("");
-  
+  const [lastOnlineOrder, setLastOnlineOrder] = useState("");
+  const [newestMemberOrder, setNewestMemberOrder] = useState("");
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -52,7 +53,9 @@ import SortBarDisplay from './SortBarDisplay'
               keywordsSelect: keywordsSelect,
               keyword_search_type: keywordSearchType,
               distanceOrder: distanceOrder,
-              ageOrder: ageOrder
+              ageOrder: ageOrder,
+              lastOnlineOrder: lastOnlineOrder,
+              newestMemberOrder: newestMemberOrder,
             },
             withCredentials: true,
             headers: {
@@ -114,6 +117,8 @@ import SortBarDisplay from './SortBarDisplay'
     store.savedSearchParams.cityKeyword = cityKeyword;
     store.savedSearchParams.distanceOrder = distanceOrder;
     store.savedSearchParams.ageOrder = ageOrder;
+    store.savedSearchParams.lastOnlineOrder = lastOnlineOrder;
+    store.savedSearchParams.newestMemberOrder = newestMemberOrder;
     localStorage.setItem("userStore", JSON.stringify(store));
   };
 
@@ -170,16 +175,33 @@ import SortBarDisplay from './SortBarDisplay'
       case "distance":
         setDistanceOrder(store.savedSearchParams.distanceOrder==="asc" ? "desc" : "asc");
         setAgeOrder("");
+        setLastOnlineOrder("");
+        setNewestMemberOrder("");
         break;
       case "age":
         setAgeOrder(store.savedSearchParams.ageOrder==="asc" ? "desc" : "asc");
         setDistanceOrder("");
+        setNewestMemberOrder("");
         break;
+      case "lastOnline":
+        setLastOnlineOrder(store.savedSearchParams.lastOnlineOrder==="asc" ? "desc" : "asc");
+        setDistanceOrder("");
+        setAgeOrder("");
+        setNewestMemberOrder("");
+        break;
+      case "newestMember":
+          setNewestMemberOrder(store.savedSearchParams.newestMemberOrder==="asc" ? "desc" : "asc");
+          setDistanceOrder("");
+          setAgeOrder("");
+          setLastOnlineOrder("");
+          break;
       default:
         // code block
     };
     console.log("distanceOrder", distanceOrder);
     console.log("ageOrder", ageOrder);
+    console.log("lastOnline", lastOnlineOrder);
+    console.log("newestMember", newestMemberOrder);
     setSortChange(true);
   };
 
