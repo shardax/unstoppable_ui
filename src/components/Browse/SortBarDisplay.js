@@ -52,12 +52,14 @@ import { useDataStore } from "../../UserContext";
 
 
     const handleDistanceOrder = (event, newOrder) => {
+      console.log("handleDistanceOrder", newOrder);
       setDistanceOrder(newOrder);
       props.onChange("distance");
       //setFields(newFields);
     };
 
     const handleAgeOrder = (event, newOrder) => {
+      console.log("handleAgeOrder", newOrder);
       setAgeOrder(newOrder);
       props.onChange("age");
       //setFields(newFields);
@@ -88,10 +90,10 @@ import { useDataStore } from "../../UserContext";
               onChange={handleDistanceOrder}
               aria-label="text alignment"
             >
-              {(distanceOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned">
+              {(distanceOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleDistanceOrder}>
                 <ArrowDropDownIcon fontSize="small" />
               </ToggleButton>}
-              {(distanceOrder==="asc") && <ToggleButton value="desc" aria-label="centered">
+              {(distanceOrder==="asc") && <ToggleButton value="desc" aria-label="centered"  onChange={handleDistanceOrder}>
               <ArrowDropUpIcon />
               </ToggleButton>}
           </StyledToggleButtonGroup>
@@ -115,10 +117,10 @@ import { useDataStore } from "../../UserContext";
                 aria-label="text alignment"
               >
               
-                {(ageOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned">
+                {(ageOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleAgeOrder}>
                   <ArrowDropDownIcon fontSize="small" />
                 </ToggleButton>}
-                {(ageOrder==="asc") && <ToggleButton value="desc" aria-label="centered">
+                {(ageOrder==="asc") && <ToggleButton value="desc" aria-label="centered" onChange={handleAgeOrder}>
                 <ArrowDropUpIcon />
                 </ToggleButton>}
           </StyledToggleButtonGroup>
