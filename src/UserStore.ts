@@ -2,52 +2,6 @@ import { observable, action } from 'mobx';
 import { create, persist} from 'mobx-persist';
 import {AGE_RANGE_CONSTANT} from './constants/ProfileConstants';
 
-/** 
-export type UserStoreType = {
-  username: string
-  isLoggedIn: boolean
-  profile: ProfileStoreType
-}
-
-
-export type ProfileStoreType = {
-  id: number
-  zipcode: string
-  city: string
-  state: string
-  country: string
-  state_code: string
-  distance: number
-  time_zone: string
-  dob: string
-  age: number
-  other_favorite_activities: string
-  fitness_level: string
-  cancer_location: string
-  prefered_exercise_location: string
-  prefered_exercise_time: string
-  reason_for_match: string
-  treatment_status: string
-  treatment_description: string
-  personality: string
-  work_status: string
-  details_about_self: string
-  other_cancer_location: string
-  part_of_wellness_program:boolean
-  which_wellness_program: string
-  latitude: number
-  longitude: number
-  step_status: string
-  moderated: boolean
-  referred_by: string
-}
-
-
-export type ProfileListStore = {
-  profileList: ProfileStoreType[]
-}
-**/
-
 export class ActivitiesStore {
   id: number;
   name: string;
@@ -85,6 +39,11 @@ export class SearchParamsStore {
   stateCodeKeyword: string;
   zipcodeKeyword: string;
   cityKeyword: string;
+  //Sort params
+  distanceOrder: string;
+  ageOrder: string;
+  lastOnlineOrder: string;
+  newestMemberOrder: string;
 
   constructor(){
     this.filter = "";
@@ -94,6 +53,10 @@ export class SearchParamsStore {
     this.stateCodeKeyword = "";
     this.zipcodeKeyword = "";
     this.cityKeyword = "";
+    this.distanceOrder = "asc";
+    this.ageOrder = "asc";
+    this.lastOnlineOrder = "desc";
+    this.newestMemberOrder = "desc";
   }
 }
 
@@ -179,7 +142,7 @@ export class UserStore {
   @persist @observable profileId: number;
   @persist('object') @observable profile: ProfileStore;
   @persist('object')  uniqueLists: UniqueListStore;
-  @persist('object')  savedSearchParams: SearchParamsStore;
+  @persist('object')  @observable savedSearchParams: SearchParamsStore;
   @persist @observable avatarPath: string;
   // @persist @observable editMode: boolean;
   @persist @observable email: string;
@@ -201,7 +164,6 @@ export class UserStore {
       this.profileId = localStorageData.profileId;
       this.current_user_id = localStorageData.current_user_id;
       this.phone = localStorageData.phone;
-      // this.editMode = localStorageData.editMode;
       this.email = localStorageData.email;
       this.activities = localStorageData.activities;
       this.exerciseReasons = localStorageData.exerciseReasons;
@@ -220,7 +182,6 @@ export class UserStore {
       this.profileId = 0;
       this.current_user_id=0;
       this.phone = "";
-      // this.editMode = false;
       this.activities = [];
       this.exerciseReasons = [];
       this.confirm_token = "";

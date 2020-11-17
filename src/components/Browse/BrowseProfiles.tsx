@@ -15,9 +15,11 @@ import Button from '../Styled/Button';
 import Select from '../Styled/Select';
 import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
+import SortBarDisplay from './SortBarDisplay'
+
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
-  const store = useDataStore()
+  const store = useDataStore();
   const [filter, setFilter] = React.useState(store.savedSearchParams.filter);
   const [userCollection, setUserCollection] = React.useState<any>([]);
   const [ageRange, setAgeRange] = useState([store.savedSearchParams.ageRange[0],store.savedSearchParams.ageRange[1]]);
@@ -29,8 +31,12 @@ import ChatIcon from '@material-ui/icons/Chat';
   const [cityKeyword, setCityKeyword] = useState(store.savedSearchParams.cityKeyword);
   const [filterPlusKeywords, setFilterPlusKeywords] = useState(filter + " " + cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
   const [keywordsSelect, setKeywordSelect] = useState("");
-  const [numUsers, setNumUsers] = useState(0);
   const [searchTextDisplay, setSearchTextDisplay] = useState("");
+  //Sort related
+  const [sortChange, setSortChange] = useState(false);
+  const [distanceOrder, setDistanceOrder] = useState(store.savedSearchParams.distanceOrder);
+  const [ageOrder, setAgeOrder] = useState(store.savedSearchParams.ageOrder);
+  
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -44,15 +50,16 @@ import ChatIcon from '@material-ui/icons/Chat';
               commit: "Search",
               search: filter,
               keywordsSelect: keywordsSelect,
-              keyword_search_type: keywordSearchType
+              keyword_search_type: keywordSearchType,
+              distanceOrder: distanceOrder,
+              ageOrder: ageOrder
             },
             withCredentials: true,
             headers: {
               contentType: "application/json; charset=utf-8",
             }
           })
-        setUserCollection(data)
-        setNumUsers(userCollection.size);
+        setUserCollection(data);
       } catch (e) {
         console.log(`😱 Browse Fetch failed: ${e}`);
         setUserCollection([]);
@@ -60,7 +67,8 @@ import ChatIcon from '@material-ui/icons/Chat';
     }
     getProfiles();
     saveSearchCriteria();
-    }, [filterPlusKeywords, ageRange, distance, keywordSearchType]);
+    setSortChange(false);
+    }, [filterPlusKeywords, ageRange, distance, keywordSearchType, sortChange]);
 
   useEffect(() => {
       addAllKeywordsToFilter();
@@ -82,16 +90,12 @@ import ChatIcon from '@material-ui/icons/Chat';
     setKeywordSelect(allKeywords);
     let displayText = "";
     displayText = cancerTypeKeyword? ("CancerType: " + cancerTypeKeyword + ";"): "";
-    //if (stateCodeKeyword || zipcodeKeyword || cityKeyword) {
-      displayText = displayText + " Location: ";
-    //}
-    console.log(displayText);
+    displayText = displayText + " Location: ";
     displayText = stateCodeKeyword? displayText + " State: " + stateCodeKeyword : displayText;
     displayText = zipcodeKeyword? displayText + " Zipcode: " + zipcodeKeyword : displayText;
     displayText = cityKeyword? displayText + " City: " + cityKeyword : displayText;
     displayText = filter? "; With Search filter:" + displayText + " " + filter : displayText;
     setSearchTextDisplay(displayText);
-    console.log(displayText);
     
     if (filter){
       setFilterPlusKeywords(filter + " " + allKeywords);
@@ -108,6 +112,8 @@ import ChatIcon from '@material-ui/icons/Chat';
     store.savedSearchParams.stateCodeKeyword = stateCodeKeyword;
     store.savedSearchParams.zipcodeKeyword = zipcodeKeyword;
     store.savedSearchParams.cityKeyword = cityKeyword;
+    store.savedSearchParams.distanceOrder = distanceOrder;
+    store.savedSearchParams.ageOrder = ageOrder;
     localStorage.setItem("userStore", JSON.stringify(store));
   };
 
@@ -152,6 +158,29 @@ import ChatIcon from '@material-ui/icons/Chat';
     setKeywordSearchType(event.target.value);
   };
  
+  const handleSortChange= (event) => {
+    console.log("Handle sort change");
+    console.log(event.target.value);
+    setSortChange(true);
+  };
+
+  const handleDistanceOrderChange= (field) => {
+    console.log("field:", field);
+    switch(field) {
+      case "distance":
+        setDistanceOrder(store.savedSearchParams.distanceOrder==="asc" ? "desc" : "asc");
+        setAgeOrder("");
+      case "age":
+        setAgeOrder(store.savedSearchParams.ageOrder==="asc" ? "desc" : "asc");
+        setDistanceOrder("");
+        break;
+      default:
+        // code block
+    };
+    console.log(distanceOrder, ageOrder);
+    setSortChange(true);
+  };
+
   return useObserver(() => (
     <>
       <div>
@@ -165,11 +194,10 @@ import ChatIcon from '@material-ui/icons/Chat';
               {CANCERLOCATIONLIST.map((cancerLoc: any) => (
                 <option className="selector" value={cancerLoc} label={cancerLoc} />
               ))}
-             </Select>
+             </Select> 
               <div className="range-slider">
                 <RangeSlider ageRange={ageRange} onChange={handleChange}/>
               </div>
-
               <div>
                 <label>
                   <Radio value="OR" color="primary" checked={keywordSearchType==="OR"} onChange={(e) => handleRadioSearch(e)}  />OR (Contains any of the keywords)
@@ -179,7 +207,7 @@ import ChatIcon from '@material-ui/icons/Chat';
                 </label>
               </div>
               <div className="range-slider">
-                <DiscreteSlider  onChange={handleDistanceChange}/>
+                <DiscreteSlider  onChange={handleDistanceOrderChange}/>
               </div>
               {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
                 <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
@@ -205,6 +233,9 @@ import ChatIcon from '@material-ui/icons/Chat';
                 ))}
                 </Select>
               </div>}
+              <div className="range-slider">
+               <h6>Sort by</h6><SortBarDisplay onChange={handleDistanceOrderChange} />
+              </div>
             </div>
           </div>
           <div className="range-slider">
