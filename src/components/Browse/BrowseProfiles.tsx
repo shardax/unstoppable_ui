@@ -35,7 +35,7 @@ import SortBarDisplay from './SortBarDisplay'
   //Sort related
   const [sortChange, setSortChange] = useState(false);
   const [distanceOrder, setDistanceOrder] = useState(store.savedSearchParams.distanceOrder);
-  const [ageOrder, setAgeOrder] = useState(store.savedSearchParams.ageOrder);
+  const [ageOrder, setAgeOrder] = useState("");
   
 
   useEffect(() => {
@@ -170,6 +170,7 @@ import SortBarDisplay from './SortBarDisplay'
       case "distance":
         setDistanceOrder(store.savedSearchParams.distanceOrder==="asc" ? "desc" : "asc");
         setAgeOrder("");
+        break;
       case "age":
         setAgeOrder(store.savedSearchParams.ageOrder==="asc" ? "desc" : "asc");
         setDistanceOrder("");
@@ -177,7 +178,8 @@ import SortBarDisplay from './SortBarDisplay'
       default:
         // code block
     };
-    console.log(distanceOrder, ageOrder);
+    console.log("distanceOrder", distanceOrder);
+    console.log("ageOrder", ageOrder);
     setSortChange(true);
   };
 
