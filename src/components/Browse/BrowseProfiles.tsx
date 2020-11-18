@@ -232,7 +232,7 @@ import SortIcon from '@material-ui/icons/Sort';
                 </label>
               </div>
               <div className="range-slider">
-                <DiscreteSlider  onChange={handleDistanceOrderChange}/>
+                <DiscreteSlider  onChange={handleDistanceChange}/>
               </div>
               {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
                 <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
