@@ -44,7 +44,7 @@ import { useDataStore } from "../../UserContext";
     const [fields, setFields] = React.useState(() => ['distance']);
   
     const handleField = (event, newFields) => {
-      console.log(newFields);
+      console.log("newFields", newFields);
       setFields(newFields);
     };
   
@@ -57,28 +57,28 @@ import { useDataStore } from "../../UserContext";
       console.log("handleDistanceOrder", newOrder);
       setDistanceOrder(newOrder);
       props.onChange("distance");
-      //setFields(newFields);
+      setFields("distance");
     };
 
     const handleAgeOrder = (event, newOrder) => {
       console.log("handleAgeOrder", newOrder);
       setAgeOrder(newOrder);
       props.onChange("age");
-      //setFields(newFields);
+      setFields("age");
     };
   
     const handleLastOnlineOrder = (event, newOrder) => {
       console.log("handleLastOnlineOrder", newOrder);
       setLastOnlineOrder(newOrder);
       props.onChange("lastOnline");
-      //setFields(newFields);
+      setFields("lastOnline");
     };
   
     const handleNewestMemberOrder = (event, newOrder) => {
       console.log("handleNewestMemberOrder", newOrder);
-      setLastOnlineOrder(newOrder);
+      setNewestMemberOrder(newOrder);
       props.onChange("newestMember");
-      //setFields(newFields);
+      setFields("newestMember");
     };
 
     const classes = useStyles();
@@ -90,7 +90,7 @@ import { useDataStore } from "../../UserContext";
           <StyledToggleButtonGroup
               size="small"
               value={fields}
-              //onChange={handleField}
+              onChange={handleField}
               aria-label="text formatting"
             >
               <ToggleButton value="distance" aria-label="distance">
@@ -116,7 +116,7 @@ import { useDataStore } from "../../UserContext";
           <StyledToggleButtonGroup
               size="small"
               value={fields}
-              onChange={handleField}
+             // onChange={handleField}
               aria-label="text formatting"
             >
             <ToggleButton value="age" aria-label="age">
@@ -144,10 +144,10 @@ import { useDataStore } from "../../UserContext";
           <StyledToggleButtonGroup
               size="small"
               value={fields}
-              onChange={handleField}
+              //onChange={handleField}
               aria-label="text formatting"
             >
-            <ToggleButton value="lastOnlineOrder" aria-label="age">
+            <ToggleButton value="lastOnline" aria-label="lastOnline">
                 Last Online
               </ToggleButton>
           </StyledToggleButtonGroup>
@@ -176,7 +176,7 @@ import { useDataStore } from "../../UserContext";
               onChange={handleField}
               aria-label="text formatting"
             >
-            <ToggleButton value="lastOnlineOrder" aria-label="age">
+            <ToggleButton value="newestMember" aria-label="age">
                 Newest Member
               </ToggleButton>
           </StyledToggleButtonGroup>
