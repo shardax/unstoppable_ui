@@ -112,13 +112,14 @@ import { useDataStore } from "../../UserContext";
               <ArrowDropUpIcon />
               </ToggleButton>}
           </StyledToggleButtonGroup>
+          <Divider flexItem orientation="vertical" className={classes.divider} />
+
           {/** Age **/}
           <StyledToggleButtonGroup
               size="small"
               value={fields}
              // onChange={handleField}
-              aria-label="text formatting"
-            >
+              aria-label="text formatting">
             <ToggleButton value="age" aria-label="age">
                 Age
               </ToggleButton>
@@ -129,9 +130,7 @@ import { useDataStore } from "../../UserContext";
                 value={ageOrder}
                 exclusive
                 onChange={handleAgeOrder}
-                aria-label="text alignment"
-              >
-              
+                aria-label="text alignment">
                 {(ageOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleAgeOrder}>
                   <ArrowDropDownIcon fontSize="small" />
                 </ToggleButton>}
@@ -139,14 +138,14 @@ import { useDataStore } from "../../UserContext";
                 <ArrowDropUpIcon />
                 </ToggleButton>}
           </StyledToggleButtonGroup>
+          <Divider flexItem orientation="vertical" className={classes.divider} />
          
           {/** Last Online **/}
           <StyledToggleButtonGroup
               size="small"
               value={fields}
               //onChange={handleField}
-              aria-label="text formatting"
-            >
+              aria-label="text formatting">
             <ToggleButton value="lastOnline" aria-label="lastOnline">
                 Last Online
               </ToggleButton>
@@ -168,6 +167,7 @@ import { useDataStore } from "../../UserContext";
                   <ArrowDropUpIcon />
                 </ToggleButton>}
           </StyledToggleButtonGroup>
+          <Divider flexItem orientation="vertical" className={classes.divider} />
 
           {/** Newest Member**/}
           <StyledToggleButtonGroup
@@ -197,7 +197,6 @@ import { useDataStore } from "../../UserContext";
                   <ArrowDropUpIcon />
                 </ToggleButton>}
           </StyledToggleButtonGroup>
-
           <Divider flexItem orientation="vertical" className={classes.divider} />
           
         </Paper>

@@ -16,6 +16,7 @@ import Select from '../Styled/Select';
 import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 import SortBarDisplay from './SortBarDisplay'
+import SortIcon from '@material-ui/icons/Sort';
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -258,7 +259,7 @@ import SortBarDisplay from './SortBarDisplay'
                 </Select>
               </div>}
               <div className="range-slider">
-               <h6>Sort by</h6><SortBarDisplay onChange={handleDistanceOrderChange} />
+               <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
               </div>
             </div>
           </div>
