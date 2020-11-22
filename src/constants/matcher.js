@@ -20,9 +20,12 @@ export const SAVEZIPCODEURL = ROOTURL + "/account_settings/change_zipcode"
 export const SAVEPASSWORDURL = ROOTURL + "/account_settings/update_password"
 export const SAVEPHONEURL = ROOTURL + "/account_settings/change_phone"
 export const VALIDPHONEURL = ROOTURL + "/account_settings/valid_phone"
+export const SAVESEARCHPARAMSURL = ROOTURL + "/account_settings/save_search_params"
 // Messaging URLs
 export const SENDMESSAGEURL = ROOTURL + "/conversations"
 export const CONVERSATIONSURL = ROOTURL + "/conversations/conversationsjson.json"
 export const ALLCONVERSATIONSURL = ROOTURL + "/conversations/allconversationsjson.json"
+//
+//export const EVENTSURL = ROOTURL + "/events"
 
 
