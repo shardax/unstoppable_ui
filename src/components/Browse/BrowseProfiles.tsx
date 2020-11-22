@@ -8,6 +8,7 @@ import Radio from '@material-ui/core/Radio';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
+import {SearchParamsStore} from "../../UserStore";
 import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT} from '../../constants/ProfileConstants';
 import './Browse.scss'
 import { useObserver } from "mobx-react";
@@ -123,6 +124,26 @@ import SortIcon from '@material-ui/icons/Sort';
     localStorage.setItem("userStore", JSON.stringify(store));
   };
 
+
+  const handleReset= () => {
+    console.log("Handle reset");
+    store.savedSearchParams = new SearchParamsStore();
+    console.log("savedSearchParams", JSON.stringify(store.savedSearchParams));
+    localStorage.setItem("userStore", JSON.stringify(store));
+    setFilter(store.savedSearchParams.filter);
+    setAgeRange(store.savedSearchParams.ageRange);
+    setDistance(store.savedSearchParams.distance);
+    setCancerTypeKeyword(store.savedSearchParams.cancerTypeKeyword);
+    setStateCodeKeyword(store.savedSearchParams.stateCodeKeyword);
+    setZipcodeKeyword(store.savedSearchParams.zipcodeKeyword);
+    setCityKeyword(store.savedSearchParams.cityKeyword);
+    setDistanceOrder(store.savedSearchParams.distanceOrder);
+    setAgeOrder(store.savedSearchParams.ageOrder);
+    setLastOnlineOrder(store.savedSearchParams.lastOnlineOrder);
+    setNewestMemberOrder(store.savedSearchParams.newestMemberOrder)
+    console.log("store", JSON.stringify(store)); 
+  };
+
   const updateLikedProfiles = async (type: 'like' | 'unlike', id: number) => {
     try {
       let url = PROFILEURL + "/" + store.profile.id + ".json" ;
@@ -169,6 +190,7 @@ import SortIcon from '@material-ui/icons/Sort';
     console.log(event.target.value);
     setSortChange(true);
   };
+
 
   const handleDistanceOrderChange= (field) => {
     console.log("field:", field);
@@ -232,7 +254,7 @@ import SortIcon from '@material-ui/icons/Sort';
                 </label>
               </div>
               <div className="range-slider">
-                <DiscreteSlider  onChange={handleDistanceChange}/>
+                <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>
               </div>
               {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
                 <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
@@ -259,7 +281,13 @@ import SortIcon from '@material-ui/icons/Sort';
                 </Select>
               </div>}
               <div className="range-slider">
-               <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
+                <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
+              </div>
+              <div className="range-slider">
+                 <Button id="prev" margin="2em 1.5em" padding="10px 20px"
+                                            onClick={(e)=>{handleReset()}}>
+                                            Reset all selections
+                                        </Button>
               </div>
             </div>
           </div>

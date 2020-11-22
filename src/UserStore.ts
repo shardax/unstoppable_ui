@@ -48,7 +48,7 @@ export class SearchParamsStore {
   constructor(){
     this.filter = "";
     this.ageRange = AGE_RANGE_CONSTANT;
-    this.distance = 0;
+    this.distance = 99;
     this.cancerTypeKeyword = "";
     this.stateCodeKeyword = "";
     this.zipcodeKeyword = "";
