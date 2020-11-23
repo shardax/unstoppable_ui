@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import Error from "./Error";
 import {useDataStore} from "../../UserContext";
+import {SearchParamsStore} from "../../UserStore";
 import { LOGINURL } from "../../constants/matcher";
 import {STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT, AGE_RANGE_CONSTANT} from "../../constants/ProfileConstants";
 import Input from '../Styled/Input'
@@ -76,7 +77,7 @@ const SignIn2 = () => {
               store.uniqueLists.unique_state_codes = result.data.unique_state_codes;
               store.uniqueLists.unique_zipcodes = result.data.unique_zipcodes;
               store.uniqueLists.unique_cities = result.data.unique_cities;
-              store.savedSearchParams = result.data.search_params;
+              store.savedSearchParams = result.data.search_params ? result.data.search_params : new SearchParamsStore()
               localStorage.setItem("userStore", JSON.stringify(store));
           } catch (error) {
             console.log(error.message);
