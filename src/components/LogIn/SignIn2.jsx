@@ -77,7 +77,11 @@ const SignIn2 = () => {
               store.uniqueLists.unique_state_codes = result.data.unique_state_codes;
               store.uniqueLists.unique_zipcodes = result.data.unique_zipcodes;
               store.uniqueLists.unique_cities = result.data.unique_cities;
-              store.savedSearchParams = result.data.search_params ? result.data.search_params : new SearchParamsStore()
+              store.savedSearchParams = new SearchParamsStore();
+              if (result.data.search_params) {
+                store.savedSearchParams = result.data.search_params;
+              }
+              console.log(JSON.stringify(store.savedSearchParams));
               localStorage.setItem("userStore", JSON.stringify(store));
           } catch (error) {
             console.log(error.message);

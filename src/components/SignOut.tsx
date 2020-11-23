@@ -26,7 +26,7 @@ const SignOut: React.FC = ({  }) => {
       }
     }
     
-
+    saveSearchParamsData();
  
     const fetchData = async () => {
       try {
@@ -43,9 +43,9 @@ const SignOut: React.FC = ({  }) => {
       }
       history.push("/login")
     }
-    saveSearchParamsData();
-    fetchData();
-
+    setTimeout(() => {
+      fetchData();
+     }, 3000)
   }, []);
     
     return (
