@@ -18,11 +18,12 @@ import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 import SortBarDisplay from './SortBarDisplay'
 import SortIcon from '@material-ui/icons/Sort';
+import Checkbox from './Checkbox';
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
   const store = useDataStore();
-  const [filter, setFilter] = React.useState(store.savedSearchParams.filter);
+  const [filter, setFilter] = React.useState(store.savedSearchParams ? store.savedSearchParams.filter : "");
   const [userCollection, setUserCollection] = React.useState<any>([]);
   const [ageRange, setAgeRange] = useState([store.savedSearchParams.ageRange[0],store.savedSearchParams.ageRange[1]]);
   const [distance, setDistance] = useState(store.savedSearchParams.distance);
@@ -40,6 +41,7 @@ import SortIcon from '@material-ui/icons/Sort';
   const [ageOrder, setAgeOrder] = useState("");
   const [lastOnlineOrder, setLastOnlineOrder] = useState("");
   const [newestMemberOrder, setNewestMemberOrder] = useState("");
+  const [activeUsers, setActiveUsers] = useState(false);
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -58,6 +60,7 @@ import SortIcon from '@material-ui/icons/Sort';
               ageOrder: ageOrder,
               lastOnlineOrder: lastOnlineOrder,
               newestMemberOrder: newestMemberOrder,
+              active: activeUsers
             },
             withCredentials: true,
             headers: {
@@ -73,7 +76,7 @@ import SortIcon from '@material-ui/icons/Sort';
     getProfiles();
     saveSearchCriteria();
     setSortChange(false);
-    }, [filterPlusKeywords, ageRange, distance, keywordSearchType, sortChange]);
+    }, [filterPlusKeywords, ageRange, distance, keywordSearchType, sortChange, activeUsers]);
 
   useEffect(() => {
       addAllKeywordsToFilter();
@@ -86,6 +89,12 @@ import SortIcon from '@material-ui/icons/Sort';
   const handleDistanceChange = (event: any, newDistance: number) => {
     setDistance(newDistance);
   };
+
+  // Used by Checkbox for Active Users
+  const handleActiveUsers = (event) => {
+    setActiveUsers(event.target.checked);
+  };
+
 
   const addAllKeywordsToFilter = () => {
     let allKeywords = cancerTypeKeyword? cancerTypeKeyword : "";
@@ -282,6 +291,9 @@ import SortIcon from '@material-ui/icons/Sort';
               </div>}
               <div className="range-slider">
                 <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
+              </div>
+              <div className="range-slider">
+                <Checkbox  onChange={handleActiveUsers} />
               </div>
               <div className="range-slider">
                  <Button id="prev" margin="2em 1.5em" padding="10px 20px"
