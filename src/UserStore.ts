@@ -44,6 +44,7 @@ export class SearchParamsStore {
   ageOrder: string;
   lastOnlineOrder: string;
   newestMemberOrder: string;
+  activeUsers: boolean;
 
   constructor(){
     this.filter = "";
@@ -57,6 +58,7 @@ export class SearchParamsStore {
     this.ageOrder = "asc";
     this.lastOnlineOrder = "desc";
     this.newestMemberOrder = "desc";
+    this.activeUsers = false;
   }
 }
 
