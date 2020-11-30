@@ -18,7 +18,6 @@ import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 import SortBarDisplay from './SortBarDisplay'
 import SortIcon from '@material-ui/icons/Sort';
-import CheckboxActive from './Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -94,7 +93,7 @@ import Checkbox from '@material-ui/core/Checkbox';
   };
 
   // Used by Checkbox for Active Users
-  const handleActiveUsers = (event) => {
+  const handleActiveUsers = (event: React.ChangeEvent<HTMLInputElement>) => {
     setActiveUsers(event.target.checked);
     console.log(event.target.checked);
   };
@@ -299,21 +298,19 @@ import Checkbox from '@material-ui/core/Checkbox';
                 <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
               </div>
               <div className="range-slider">
-                <CheckboxActive refresh={true} activeUsers={activeUsers}  onChange={handleActiveUsers} />
-                {/*  <FormGroup row>
+                  <FormGroup row>
                   <FormControlLabel
                     control={
                       <Checkbox
-                        value={true}
-                        //checked={state}
-                        onChange={e => setActiveUsers(e.target.value)} 
+                        checked={activeUsers}
+                        onChange={e => handleActiveUsers(e)}
                         name="activeUsers"
                         color="primary"
                       />
                     }
                     label="Active Users"
                   />
-                  </FormGroup> **/}
+                  </FormGroup>
               </div>
               <div className="range-slider">
                  <Button id="prev" margin="2em 1.5em" padding="10px 20px"
