@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import Tooltip from '@material-ui/core/Tooltip';
 import { useDataStore } from "../../UserContext";
 
   const useStyles = makeStyles((theme) => ({
@@ -56,28 +57,28 @@ import { useDataStore } from "../../UserContext";
     const handleDistanceOrder = (event, newOrder) => {
       console.log("handleDistanceOrder", newOrder);
       setDistanceOrder(newOrder);
-      props.onChange("distance");
+      props.onChange("distance", newOrder);
       setFields("distance");
     };
 
     const handleAgeOrder = (event, newOrder) => {
       console.log("handleAgeOrder", newOrder);
       setAgeOrder(newOrder);
-      props.onChange("age");
+      props.onChange("age", newOrder);
       setFields("age");
     };
   
     const handleLastOnlineOrder = (event, newOrder) => {
       console.log("handleLastOnlineOrder", newOrder);
       setLastOnlineOrder(newOrder);
-      props.onChange("lastOnline");
+      props.onChange("lastOnline", newOrder);
       setFields("lastOnline");
     };
   
     const handleNewestMemberOrder = (event, newOrder) => {
       console.log("handleNewestMemberOrder", newOrder);
       setNewestMemberOrder(newOrder);
-      props.onChange("newestMember");
+      props.onChange("newestMember", newOrder);
       setFields("newestMember");
     };
 
@@ -106,10 +107,14 @@ import { useDataStore } from "../../UserContext";
               aria-label="text alignment"
             >
               {(distanceOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleDistanceOrder}>
-                <ArrowDropDownIcon fontSize="small" />
+                <Tooltip title="Click to sort by distance in ascending order">
+                  <ArrowDropDownIcon fontSize="small" />
+                </Tooltip>
               </ToggleButton>}
               {(distanceOrder==="asc") && <ToggleButton value="desc" aria-label="centered"  onChange={handleDistanceOrder}>
-              <ArrowDropUpIcon />
+              <Tooltip title="Click to sort by distance in descending order">
+                <ArrowDropUpIcon />
+              </Tooltip>
               </ToggleButton>}
           </StyledToggleButtonGroup>
           <Divider flexItem orientation="vertical" className={classes.divider} />
@@ -132,10 +137,14 @@ import { useDataStore } from "../../UserContext";
                 onChange={handleAgeOrder}
                 aria-label="text alignment">
                 {(ageOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleAgeOrder}>
+                <Tooltip title="Click to sort by age in ascending order">
                   <ArrowDropDownIcon fontSize="small" />
+                </Tooltip>
                 </ToggleButton>}
                 {(ageOrder==="asc") && <ToggleButton value="desc" aria-label="centered" onChange={handleAgeOrder}>
-                <ArrowDropUpIcon />
+                <Tooltip title="Click to sort by age in descending order">
+                  <ArrowDropUpIcon />
+                </Tooltip >
                 </ToggleButton>}
           </StyledToggleButtonGroup>
           <Divider flexItem orientation="vertical" className={classes.divider} />
@@ -160,11 +169,15 @@ import { useDataStore } from "../../UserContext";
               
               {(lastOnlineOrder==="desc") &&
                 <ToggleButton value="asc" aria-label="left aligned" onChange={handleLastOnlineOrder}>
-                  <ArrowDropDownIcon fontSize="small" />
+                  <Tooltip title="Click to sort by Last Online in ascending order">
+                    <ArrowDropDownIcon fontSize="small" />
+                  </Tooltip >
                 </ToggleButton>}
               {(lastOnlineOrder==="asc") &&
                 <ToggleButton value="desc" aria-label="centered" onChange={handleLastOnlineOrder}>
-                  <ArrowDropUpIcon />
+                  <Tooltip title="Click to sort by Last Online in descending order">
+                    <ArrowDropUpIcon />
+                  </Tooltip >
                 </ToggleButton>}
           </StyledToggleButtonGroup>
           <Divider flexItem orientation="vertical" className={classes.divider} />
@@ -190,11 +203,15 @@ import { useDataStore } from "../../UserContext";
               
               {(newestMemberOrder==="desc") && 
                 <ToggleButton value="asc" aria-label="left aligned" onChange={handleNewestMemberOrder}>
-                  <ArrowDropDownIcon fontSize="small" />
+                  <Tooltip title="Click to sort by Newest Member in ascending order">
+                    <ArrowDropDownIcon fontSize="small" />
+                  </Tooltip>
                 </ToggleButton>}
               {(newestMemberOrder==="asc") && 
                 <ToggleButton value="desc" aria-label="centered" onChange={handleNewestMemberOrder}>
-                  <ArrowDropUpIcon />
+                  <Tooltip title="Click to sort by Newest Member in descending order">
+                    <ArrowDropUpIcon />
+                  </Tooltip>
                 </ToggleButton>}
           </StyledToggleButtonGroup>
           <Divider flexItem orientation="vertical" className={classes.divider} />

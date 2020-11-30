@@ -18,7 +18,10 @@ import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
 import SortBarDisplay from './SortBarDisplay'
 import SortIcon from '@material-ui/icons/Sort';
-import Checkbox from './Checkbox';
+import CheckboxActive from './Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -41,7 +44,7 @@ import Checkbox from './Checkbox';
   const [ageOrder, setAgeOrder] = useState("");
   const [lastOnlineOrder, setLastOnlineOrder] = useState("");
   const [newestMemberOrder, setNewestMemberOrder] = useState("");
-  const [activeUsers, setActiveUsers] = useState(false);
+  const [activeUsers, setActiveUsers] = useState(store.savedSearchParams.activeUsers);
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -93,6 +96,7 @@ import Checkbox from './Checkbox';
   // Used by Checkbox for Active Users
   const handleActiveUsers = (event) => {
     setActiveUsers(event.target.checked);
+    console.log(event.target.checked);
   };
 
 
@@ -130,6 +134,7 @@ import Checkbox from './Checkbox';
     store.savedSearchParams.ageOrder = ageOrder;
     store.savedSearchParams.lastOnlineOrder = lastOnlineOrder;
     store.savedSearchParams.newestMemberOrder = newestMemberOrder;
+    store.savedSearchParams.activeUsers = activeUsers;
     localStorage.setItem("userStore", JSON.stringify(store));
   };
 
@@ -149,7 +154,8 @@ import Checkbox from './Checkbox';
     setDistanceOrder(store.savedSearchParams.distanceOrder);
     setAgeOrder(store.savedSearchParams.ageOrder);
     setLastOnlineOrder(store.savedSearchParams.lastOnlineOrder);
-    setNewestMemberOrder(store.savedSearchParams.newestMemberOrder)
+    setNewestMemberOrder(store.savedSearchParams.newestMemberOrder);
+    setActiveUsers(store.savedSearchParams.activeUsers);
     console.log("store", JSON.stringify(store)); 
   };
 
@@ -201,7 +207,7 @@ import Checkbox from './Checkbox';
   };
 
 
-  const handleDistanceOrderChange= (field) => {
+  const handleDistanceOrderChange= (field, newOrder) => {
     console.log("field:", field);
     switch(field) {
       case "distance":
@@ -211,7 +217,7 @@ import Checkbox from './Checkbox';
         setNewestMemberOrder("");
         break;
       case "age":
-        setAgeOrder(store.savedSearchParams.ageOrder==="asc" ? "desc" : "asc");
+        setAgeOrder(newOrder);
         setDistanceOrder("");
         setNewestMemberOrder("");
         break;
@@ -293,7 +299,21 @@ import Checkbox from './Checkbox';
                 <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
               </div>
               <div className="range-slider">
-                <Checkbox  onChange={handleActiveUsers} />
+                <CheckboxActive refresh={true} activeUsers={activeUsers}  onChange={handleActiveUsers} />
+                {/*  <FormGroup row>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={true}
+                        //checked={state}
+                        onChange={e => setActiveUsers(e.target.value)} 
+                        name="activeUsers"
+                        color="primary"
+                      />
+                    }
+                    label="Active Users"
+                  />
+                  </FormGroup> **/}
               </div>
               <div className="range-slider">
                  <Button id="prev" margin="2em 1.5em" padding="10px 20px"
