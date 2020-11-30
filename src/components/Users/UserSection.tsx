@@ -64,9 +64,17 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
         <div className="user-section-data">
           <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">{user.city}, {user.state}</span></h1>
 
+        <div
+            style={{
+              backgroundColor: user.active ? 'green' : 'grey'
+            }}
+          >
+           <p style={{ fontSize: "20px" }}><span>{user.active}, {user.last_seen_at}</span></p>
+           </div>
+
           <Paper margin="2em 0em">
             <div className="profile-section-header">About me 😀</div>
-            <p className="muted-text">{user.age} years old</p>
+            <p className="muted-text">{user.age} years old!</p>
             <ProfileIconRow field={"Personality"} chips={false} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />}/>
 
             <ProfileIconRow field={"Details"} chips={false} answer={<div className="full-profile-das">

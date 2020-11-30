@@ -181,7 +181,16 @@ import Tooltip from '@material-ui/core/Tooltip';
         <div className="single-profile-body">
           <div>
             <Link to={"/user/" + profile.id}>
-              <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">{profile.city}, {profile.state}</span></h5>
+              <div
+              style={{
+                backgroundColor: profile.active ? 'green' : 'white'
+              }}
+            >
+               <Tooltip title={profile.last_seen_at ? "User active since " + profile.last_seen_at: ""}>
+              <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">
+              {profile.city}, {profile.state}</span></h5>
+              </Tooltip >
+            </div>
             </Link>
             <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
             <p className="other-profile-card-data">{profile.age} years old</p>
@@ -299,7 +308,6 @@ import Tooltip from '@material-ui/core/Tooltip';
             <div className="range-slider">
               <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>
             </div>
-
             <div className="range-slider">
               <Tooltip title="Displays Users active since the last 5 minutes">
                 <FormGroup row>
@@ -318,7 +326,7 @@ import Tooltip from '@material-ui/core/Tooltip';
               </Tooltip >
               </div>
               <div className="range-slider">
-                <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
+                <SortBarDisplay onChange={handleDistanceOrderChange} />
               </div>
               <div className="range-slider">
                   <Button id="prev" margin="2em 1.5em" padding="10px 20px"
