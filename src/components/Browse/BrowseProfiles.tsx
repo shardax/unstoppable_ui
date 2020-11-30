@@ -263,62 +263,65 @@ import Tooltip from '@material-ui/core/Tooltip';
                 </label>
               </Tooltip >
             </div>
-              <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em" value={cancerTypeKeyword}>
-              <option className="selector" value="" label="- Select cancer type -" />
-              {CANCERLOCATIONLIST.map((cancerLoc: any) => (
-                <option className="selector" value={cancerLoc} label={cancerLoc} />
+            <div className="range-slider">
+              <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+            </div>
+            <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em" value={cancerTypeKeyword}>
+            <option className="selector" value="" label="- Select cancer type -" />
+            {CANCERLOCATIONLIST.map((cancerLoc: any) => (
+              <option className="selector" value={cancerLoc} label={cancerLoc} />
+            ))}
+            </Select> 
+            {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
+              <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
+                <option className="selector" value="" label="- Select State -" />
+                {store.uniqueLists.unique_state_codes.map((sc: any) => (
+                <option className="selector" value={sc} label={sc} />
               ))}
-             </Select> 
-              <div className="range-slider">
-                <RangeSlider ageRange={ageRange} onChange={handleChange}/>
+              </Select>
+            </div>}
+            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
+              <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
+                <option className="selector" value="" label="- Select Zipcode -" />
+                {store.uniqueLists.unique_zipcodes.map((z: any) => (
+                <option className="selector" value={z} label={z} />
+              ))}
+              </Select>
+            </div>}
+            {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div>
+              <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em" value={cityKeyword} >
+                <option className="selector" value="" label="- Select City -" />
+                {store.uniqueLists.unique_cities.map((c: any) => (
+                <option className="selector" value={c} label={c} />
+              ))}
+              </Select>
+            </div>}
+            <div className="range-slider">
+              <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>
+            </div>
+
+            <div className="range-slider">
+              <Tooltip title="Displays Users active since the last 5 minutes">
+                <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={activeUsers}
+                      onChange={e => handleActiveUsers(e)}
+                      name="activeUsers"
+                      color="primary"
+                    />
+                  }
+                  label="Active Users"
+                />
+                </FormGroup>
+              </Tooltip >
               </div>
-              <div className="range-slider">
-                <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>
-              </div>
-              {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div>
-                <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
-                  <option className="selector" value="" label="- Select State -" />
-                  {store.uniqueLists.unique_state_codes.map((sc: any) => (
-                  <option className="selector" value={sc} label={sc} />
-                ))}
-                </Select>
-              </div>}
-              {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
-                <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
-                  <option className="selector" value="" label="- Select Zipcode -" />
-                  {store.uniqueLists.unique_zipcodes.map((z: any) => (
-                  <option className="selector" value={z} label={z} />
-                ))}
-                </Select>
-              </div>}
-              {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div>
-                <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em" value={cityKeyword} >
-                  <option className="selector" value="" label="- Select City -" />
-                  {store.uniqueLists.unique_cities.map((c: any) => (
-                  <option className="selector" value={c} label={c} />
-                ))}
-                </Select>
-              </div>}
               <div className="range-slider">
                 <h6> Sort </h6> <SortBarDisplay onChange={handleDistanceOrderChange} />
               </div>
               <div className="range-slider">
-                  <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={activeUsers}
-                        onChange={e => handleActiveUsers(e)}
-                        name="activeUsers"
-                        color="primary"
-                      />
-                    }
-                    label="Active Users"
-                  />
-                  </FormGroup>
-              </div>
-              <div className="range-slider">
-                 <Button id="prev" margin="2em 1.5em" padding="10px 20px"
+                  <Button id="prev" margin="2em 1.5em" padding="10px 20px"
                                             onClick={(e)=>{handleReset()}}>
                                             Reset all selections
                                         </Button>
