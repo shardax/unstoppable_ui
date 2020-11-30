@@ -21,6 +21,7 @@ import SortIcon from '@material-ui/icons/Sort';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Tooltip from '@material-ui/core/Tooltip';
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -250,6 +251,18 @@ import Checkbox from '@material-ui/core/Checkbox';
             <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
             <div className="browse-filter-row"> 
               <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type, Zipcode, State Code or City" />
+            <div>
+              <Tooltip title="Contains any of the keywords">
+                <label>
+                  <Radio value="OR" color="primary" checked={keywordSearchType==="OR"} onChange={(e) => handleRadioSearch(e)}  />OR
+                </label>
+              </Tooltip>
+              <Tooltip title="Contains all of the keywords">
+                <label>
+                  <Radio value="AND" color="primary" checked={keywordSearchType === "AND"}  onChange={(e) => handleRadioSearch(e)}  />AND
+                </label>
+              </Tooltip >
+            </div>
               <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em" value={cancerTypeKeyword}>
               <option className="selector" value="" label="- Select cancer type -" />
               {CANCERLOCATIONLIST.map((cancerLoc: any) => (
@@ -258,14 +271,6 @@ import Checkbox from '@material-ui/core/Checkbox';
              </Select> 
               <div className="range-slider">
                 <RangeSlider ageRange={ageRange} onChange={handleChange}/>
-              </div>
-              <div>
-                <label>
-                  <Radio value="OR" color="primary" checked={keywordSearchType==="OR"} onChange={(e) => handleRadioSearch(e)}  />OR (Contains any of the keywords)
-                </label>
-                <label>
-                  <Radio value="AND" color="primary" checked={keywordSearchType === "AND"}  onChange={(e) => handleRadioSearch(e)}  />AND (Contains all of the keywords)
-                </label>
               </div>
               <div className="range-slider">
                 <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>
