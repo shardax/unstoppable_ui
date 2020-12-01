@@ -22,6 +22,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
+import Brightness1Icon from '@material-ui/icons/Brightness1';
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -183,19 +184,23 @@ import Tooltip from '@material-ui/core/Tooltip';
             <Link to={"/user/" + profile.id}>
               <div
               style={{
-                backgroundColor: profile.active ? 'green' : 'white'
+                backgroundColor: profile.active ? '#B7FFBF' : 'white'
               }}
             >
-               <Tooltip title={profile.last_seen_at ? "User active since " + profile.last_seen_at: ""}>
-              <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">
+            <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">
               {profile.city}, {profile.state}</span></h5>
-              </Tooltip >
             </div>
             </Link>
             <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
             <p className="other-profile-card-data">{profile.age} years old</p>
           </div>
           <div>
+          {profile.active && <Tooltip title={profile.last_seen_at ? "User active since " + profile.last_seen_at: ""}>
+            <Brightness1Icon  style={{ color: "#4DED30", fontSize: "medium"}}/>
+          </Tooltip >}
+          {!profile.active && <Tooltip title={profile.last_seen_at ? "User active since " + profile.last_seen_at: ""}>
+            <Brightness1Icon  style={{ color: "#D4D4D4", fontSize: "medium"}}/>
+          </Tooltip >}
           <Link to={"/userMessage" + "/" + profile.user_id}>
             <ChatIcon className="favorite-profile-icon"></ChatIcon>
           </Link>
