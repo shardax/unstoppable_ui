@@ -111,11 +111,13 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     setKeywordSelect(allKeywords);
     let displayText = "";
     displayText = cancerTypeKeyword? ("CancerType: " + cancerTypeKeyword + ";"): "";
-    displayText = displayText + " Location: ";
-    displayText = stateCodeKeyword? displayText + " State: " + stateCodeKeyword : displayText;
-    displayText = zipcodeKeyword? displayText + " Zipcode: " + zipcodeKeyword : displayText;
-    displayText = cityKeyword? displayText + " City: " + cityKeyword : displayText;
-    displayText = filter? "; With Search filter:" + displayText + " " + filter : displayText;
+    if (stateCodeKeyword || zipcodeKeyword || cityKeyword){
+      displayText = displayText + " Location: ";
+      displayText = stateCodeKeyword? displayText + " State: " + stateCodeKeyword : displayText;
+      displayText = zipcodeKeyword? displayText + " Zipcode: " + zipcodeKeyword : displayText;
+      displayText = cityKeyword? displayText + " City: " + cityKeyword : displayText;
+    }
+    displayText = filter? displayText +  "  " + " Search filter: " + filter : displayText;
     setSearchTextDisplay(displayText);
     
     if (filter){
@@ -340,7 +342,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
             </div>
           </div>
           <div className="range-slider">
-            <h4><b> {userCollection.length} Users</b></h4><h6>{searchTextDisplay}</h6>
+            <h4><b> {userCollection.length} {activeUsers ? "Active " : " "}User{(userCollection.length > 1) ? "s":""}</b></h4><h6>{searchTextDisplay}</h6>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
