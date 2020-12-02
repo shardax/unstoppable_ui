@@ -330,6 +330,9 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
               </Tooltip >
               </div>
               <div className="range-slider">
+                {/*<Tooltip title="Sort Users">
+                  <SortIcon />
+                </Tooltip > */}
                 {!reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={distanceOrder} ageOrder={ageOrder} lastOnineOrder={lastOnlineOrder} newestMemberOrder={newestMemberOrder} resetFunction={handleResetCompletion} reset={reset} />}
                 {reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={"asc"} resetFunction={handleResetCompletion} reset={reset} />}
               </div>
@@ -342,7 +345,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
             </div>
           </div>
           <div className="range-slider">
-            <h4><b> {userCollection.length} {activeUsers ? "Active " : " "}User{(userCollection.length > 1) ? "s":""}</b></h4><h6>{searchTextDisplay}</h6>
+            <h4><b> {userCollection.length} {activeUsers ? "Active " : " "}User{(userCollection.length != 1) ? "s":""}</b></h4><h6>{searchTextDisplay}</h6>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
