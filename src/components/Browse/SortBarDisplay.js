@@ -112,9 +112,11 @@ import { useDataStore } from "../../UserContext";
               onChange={handleField}
               aria-label="text formatting"
             >
+            <Tooltip disableFocusListener title="Click arrow on right to sort ">
               <ToggleButton value="distance" aria-label="distance">
                 Distance
               </ToggleButton>
+            </Tooltip >
           </StyledToggleButtonGroup>
           {/**  Distance order arrows **/}
           <StyledToggleButtonGroup
@@ -125,12 +127,12 @@ import { useDataStore } from "../../UserContext";
               aria-label="text alignment"
             >
               {(distanceOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleDistanceOrder}>
-                <Tooltip title="Click to sort by distance in ascending order">
+                <Tooltip title="Click to sort by distance in ascending order" arrow>
                   <ArrowDropDownIcon fontSize="small" />
                 </Tooltip>
               </ToggleButton>}
               {(distanceOrder==="asc") && <ToggleButton value="desc" aria-label="centered"  onChange={handleDistanceOrder}>
-              <Tooltip title="Click to sort by distance in descending order">
+              <Tooltip title="Click to sort by distance in descending order" arrow>
                 <ArrowDropUpIcon />
               </Tooltip>
               </ToggleButton>}
@@ -143,9 +145,11 @@ import { useDataStore } from "../../UserContext";
               value={fields}
              // onChange={handleField}
               aria-label="text formatting">
-            <ToggleButton value="age" aria-label="age">
+            <Tooltip disableFocusListener title="Click arrow on right to sort ">
+              <ToggleButton value="age" aria-label="age">
                 Age
               </ToggleButton>
+            </Tooltip >
           </StyledToggleButtonGroup>
            {/**  Age order arrows **/}
           <StyledToggleButtonGroup
@@ -155,12 +159,12 @@ import { useDataStore } from "../../UserContext";
                 onChange={handleAgeOrder}
                 aria-label="text alignment">
                 {(ageOrder==="desc") && <ToggleButton value="asc" aria-label="left aligned" onChange={handleAgeOrder}>
-                <Tooltip title="Click to sort by age in ascending order">
+                <Tooltip title="Click to sort by age in ascending order" arrow>
                   <ArrowDropDownIcon fontSize="small" />
                 </Tooltip>
                 </ToggleButton>}
                 {(ageOrder==="asc") && <ToggleButton value="desc" aria-label="centered" onChange={handleAgeOrder}>
-                <Tooltip title="Click to sort by age in descending order">
+                <Tooltip title="Click to sort by age in descending order" arrow>
                   <ArrowDropUpIcon />
                 </Tooltip >
                 </ToggleButton>}
@@ -173,9 +177,11 @@ import { useDataStore } from "../../UserContext";
               value={fields}
               //onChange={handleField}
               aria-label="text formatting">
-            <ToggleButton value="lastOnline" aria-label="lastOnline">
+            <Tooltip disableFocusListener title="Click arrow on right to sort ">
+             <ToggleButton value="lastOnline" aria-label="lastOnline">
                 Last Online
               </ToggleButton>
+            </Tooltip>
           </StyledToggleButtonGroup>
            {/**  lastOnlineOrder arrows **/}
           <StyledToggleButtonGroup
@@ -187,13 +193,13 @@ import { useDataStore } from "../../UserContext";
               
               {(lastOnlineOrder==="desc") &&
                 <ToggleButton value="asc" aria-label="left aligned" onChange={handleLastOnlineOrder}>
-                  <Tooltip title="Click to sort by Last Online in ascending order">
+                  <Tooltip title="Click to sort by Last Online in ascending order" arrow>
                     <ArrowDropDownIcon fontSize="small" />
                   </Tooltip >
                 </ToggleButton>}
               {(lastOnlineOrder==="asc") &&
                 <ToggleButton value="desc" aria-label="centered" onChange={handleLastOnlineOrder}>
-                  <Tooltip title="Click to sort by Last Online in descending order">
+                  <Tooltip title="Click to sort by Last Online in descending order" arrow>
                     <ArrowDropUpIcon />
                   </Tooltip >
                 </ToggleButton>}
@@ -207,9 +213,11 @@ import { useDataStore } from "../../UserContext";
               onChange={handleField}
               aria-label="text formatting"
             >
-            <ToggleButton value="newestMember" aria-label="age">
-                Newest Member
-              </ToggleButton>
+            <Tooltip disableFocusListener title="Click arrow on right to sort ">
+              <ToggleButton value="newestMember" aria-label="age">
+                  Newest Member
+               </ToggleButton>
+            </Tooltip >
           </StyledToggleButtonGroup>
            {/**  Newest Member order arrows **/}
           <StyledToggleButtonGroup
@@ -221,13 +229,13 @@ import { useDataStore } from "../../UserContext";
 
               {(newestMemberOrder==="desc") && 
                 <ToggleButton value="asc" aria-label="left aligned" onChange={handleNewestMemberOrder}>
-                  <Tooltip title="Click to sort by Newest Member in ascending order">
+                  <Tooltip title="Click to sort by Newest Member in ascending order" arrow>
                     <ArrowDropDownIcon fontSize="small" />
                   </Tooltip>
                 </ToggleButton>}
               {(newestMemberOrder==="asc") && 
                 <ToggleButton value="desc" aria-label="centered" onChange={handleNewestMemberOrder}>
-                  <Tooltip title="Click to sort by Newest Member in descending order">
+                  <Tooltip title="Click to sort by Newest Member in descending order" arrow>
                     <ArrowDropUpIcon />
                   </Tooltip>
                 </ToggleButton>}
