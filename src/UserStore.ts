@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import { create, persist} from 'mobx-persist';
-import {AGE_RANGE_CONSTANT} from './constants/ProfileConstants';
+import {AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from './constants/ProfileConstants';
 
 export class ActivitiesStore {
   id: number;
@@ -49,7 +49,7 @@ export class SearchParamsStore {
   constructor(){
     this.filter = "";
     this.ageRange = AGE_RANGE_CONSTANT;
-    this.distance = 99;
+    this.distance = DISTANCE_WITHIN_CONSTANT;
     this.cancerTypeKeyword = "";
     this.stateCodeKeyword = "";
     this.zipcodeKeyword = "";

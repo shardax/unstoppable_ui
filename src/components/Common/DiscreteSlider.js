@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import {DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
+
 
 
 
@@ -28,10 +30,10 @@ const DiscreteSlider = ( (props) => {
     },
   ];
   
-  function valuetext(value) {
-    //alert(value);
+  /*function valuetext(value) {
+    alert(value);
     return `${value}°C`;
-  }
+  }*/
   const classes = useStyles();
 
   return (
@@ -40,15 +42,15 @@ const DiscreteSlider = ( (props) => {
         Distance
       </Typography>
       <Slider
-        defaultValue={99}
-        getAriaValueText={valuetext}
+        defaultValue={props.distance}
+        //getAriaValueText={valuetext}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         onChange={props.onChange}
         step={10}
         marks={marks}
         min={10}
-        max={99}
+        max={DISTANCE_WITHIN_CONSTANT}
       />
     </div>
   );

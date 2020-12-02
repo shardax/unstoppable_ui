@@ -10,7 +10,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
 import {SearchParamsStore} from "../../UserStore";
-import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT} from '../../constants/ProfileConstants';
+import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
 import './Browse.scss'
 import { useObserver } from "mobx-react";
 import Button from '../Styled/Button';
@@ -307,7 +307,8 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
               </Select>
             </div>}
             <div className="range-slider">
-              <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>
+            {!reset && <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>}
+            {reset && <DiscreteSlider  distance={DISTANCE_WITHIN_CONSTANT} onChange={handleDistanceChange}/>}
             </div>
             <div className="range-slider">
               <Tooltip title="Displays Users active since the last 5 minutes">
