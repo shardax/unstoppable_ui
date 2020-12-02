@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -35,28 +35,30 @@ import { useDataStore } from "../../UserContext";
 
   const SortBarDisplay = ( (props) => {
 
-  //export default function SortBarDisplay() {
+    const defaultDistanceOrder = "asc";
+    const defaultAgeOrder = "asc";
+    const defaultLastOnlineOrder = "asc";
+    const defaultNewestMemberOrder = "asc";
     const store = useDataStore();
-    const [order, setOrder] = React.useState('asc');
-    const [distanceOrder, setDistanceOrder] = React.useState('asc');
-    const [ageOrder, setAgeOrder] = React.useState('asc');
-    const [lastOnlineOrder, setLastOnlineOrder] = React.useState('asc');
-    const [newestMemberOrder, setNewestMemberOrder] = React.useState('asc');
-    const [fields, setFields] = React.useState(() => ['distance']);
+    //const [order, setOrder] = React.useState('asc');
+    const [distanceOrder, setDistanceOrder] = useState(props.distanceOrder || defaultDistanceOrder);
+    const [ageOrder, setAgeOrder] = useState(props.ageOrder || defaultAgeOrder);
+    const [lastOnlineOrder, setLastOnlineOrder] = useState(props.lastOnlineOrder || defaultLastOnlineOrder);
+    const [newestMemberOrder, setNewestMemberOrder] = useState(props.newestMemberOrder || defaultNewestMemberOrder);
+    const [fields, setFields] = useState(() => ['distance']);
+    const [reset, setReset] = useState(props.reset || false);
   
     const handleField = (event, newFields) => {
       console.log("newFields", newFields);
       setFields(newFields);
     };
   
-    const handleOrder = (event, order) => {
-      setOrder(order);
-    };
-
-
     const handleDistanceOrder = (event, newOrder) => {
       console.log("handleDistanceOrder", newOrder);
       setDistanceOrder(newOrder);
+      setAgeOrder(defaultAgeOrder);
+      setLastOnlineOrder(defaultLastOnlineOrder);
+      setNewestMemberOrder(defaultNewestMemberOrder);
       props.onChange("distance", newOrder);
       setFields("distance");
     };
@@ -64,6 +66,9 @@ import { useDataStore } from "../../UserContext";
     const handleAgeOrder = (event, newOrder) => {
       console.log("handleAgeOrder", newOrder);
       setAgeOrder(newOrder);
+      setDistanceOrder(defaultDistanceOrder);
+      setLastOnlineOrder(defaultLastOnlineOrder);
+      setNewestMemberOrder(defaultNewestMemberOrder);
       props.onChange("age", newOrder);
       setFields("age");
     };
@@ -71,6 +76,9 @@ import { useDataStore } from "../../UserContext";
     const handleLastOnlineOrder = (event, newOrder) => {
       console.log("handleLastOnlineOrder", newOrder);
       setLastOnlineOrder(newOrder);
+      setDistanceOrder(defaultDistanceOrder);
+      setAgeOrder(defaultAgeOrder);
+      setNewestMemberOrder(defaultNewestMemberOrder);
       props.onChange("lastOnline", newOrder);
       setFields("lastOnline");
     };
@@ -78,9 +86,19 @@ import { useDataStore } from "../../UserContext";
     const handleNewestMemberOrder = (event, newOrder) => {
       console.log("handleNewestMemberOrder", newOrder);
       setNewestMemberOrder(newOrder);
+      setLastOnlineOrder(newOrder);
+      setDistanceOrder(defaultDistanceOrder);
+      setAgeOrder(defaultAgeOrder);
       props.onChange("newestMember", newOrder);
       setFields("newestMember");
     };
+
+    useEffect(() => {
+      if (props.reset) {
+        props.resetFunction(false)
+      }
+    }, [distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder, fields, reset]);
+
 
     const classes = useStyles();
   
@@ -200,7 +218,7 @@ import { useDataStore } from "../../UserContext";
               exclusive
               onChange={handleNewestMemberOrder}
               aria-label="text alignment">
-              
+
               {(newestMemberOrder==="desc") && 
                 <ToggleButton value="asc" aria-label="left aligned" onChange={handleNewestMemberOrder}>
                   <Tooltip title="Click to sort by Newest Member in ascending order">

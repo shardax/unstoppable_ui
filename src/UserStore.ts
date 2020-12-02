@@ -55,9 +55,9 @@ export class SearchParamsStore {
     this.zipcodeKeyword = "";
     this.cityKeyword = "";
     this.distanceOrder = "asc";
-    this.ageOrder = "asc";
-    this.lastOnlineOrder = "desc";
-    this.newestMemberOrder = "desc";
+    this.ageOrder = "";
+    this.lastOnlineOrder = "";
+    this.newestMemberOrder = "";
     this.activeUsers = false;
   }
 }

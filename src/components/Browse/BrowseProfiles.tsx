@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
+import {useHistory} from 'react-router-dom';
 import RangeSlider from "../Common/RangeSlider";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DiscreteSlider from "../Common/DiscreteSlider";
@@ -40,12 +41,13 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   const [keywordsSelect, setKeywordSelect] = useState("");
   const [searchTextDisplay, setSearchTextDisplay] = useState("");
   //Sort related
-  const [sortChange, setSortChange] = useState(false);
+  const [reset, setReset] = useState(false);
   const [distanceOrder, setDistanceOrder] = useState(store.savedSearchParams.distanceOrder);
   const [ageOrder, setAgeOrder] = useState("");
   const [lastOnlineOrder, setLastOnlineOrder] = useState("");
   const [newestMemberOrder, setNewestMemberOrder] = useState("");
   const [activeUsers, setActiveUsers] = useState(store.savedSearchParams.activeUsers);
+  const history = useHistory();
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -79,8 +81,8 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     }
     getProfiles();
     saveSearchCriteria();
-    setSortChange(false);
-    }, [filterPlusKeywords, ageRange, distance, keywordSearchType, sortChange, activeUsers]);
+    //setSortChange(false);
+    }, [filterPlusKeywords, ageRange, distance, keywordSearchType, activeUsers, distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder]);
 
   useEffect(() => {
       addAllKeywordsToFilter();
@@ -140,11 +142,10 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   };
 
 
-  const handleReset= () => {
-    console.log("Handle reset");
+  const handleClearSelections = () => {
+    console.log("handleClearSelections");
     store.savedSearchParams = new SearchParamsStore();
     console.log("savedSearchParams", JSON.stringify(store.savedSearchParams));
-    localStorage.setItem("userStore", JSON.stringify(store));
     setFilter(store.savedSearchParams.filter);
     setAgeRange(store.savedSearchParams.ageRange);
     setDistance(store.savedSearchParams.distance);
@@ -157,8 +158,14 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     setLastOnlineOrder(store.savedSearchParams.lastOnlineOrder);
     setNewestMemberOrder(store.savedSearchParams.newestMemberOrder);
     setActiveUsers(store.savedSearchParams.activeUsers);
-    console.log("store", JSON.stringify(store)); 
+    localStorage.setItem("userStore", JSON.stringify(store));
+    setReset(true);
   };
+
+  // Used by SortBarDisplay
+  const handleResetCompletion= () => {
+    setReset(false);
+  }
 
   const updateLikedProfiles = async (type: 'like' | 'unlike', id: number) => {
     try {
@@ -213,19 +220,12 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   const handleRadioSearch = (event) => {
     setKeywordSearchType(event.target.value);
   };
- 
-  const handleSortChange= (event) => {
-    console.log("Handle sort change");
-    console.log(event.target.value);
-    setSortChange(true);
-  };
 
-
-  const handleDistanceOrderChange= (field, newOrder) => {
+  const handleOrderChange= (field, newOrder) => {
     console.log("field:", field);
     switch(field) {
       case "distance":
-        setDistanceOrder(store.savedSearchParams.distanceOrder==="asc" ? "desc" : "asc");
+        setDistanceOrder(newOrder);
         setAgeOrder("");
         setLastOnlineOrder("");
         setNewestMemberOrder("");
@@ -233,16 +233,17 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
       case "age":
         setAgeOrder(newOrder);
         setDistanceOrder("");
+        setLastOnlineOrder("");
         setNewestMemberOrder("");
         break;
       case "lastOnline":
-        setLastOnlineOrder(store.savedSearchParams.lastOnlineOrder==="asc" ? "desc" : "asc");
+        setLastOnlineOrder(newOrder);
         setDistanceOrder("");
         setAgeOrder("");
         setNewestMemberOrder("");
         break;
       case "newestMember":
-          setNewestMemberOrder(store.savedSearchParams.newestMemberOrder==="asc" ? "desc" : "asc");
+          setNewestMemberOrder(newOrder);
           setDistanceOrder("");
           setAgeOrder("");
           setLastOnlineOrder("");
@@ -250,11 +251,6 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
       default:
         // code block
     };
-    console.log("distanceOrder", distanceOrder);
-    console.log("ageOrder", ageOrder);
-    console.log("lastOnline", lastOnlineOrder);
-    console.log("newestMember", newestMemberOrder);
-    setSortChange(true);
   };
 
   return useObserver(() => (
@@ -331,11 +327,12 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
               </Tooltip >
               </div>
               <div className="range-slider">
-                <SortBarDisplay onChange={handleDistanceOrderChange} />
+                {!reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={distanceOrder} ageOrder={ageOrder} lastOnineOrder={lastOnlineOrder} newestMemberOrder={newestMemberOrder} resetFunction={handleResetCompletion} reset={reset} />}
+                {reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={"asc"} resetFunction={handleResetCompletion} reset={reset} />}
               </div>
               <div className="range-slider">
                   <Button id="prev" margin="2em 1.5em" padding="10px 20px"
-                                            onClick={(e)=>{handleReset()}}>
+                                            onClick={(e)=>{handleClearSelections()}}>
                                             Reset all selections
                                         </Button>
               </div>
