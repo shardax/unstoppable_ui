@@ -38,7 +38,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   const [zipcodeKeyword, setZipcodeKeyword] = useState(store.savedSearchParams.zipcodeKeyword);
   const [cityKeyword, setCityKeyword] = useState(store.savedSearchParams.cityKeyword);
   const [filterPlusKeywords, setFilterPlusKeywords] = useState(filter + " " + cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
-  const [keywordsSelect, setKeywordSelect] = useState("");
+  const [keywordsSelect, setKeywordSelect] = useState(cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
   const [searchTextDisplay, setSearchTextDisplay] = useState("");
   //Sort related
   const [reset, setReset] = useState(false);
