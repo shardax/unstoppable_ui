@@ -37,8 +37,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   const [stateCodeKeyword, setStateCodeKeyword] = useState(store.savedSearchParams.stateCodeKeyword);
   const [zipcodeKeyword, setZipcodeKeyword] = useState(store.savedSearchParams.zipcodeKeyword);
   const [cityKeyword, setCityKeyword] = useState(store.savedSearchParams.cityKeyword);
-  const [filterPlusKeywords, setFilterPlusKeywords] = useState(filter + " " + cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
-  const [keywordsSelect, setKeywordSelect] = useState(cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
+  const [keywordsSelect, setKeywordsSelect] = useState(cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
   const [searchTextDisplay, setSearchTextDisplay] = useState("");
   //Sort related
   const [reset, setReset] = useState(false);
@@ -71,6 +70,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
             withCredentials: true,
             headers: {
               contentType: "application/json; charset=utf-8",
+              'Accept' : 'application/json',
             }
           })
         setUserCollection(data);
@@ -82,7 +82,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     getProfiles();
     saveSearchCriteria();
     //setSortChange(false);
-    }, [filterPlusKeywords, ageRange, distance, keywordSearchType, activeUsers, distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder]);
+    }, [keywordsSelect, filter, ageRange, distance, keywordSearchType, activeUsers, distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder]);
 
   useEffect(() => {
       addAllKeywordsToFilter();
@@ -108,7 +108,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     allKeywords = stateCodeKeyword? allKeywords + " " + stateCodeKeyword : allKeywords;
     allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
     allKeywords = cityKeyword? allKeywords + " " + cityKeyword : allKeywords;
-    setKeywordSelect(allKeywords);
+    setKeywordsSelect(allKeywords);
     let displayText = "";
     displayText = cancerTypeKeyword? ("CancerType: " + cancerTypeKeyword + ";"): "";
     if (stateCodeKeyword || zipcodeKeyword || cityKeyword){
@@ -119,12 +119,6 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     }
     displayText = filter? displayText +  "  " + " Search filter: " + filter : displayText;
     setSearchTextDisplay(displayText);
-    
-    if (filter){
-      setFilterPlusKeywords(filter + " " + allKeywords);
-    } else {
-      setFilterPlusKeywords(allKeywords);
-    }
   }
 
   const saveSearchCriteria = () => {
@@ -145,9 +139,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
 
 
   const handleClearSelections = () => {
-    console.log("handleClearSelections");
     store.savedSearchParams = new SearchParamsStore();
-    console.log("savedSearchParams", JSON.stringify(store.savedSearchParams));
     setFilter(store.savedSearchParams.filter);
     setAgeRange(store.savedSearchParams.ageRange);
     setDistance(store.savedSearchParams.distance);
