@@ -70,7 +70,6 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
             withCredentials: true,
             headers: {
               contentType: "application/json; charset=utf-8",
-              'Accept' : 'application/json',
             }
           })
         setUserCollection(data);

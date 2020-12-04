@@ -16,6 +16,8 @@ import WorkIcon from '@material-ui/icons/Work';
 import ExploreIcon from '@material-ui/icons/Explore';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import StarIcon from '@material-ui/icons/Star';
+import Brightness1Icon from '@material-ui/icons/Brightness1';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
   const store = useDataStore()
@@ -62,16 +64,15 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
     <div>
       <div className="user-section-wrapper">
         <div className="user-section-data">
-          <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">{user.city}, {user.state}</span></h1>
-
-        <div
+          <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">{user.city}, {user.state}</span>
+          </h1>
+          <div
             style={{
-              backgroundColor: user.active ? 'green' : 'grey'
+              backgroundColor: user.active ? '#4DED30' : 'white'
             }}
           >
-           <p style={{ fontSize: "20px" }}><span>{user.active}, {user.last_seen_at}</span></p>
+            <p style={{ fontSize: "20px" }}><span> Last login at: {user.last_seen_at}</span></p>
            </div>
-
           <Paper margin="2em 0em">
             <div className="profile-section-header">About me 😀</div>
             <p className="muted-text">{user.age} years old!</p>
