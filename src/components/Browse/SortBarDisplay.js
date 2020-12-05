@@ -112,11 +112,9 @@ import { useDataStore } from "../../UserContext";
               onChange={handleField}
               aria-label="text formatting"
             >
-            <Tooltip disableFocusListener title="Click arrow on right to sort ">
-              <ToggleButton value="distance" aria-label="distance">
-                Distance
-              </ToggleButton>
-            </Tooltip >
+            <ToggleButton value="distance" aria-label="distance">
+              Distance
+            </ToggleButton>
           </StyledToggleButtonGroup>
           {/**  Distance order arrows **/}
           <StyledToggleButtonGroup
@@ -145,11 +143,9 @@ import { useDataStore } from "../../UserContext";
               value={fields}
              // onChange={handleField}
               aria-label="text formatting">
-            <Tooltip disableFocusListener title="Click arrow on right to sort ">
-              <ToggleButton value="age" aria-label="age">
-                Age
-              </ToggleButton>
-            </Tooltip >
+            <ToggleButton value="age" aria-label="age">
+              Age
+            </ToggleButton>
           </StyledToggleButtonGroup>
            {/**  Age order arrows **/}
           <StyledToggleButtonGroup
@@ -177,11 +173,9 @@ import { useDataStore } from "../../UserContext";
               value={fields}
               //onChange={handleField}
               aria-label="text formatting">
-            <Tooltip disableFocusListener title="Click arrow on right to sort ">
-             <ToggleButton value="lastOnline" aria-label="lastOnline">
-                Last Online
-              </ToggleButton>
-            </Tooltip>
+            <ToggleButton value="lastOnline" aria-label="lastOnline">
+              Last Online
+            </ToggleButton>
           </StyledToggleButtonGroup>
            {/**  lastOnlineOrder arrows **/}
           <StyledToggleButtonGroup
@@ -213,11 +207,9 @@ import { useDataStore } from "../../UserContext";
               onChange={handleField}
               aria-label="text formatting"
             >
-            <Tooltip disableFocusListener title="Click arrow on right to sort ">
-              <ToggleButton value="newestMember" aria-label="age">
-                  Newest Member
-               </ToggleButton>
-            </Tooltip >
+            <ToggleButton value="newestMember" aria-label="age">
+                Newest Member
+            </ToggleButton>
           </StyledToggleButtonGroup>
            {/**  Newest Member order arrows **/}
           <StyledToggleButtonGroup
