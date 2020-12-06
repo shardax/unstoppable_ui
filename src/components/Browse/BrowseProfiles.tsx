@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
-import {useHistory} from 'react-router-dom';
 import RangeSlider from "../Common/RangeSlider";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DiscreteSlider from "../Common/DiscreteSlider";
@@ -33,20 +32,26 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   const [ageRange, setAgeRange] = useState([store.savedSearchParams.ageRange[0],store.savedSearchParams.ageRange[1]]);
   const [distance, setDistance] = useState(store.savedSearchParams.distance);
   const [keywordSearchType, setKeywordSearchType] = useState("OR");
+  // Cancer type selected from dropdpwn list
   const [cancerTypeKeyword, setCancerTypeKeyword] = useState(store.savedSearchParams.cancerTypeKeyword);
+  // State code selected from dropdpwn list
   const [stateCodeKeyword, setStateCodeKeyword] = useState(store.savedSearchParams.stateCodeKeyword);
+   // Zip code selected from dropdpwn list
   const [zipcodeKeyword, setZipcodeKeyword] = useState(store.savedSearchParams.zipcodeKeyword);
+   // City selected from dropdpwn list
   const [cityKeyword, setCityKeyword] = useState(store.savedSearchParams.cityKeyword);
+  // Concatenated list of all the dropdown selected
   const [keywordsSelect, setKeywordsSelect] = useState(cancerTypeKeyword + " " + stateCodeKeyword + " " + zipcodeKeyword + " " + cityKeyword);
   const [searchTextDisplay, setSearchTextDisplay] = useState("");
-  //Sort related
-  const [reset, setReset] = useState(false);
+  //Sort order related
   const [distanceOrder, setDistanceOrder] = useState(store.savedSearchParams.distanceOrder);
   const [ageOrder, setAgeOrder] = useState("");
   const [lastOnlineOrder, setLastOnlineOrder] = useState("");
   const [newestMemberOrder, setNewestMemberOrder] = useState("");
+  // Active users checkbox
   const [activeUsers, setActiveUsers] = useState(store.savedSearchParams.activeUsers);
-  const history = useHistory();
+  // Reset all selections
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -84,7 +89,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     }, [keywordsSelect, filter, ageRange, distance, keywordSearchType, activeUsers, distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder]);
 
   useEffect(() => {
-      addAllKeywordsToFilter();
+      addAllKeywords();
     }, [cancerTypeKeyword, stateCodeKeyword, zipcodeKeyword, cityKeyword, filter]);
 
   const handleChange = (event: any, newAgeRange: number[]) => {
@@ -102,7 +107,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   };
 
 
-  const addAllKeywordsToFilter = () => {
+  const addAllKeywords = () => {
     let allKeywords = cancerTypeKeyword? cancerTypeKeyword : "";
     allKeywords = stateCodeKeyword? allKeywords + " " + stateCodeKeyword : allKeywords;
     allKeywords = zipcodeKeyword? allKeywords + " " + zipcodeKeyword : allKeywords;
@@ -116,7 +121,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
       displayText = zipcodeKeyword? displayText + " Zipcode: " + zipcodeKeyword : displayText;
       displayText = cityKeyword? displayText + " City: " + cityKeyword : displayText;
     }
-    displayText = filter? displayText +  "  " + " Search filter: " + filter : displayText;
+    displayText = filter? displayText +  "  " + " Filter: " + filter : displayText;
     setSearchTextDisplay(displayText);
   }
 
