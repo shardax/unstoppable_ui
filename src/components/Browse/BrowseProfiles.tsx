@@ -122,6 +122,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
       displayText = cityKeyword? displayText + " City: " + cityKeyword : displayText;
     }
     displayText = filter? displayText +  "  " + " Filter: " + filter : displayText;
+    //displayText = distanceOrder? displayText +  "  " + " SortOrder: " + distanceOrder : displayText;
     setSearchTextDisplay(displayText);
   }
 
@@ -258,7 +259,9 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
             <h3>Browse Profiles</h3>
             <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
             <div className="browse-filter-row"> 
-              <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Search by Cancer Type, Zipcode, State Code or City" />
+              <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
+                <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Free Text Search" />
+              </Tooltip>
             <div>
               <Tooltip title="Contains any of the keywords">
                 <label>
