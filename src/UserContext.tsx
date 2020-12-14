@@ -1,8 +1,25 @@
 import React, {createContext, ReactNode} from 'react'
 import {useLocalStore} from 'mobx-react'
 import {createStore, UserStore} from './UserStore'
+import actionCable from 'actioncable'
 
-//type Store = ReturnType<typeof createStore>;
+
+const CableApp = {cable: {}}
+CableApp.cable = actionCable.createConsumer('ws://localhost:3001/cable') 
+export const ActionCableContext = createContext({});
+
+/*export const CableProvider  = (props: { children?: ReactNode }) => {
+  return (
+    <ActionCableContext.Provider value={CableApp.cable}>
+      {props.children}
+    </ActionCableContext.Provider>
+  )
+};
+
+export const useCable = () => {
+  const cable =  React.useContext(ActionCableContext);
+  return cable;
+}*/
 
 export const StoreContext = React.createContext<UserStore | null>(null);
 
@@ -10,7 +27,9 @@ export const StoreProvider = (props: { children?: ReactNode }) => {
   const store = useLocalStore(createStore);
   return (
     <StoreContext.Provider value={store}>
-      {props.children}
+      <ActionCableContext.Provider value={CableApp.cable}>
+        {props.children}
+      </ActionCableContext.Provider>
     </StoreContext.Provider>
   )
 };

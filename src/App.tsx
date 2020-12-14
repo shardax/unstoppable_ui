@@ -1,4 +1,3 @@
-import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {StoreProvider} from "./UserContext";
 import PageRenderer from './page-renderer';
@@ -7,7 +6,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // Pages
 import User from './pages/user';
 import About from './components/Register/About';
-import Inbox from './components/Inbox/Inbox'
+import Inbox from './components/Inbox/Inbox';
+import ChatroomMessagesList from './components/Chatroom/ChatroomMessagesList';
 
 const NoMatchPage = () => {
   return (
@@ -19,18 +19,19 @@ const App: React.FC = () => {
   return (
     <>
       <StoreProvider>
-        <Router>
-          <div className="App">
-            <Switch>
-              <Route path="/user/:id" component={User} />
-              <Route path="/wizard/:stepId" component={About} />
-              <Route path="/userMessage/:user_id" component={Inbox} />
-              <Route path="/:page" component={PageRenderer} />
-              <Route path="/" render={() => <Redirect to="/home" />} />
-              <Route component={NoMatchPage} />
-            </Switch>
-          </div>
-        </Router>
+          <Router>
+            <div className="App">
+              <Switch>
+                <Route path="/user/:id" component={User} />
+                <Route path="/wizard/:stepId" component={About} />
+                <Route path="/userMessage/:user_id" component={Inbox} />
+                <Route path="/chatrooms/:chatroom_id" component={ChatroomMessagesList} />
+                <Route path="/:page" component={PageRenderer} />
+                <Route path="/" render={() => <Redirect to="/home" />} />
+                <Route component={NoMatchPage} />
+              </Switch>
+            </div>
+          </Router>
       </StoreProvider>
     </>
   );

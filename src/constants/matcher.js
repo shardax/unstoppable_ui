@@ -25,6 +25,9 @@ export const SAVESEARCHPARAMSURL = ROOTURL + "/account_settings/save_search_para
 export const SENDMESSAGEURL = ROOTURL + "/conversations"
 export const CONVERSATIONSURL = ROOTURL + "/conversations/conversationsjson.json"
 export const ALLCONVERSATIONSURL = ROOTURL + "/conversations/allconversationsjson.json"
+// Chatrooms URLs
+export const CHATROOMSURL = ROOTURL + "/chatrooms.json"
+
 //
 //export const EVENTSURL = ROOTURL + "/events"
 
