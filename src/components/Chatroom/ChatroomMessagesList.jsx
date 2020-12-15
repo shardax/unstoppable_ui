@@ -10,24 +10,30 @@ const ChatroomMessagesList = () => {
   const cable = useContext(ActionCableContext);
   const [channel, setChannel] = useState(null);
   const [messageSent, setMessageSent] = useState(false);
+  //const [chatroomId, setChatroomId] = useState(useParams());
   const { chatroomId } = useParams();
   const [msgText, setMsgText] = useState("");
   const [renderMessages, setRenderMessages] = useState([]);
+  
+ 
   
   console.log("cable", cable);
 
   const sendMessageToServer = (content, channel) => {
     //const store = useDataStore;
-   
-    const data = {chatroomId: 1, userId: store.current_user_id , content: content}
+    console.log("chatroomId 2",chatroomId);
+    console.log(typeof chatroomId);
+    console.log(typeof parseInt(chatroomId));
+    const data = {chatroomId: parseInt(chatroomId), userId: store.current_user_id , content: content}
     channel.send(data);
-
   }
  
   useEffect ( () => {
+    if (messageSent === true){
+
     const channel =  cable.subscriptions.create( {
           channel: "ChatroomMessagesChannel",
-          id: chatroomId
+          id:  parseInt(chatroomId)
     },
     { received: (data) => {
       console.log("YAY!")
@@ -39,39 +45,25 @@ const ChatroomMessagesList = () => {
     
 
     setTimeout(() => {
+      setMessageSent(false);
       setChannel(channel);
      // sendMessageToServer("HI ,HOW ARE YOU?", channel);
-      //sendMessageToServer(msgText, channel);
-      alert(JSON.stringify(store));
-      const data = {chatroomId: 1, userId: store.current_user_id , content: "Charlie Sheen"}
-      channel.send(data);
-      setMessageSent(false);
-      }, 500);
-    //const data = {chatroomId: 1} //, userId: store.current_user_id , content: "HELLO3"}
-    
-    /*
-    setTimeout(() => {
-      console.log("beforesendchannel", channel);
-      const data = { sent_by: "Paul", body: "This is a cool chat app." };
-      channel.send({ sent_by: "Paul", body: "This is a cool chat app." });
-      const data1 = { sent_by: "John", body: "This is a cool chat app." };
-      channel.send(data1);
-      const data2 = { sent_by: "George", body: "This is a cool chat app." };
-    channel.send(data2);
-    const data3 = { sent_by: "Ringo", body: "This is a cool chat app." };
-    channel.send(data3);
-
-    }, 500);*/
-   
-    //channel.send(data);
-   // channel.send(data);
-   // channel.send(data);
+     console.log("chatroomId 1",chatroomId);
+      sendMessageToServer(msgText, channel);
+      setMsgText("");
+      //const data = {chatroomId: 1, userId: store.current_user_id , content: "Charlie Sheen"}
+      //channel.send(data);
+     
+      }, 1);
 
     return () => {
+      //console.log("Unsbribin!!!g")
+      // When do you unsubscribe?
+      //setMessageSent(false);
       channel.unsubscribe();
     }
-   
-  } , [messageSent==true])
+  }
+  } , [messageSent])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {

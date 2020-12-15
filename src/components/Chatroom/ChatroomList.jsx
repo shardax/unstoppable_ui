@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { CHATROOMSURL } from "../../constants/matcher";
 import { ActionCableContext, useDataStore } from "../../UserContext";
 import axios from "axios";
+import ChatroomListItem from "./ChatroomListItem"
 
 
 
@@ -15,15 +16,13 @@ const ChatroomList = () => {
 
   console.log("cable", cable);
 
-  const sendMessage = (content) => {
-    //const store = useDataStore;
-   
-    //const data = {chatroomId: chatroomId, userId: store.current_user_id , content: content}
-    const data = {chatroomId: chatroomId, userId: store.current_user_id , content: content}
-    channel.send(data);
+  const renderedChatroomListItems = chatrooms.map((chatroom) => (
+    <ChatroomListItem
+      key={chatroom.id}
+      chatroom={chatroom}
+    />
+  ))
 
-  }
-   
   /*useEffect ( () => {
     const channel =  cable.subscriptions.create( 
                        // { channel: "ChatroomMessagesChannel", id: chatroomId },
@@ -75,8 +74,8 @@ const ChatroomList = () => {
 
  return (
   <div>
-    {chatrooms.map(chatroom => (<Link to={`chatrooms/${chatroom.id}`}>{chatroom.name}</Link> ))}
-
+    {/*chatrooms.map(chatroom => (<Link to={`chatrooms/${chatroom.id}`}>{chatroom.name}</Link> ))*/}
+    {renderedChatroomListItems}
   </div>
 
  )  
