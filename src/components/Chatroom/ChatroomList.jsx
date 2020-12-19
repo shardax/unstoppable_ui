@@ -16,7 +16,7 @@ const ChatroomList = () => {
 
   console.log("cable", cable);
 
-  const renderedChatroomListItems = chatrooms.map((chatroom) => (
+  const renderedChatroomListItems = chatrooms && chatrooms.map((chatroom) => (
     <ChatroomListItem
       key={chatroom.id}
       chatroom={chatroom}

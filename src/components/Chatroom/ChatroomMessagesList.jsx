@@ -118,8 +118,8 @@ const ChatroomMessagesList = () => {
  return  useObserver(() => (
   <div>
      <Default>
-      {store.currentChatroom.messages && store.currentChatroom.messages.map((x) => (
-   <p>{x} </p>
+      {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((x) => (
+   <p>{x.user == store.username? " " : x.user} {x.content} {x.created_at} </p>
   ))
 }
       <form>

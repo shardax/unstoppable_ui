@@ -18,8 +18,10 @@ const ChatroomListItem = ({chatroom}) => {
                             //localStorage.setItem("tempText", JSON.stringify(data.content));
                             //localStorage.setItem("userStore.tempText", JSON.stringify(data.content));
                             console.log("received!!!", JSON.stringify(data))
-                            store.currentChatroom.messages.push(data.content);
+                            setTimeout(() => {
+                            store.currentChatroom.messages.push(data);
                             localStorage.setItem("userStore", JSON.stringify(store));
+                            }, 100)
                           },
                         },
                       )
