@@ -22,38 +22,12 @@ const ChatroomList = () => {
       chatroom={chatroom}
     />
   ))
-
-  /*useEffect ( () => {
-    const channel =  cable.subscriptions.create( 
-                       // { channel: "ChatroomMessagesChannel", id: chatroomId },
-                       { channel: "ChatroomMessagesChannel", id: chatroomId },
-                        { received: (data) => {
-                            //console.lo
-                            console.log("received", JSON.stringify(data))
-                          },
-                        },
-                      )
-
-    //console.log("channel", channel);
-    //setChannel(channel);
-
-    //sendMessage("HI ,HOW ARE YOU?");
-    //const data = {chatroomId: 1} //, userId: store.current_user_id , content: "HELLO3"}
-   
-    //channel.send(data);
-   // channel.send(data);
-   // channel.send(data);
-
-    return () => {
-      channel.unsubscribe();
-    }
-   
-  } , [])*/
   
  useEffect ( () => {
   const getChatrooms = async () => {
     try {
-      const { data } = await axios.get(CHATROOMSURL,
+      let url = CHATROOMSURL + ".json";
+      const { data } = await axios.get(url,
         { 
           params: {
           },

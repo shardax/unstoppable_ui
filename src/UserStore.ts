@@ -31,6 +31,18 @@ export class UniqueListStore {
   }
 }
 
+export class CurrentChatroomStore {
+  chatroomId: number;
+  @observable messages: string[];
+  last_read_at: Date;
+  constructor(){
+    this.chatroomId = 0;
+    this.messages = [];
+    this.last_read_at =  new Date('January 01, 2020 00:00:00');;
+  }
+}
+
+
 export class SearchParamsStore {
   filter: string;
   ageRange: number[];
@@ -153,6 +165,7 @@ export class UserStore {
   @persist confirm_token:string;
   @persist user_confirmed:boolean;
   @persist phone:string;
+  @persist @observable currentChatroom: CurrentChatroomStore;
 
 
   constructor(){
@@ -174,6 +187,7 @@ export class UserStore {
       // Initialize search parameters
       this.savedSearchParams = localStorageData.savedSearchParams;
       this.uniqueLists = localStorageData.uniqueLists;
+      this.currentChatroom = localStorageData.currentChatroom;
       //this.filterPlusKeywords = localStorageData.filterPlusKeywords;
     } else {
       this.username = "";
@@ -188,6 +202,7 @@ export class UserStore {
       this.exerciseReasons = [];
       this.confirm_token = "";
       this.user_confirmed = false;
+      this.currentChatroom = new CurrentChatroomStore();
       // Initialize search parameters
       this.savedSearchParams = new SearchParamsStore();
       this.uniqueLists = new UniqueListStore();
