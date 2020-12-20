@@ -31,9 +31,20 @@ export class UniqueListStore {
   }
 }
 
+export class ChatroomMessage {
+  content: string;
+  username: string;
+  created_at: Date;
+  constructor(){
+    this.content = "";
+    this.username = "";
+    this.created_at =  new Date('January 01, 2020 00:00:00');;
+  }
+}
+
 export class CurrentChatroomStore {
   chatroomId: number;
-  @observable messages: string[];
+  @observable messages: ChatroomMessage[];
   last_read_at: Date;
   constructor(){
     this.chatroomId = 0;

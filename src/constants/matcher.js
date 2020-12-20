@@ -26,7 +26,7 @@ export const SENDMESSAGEURL = ROOTURL + "/conversations"
 export const CONVERSATIONSURL = ROOTURL + "/conversations/conversationsjson.json"
 export const ALLCONVERSATIONSURL = ROOTURL + "/conversations/allconversationsjson.json"
 // Chatrooms URLs
-export const CHATROOMSURL = ROOTURL + "/chatrooms.json"
+export const CHATROOMSURL = ROOTURL + "/chatrooms"
 
 //
 //export const EVENTSURL = ROOTURL + "/events"
