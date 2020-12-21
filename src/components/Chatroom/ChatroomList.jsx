@@ -12,7 +12,7 @@ const ChatroomList = () => {
   const cable = useContext(ActionCableContext);
   const [channel, setChannel] = useState(null);
   const [chatrooms, setChatrooms] = useState([]);
-  const { chatroomId } = useParams()
+  const { chatroomId } = useParams();
 
   console.log("cable", cable);
 
@@ -20,6 +20,7 @@ const ChatroomList = () => {
     <ChatroomListItem
       key={chatroom.id}
       chatroom={chatroom}
+      viewOnly={false}
     />
   ))
   

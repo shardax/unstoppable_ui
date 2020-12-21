@@ -119,7 +119,7 @@ const ChatroomMessagesList = () => {
   <div>
      <Default>
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((x) => (
-   <p>{x.user == store.username? " " : x.user} {x.content} {x.created_at} </p>
+   <p>{x.user == store.username? " " : x.username} {x.content} {x.created_at} </p>
   ))
 }
       <form>

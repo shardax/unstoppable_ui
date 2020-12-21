@@ -3,10 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import { CHATROOMSURL } from "../../constants/matcher";
 import { ActionCableContext, useDataStore } from "../../UserContext";
 import axios from "axios";
+import './index.scss';
 
 
 
-const ChatroomListItem = ({chatroom}) => {
+const ChatroomListItem = ({chatroom, viewOnly}) => {
   const store = useDataStore();
   const cable = useContext(ActionCableContext);
   
@@ -14,13 +15,11 @@ const ChatroomListItem = ({chatroom}) => {
     const channel =  cable.subscriptions.create( 
                        { channel: "ChatroomMessagesChannel", id: chatroom.id },
                         { received: (data) => {
-                           // store.tempText = data.content;
-                            //localStorage.setItem("tempText", JSON.stringify(data.content));
-                            //localStorage.setItem("userStore.tempText", JSON.stringify(data.content));
                             console.log("received!!!", JSON.stringify(data))
                             setTimeout(() => {
-                            store.currentChatroom.messages.push(data);
-                            localStorage.setItem("userStore", JSON.stringify(store));
+                            if (store.currentChatroom.chatroomId === parseInt(data.chatroomId))
+                              store.currentChatroom.messages.push(data);
+                              localStorage.setItem("userStore", JSON.stringify(store));
                             }, 100)
                           },
                         },
@@ -29,13 +28,13 @@ const ChatroomListItem = ({chatroom}) => {
     //return () => {
     //  channel.unsubscribe();
     //}
-   
+    console.log("viewOnly", viewOnly);
   } , [chatroom])
   
  return (
   <div>
     <Link to={`chatrooms/${chatroom.id}`}>
-      {chatroom.name} Yay!
+      {chatroom.name}
     </Link>
   </div>
  )
