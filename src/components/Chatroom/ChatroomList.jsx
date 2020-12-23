@@ -4,6 +4,7 @@ import { CHATROOMSURL } from "../../constants/matcher";
 import { ActionCableContext, useDataStore } from "../../UserContext";
 import axios from "axios";
 import ChatroomListItem from "./ChatroomListItem"
+import './index.scss';
 
 
 
@@ -49,8 +50,31 @@ const ChatroomList = () => {
 
  return (
   <div>
+    <div className="messages-wrapper">    
+        <div className="inbox-wrapper">
+          <nav className="pink-nav conversation-nav-wrapper">
+            <div className="conv-nav-text">
+              Chatrooms
+            </div>
+          </nav>
     {/*chatrooms.map(chatroom => (<Link to={`chatrooms/${chatroom.id}`}>{chatroom.name}</Link> ))*/}
-    {renderedChatroomListItems}
+          {chatrooms && chatrooms.map((chatroom) => (
+                <ChatroomListItem
+                  key={chatroom.id}
+                  chatroom={chatroom}
+                  viewOnly={false}
+                />
+          ))}
+      </div>
+    </div>
+
+    <div className="conversation-wrapper">
+          <nav className="purple-nav conversation-nav-wrapper">
+            <div className="conv-nav-text">
+             
+            </div>
+          </nav>
+    </div>
   </div>
 
  )  

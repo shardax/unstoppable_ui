@@ -88,9 +88,9 @@ const ChatroomMessagesList = () => {
               contentType: "application/json; charset=utf-8",
             }
           })
-          alert(JSON.stringify(result.data.chatroom));
+          //alert(JSON.stringify(result.data.chatroom));
           setCurrentMessages(result.data.chatroom.messages);
-          alert(JSON.stringify(currentMessages));
+          //alert(JSON.stringify(currentMessages));
           store.currentChatroom.chatroomId = result.data.chatroom.id;
           store.currentChatroom.last_read_at = result.data.chatroom.last_read_at;
           store.currentChatroom.messages = result.data.chatroom.messages;
@@ -119,7 +119,7 @@ const ChatroomMessagesList = () => {
   <div>
      <Default>
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((x) => (
-   <p>{x.user == store.username? " " : x.username} {x.content} {x.created_at} </p>
+   <p>{x.user == store.username? " " : x.user} {x.content} {x.created_at} </p>
   ))
 }
       <form>
