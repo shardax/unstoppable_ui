@@ -34,7 +34,7 @@ const ChatroomListItem = ({chatroom, viewOnly}) => {
 
  return (
   <div>
-    <Link to={`chatrooms/${chatroom.id}`}>
+    <Link to={`chatroomDetails/${chatroom.id}`}>
     
         <div className={"single-conversation-wrapper "}>
             <div className="conversation-subject">

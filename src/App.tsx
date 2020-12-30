@@ -26,7 +26,7 @@ const App: React.FC = () => {
                 <Route path="/user/:id" component={User} />
                 <Route path="/wizard/:stepId" component={About} />
                 <Route path="/userMessage/:user_id" component={Inbox} />
-                <Route path="/chatrooms/:chatroomId" component={ChatroomMessagesList} />
+                <Route path="/chatroomDetails/:chatroomId" component={ChatroomMessagesList} />
                 <Route path="/:page" component={PageRenderer} />
                 <Route path="/" render={() => <Redirect to="/home" />} />
                 <Route component={NoMatchPage} />

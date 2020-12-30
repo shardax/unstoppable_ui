@@ -1,29 +1,25 @@
 import React, {useState,  useEffect, useContext} from 'react'
-import { useParams,  useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useObserver } from "mobx-react";
 import { CHATROOMSURL } from "../../constants/matcher";
 import { ActionCableContext, useDataStore } from "../../UserContext";
 import Textarea from '../Styled/Textarea';
 import Default from '../../layouts/Default';
 import axios from "axios";
-
+import { createBrowserHistory } from 'history'
+import Badge from '@material-ui/core/Badge';
 
 const ChatroomMessagesList = () => {
   const store = useDataStore();
   const cable = useContext(ActionCableContext);
   const [channel, setChannel] = useState(null);
   const [messageSent, setMessageSent] = useState(false);
-  //const [chatroomId, setChatroomId] = useState("1");
   const { chatroomId } = useParams();
   const [msgText, setMsgText] = useState("");
   const [currentMessages, setCurrentMessages] = useState([]);
-  //const [lastReadAt, setLastReadAt] = useState([]);
+  const [chatrooms, setChatrooms] = useState([]);
+  const history = createBrowserHistory({ forceRefresh: true });
   
-  
-  //const renderedMessages = currentMessages.map((x) => (
-  // <p>{x} </p>
-  //))
-
   const sendMessageToServer = (content, channel) => {
     //const store = useDataStore;
     console.log("chatroomId 2",chatroomId);
@@ -78,7 +74,7 @@ const ChatroomMessagesList = () => {
   useEffect ( () => {
     const getChatroomMessages = async () => {
       try {
-        let url = CHATROOMSURL + "/" + chatroomId + ".json";
+        let url = CHATROOMSURL + "/" + chatroomId + "/chatroom_details.json";
         const  result   = await axios.get(url,
           { 
             params: {
@@ -88,9 +84,8 @@ const ChatroomMessagesList = () => {
               contentType: "application/json; charset=utf-8",
             }
           })
-          //alert(JSON.stringify(result.data.chatroom));
           setCurrentMessages(result.data.chatroom.messages);
-          //alert(JSON.stringify(currentMessages));
+          setChatrooms(result.data.chatrooms);
           store.currentChatroom.chatroomId = result.data.chatroom.id;
           store.currentChatroom.last_read_at = result.data.chatroom.last_read_at;
           store.currentChatroom.messages = result.data.chatroom.messages;
@@ -114,10 +109,16 @@ const ChatroomMessagesList = () => {
     }
   }
 
+
+  const handleClick = (event) => {
+    console.log(event.target.value);
+    history.push("/chatroomDetails/" + event.target.value);
+  }
   
  return  useObserver(() => (
   <div>
      <Default>
+      {chatrooms && chatrooms.map(chatroom => (<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))}
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((x) => (
    <p>{x.user == store.username? " " : x.user} {x.content} {x.created_at} </p>
   ))
