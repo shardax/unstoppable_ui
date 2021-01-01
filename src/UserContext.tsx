@@ -2,10 +2,11 @@ import React, {createContext, ReactNode} from 'react'
 import {useLocalStore} from 'mobx-react'
 import {createStore, UserStore} from './UserStore'
 import actionCable from 'actioncable'
+import {WEBSOCKETCABLEURL} from './constants/matcher'
 
 
 const CableApp = {cable: {}}
-CableApp.cable = actionCable.createConsumer('ws://localhost:3001/cable') 
+CableApp.cable = actionCable.createConsumer(WEBSOCKETCABLEURL) 
 export const ActionCableContext = createContext({});
 
 /*export const CableProvider  = (props: { children?: ReactNode }) => {
