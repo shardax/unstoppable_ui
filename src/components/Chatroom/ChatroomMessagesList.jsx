@@ -114,13 +114,22 @@ const ChatroomMessagesList = () => {
     console.log(event.target.value);
     history.push("/chatroomDetails/" + event.target.value);
   }
+
+  const DisplayMessage = (message) => {
+    return (
+      <p>
+        {message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} 
+      </p>
+    );
+  }
   
  return  useObserver(() => (
   <div>
      <Default>
       {chatrooms && chatrooms.map(chatroom => (<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))}
-      {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((x) => (
-   <p>{x.user == store.username? " " : x.user} {x.content} {x.created_at} </p>
+      {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((message) => (
+   <p>{message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} </p> 
+
   ))
 }
       <form>
