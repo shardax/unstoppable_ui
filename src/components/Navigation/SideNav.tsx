@@ -32,6 +32,11 @@ const sideNavLinks = [
     to: "/messages",
     name: "Messages",
     icon: <MessageIcon />
+  },
+  {
+    to: "/chatrooms",
+    name: "Chatrooms",
+    icon: <MessageIcon />
   }
 ]
 
