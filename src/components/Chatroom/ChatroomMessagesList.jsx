@@ -1,5 +1,5 @@
 import React, {useState,  useEffect, useContext} from 'react'
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useObserver } from "mobx-react";
 import { CHATROOMSURL } from "../../constants/matcher";
 import { ActionCableContext, useDataStore } from "../../UserContext";
@@ -8,6 +8,9 @@ import Default from '../../layouts/Default';
 import axios from "axios";
 import { createBrowserHistory } from 'history'
 import Badge from '@material-ui/core/Badge';
+import Button from '../../components/Styled/Button';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 const ChatroomMessagesList = () => {
   const store = useDataStore();
@@ -18,6 +21,7 @@ const ChatroomMessagesList = () => {
   const [msgText, setMsgText] = useState("");
   const [currentMessages, setCurrentMessages] = useState([]);
   const [chatrooms, setChatrooms] = useState([]);
+  const [chatroomName, setChatroomName] = useState("");
   const history = createBrowserHistory({ forceRefresh: true });
   
   const sendMessageToServer = (content, channel) => {
@@ -89,6 +93,7 @@ const ChatroomMessagesList = () => {
           store.currentChatroom.chatroomId = result.data.chatroom.id;
           store.currentChatroom.last_read_at = result.data.chatroom.last_read_at;
           store.currentChatroom.messages = result.data.chatroom.messages;
+          setChatroomName(result.data.chatroom.name);
           localStorage.setItem("userStore", JSON.stringify(store));
       } catch (e) {
         console.log(`😱 Chatrooms Fetch failed: ${e}`);
@@ -126,7 +131,14 @@ const ChatroomMessagesList = () => {
  return  useObserver(() => (
   <div>
      <Default>
-      {chatrooms && chatrooms.map(chatroom => (<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))}
+      <Link style={{ textDecoration: "underline" }} to="/chatrooms">
+          <Button background="white" color="#222222" fontSize="13px" padding="2px 12px" border="1px solid #222222" borderRadius="30px">
+            <ArrowBackIcon className="go-back-chatrooms" />
+            Go Back to Chatrooms
+          </Button>
+      </Link>
+      {/**chatrooms && chatrooms.map(chatroom => (<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))*/}
+      <br/> <br/> <h1>Chatroom {chatroomName}</h1>
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((message) => (
    <p>{message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} </p> 
 
