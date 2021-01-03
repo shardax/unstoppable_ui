@@ -21,6 +21,7 @@ const ChatroomMessagesList = () => {
   const [msgText, setMsgText] = useState("");
   const [currentMessages, setCurrentMessages] = useState([]);
   const [chatrooms, setChatrooms] = useState([]);
+  const [members, setMembers] = useState([]);
   const [chatroomName, setChatroomName] = useState("");
   const history = createBrowserHistory({ forceRefresh: true });
   
@@ -94,6 +95,7 @@ const ChatroomMessagesList = () => {
           store.currentChatroom.last_read_at = result.data.chatroom.last_read_at;
           store.currentChatroom.messages = result.data.chatroom.messages;
           setChatroomName(result.data.chatroom.name);
+          setMembers(result.data.chatroom.members);
           localStorage.setItem("userStore", JSON.stringify(store));
       } catch (e) {
         console.log(`😱 Chatrooms Fetch failed: ${e}`);
@@ -128,6 +130,22 @@ const ChatroomMessagesList = () => {
     );
   }
   
+  const DisplayTitleMessage = () => {
+    let title = "Chatroom " + chatroomName + ", Team members: ";
+    if(members) {
+      let allMembers = "( ";
+      members.map((member) => (allMembers = allMembers + member.username + ","));
+      allMembers = allMembers.slice(0, -1);
+      allMembers = allMembers + " )";
+      title = title + allMembers;
+    }
+    return (
+      <div>
+        {title}
+      </div>
+    );
+  }
+
  return  useObserver(() => (
   <div>
      <Default>
@@ -138,7 +156,7 @@ const ChatroomMessagesList = () => {
           </Button>
       </Link>
       {/**chatrooms && chatrooms.map(chatroom => (<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))*/}
-      <br/> <br/> <h1>Chatroom {chatroomName}</h1>
+      <br/> <br/> <h3><DisplayTitleMessage /></h3>
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((message) => (
    <p>{message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} </p> 
 
