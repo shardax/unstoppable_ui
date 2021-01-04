@@ -1,7 +1,7 @@
 import React, {useState,  useEffect, useContext} from 'react'
 import { useParams, Link } from "react-router-dom";
 import { useObserver } from "mobx-react";
-import { CHATROOMSURL } from "../../constants/matcher";
+import { ROOTURL, CHATROOMSURL } from "../../constants/matcher";
 import { ActionCableContext, useDataStore } from "../../UserContext";
 import Textarea from '../Styled/Textarea';
 import Default from '../../layouts/Default';
@@ -10,6 +10,7 @@ import { createBrowserHistory } from 'history'
 import Badge from '@material-ui/core/Badge';
 import Button from '../../components/Styled/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Avatar} from 'antd';
 
 
 const ChatroomMessagesList = () => {
@@ -24,6 +25,9 @@ const ChatroomMessagesList = () => {
   const [members, setMembers] = useState([]);
   const [chatroomName, setChatroomName] = useState("");
   const history = createBrowserHistory({ forceRefresh: true });
+  //let teamMemberPhotosInitialize = {username: "", photo: ""};
+  //const [userPhotos, setUserPhotos] =  useState([]);
+
   
   const sendMessageToServer = (content, channel) => {
     //const store = useDataStore;
@@ -33,6 +37,8 @@ const ChatroomMessagesList = () => {
   }
  
   useEffect ( () => {
+    store.chatroomsInitialize = true;
+    localStorage.setItem("userStore", JSON.stringify(store));
     if (messageSent === true){
 
       if (channel) {
@@ -61,6 +67,7 @@ const ChatroomMessagesList = () => {
      console.log("chatroomId 1",chatroomId);
      // sendMessageToServer(msgText, channel);
       setMsgText("");
+      console.log("channel", channel);
       //const data = {chatroomId: 1, userId: store.current_user_id , content: "Charlie Sheen"}
       //channel.send(data);
      
@@ -96,6 +103,7 @@ const ChatroomMessagesList = () => {
           store.currentChatroom.messages = result.data.chatroom.messages;
           setChatroomName(result.data.chatroom.name);
           setMembers(result.data.chatroom.members);
+          console.log(JSON.stringify(result.data.chatroom.members));
           localStorage.setItem("userStore", JSON.stringify(store));
       } catch (e) {
         console.log(`😱 Chatrooms Fetch failed: ${e}`);
@@ -130,20 +138,26 @@ const ChatroomMessagesList = () => {
     );
   }
   
-  const DisplayTitleMessage = () => {
+  const DisplayTitle = () => {
     let title = "Chatroom " + chatroomName + ", Team members: ";
+    let allMembers = "";
     if(members) {
-      let allMembers = "( ";
+      allMembers = "( ";
       members.map((member) => (allMembers = allMembers + member.username + ","));
       allMembers = allMembers.slice(0, -1);
       allMembers = allMembers + " )";
-      title = title + allMembers;
+      //title = title + allMembers;
     }
     return (
       <div>
-        {title}
+        {title} {allMembers}
       </div>
     );
+  }
+
+  const getPhoto = (username) => {
+    let member = members.find(member => member.username === username);
+    return member.photo;
   }
 
  return  useObserver(() => (
@@ -156,12 +170,14 @@ const ChatroomMessagesList = () => {
           </Button>
       </Link>
       {/**chatrooms && chatrooms.map(chatroom => (<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))*/}
-      <br/> <br/> <h3><DisplayTitleMessage /></h3>
+      <br/> <br/> <h3><DisplayTitle /></h3>
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((message) => (
-   <p>{message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} </p> 
-
-  ))
-}
+        <div>
+          {/*<Avatar src={ROOTURL + getPhoto(message.username)}  size= "small" />*/}
+          <p>{message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} </p> 
+        </div>
+        ))
+      }
       <form>
         <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em"   height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Add text"  + " 👋"} onKeyDown={handleKeyDown}></Textarea>
       </form>

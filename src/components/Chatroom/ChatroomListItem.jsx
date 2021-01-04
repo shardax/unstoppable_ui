@@ -9,7 +9,8 @@ const ChatroomListItem = ({chatroom, viewOnly}) => {
   const cable = useContext(ActionCableContext);
   
   useEffect ( () => {
-    if (!viewOnly){
+    //console.log("mojo", store.chatroomsInitialize);
+    if (!store.chatroomsInitialize){
       const channel =  cable.subscriptions.create( 
                         { channel: "ChatroomMessagesChannel", id: chatroom.id },
                           { received: (data) => {

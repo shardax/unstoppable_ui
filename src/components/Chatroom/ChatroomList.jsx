@@ -15,8 +15,6 @@ const ChatroomList = () => {
   const [chatrooms, setChatrooms] = useState([]);
   const { chatroomId } = useParams();
 
-  console.log("cable", cable);
-
   const renderedChatroomListItems = chatrooms && chatrooms.map((chatroom) => (
     <ChatroomListItem
       key={chatroom.id}
