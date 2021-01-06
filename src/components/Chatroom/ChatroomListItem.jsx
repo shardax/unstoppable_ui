@@ -11,16 +11,18 @@ const ChatroomListItem = ({chatroom, viewOnly}) => {
   const history = createBrowserHistory({ forceRefresh: true });
   
   useEffect ( () => {
-    if (!store.chatroomsInitialize){
+    if (!store.chatroomsInitialized.includes(chatroom.id)){
+      store.chatroomsInitialized.push(chatroom.id);
       const channel =  cable.subscriptions.create( 
                         { channel: "ChatroomMessagesChannel", id: chatroom.id },
                           { received: (data) => {
                               console.log("received!!!", JSON.stringify(data))
-                              setTimeout(() => {
+                             // setTimeout(() => {
                               if (store.currentChatroom.chatroomId === parseInt(data.chatroomId))
+                                console.log("pushing data", data);
                                 store.currentChatroom.messages.push(data);
                                 localStorage.setItem("userStore", JSON.stringify(store));
-                              }, 100)
+                             // }, 100)
                             },
                           },
                         )
@@ -37,13 +39,20 @@ const ChatroomListItem = ({chatroom, viewOnly}) => {
     history.push("/chatroomDetails/" + event.target.value);
   }
 
+  const handleInit = (event) => {
+    if(!store.chatroomsInitialize == true){
+      store.chatroomsInitialize = true;
+      localStorage.setItem("userStore", JSON.stringify(store));
+    }
+  }
+
 
  return (
   <div>{/**chatrooms && chatrooms.map(chatroom => (
    *<Badge color="primary" badgeContent={chatroom.number_of_unreads}><button type="button" value={chatroom.id} onClick={(e) => handleClick(e)}>{chatroom.name}</button></Badge>))
    * */}
 
-    <Link to={`chatroomDetails/${chatroom.id}`}>
+    <Link to={`chatroomDetails/${chatroom.id}`} onClick={handleInit}>
     
         <div className={"single-conversation-wrapper "}>
         <div className="conversation-subject">

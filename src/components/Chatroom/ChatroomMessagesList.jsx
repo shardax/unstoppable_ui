@@ -27,61 +27,48 @@ const ChatroomMessagesList = () => {
   const history = createBrowserHistory({ forceRefresh: true });
   //let teamMemberPhotosInitialize = {username: "", photo: ""};
   //const [userPhotos, setUserPhotos] =  useState([]);
-
-  
-  const sendMessageToServer = (content, channel) => {
-    //const store = useDataStore;
-    console.log("chatroomId 2",chatroomId);
-    const data = {chatroomId: parseInt(chatroomId), userId: store.current_user_id , content: content, last_read_at: store.last_read_at}
-    channel.send(data);
-  }
  
   useEffect ( () => {
-    store.chatroomsInitialize = true;
-    localStorage.setItem("userStore", JSON.stringify(store));
     if (messageSent === true){
-
       if (channel) {
-        sendMessageToServer(msgText, channel);
+        console.log("Using exisiting subscription");
+        setTimeout(() => {
+          let content = msgText;
+          let data = {chatroomId: parseInt(chatroomId), userId: store.current_user_id , content: content, last_read_at: store.last_read_at}
+          channel.send(data);
+        }, 10);
+        setTimeout(() => {
+          setMsgText("");
+          setMessageSent(false);
+        }, 20);
+        
       } else {
+        console.log("Creating a new subscription");
         const channel =  cable.subscriptions.create( {
           channel: "ChatroomMessagesChannel",
           id:  parseInt(chatroomId)
         })
         setChannel(channel);
         console.log("channel", channel);
+        let content = msgText;
         setTimeout(() => {
-          sendMessageToServer(msgText, channel);
-          }, 10);
+          let data = {chatroomId: parseInt(chatroomId), userId: store.current_user_id , content: content, last_read_at: store.last_read_at}
+          channel.send(data);
+        }, 10);
+        setTimeout(() => {
+          setMsgText("");
+          setMessageSent(false);
+        }, 20);
       }
     
-     // setCurrentMessages(currentMessages.push(msgText));
-      //console.log
-      setMsgText("");
-      setMessageSent(false);
-
-    //setTimeout(() => {
-      //setMessageSent(false);
-     
-     // sendMessageToServer("HI ,HOW ARE YOU?", channel);
-     console.log("chatroomId 1",chatroomId);
-     // sendMessageToServer(msgText, channel);
-      setMsgText("");
-      console.log("channel", channel);
-      //const data = {chatroomId: 1, userId: store.current_user_id , content: "Charlie Sheen"}
-      //channel.send(data);
-     
-      //}, 1);
-
-    return () => {
-      //console.log("Unsbribin!!!g")
-      // When do you unsubscribe?
-      //setMessageSent(false);
-     // channel.unsubscribe();
+      return function cleanup() {
+        if (channel) {
+          console.log("Unsubscribed");
+          channel.unsubscribe();
+        }
+      };
     }
-  }
   } , [messageSent==true])
-
 
   useEffect ( () => {
     const getChatroomMessages = async () => {
@@ -116,11 +103,10 @@ const ChatroomMessagesList = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      console.log(event.target.value)
-      setMsgText(event.target.value);
       event.preventDefault();
       setMessageSent(true);
-      //resetForm();
+      console.log("handleKeyDown",event.target.value)
+      setMsgText(event.target.value);
     }
   }
 
@@ -160,10 +146,15 @@ const ChatroomMessagesList = () => {
     return member.photo;
   }
 
+  const handleInit = (event) => {
+    store.chatroomsInitialize = true;
+    localStorage.setItem("userStore", JSON.stringify(store));
+  }
+
  return  useObserver(() => (
   <div>
      <Default>
-      <Link style={{ textDecoration: "underline" }} to="/chatrooms">
+      <Link style={{ textDecoration: "underline" }} to="/chatrooms" onClick={handleInit}>
           <Button background="white" color="#222222" fontSize="13px" padding="2px 12px" border="1px solid #222222" borderRadius="30px">
             <ArrowBackIcon className="go-back-chatrooms" />
             Go Back to Chatrooms

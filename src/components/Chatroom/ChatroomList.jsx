@@ -5,6 +5,7 @@ import { ActionCableContext, useDataStore } from "../../UserContext";
 import axios from "axios";
 import ChatroomListItem from "./ChatroomListItem"
 import './index.scss';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 
@@ -52,7 +53,8 @@ const ChatroomList = () => {
         <div className="inbox-wrapper">
           <nav className="pink-nav conversation-nav-wrapper">
             <div className="conv-nav-text">
-              Chatrooms
+              {/* <Tooltip title="Realtime Chats with groups of users"> */}
+                Chatrooms (realtime chats with a group of users)
             </div>
           </nav>
     {/*chatrooms.map(chatroom => (<Link to={`chatrooms/${chatroom.id}`}>{chatroom.name}</Link> ))*/}
