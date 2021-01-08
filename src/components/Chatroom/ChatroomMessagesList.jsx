@@ -90,7 +90,7 @@ const ChatroomMessagesList = () => {
           store.currentChatroom.messages = result.data.chatroom.messages;
           setChatroomName(result.data.chatroom.name);
           setMembers(result.data.chatroom.members);
-          console.log(JSON.stringify(result.data.chatroom.members));
+          //console.log(JSON.stringify(result.data.chatroom.members));
           localStorage.setItem("userStore", JSON.stringify(store));
       } catch (e) {
         console.log(`😱 Chatrooms Fetch failed: ${e}`);
@@ -146,15 +146,10 @@ const ChatroomMessagesList = () => {
     return member.photo;
   }
 
-  const handleInit = (event) => {
-    store.chatroomsInitialize = true;
-    localStorage.setItem("userStore", JSON.stringify(store));
-  }
-
  return  useObserver(() => (
   <div>
      <Default>
-      <Link style={{ textDecoration: "underline" }} to="/chatrooms" onClick={handleInit}>
+      <Link style={{ textDecoration: "underline" }} to="/chatrooms" >
           <Button background="white" color="#222222" fontSize="13px" padding="2px 12px" border="1px solid #222222" borderRadius="30px">
             <ArrowBackIcon className="go-back-chatrooms" />
             Go Back to Chatrooms

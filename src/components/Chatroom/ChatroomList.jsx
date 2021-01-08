@@ -57,6 +57,9 @@ const ChatroomList = () => {
                 Chatrooms (realtime chats with a group of users)
             </div>
           </nav>
+          <div style={{float: 'right'}}>
+              <Link to={`addChatroom`}> Add New Chatroom </Link>
+          </div>
     {/*chatrooms.map(chatroom => (<Link to={`chatrooms/${chatroom.id}`}>{chatroom.name}</Link> ))*/}
           {chatrooms && chatrooms.map((chatroom) => (
                 <ChatroomListItem
@@ -71,7 +74,7 @@ const ChatroomList = () => {
     <div className="conversation-wrapper">
           <nav className="purple-nav conversation-nav-wrapper">
             <div className="conv-nav-text">
-             
+            
             </div>
           </nav>
     </div>
