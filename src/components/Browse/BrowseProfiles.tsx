@@ -9,6 +9,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
 import {Link} from 'react-router-dom'
 import {SearchParamsStore} from "../../UserStore";
+import Pagination from "react-js-pagination";
 import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
 import './Browse.scss'
 import { useObserver } from "mobx-react";
@@ -52,7 +53,11 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
   const [activeUsers, setActiveUsers] = useState(store.savedSearchParams.activeUsers);
   // Reset all selections
   const [reset, setReset] = useState(false);
-
+  // Page counter for pagination
+  const [pageCounter, setPageCounter] = useState(1);
+  // Total profiles
+  const [numberOfProfiles, setNumberOfProfiles] = useState(0);
+ 
   useEffect(() => {
     const getProfiles = async () => {
       try {
@@ -70,6 +75,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
               ageOrder: ageOrder,
               lastOnlineOrder: lastOnlineOrder,
               newestMemberOrder: newestMemberOrder,
+              page: pageCounter,
               active: activeUsers
             },
             withCredentials: true,
@@ -77,7 +83,8 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
               contentType: "application/json; charset=utf-8",
             }
           })
-        setUserCollection(data);
+        setUserCollection(data.profiles);
+        setNumberOfProfiles(data.number_of_profiles)
       } catch (e) {
         console.log(`😱 Browse Fetch failed: ${e}`);
         setUserCollection([]);
@@ -86,7 +93,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     getProfiles();
     saveSearchCriteria();
     //setSortChange(false);
-    }, [keywordsSelect, filter, ageRange, distance, keywordSearchType, activeUsers, distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder]);
+    }, [keywordsSelect, filter, ageRange, distance, keywordSearchType, activeUsers, distanceOrder, ageOrder, lastOnlineOrder, newestMemberOrder, pageCounter]);
 
   useEffect(() => {
       addAllKeywords();
@@ -252,6 +259,11 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
     };
   };
 
+  const handlePageChange = (pageNumber) => {
+    console.log(`active page is ${pageNumber}`);
+    setPageCounter(pageNumber);
+  }
+
   return useObserver(() => (
     <>
       <div>
@@ -344,12 +356,21 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
             </div>
           </div>
           <div className="range-slider">
-            <h4><b> {userCollection.length} {activeUsers ? "Active " : " "}User{(userCollection.length != 1) ? "s":""}</b></h4><h6>{searchTextDisplay}</h6>
+            <h4><b> {numberOfProfiles} {activeUsers ? "Active " : " "}User{(numberOfProfiles != 1) ? "s":""}</b></h4><h6>{searchTextDisplay}</h6>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
               <ProfileCard profile={profile} />
             ))}
+        </div>
+        <div className="range-slider">
+          <Pagination
+                activePage={pageCounter}
+                itemsCountPerPage={6}
+                totalItemsCount={numberOfProfiles}
+                pageRangeDisplayed={5}
+                onChange={handlePageChange}
+              />
         </div>
       </div>
     </>
