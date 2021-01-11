@@ -366,7 +366,7 @@ import Brightness1Icon from '@material-ui/icons/Brightness1';
         <div className="range-slider">
           <Pagination
                 activePage={pageCounter}
-                itemsCountPerPage={6}
+                itemsCountPerPage={12}
                 totalItemsCount={numberOfProfiles}
                 pageRangeDisplayed={5}
                 onChange={handlePageChange}
