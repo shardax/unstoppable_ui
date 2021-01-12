@@ -56,7 +56,7 @@ const ChatroomListItem = ({chatroom, viewOnly}) => {
     
         <div className={"single-conversation-wrapper "}>
         <div className="conversation-subject">
-              {chatroom.name}<Badge color="primary" badgeContent={chatroom.number_of_unreads}></Badge>
+              {chatroom.name}&nbsp;&nbsp;&nbsp;<Badge color="primary" badgeContent={chatroom.number_of_unreads}></Badge>
             </div>
           <hr></hr>
         </div>
