@@ -52,6 +52,7 @@ const AddChatroom = () => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [inputSubmitted, setInputSubmitted] = useState(false);
+  const history = useHistory();
   
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
@@ -74,16 +75,15 @@ const AddChatroom = () => {
             { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
           });
 
-          console.log(JSON.stringify(result));
-          console.log(result.data);
-          
+          //console.log(JSON.stringify(result));
+          //console.log(result.data);
+          history.push("chatrooms");
         }
       } catch (error) {
         //console.log(JSON.stringify(error));
         console.log(error.message);
         setIsError(true);
       }
-      console.log("store.isLoggedIn)");
       
     };
     fetchData();
