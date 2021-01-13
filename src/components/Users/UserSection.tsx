@@ -18,6 +18,8 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import StarIcon from '@material-ui/icons/Star';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import Tooltip from '@material-ui/core/Tooltip';
+import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
+
 
 const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
   const store = useDataStore()
@@ -71,7 +73,14 @@ const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
               backgroundColor: user.active ? '#4DED30' : 'white'
             }}
           >
-            <p style={{ fontSize: "20px" }}><span> Last login at: {user.last_seen_at}</span></p>
+            <p style={{ fontSize: "20px" }}>
+              <span> Last login at:&nbsp;&nbsp; 
+                  <TimeAgo
+                    datetime={user.last_seen_at}
+                    locale='en.US'
+                  />
+              </span>
+            </p>
            </div>
           <Paper margin="2em 0em">
             <div className="profile-section-header">About me 😀</div>

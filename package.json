@@ -53,6 +53,7 @@
     "sass-loader": "^8.0.2",
     "simple-flexbox": "^2.3.1",
     "styled-components": "^5.1.1",
+    "timeago-react": "^3.0.1",
     "toasted-notes": "^3.2.0",
     "typescript": "^3.9.7",
     "uuid": "^8.3.0",
