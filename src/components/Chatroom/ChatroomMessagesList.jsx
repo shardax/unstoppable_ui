@@ -11,7 +11,7 @@ import Badge from '@material-ui/core/Badge';
 import Button from '../../components/Styled/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Avatar} from 'antd';
-
+import TimeAgo from 'timeago-react';
 
 const ChatroomMessagesList = () => {
   const store = useDataStore();
@@ -25,9 +25,7 @@ const ChatroomMessagesList = () => {
   const [members, setMembers] = useState([]);
   const [chatroomName, setChatroomName] = useState("");
   const history = createBrowserHistory({ forceRefresh: true });
-  //let teamMemberPhotosInitialize = {username: "", photo: ""};
-  //const [userPhotos, setUserPhotos] =  useState([]);
- 
+  
   useEffect ( () => {
     if (messageSent === true){
       if (channel) {
@@ -125,7 +123,7 @@ const ChatroomMessagesList = () => {
   }
   
   const DisplayTitle = () => {
-    let title = "Chatroom " + chatroomName + ", Team members: ";
+    let title = "Chatroom " + chatroomName + ", Members: ";
     let allMembers = "";
     if(members) {
       allMembers = "( ";
@@ -160,7 +158,10 @@ const ChatroomMessagesList = () => {
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((message) => (
         <div>
           {/*<Avatar src={ROOTURL + getPhoto(message.username)}  size= "small" />*/}
-          <p>{message.user == store.username? " " : message.user} {message.content} {message.username} {message.created_at} </p> 
+          <p>{message.user == store.username? " " : message.user} {message.content} {message.username} <TimeAgo
+                    datetime={message.created_at}
+                    locale='en.US'
+                  /> </p>
         </div>
         ))
       }

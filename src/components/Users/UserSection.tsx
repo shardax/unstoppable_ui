@@ -18,7 +18,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import StarIcon from '@material-ui/icons/Star';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import Tooltip from '@material-ui/core/Tooltip';
-import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
+import TimeAgo from 'timeago-react'; 
 
 
 const UserSection: React.FC<{user: any, me: boolean }> = ({ user, me}) => {
