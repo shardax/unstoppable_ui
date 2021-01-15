@@ -158,7 +158,7 @@ const ChatroomMessagesList = () => {
       {store.currentChatroom && store.currentChatroom.messages && store.currentChatroom.messages.map((message) => (
         <div>
           {/*<Avatar src={ROOTURL + getPhoto(message.username)}  size= "small" />*/}
-          <p>{message.user == store.username? " " : message.user} {message.content} {message.username} <TimeAgo
+          <p>{message.user == store.username? " " : message.user} {message.content}&nbsp;&nbsp;&nbsp;&nbsp;{message.username}, <TimeAgo
                     datetime={message.created_at}
                     locale='en.US'
                   /> </p>
