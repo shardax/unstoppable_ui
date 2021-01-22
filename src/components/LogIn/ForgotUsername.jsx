@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect}  from 'react';
 import { Formik, Field, Form } from 'formik';
 import {useDataStore} from "../../UserContext";
 import * as Yup from 'yup';
@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Paper from '../Styled/Paper';
 import Input from '../Styled/Input';
 import Button from '../Styled/Button';
+import { createBrowserHistory } from 'history'
 
 const store = useDataStore();
 
@@ -27,9 +28,17 @@ const ValidationSchema = Yup.object().shape({
 
 const ForgotUsername = () => {
 
-  const currentUserStore = useDataStore()
+  const [sentEmail, setSentEmail] = useState(false);
+  const history = createBrowserHistory({ forceRefresh: true });
 
-  
+  const currentUserStore = useDataStore();
+
+  useEffect(() => {
+    if (sentEmail) {
+      history.push("/sentEmail")
+    }
+  }, [sentEmail]);
+
   return (
     <Formik
       initialValues={{
@@ -44,18 +53,17 @@ const ForgotUsername = () => {
          
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
-
         setTimeout(() => {
          // alert(JSON.stringify(values, null, 2));
           resetForm();
           setSubmitting(false);
         }, 500);
-   
         const fetchData = async () => {
           try {
             
-            const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }}, { withCredentials: true });
+              const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }}, { withCredentials: true });
               console.log(JSON.stringify(result));
+              setSentEmail(true);
           } catch (error) {
             //console.log(JSON.stringify(error));
             console.log(error.message);
@@ -84,7 +92,6 @@ const ForgotUsername = () => {
             <Paper>
               <h2>Forgot Username</h2>
               <h5>Please enter the email you used to sign up and we will send you an email with your username.</h5>
-            
               <div className="input-row">
                 <label>Email</label>
                 <Input

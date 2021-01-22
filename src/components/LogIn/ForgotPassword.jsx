@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Formik, Field, Form } from 'formik';
 import {useDataStore} from "../../UserContext";
 import Default from '../../layouts/Default'
@@ -9,8 +9,9 @@ import './SignIn.scss'
 import { FORGOTUSERNAMEURL } from "../../constants/matcher";
 import ReCAPTCHA from "react-google-recaptcha";
 import Paper from '../Styled/Paper';
-//import Input from '../Styled/Input';
+import Input from '../Styled/Input';
 import Button from '../Styled/Button';
+import { createBrowserHistory } from 'history'
 
 const store = useDataStore();
 
@@ -27,11 +28,19 @@ const ValidationSchema = Yup.object().shape({
 
 
 const ForgotPassword = () => {
-
+  const [sentEmail, setSentEmail] = useState(false);
+  const history = createBrowserHistory({ forceRefresh: true });
   const currentUserStore = useDataStore()
+
+  useEffect(() => {
+    if (sentEmail) {
+      history.push("/sentEmail")
+    }
+  }, [sentEmail]);
 
   
   return (
+    
     <Formik
       initialValues={{
         email: "",
@@ -45,27 +54,24 @@ const ForgotPassword = () => {
          
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
-
         setTimeout(() => {
          // alert(JSON.stringify(values, null, 2));
           resetForm();
           setSubmitting(false);
         }, 500);
-   
         const fetchData = async () => {
           try {
-            
-            const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }, stype:"P" }, { withCredentials: true });
+              const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }, stype:"P" }, { withCredentials: true });
               console.log(JSON.stringify(result));
+              setSentEmail(true);
           } catch (error) {
-            //console.log(JSON.stringify(error));
-            console.log(error.message);
-              if (error.message.includes("401")) {
-                // setErrorMessage("Invalid Email");
-             } else {
-                 // setErrorMessage(error.message);
-              }
-           }
+              console.log(error.message);
+                if (error.message.includes("401")) {
+                  // setErrorMessage("Invalid Email");
+              } else {
+                  // setErrorMessage(error.message);
+                }
+            }
           };
          fetchData();
       }}
@@ -88,7 +94,7 @@ const ForgotPassword = () => {
           
             <div className="input-row">
               <label>Email</label>
-             {/* <Input
+              <Input
                 margin="0em 1em"
                 type="text"
                 name="email"
@@ -97,7 +103,7 @@ const ForgotPassword = () => {
                 onBlur={handleBlur}
                 value={values.email}
                 className={"global-input login-form " + (touched.email && errors.email ? "has-error" : null)}
-             /> */}
+             />
               <Error touched={touched.email} message={errors.email} />
             </div>
 
