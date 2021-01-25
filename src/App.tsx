@@ -8,6 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import User from './pages/user';
 import About from './components/Register/About';
 import Inbox from './components/Inbox/Inbox';
+import ForgotPasswordForm from './components/LogIn/ForgotPasswordForm';
 import ChatroomMessagesList from './components/Chatroom/ChatroomMessagesList';
 
 const NoMatchPage = () => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
                 <Route path="/user/:id" component={User} />
                 <Route path="/wizard/:stepId" component={About} />
                 <Route path="/userMessage/:user_id" component={Inbox} />
+                <Route path="/forgotPassword/:tokenId" component={ForgotPasswordForm} />
                 <Route path="/chatroomDetails/:chatroomId" component={ChatroomMessagesList} />
                 <Route path="/:page" component={PageRenderer} />
                 <Route path="/" render={() => <Redirect to="/home" />} />

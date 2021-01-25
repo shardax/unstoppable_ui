@@ -4,17 +4,18 @@ export const ROOTURL = "https://uns1.herokuapp.com"
 
 // Web Socket URLs
 //export const WEBSOCKETCABLEURL = "ws://localhost:3001/cable"
-export const WEBSOCKETCABLEURL = "wss://uns1.herokuapp.com/cable"
+export const WEBSOCKETCABLEURL = "wss://uns1.herokuapp.ble"
 
 // Authorization and Registration related URLs
 export const LOGINURL = ROOTURL + "/users/sign_in"
 export const LOGOUTURL = ROOTURL + "/users/sign_out"
 export const REGISTERURL = ROOTURL + "/users"
 export const ABOUTURL = ROOTURL + "/users"
-export const FORGOTUSERNAMEURL = ROOTURL + "/send_username"
+export const SENDUSERNAMEURL = ROOTURL + "/send_username.json"
 export const SAVEUSERURL = ROOTURL + "/users"
 export const RESETPASSWORDURL = ROOTURL + "/users/password/edit"
 export const UPLOADAVATARURL = ROOTURL + "/attachment/photosavejson"
+export const FORGOTPASSWORDURL = ROOTURL + "/users/update_password_json"
 
 // Account setting URLs
 export const VALIDUSERNAMEURL = ROOTURL + "/account_settings/valid_username"

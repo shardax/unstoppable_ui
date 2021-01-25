@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import axios from "axios";
 import Error from "./Error";
 import './SignIn.scss';
-import { FORGOTUSERNAMEURL } from "../../constants/matcher";
+import { SENDUSERNAMEURL } from "../../constants/matcher";
 import ReCAPTCHA from "react-google-recaptcha";
 import Paper from '../Styled/Paper';
 import Input from '../Styled/Input';
@@ -61,7 +61,7 @@ const ForgotUsername = () => {
         const fetchData = async () => {
           try {
             
-              const result = await axios.post(FORGOTUSERNAMEURL, {user: { email: values.email  }}, { withCredentials: true });
+              const result = await axios.post(SENDUSERNAMEURL, {user: { email: values.email  }}, { withCredentials: true });
               console.log(JSON.stringify(result));
               setSentEmail(true);
           } catch (error) {
