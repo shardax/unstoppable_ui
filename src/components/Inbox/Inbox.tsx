@@ -184,14 +184,14 @@ const Inbox = () => {
           <Avatar src={ROOTURL + message.photo}  size= "small" />
           <div className="conversation-from-title">{message.name}</div>
         </div>
-        <div className="single-conversation-recent">
+        {message && message.recent && <div className="single-conversation-recent">
           <div className="conversation-subject">
             {message.recent.subject}
           </div>
           <div>
             {message.recent.content}
           </div>
-        </div>
+        </div>}
         <ArrowForwardIcon />
       </div>
     )
