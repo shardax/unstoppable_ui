@@ -274,9 +274,15 @@ const Inbox = () => {
               onChange={event => setSubject(event.target.value)}
               required
               />
-          </div>}
+          </div>
+          }
+          {newConversation &&
           <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em"   height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
-        </form>
+          }
+          {currChat &&
+          <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em"   height="40px" width="100%"  padding="10px" fontSize="12px"  placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
+          }
+          </form>
         </div>
       </div>
     </div>
