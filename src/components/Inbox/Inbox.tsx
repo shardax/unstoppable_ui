@@ -9,6 +9,7 @@ import Textarea from '../Styled/Textarea';
 import Button from '../Styled/Button';
 import Default from '../../layouts/Default'
 import {Avatar} from 'antd';
+import TimeAgo from 'timeago-react'; 
 
 // TODO need to move up
 // Format nested params correctly
@@ -197,7 +198,7 @@ const Inbox = () => {
     )
   }
   
-  const Message = ({ content, from, to }) => {
+  const Message = ({ content, from, to, updated_at }) => {
     const isMe = (from: string, me: string) => from === me
 
     return (
@@ -209,7 +210,10 @@ const Inbox = () => {
           "single-message-wrapper " +
           (isMe(from, store.username) ? "from-me-message" : "from-them-message")
           }>
-          {content}
+          {content} <span  id="date_display" style={{display : 'block', float : 'right'}}> <TimeAgo
+                    datetime={updated_at}
+                    locale='en.US'
+                  /> </span>
         </span>
       </div>
     )
@@ -253,7 +257,7 @@ const Inbox = () => {
           {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
           {!newConversation && currConversation.messages.map((message: any) => (
             <>
-              <Message content={message.content} from={message.from} to={message.to} />
+              <Message content={message.content} from={message.from} to={message.to}  updated_at={message.updated_at}/>
               {/* <hr></hr> */}
             </>
           ))}
