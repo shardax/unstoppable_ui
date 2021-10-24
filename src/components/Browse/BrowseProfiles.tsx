@@ -273,7 +273,7 @@ import TimeAgo from 'timeago-react';
 
   return useObserver(() => (
     <>
-      <div>
+      <div >
           <div className="browse-sticky-nav">
             <h3>Browse Profiles</h3>
             <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
@@ -355,7 +355,7 @@ import TimeAgo from 'timeago-react';
                 {reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={"asc"} resetFunction={handleResetCompletion} reset={reset} />}
               </div>
               <div className="range-slider">
-                  <Button id="prev" margin="2em 1.5em" padding="10px 20px"
+                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" background="#ffe7ed" color="#f0658c"
                                             onClick={(e)=>{handleClearSelections()}}>
                                             Reset all selections
                                         </Button>
