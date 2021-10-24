@@ -11,6 +11,7 @@ $cardHeight: 240px;
   top: 0;
   background-color: white;
   padding: 1em;
+  z-index: 3
 }
 
 .browse-filter-row {
@@ -83,7 +84,7 @@ $cardHeight: 240px;
     padding: 1em 0em 0em 0em;
     border-bottom-left-radius: $cardRadius;
     border-bottom-right-radius: $cardRadius;
-    z-index: 100;
+    z-index: 0;
     position: relative;
     color: #69616C;
     display: flex;
