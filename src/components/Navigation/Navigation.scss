@@ -64,7 +64,8 @@
     }
   }
   .sidenav-link-content {
-    color: #efe8fa;
+    /*color: #efe8fa;*/
+    color: #07122E;
     font-size: 12px;
     border-radius: 10px;
     display: flex;
@@ -72,7 +73,8 @@
     padding: 0.7em 0.7em;
     width: 10em;
     &:hover {
-      background-color: $purpleHover;
+      /*background-color: $purpleHover;*/
+      background-color: #f1658c;
     }
     .sidenav-link-name {
       margin-left: 0.7em;
@@ -88,7 +90,8 @@
 }
 
 .sidenav-link-content-active {
-  background-color: $purpleHover;
+  /*background-color: $purpleHover;*/
+  background-color: #f1658c;
   border-radius: 10px;
 }
 
