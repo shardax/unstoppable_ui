@@ -10,10 +10,16 @@
 }
 
 .logo-navbar {
-  width: 170px;
+  /*width: 170px;*/
+  width: 200px;
+  height: 46px;
+  left: 27px;
+  top: 30px;
+  margin-top: -40px;
   background-color: white;
-  border-radius: 10px;
-  padding: 0.8em;
+  /*border-radius: 10px;*/
+  /*padding: 0.8em;*/
+  
 }
 
 .menu-content-container {
@@ -32,7 +38,8 @@
   height: 100vh;
   z-index: 0;
   padding-top: 3em;
-  background: $defaultBackground;
+ /*background: $defaultBackground;*/
+ background-color: #07122E;
   .username-avatar-sidenav {
     margin-top: 2em;
     margin-left: 16px;
@@ -60,12 +67,12 @@
     margin: 0.6em 0.2em;
     // background-color: #474747;
     &:hover {
-      background: rgba(#6200ee, 0.3);
+      background: rgba(#6200ee, 0.3); 
     }
   }
   .sidenav-link-content {
-    /*color: #efe8fa;*/
-    color: #07122E;
+    color: #efe8fa;
+    /*color: #07122E;*/
     font-size: 12px;
     border-radius: 10px;
     display: flex;
