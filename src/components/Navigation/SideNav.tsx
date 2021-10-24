@@ -32,11 +32,6 @@ const sideNavLinks = [
     to: "/messages",
     name: "Messages",
     icon: <MessageIcon />
-  },
-  {
-    to: "/chatrooms",
-    name: "Chatrooms",
-    icon: <MessageIcon />
   }
 ]
 
@@ -65,8 +60,7 @@ const SideNav = () => {
         <Avatar src={ROOTURL + store.avatarPath}  size= "large" />
         <div className="sidebar-title">{store.username}</div>
       </div>
-      <div className="sidebar-subtitle primary-grey-text">{store.email ? store.email : "Email not defined."}</div>
-
+      
       <hr className="horizontal-break" />
 
       <div className="main-navlink">  
