@@ -3,7 +3,8 @@ import './Navigation.scss';
 import { useDataStore } from "../../UserContext";
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import {Avatar} from 'antd';
-import UnsIcon from '../../images/2unstoppable.png'
+/*import UnsIcon from '../../images/2unstoppable.png'*/
+import UnsIcon from '../../images/2Unstoppable_logo.png'
 import {useObserver} from 'mobx-react'
 
 
