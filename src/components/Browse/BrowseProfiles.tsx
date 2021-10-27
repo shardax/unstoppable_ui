@@ -273,7 +273,7 @@ import TimeAgo from 'timeago-react';
 
   return useObserver(() => (
     <>
-      <div>
+      <div >
           <div className="browse-sticky-nav">
             <h3>Browse Profiles</h3>
             <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
@@ -281,18 +281,18 @@ import TimeAgo from 'timeago-react';
               <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
                 <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Free Text Search" />
               </Tooltip>
-            <div>
+            {/* <div>
               <Tooltip title="Contains any of the keywords">
                 <label>
                   <Radio value="OR" color="primary" checked={keywordSearchType==="OR"} onChange={(e) => handleRadioSearch(e)}  />OR
                 </label>
-              </Tooltip>
+                  </Tooltip> 
               <Tooltip title="Contains all of the keywords">
                 <label>
                   <Radio value="AND" color="primary" checked={keywordSearchType === "AND"}  onChange={(e) => handleRadioSearch(e)}  />AND
                 </label>
               </Tooltip >
-            </div>
+            </div>*/}
             <div className="range-slider">
               <RangeSlider ageRange={ageRange} onChange={handleChange}/>
             </div>
@@ -355,7 +355,7 @@ import TimeAgo from 'timeago-react';
                 {reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={"asc"} resetFunction={handleResetCompletion} reset={reset} />}
               </div>
               <div className="range-slider">
-                  <Button id="prev" margin="2em 1.5em" padding="10px 20px"
+                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" background="#ffe7ed" color="#f0658c"
                                             onClick={(e)=>{handleClearSelections()}}>
                                             Reset all selections
                                         </Button>
