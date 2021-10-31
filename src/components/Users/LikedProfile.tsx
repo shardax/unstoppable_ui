@@ -18,7 +18,7 @@ const LikedProfile = ({ id }) => {
         setUser(data.profile)
         setLoading(false)
       } catch (e) {
-        throw new Error(e)
+        // throw new Error(e)
       }
     }
     getProfile();
