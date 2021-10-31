@@ -113,3 +113,12 @@
     margin-left: 1em;
   }
 }
+
+.dropdown-toggle:not(.nohover) {
+  background: transparent;
+  border-color: transparent;
+}
+
+.dropdown-item {
+  overflow:visible
+}
