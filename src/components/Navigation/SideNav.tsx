@@ -79,15 +79,6 @@ const SideNav = () => {
           </div>
         ))}
       </div>
-
-      <hr className="horizontal-break" />
-      <div className="main-navlink">
-        {optionLinks.map((link: any) => (
-          <div className="sidenav-link">
-            <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
-          </div>
-        ))}
-      </div>
     </div>
   ))
 }
