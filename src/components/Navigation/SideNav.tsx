@@ -55,7 +55,7 @@ const SideNav = () => {
   return useObserver(() => (
     <div className="sidenav-wrapper">
       <div style={{ display: "flex", justifyContent: "center"}}>
-        <img className="logo-navbar" src={UnsIcon} alt="" />
+        <Link to="/home"><img className="logo-navbar" src={UnsIcon} alt=""/></Link>
       </div>
       <div className="username-avatar-sidenav">
         <Avatar src={ROOTURL + store.avatarPath}  size= "large" />

@@ -10,11 +10,11 @@
 }
 
 .logo-navbar {
-  /*width: 170px;*/
-  width: 200px;
-  height: 46px;
-  left: 27px;
-  top: 30px;
+  position: relative;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  padding: 20px 15px;
   background-color: white;
   /*border-radius: 10px;*/
   /*padding: 0.8em;*/
@@ -36,7 +36,7 @@
   position: fixed;
   height: 100vh;
   z-index: 0;
-  padding-top: 3em;
+ /* padding-top: 3em; */
  /*background: $defaultBackground;*/
  background-color: #07122E;
   .username-avatar-sidenav {
@@ -79,8 +79,14 @@
     padding: 0.7em 0.7em;
     width: 10em;
     &:hover {
+
       /*background-color: $purpleHover;*/
       background-color: #f1658c;
+
+      transition: all .3s ease;
+      -moz-transition: all .3s ease; /* Firefox 4 */
+      -webkit-transition: all .3s ease; /* Safari and Chrome */
+      -o-transition: all .3s ease; /* Opera */
     }
     .sidenav-link-name {
       margin-left: 0.7em;
