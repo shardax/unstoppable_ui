@@ -1,17 +1,24 @@
-import React, { useState} from "react";
-import {Link, useHistory} from 'react-router-dom';
 import './SignIn.scss';
+
+import * as Yup from "yup";
+
+import {AGE_RANGE_CONSTANT, STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
+import {Link, useHistory} from 'react-router-dom';
+import React, { useState } from "react";
+import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+
+import Button from '../Styled/Button'
+import Error from "./Error";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import Autosuggest from "react-autosuggest";
 import { Formik } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import Error from "./Error";
-import {useDataStore} from "../../UserContext";
-import {SearchParamsStore} from "../../UserStore";
-import { LOGINURL } from "../../constants/matcher";
-import {STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT, AGE_RANGE_CONSTANT} from "../../constants/ProfileConstants";
 import Input from '../Styled/Input'
-import Button from '../Styled/Button'
+import { LOGINURL } from "../../constants/matcher";
+import {SearchParamsStore} from "../../UserStore";
+import axios from "axios";
+import logo from '../../images/2Unstoppable_logo.png';
+import {useDataStore} from "../../UserContext";
+
 // import {displayToast} from "../Toast/Toast";
 
 const ValidationSchema = Yup.object().shape({
@@ -119,16 +126,22 @@ const SignIn2 = () => {
         isSubmitting,
         setFieldValue
       }) => (
-        <form className="form-spacing" onSubmit={handleSubmit}>
-          <h2>Login</h2>
+        <form className="form-spacing" style={{backgroundColor: 'white', borderRadius: '8px', 
+        width: '480px', height: '550px'}} onSubmit={handleSubmit}>
+          <div className="all">
+          <img src={logo} alt="Logo"  width="325" height="150"/>
+          </div>
+          <h2 className="all">Sign In</h2>
           { errorMessage && <h3 className="error"> { errorMessage } </h3> }
-          <div className="input-row">
+          <div className="input-row all">
+            
             <div className="input-format">
-              <label>Name</label>
+            <span>
+              <FontAwesomeIcon icon={faUser} />
               <Input
                 type="text"
                 name="username"
-                placeholder="username"
+                placeholder="Username"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.username}
@@ -138,17 +151,22 @@ const SignIn2 = () => {
                 focusBorder="1px solid #6429B9"
                 fontSize="14px"
               />
+              </span>
             </div>
             <Error touched={touched.username} message={errors.username} />
           </div>
+          <div className="register all">
+            <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
+          </div>
 
-          <div className="input-row">
+          <div className="input-row all">
             <div className="input-format">
-              <label>Password</label>
+            <span>
+              <FontAwesomeIcon icon={faLock} />
               <Input
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
@@ -158,24 +176,27 @@ const SignIn2 = () => {
                 focusBorder="1px solid #6429B9"
                 fontSize="14px"
               />
+              </span>
             </div>
             <Error touched={touched.password} message={errors.password} />
           </div>
-
-          <div className="input-row">
-            <Button type="submit" disabled={isSubmitting} padding="8px 30px">
-              Log in
-            </Button>
-          </div>
-          <div className="register">
-            <Link to='/register' activeclassname="active">Sign Up</Link>
-          </div>
-          <div className="register">
-            <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
-          </div>
-          <div className="register">
+          <div className="register all">
             <Link to='/fpassword' activeclassname="active">Forgot Your Password?</Link>
           </div>
+
+          <div className="input-row all">
+            <Button type="submit" disabled={isSubmitting} padding="8px 150px" style={{background: "#F1658C"}}>
+              SIGN IN
+            </Button>
+          </div>
+          <br/>
+          <div className="all">Don't have an account?</div>
+          <div className="register all">
+            <Link to='/register' activeclassname="active" padding="8px 150px" style={{background: "#FFE7ED"}}>
+              <Button type="submit" padding="8px 150px" style={{background: "#FFE7ED", color: "#F1658C"}}>Sign Up</Button>
+            </Link>
+          </div>
+
         </form>
       )}
     </Formik>
