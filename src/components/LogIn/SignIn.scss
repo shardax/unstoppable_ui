@@ -2,6 +2,13 @@
   min-height: 60vh;
 }
 
+.all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center
+}
+
 .registerMessage {
   margin-top: 10vh;
 }
