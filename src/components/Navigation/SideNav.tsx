@@ -1,22 +1,19 @@
-import React from 'react'
 import './Navigation.scss';
-import { useDataStore } from "../../UserContext";
+
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
+import { Link, NavLink } from 'react-router-dom';
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Avatar} from 'antd';
-/*import UnsIcon from '../../images/2unstoppable.png'*/
-import UnsIcon from '../../images/2Unstoppable_logo.png'
-import {useObserver} from 'mobx-react'
-
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 //Icons
 import HomeIcon from '@material-ui/icons/Home';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MessageIcon from '@material-ui/icons/Message';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import React from 'react'
 import SettingsIcon from '@material-ui/icons/Settings';
-
-
-import { NavLink, Link } from 'react-router-dom';
+import UnsIcon from '../../images/2unstoppable.png'
+import { useDataStore } from "../../UserContext";
+import {useObserver} from 'mobx-react'
 
 const sideNavLinks = [
   {
@@ -28,6 +25,11 @@ const sideNavLinks = [
     to: "/profile",
     name: "My Profile",
     icon: <AccountCircleIcon />
+  },
+  {
+    to: "/favorites",
+    name: "Favorties",
+    icon: <MessageIcon />
   },
   {
     to: "/messages",
