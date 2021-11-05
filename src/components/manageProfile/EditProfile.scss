@@ -11,6 +11,12 @@
     align-items: center
 }
 
+
+  #page {
+    overflow: scroll;
+    white-space: nowrap;
+ }
+
 .profile-section-header::before {
   font-weight: bold;
 }
