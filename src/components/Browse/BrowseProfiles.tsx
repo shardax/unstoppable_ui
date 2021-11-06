@@ -274,9 +274,10 @@ import TimeAgo from 'timeago-react';
   return useObserver(() => (
     <>
       <div >
+          <h3 className="pageHeader">Browse Profiles</h3>
+          <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
           <div className="browse-sticky-nav">
-            <h3>Browse Profiles</h3>
-            <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
+            <h5 className="boldedSubheader">I'm looking for an exercise buddy:</h5>
             <div className="browse-filter-row"> 
               <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
                 <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Free Text Search" />
@@ -363,7 +364,7 @@ import TimeAgo from 'timeago-react';
             </div>
           </div>
           <div className="range-slider">
-            <h4><b> {numberOfProfiles} {activeUsers ? "Active " : " "}User{(numberOfProfiles != 1) ? "s":""}</b></h4><h6>{searchTextDisplay}</h6>
+            <h4 className="totalUserProfileHeader"><b> Total User Profile - {numberOfProfiles}</b></h4><h6>{searchTextDisplay}</h6>
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
