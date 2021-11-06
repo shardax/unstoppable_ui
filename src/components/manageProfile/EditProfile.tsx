@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Formik, Field, Form } from 'formik';
 import {useDataStore} from "../../UserContext";
 import {useHistory} from 'react-router-dom';
-// import axios from "axios";
+import axios from "axios";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
 import {PERSONALITY_DESCRIPTION, PREFERRED_EXERCISE_LOCATIONS, PREFERRED_TIME_DESCRIPTIONS, FITNESS_LEVEL_DESCRIPTIONS, WORK_STATUS_DESCRIPTIONS, CANCERLOCATIONLIST, TREATMENT_STATUS_DESCRIPTIONS} from "../../constants/ProfileConstants"
 import Default from '../../layouts/Default'
@@ -152,9 +152,9 @@ const EditProfile: React.FC<IEditProfile> = ({editControls}) => {
             profile.part_of_wellness_program = (values.part_of_wellness_string == "Yes")? true:false
             profile.which_wellness_program = values.which_wellness_program;
             // Saving data on server
-            // const res = await axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
+            const res = await axios.patch(url, { profile: profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
             store.profile = profile;
-            // console.log(JSON.stringify(res));
+            console.log(JSON.stringify(res));
             editControls.setEditMode(false)
             console.log("In handleBackToView");
             history.push("/profile");
