@@ -2,9 +2,10 @@ import React from 'react'
 import './Navigation.scss';
 import { useDataStore } from "../../UserContext";
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
-import { Avatar } from 'antd';
-import UnsIcon from '../../images/2unstoppable.png'
-import { useObserver } from 'mobx-react'
+import {Avatar} from 'antd';
+/*import UnsIcon from '../../images/2unstoppable.png'*/
+import UnsIcon from '../../images/2Unstoppable_logo.png'
+import {useObserver} from 'mobx-react'
 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -55,8 +56,8 @@ const SideNav = () => {
 
   return useObserver(() => (
     <div className="sidenav-wrapper">
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <img className="logo-navbar" src={UnsIcon} alt="" />
+      <div style={{ display: "flex", justifyContent: "center"}}>
+        <Link to="/home"><img className="logo-navbar" src={UnsIcon} alt=""/></Link>
       </div>
       <div className="username-avatar-sidenav">
         <Avatar src={ROOTURL + store.avatarPath} size="large" />
