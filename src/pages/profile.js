@@ -7,7 +7,7 @@ export default function Profile() {
   return (
     <>
     <Default>
-      <ViewEditProfile/>
+      <ViewEditProfile />
     </Default>
     </>
     )
