@@ -6,6 +6,11 @@ $cardRadius: 10px;
 $cardWidth: 300px;
 $cardHeight: 240px;
 
+.browse-container {
+  width:75vw; 
+  overflow: clip;
+}
+
 .browse-sticky-nav {
   position: sticky;
   top: 0;
@@ -36,11 +41,15 @@ $cardHeight: 240px;
     font-family: Montserrat;
 }
 
+.search-widget {
+  display:inline-block
+}
+
 .browse-filter-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: block;
+  // align-items: center;
+  // justify-content: flex-start;
+  // flex-wrap: wrap;
   border-radius: 10px;
   .browse-search {
     height: 40px;
@@ -177,3 +186,6 @@ $cardHeight: 240px;
   }
 }
 
+.no-border-accordian {
+  border-style: none;
+}
