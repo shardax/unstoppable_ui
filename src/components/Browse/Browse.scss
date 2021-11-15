@@ -165,6 +165,18 @@ $cardHeight: 240px;
         padding-top: 20px;
     }
     .cancer-type-card{
+        color:#c294ec;
+        font-weight: bold;
+        background-color: #f3e8fb;
+        border-radius: 5px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: inline-block;
+
+    }
+
+    .brain-cancer-type-card{
         color:#629efe;
         font-weight: bold;
         background-color: #e4e7fb;
@@ -173,7 +185,17 @@ $cardHeight: 240px;
         padding-left: 10px;
         padding-right: 10px;
         display: inline-block;
+    }
 
+    .other-cancer-type-card {
+        color:#55bc7e;
+        font-weight: bold;
+        background-color: #e3f4e9;
+        border-radius: 5px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: inline-block;
     }
   }
 }

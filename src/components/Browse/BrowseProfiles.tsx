@@ -192,6 +192,8 @@ import { text } from "@fortawesome/fontawesome-svg-core";
     }
   }
 
+
+
   const ProfileCard = ({profile}) => useObserver(() => (
       <div className="single-profile-wrapper" key={profile.id}>
         <Link to={"/user/" + profile.id}>
@@ -205,7 +207,9 @@ import { text } from "@fortawesome/fontawesome-svg-core";
                     backgroundColor: profile.active ? '#B7FFBF' : 'white'
                 }}
                 >
-                    <p className="cancer-type-card">{profile.cancer_location} Cancer</p>
+                    
+                    {profile.cancer_location == "Other/Rare Cancer" ? <p className="other-cancer-type-card"> {profile.cancer_location} </p> : 
+                    profile.cancer_location == "Brain" ? <p className="brain-cancer-type-card"> {profile.cancer_location} Cancer</p> : <p className="cancer-type-card"> {profile.cancer_location} Cancer</p> }
                     <h5 className="profile-username profile-name-loc">{profile.name} </h5>
                     
                 </div>
