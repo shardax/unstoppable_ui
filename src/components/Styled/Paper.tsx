@@ -13,9 +13,13 @@ interface PaperProps {
 }
 
 const Paper = styled.div<PaperProps>`
-  background: ${props => props.background ? props.background : "white"};
+  background: ${props => props.background ? props.background : "#FFFFFF"};
   padding: ${props => props.padding ? props.padding : "1em"};
-  border-radius: ${props => props.borderRadius ? props.borderRadius : "2px"};
+  border-radius: ${props => props.borderRadius ? props.borderRadius : "10px"};
+  width: 540px;
+  height: 606px;
+  left: 690px;
+  top: 237px;
   outline:none;
   border: ${props => props.border ? props.border : "none"};
   margin: ${props => props.margin ? props.margin : "2em 0em"};
