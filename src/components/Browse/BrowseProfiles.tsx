@@ -17,6 +17,8 @@ import Button from '../Styled/Button';
 import Select from '../Styled/Select';
 import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
+import LocationIcon from '@material-ui/icons/LocationOn';
+import AgeIcon from '@material-ui/icons/DataUsage';
 import SortBarDisplay from './SortBarDisplay'
 import SortIcon from '@material-ui/icons/Sort';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -25,6 +27,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import TimeAgo from 'timeago-react';
+import { text } from "@fortawesome/fontawesome-svg-core";
+
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -197,18 +201,33 @@ import TimeAgo from 'timeago-react';
           <div>
             <Link to={"/user/" + profile.id}>
               <div
-              style={{
-                backgroundColor: profile.active ? '#B7FFBF' : 'white'
-              }}
-            >
-            <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">
-              {profile.city}, {profile.state}</span></h5>
-            </div>
+                style={{
+                    backgroundColor: profile.active ? '#B7FFBF' : 'white'
+                }}
+                >
+                    <p className="cancer-type-card">{profile.cancer_location} Cancer</p>
+                    <h5 className="profile-username profile-name-loc">{profile.name} </h5>
+                    
+                </div>
             </Link>
-            <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
-            <p className="other-profile-card-data">{profile.age} years old</p>
+            
+            <span className="profile-location"><LocationIcon className="profile-icon"></LocationIcon>{profile.city}, {profile.state}</span>
+            <p className="other-profile-card-data"><AgeIcon className="profile-icon"></AgeIcon>{profile.age} years old</p>
+
+            <Link to={"/userMessage" + "/" + profile.user_id}>
+                
+                <p className="other-profile-message-data"> <ChatIcon className="message-icon"></ChatIcon> Message</p>
+            
+            </Link>
+            
           </div>
           <div>
+            <p className="lastLoginTime">Last login <TimeAgo
+                    datetime={profile.last_seen_at}
+                    locale='en.US'
+                  /></p>
+
+        {/*
           {profile.active && <Tooltip title={<TimeAgo
                     datetime={profile.last_seen_at}
                     locale='en.US'
@@ -221,10 +240,8 @@ import TimeAgo from 'timeago-react';
                   />}>
             <Brightness1Icon  style={{ color: "#D4D4D4", fontSize: "medium"}}/>
           </Tooltip >}
-          <Link to={"/userMessage" + "/" + profile.user_id}>
-            <ChatIcon className="favorite-profile-icon"></ChatIcon>
-          </Link>
-          {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />}
+          
+         {store.profile.liked_profiles.includes(profile.id)  ? <FavoriteIcon onClick={() => updateLikedProfiles("unlike", profile.id)} className="favorite-profile-icon" /> : <FavoriteBorderIcon onClick={() => updateLikedProfiles("like", profile.id)} className="favorite-profile-icon" />} */}
           </div>
         </div>
       </div>
