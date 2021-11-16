@@ -198,7 +198,7 @@ import TimeAgo from 'timeago-react';
   }
 
   const ProfileCard = ({profile}) => useObserver(() => (
-      <div className="single-profile-wrapper" key={profile.id}>
+      <div className="single-profile-wrapper " key={profile.id}>
         <Link to={"/user/" + profile.id}>
           <img className="single-profile-image" src={ROOTURL + profile.photo} />
         </Link>
@@ -298,10 +298,10 @@ import TimeAgo from 'timeago-react';
             {!reset && <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>}
             {reset && <DiscreteSlider  distance={DISTANCE_WITHIN_CONSTANT} onChange={handleDistanceChange}/>}
             </div>
-            {/* state */}
+            {/* city/state */}
             {(store.uniqueLists && store.uniqueLists.unique_state_codes.length > 1) && <div className="search-widget">
               <Select onChange={e => setStateCodeKeyword(e.target.value)} margin="0em 2em" value={stateCodeKeyword}>
-                <option className="selector" value="" label="- Select State -" />
+                <option className="selector" value="" label="- Select City/State -" />
                 {store.uniqueLists.unique_state_codes.map((sc: any) => (
                 <option className="selector" value={sc} label={sc} />
               ))}
@@ -367,18 +367,19 @@ import TimeAgo from 'timeago-react';
           </AccordionSummary>
 
           <AccordionDetails>
+            <div className="accordian-inside"> 
               <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
-                <input className="browse-search global-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Free Text Search" />
+                <input className="browse-search global-input search-widget" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Free Text Search" />
               </Tooltip>
             {/* cancer type*/}
-            <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em" value={cancerTypeKeyword}>
+            <Select onChange={e => setCancerTypeKeyword(e.target.value)} margin="0em 2em" value={cancerTypeKeyword} className="search-widget">
             <option className="selector" value="" label="- Select cancer type -" />
             {CANCERLOCATIONLIST.map((cancerLoc: any) => (
               <option className="selector" value={cancerLoc} label={cancerLoc} />
             ))}
             </Select> 
             {/* zipcode */} 
-            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
+            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div className="search-widget">
               
               <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
                 <option className="selector" value="" label="- Select Zipcode -" />
@@ -388,9 +389,9 @@ import TimeAgo from 'timeago-react';
               </Select>
             </div>}
             {/* Which of the following best describes you? */} 
-            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
+            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div className="search-widget">
               
-              <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
+              <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword} >
                 <option className="selector" value="" label="- Which of the following best describes you? -" />
                 {store.uniqueLists.unique_zipcodes.map((z: any) => (
                 <option className="selector" value={z} label={z} />
@@ -398,9 +399,9 @@ import TimeAgo from 'timeago-react';
               </Select>
             </div>}
             {/* Favorite activities */} 
-            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
+            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div className="search-widget">
               
-              <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
+              <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword} >
                 <option className="selector" value="" label="- Favorite activities -" />
                 {store.uniqueLists.unique_zipcodes.map((z: any) => (
                 <option className="selector" value={z} label={z} />
@@ -408,7 +409,7 @@ import TimeAgo from 'timeago-react';
               </Select>
             </div>}
             {/* Preferred exercise location */} 
-            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div>
+            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div className="search-widget">
               
               <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
                 <option className="selector" value="" label="- Preferred exercise location -" />
@@ -417,6 +418,7 @@ import TimeAgo from 'timeago-react';
               ))}
               </Select>
             </div>}
+            </div>
 
               {/* <div className="range-slider">
                 <Tooltip title="Sort Users">

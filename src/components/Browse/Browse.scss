@@ -6,6 +6,10 @@ $cardRadius: 10px;
 $cardWidth: 300px;
 $cardHeight: 240px;
 
+.accordian-inside {
+  display:block
+}
+
 .browse-container {
   width:75vw; 
   overflow: clip;
