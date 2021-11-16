@@ -97,7 +97,7 @@ const ForgotUsername = () => {
               <div className = "forgot">Forgot Username?</div>
               <div className = "enterInfo">Please enter the email you used to sign up and we will send you an email with your username</div>
               {/* <div className="input-row"> */}
-              <div className="address">Email</div>
+              <div className="address">Email Address:</div>
                 <Input
                   margin="0em 1em"
                   type="text"
