@@ -156,7 +156,7 @@ const SignIn2 = () => {
             <Error touched={touched.username} message={errors.username} />
           </div>
           <div className="register all">
-            <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
+            <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
           </div>
 
           <div className="input-row all">
@@ -181,7 +181,7 @@ const SignIn2 = () => {
             <Error touched={touched.password} message={errors.password} />
           </div>
           <div className="register all">
-            <Link to='/fpassword' activeclassname="active">Forgot Your Password?</Link>
+            <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
           </div>
 
           <div className="input-row all">
