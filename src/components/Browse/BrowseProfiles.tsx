@@ -15,14 +15,13 @@ import './Browse.scss'
 import { useObserver } from "mobx-react";
 import Button from '../Styled/Button';
 import Select from '../Styled/Select';
-import colors from "../../assets/colors";
 
 // accordian imports 
 import Accordion from '@material-ui/core/Accordion';
 import { AccordionSummary } from "@material-ui/core";
 import { AccordionDetails } from "@material-ui/core";
 import { Typography } from "antd";
-import { BsChevronBarExpand } from "react-icons/bs";
+import { KeyboardArrowDown } from "@material-ui/icons";
 
 // chat imports 
 import ChatIcon from '@material-ui/icons/Chat';
@@ -67,8 +66,15 @@ import TimeAgo from 'timeago-react';
   const [pageCounter, setPageCounter] = useState(1);
   // Total profiles
   const [numberOfProfiles, setNumberOfProfiles] = useState(0);
+
+  // TODO
+  // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
+  const [personality, setPersonality] = useState(store.savedSearchParams.personality);
+  const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
  
+
   useEffect(() => {
+    // gets all the profiles to populate the browse profile cards
     const getProfiles = async () => {
       try {
         const { data } = await axios.get(ALLPROFILESURL,
@@ -143,6 +149,7 @@ import TimeAgo from 'timeago-react';
     setSearchTextDisplay(displayText);
   }
 
+  // saves search criteria in local store
   const saveSearchCriteria = () => {
     store.savedSearchParams.filter = filter;
     store.savedSearchParams.ageRange = ageRange;
@@ -287,7 +294,7 @@ import TimeAgo from 'timeago-react';
           <h3 className="pageHeader">Browse Profiles</h3>
           <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
           <div className="browse-sticky-nav">
-            <h5 className="boldedSubheader">I'm looking for an exercise buddy:</h5>
+            <h5 className="boldedSubheader" style={{marginLeft : "5px"}}>I'm looking for an exercise buddy:</h5>
             
             {/* age slider */}
             <div className="range-slider search-widget">
@@ -307,15 +314,14 @@ import TimeAgo from 'timeago-react';
               ))}
               </Select>
             </div>}
-            {/* city */}
-            {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div className="search-widget">
+            {/* {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div className="search-widget">
               <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em" value={cityKeyword} >
                 <option className="selector" value="" label="- Select City -" />
                 {store.uniqueLists.unique_cities.map((c: any) => (
                 <option className="selector" value={c} label={c} />
               ))}
               </Select>
-            </div>}
+            </div>} */}
             {/* active users filter */}
             <div className="range-slider search-widget">
               <Tooltip title="Displays Users active since the last 5 minutes">
@@ -336,14 +342,12 @@ import TimeAgo from 'timeago-react';
               </div>
               {/* yes to long distance button */}
               <div className="range-slider search-widget">
-              <Tooltip title="Displays Users active since the last 5 minutes">
+              <Tooltip title="Displays Users Who are Receptive to a Long Distance Buddy">
                 <FormGroup row>
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={activeUsers}
-                      onChange={e => handleActiveUsers(e)}
-                      name="activeUsers"
+                      name="yes-long-distance"
                       color="primary"
                     />
                   }
@@ -357,9 +361,9 @@ import TimeAgo from 'timeago-react';
             
             {/* free text search */}
             <div className="browse-filter-row"> 
-            <Accordion className="no-border-accordian"> 
+            <Accordion className="no-border-accordian" style={{ boxShadow : "none" }}> 
             <AccordionSummary
-              expandIcon={<BsChevronBarExpand/>}
+              expandIcon={<KeyboardArrowDown/>}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
@@ -389,23 +393,20 @@ import TimeAgo from 'timeago-react';
               </Select>
             </div>}
             {/* Which of the following best describes you? */} 
-            {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div className="search-widget">
-              
-              <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword} >
-                <option className="selector" value="" label="- Which of the following best describes you? -" />
-                {store.uniqueLists.unique_zipcodes.map((z: any) => (
-                <option className="selector" value={z} label={z} />
-              ))}
-              </Select>
-            </div>}
+            <Select onChange={e => setPersonality(e.target.value)} margin="0em 2em" value={cancerTypeKeyword} className="search-widget">
+            <option className="selector" value="" label="- Which of the following best describes you? -" />
+            {/* {store.uniqueLists.unique_personalities.map((personality: any) => (
+              <option className="selector" value={personality} label={personality} />
+            ))} */}
+            </Select> 
             {/* Favorite activities */} 
             {(store.uniqueLists && store.uniqueLists.unique_zipcodes.length > 1) && <div className="search-widget">
               
               <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword} >
                 <option className="selector" value="" label="- Favorite activities -" />
-                {store.uniqueLists.unique_zipcodes.map((z: any) => (
+                {/* {store.uniqueLists.unique_zipcodes.map((z: any) => (
                 <option className="selector" value={z} label={z} />
-              ))}
+              ))} */}
               </Select>
             </div>}
             {/* Preferred exercise location */} 
@@ -413,9 +414,9 @@ import TimeAgo from 'timeago-react';
               
               <Select onChange={e => setZipcodeKeyword(e.target.value)} margin="0em 2em" value={zipcodeKeyword}>
                 <option className="selector" value="" label="- Preferred exercise location -" />
-                {store.uniqueLists.unique_zipcodes.map((z: any) => (
+                {/* {store.uniqueLists.unique_zipcodes.map((z: any) => (
                 <option className="selector" value={z} label={z} />
-              ))}
+              ))} */}
               </Select>
             </div>}
             </div>
@@ -433,13 +434,13 @@ import TimeAgo from 'timeago-react';
 
               {/* search button */}
               <div className="range-slider search-widget">
-                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" background="#ffe7ed"  color="#f0658c" onClick={(e)=>{handleClearSelections()}}>
+                  <Button className="button-active" id="prev" padding="10px 20px">
                       SEARCH
                   </Button>
               </div>
               {/* reset button */}
               <div className="range-slider search-widget">
-                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" background="#ffe7ed" color="#f0658c" onClick={(e)=>{handleClearSelections()}}>
+                  <Button id="prev" padding="10px 20px" background="#ffe7ed" color="#f0658c" onClick={(e)=>{handleClearSelections()}}>
                       RESET
                   </Button>
               </div>

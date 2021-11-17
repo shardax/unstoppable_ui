@@ -46,7 +46,8 @@ $cardHeight: 240px;
 }
 
 .search-widget {
-  display:inline-block
+  display:inline-block;
+  margin: 5px
 }
 
 .browse-filter-row {
@@ -176,7 +177,7 @@ $cardHeight: 240px;
 };
 
 .range-slider {
-  margin-left: 1em;
+  margin-left: 40px;
 }
 
 @media only screen and (max-width: 1300px) {

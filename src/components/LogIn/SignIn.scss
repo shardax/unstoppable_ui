@@ -1,12 +1,40 @@
+#root {
+  position: fixed;
+}
+
 .login-card {
   min-height: 60vh;
 }
 
-.all {
-  display: flex;
+.logo-image {
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+}
+
+.sign-in-card {
   justify-content: center;
   align-items: center;
-  align-content: center
+  align-content: center;
+  padding: 20px 60px;
+}
+
+.sign-in-header {
+  text-align: center;
+  font-weight:bold;
+  margin:5px;
+}
+
+.no-account-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.login-buttons {
+  width: 100%;
+  padding: 10px;  
 }
 
 .registerMessage {
