@@ -14,19 +14,17 @@ interface PaperProps {
 }
 
 const Paper = styled.div<PaperProps>`
-  background: ${props => props.background ? props.background : "white"};
+  background: ${props => props.background ? props.background : "#FFFFFF"};
   padding: ${props => props.padding ? props.padding : "1em"};
-  border-radius: ${props => props.borderRadius ? props.borderRadius : "2px"};
+  border-radius: ${props => props.borderRadius ? props.borderRadius : "10px"};
+  width: 540px;
+  height: 606px;
+  left: 690px;
+  top: 237px;
   outline:none;
   border: ${props => props.border ? props.border : "none"};
   margin: ${props => props.margin ? props.margin : "2em 0em"};
   box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12) !important;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  .profile-block {
-    width: 48%;
-  };
   `
 
 export default Paper;
