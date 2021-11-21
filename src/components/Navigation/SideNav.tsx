@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Avatar} from 'antd';
+import { BsHeartFill } from "react-icons/bs";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 //Icons
 import HomeIcon from '@material-ui/icons/Home';
@@ -13,7 +14,7 @@ import React from 'react'
 import SettingsIcon from '@material-ui/icons/Settings';
 import UnsIcon from '../../images/2unstoppable.png'
 import { useDataStore } from "../../UserContext";
-import {useObserver} from 'mobx-react'
+import {useObserver} from 'mobx-react';
 
 const sideNavLinks = [
   {
@@ -28,8 +29,8 @@ const sideNavLinks = [
   },
   {
     to: "/favorites",
-    name: "Favorties",
-    icon: <MessageIcon />
+    name: "Favorites",
+    icon: <BsHeartFill size={18} />
   },
   {
     to: "/messages",

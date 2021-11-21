@@ -1,30 +1,32 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
-import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
-import RangeSlider from "../Common/RangeSlider";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import DiscreteSlider from "../Common/DiscreteSlider";
-import Radio from '@material-ui/core/Radio';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import { useDataStore } from "../../UserContext";
-import {Link} from 'react-router-dom'
-import {SearchParamsStore} from "../../UserStore";
-import Pagination from "react-js-pagination";
-import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
 import './Browse.scss'
-import { useObserver } from "mobx-react";
+
+import {AGE_RANGE_CONSTANT, CANCERLOCATIONLIST, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
+import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
+import React, {useEffect, useState} from "react";
+
+import Brightness1Icon from '@material-ui/icons/Brightness1';
 import Button from '../Styled/Button';
-import Select from '../Styled/Select';
-import colors from "../../assets/colors"
 import ChatIcon from '@material-ui/icons/Chat';
+import Checkbox from '@material-ui/core/Checkbox';
+import DiscreteSlider from "../Common/DiscreteSlider";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import {Link} from 'react-router-dom'
+import Pagination from "react-js-pagination";
+import Radio from '@material-ui/core/Radio';
+import RangeSlider from "../Common/RangeSlider";
+import {SearchParamsStore} from "../../UserStore";
+import Select from '../Styled/Select';
 import SortBarDisplay from './SortBarDisplay'
 import SortIcon from '@material-ui/icons/Sort';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Tooltip from '@material-ui/core/Tooltip';
-import Brightness1Icon from '@material-ui/icons/Brightness1';
 import TimeAgo from 'timeago-react';
+import Tooltip from '@material-ui/core/Tooltip';
+import axios from "axios";
+import colors from "../../assets/colors"
+import { useDataStore } from "../../UserContext";
+import { useObserver } from "mobx-react";
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -188,7 +190,7 @@ import TimeAgo from 'timeago-react';
     }
   }
 
-  const ProfileCard = ({profile}) => useObserver(() => (
+const ProfileCard = ({profile}) => useObserver(() => (
       <div className="single-profile-wrapper" key={profile.id}>
         <Link to={"/user/" + profile.id}>
           <img className="single-profile-image" src={ROOTURL + profile.photo} />
@@ -349,7 +351,7 @@ import TimeAgo from 'timeago-react';
               </Tooltip >
               </div>
               <div className="range-slider">
-                {/*<Tooltip title="Sort Users">
+                {/* <Tooltip title="Sort Users">
                   <SortIcon />
                 </Tooltip > */}
                 {!reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={distanceOrder} ageOrder={ageOrder} lastOnineOrder={lastOnlineOrder} newestMemberOrder={newestMemberOrder} resetFunction={handleResetCompletion} reset={reset} />}
