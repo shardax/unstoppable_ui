@@ -4,10 +4,11 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import { PROFILEURL, ROOTURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { Prompt, useHistory } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { faSearch, faSort } from "@fortawesome/free-solid-svg-icons";
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Button from "../Styled/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import DraftsIcon from '@material-ui/icons/Drafts';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +18,7 @@ import LikedProfile from "../Users/LikedProfile";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
+import Pagination from './Pagination';
 import SendIcon from '@material-ui/icons/Send';
 import Tooltip from "@material-ui/core/Tooltip";
 import { useDataStore } from "../../UserContext";
@@ -68,7 +70,7 @@ function CustomizedMenus() {
     <div>
       <div className="SortButton">
       <FontAwesomeIcon icon={faSort} />
-      <Button
+      {/* <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="contained"
@@ -76,7 +78,7 @@ function CustomizedMenus() {
         onClick={handleClick}
       >
         Open Menu
-      </Button>
+      </Button> */}
       </div>
       <StyledMenu
         id="customized-menu"
@@ -108,6 +110,54 @@ function CustomizedMenus() {
   );
 }
 
+function ProfileGrid(props) {
+  const [currentPage, setCurrentPage] = useState(1)
+
+  let pageSize = 8
+
+  let totalPageCount = Math.ceil(props.profiles.length/8)
+
+  const currentPageData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    return props.profiles.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
+
+
+    return <>
+    <div className="profile-browse-grid">
+  {currentPageData.map((id: number) => (
+    <LikedProfile id={id} />
+  ))}
+   </div>
+    <div className="page-footer">
+      <Button onClick={() => { 
+      
+        if(currentPage - 1 < totalPageCount) {
+          setCurrentPage(currentPage + 1)
+        }else{
+          return null
+        }}}
+        color="#FFFFFF"
+        background="#F1658C"
+        borderRadius="6px"
+        margin="2em 1.5em"
+        padding="10px 40px">
+        Next
+      </Button>
+      <div>
+        <Pagination 
+         className="pagination-bar"
+         currentPage={currentPage}
+         totalCount={props.profiles.length}
+         pageSize={8}
+         onPageChange={page => setCurrentPage(page)} />
+      </div>
+    </div>
+  </>
+
+}
+
 const ViewFavoritesPage: React.FC = ({}) => {
   const store = useDataStore();
   const [userCollection, setUserCollection] = React.useState<any>([]);
@@ -122,18 +172,17 @@ const ViewFavoritesPage: React.FC = ({}) => {
   const [activeUsers, setActiveUsers] = useState(
     store.savedSearchParams.activeUsers
   );
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
 
   const handleActiveUsers = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('looking for active users')
     setActiveUsers(event.target.checked);
     console.log(event.target.checked);
   };
 
   return (
-    <div className="page">
+    <div>
       <div>
-        <h3>Favorites Profiles</h3>
+        <h3 className="page-header">Favorites Profiles</h3>
         <p>You can find all your favorite profiles here</p>
         <div id="headerFilter">
           <div className="box">
@@ -168,13 +217,8 @@ const ViewFavoritesPage: React.FC = ({}) => {
         </div>
       </div>
 
-      <div className="profile-browse-grid">
-        {store.profile.liked_profiles.map((id: number) => (
-          <LikedProfile id={id} />
-        ))}
-      </div>
+      <ProfileGrid profiles={store.profile.liked_profiles} />
 
-      <div>{store.profile.liked_profiles.length}</div>
     </div>
   );
 };

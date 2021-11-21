@@ -10,10 +10,6 @@ div#headerFilter {
     background-color: white;
 }
 
-// .page {
-//     background: #E5E5E5;
-// }
-
 .box {
     background-color: white;
     padding-left: 10px;
@@ -21,6 +17,17 @@ div#headerFilter {
 
 .SortButton{
     color: purple;
+}
+
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-header {
+    color: purple;
+    font-weight: bold;
 }
 
 .MuiButtonBase-root {
