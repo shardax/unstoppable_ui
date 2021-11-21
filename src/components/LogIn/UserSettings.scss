@@ -29,7 +29,61 @@
     }
 }
 
+.account-settings-page-header {
+    font-size:37px;
+    text-align: center;
+    padding-top: 20px;
+    font-weight: bolder;
+    font-size: 30px;
+    line-height: 37px;
+    color: #9560A8;
+}
+
 .account-settings-field-row {
     display: flex;
     align-items: center;
+}
+
+.readonly-input-field {
+    outline: none;
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 3px;
+    border-style: solid;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(69, 69, 69);
+}
+
+.photo-cropper {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.paper-block {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .profile-block {
+      width: 50%;
+      padding-left: 10px;
+      padding-right: 10px;
+    };
+    .field-header {
+        margin: -20px, 0
+    }
+}
+
+.edit-settings-button {
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.full-width {
+    width: 100%;
 }
