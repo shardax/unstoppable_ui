@@ -14,8 +14,8 @@ interface ButtonProps {
 }
 
 const Button = styled.button<ButtonProps>`
-  color: ${props => props.color ? props.color : "white"};
-  background: ${props => props.background ? props.background : colors.buttonBackground};
+  color: ${props => props.color ? props.color : "#f0658c"};
+  background: ${props => props.background ? props.background : colors.activebuttonBackground};
   padding: ${props => props.padding ? props.padding : "4px 6px"};
   min-width: 20px;
   border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};

@@ -192,7 +192,16 @@ import { text } from "@fortawesome/fontawesome-svg-core";
     }
   }
 
+  const getCancerCard = ({profile}) => {
 
+    if (profile.cancer_location == "Other/Rare Cancer"){
+        return <p className="cancer-type-card  other-cancer-type-card"> {profile.cancer_location} </p>
+    } else if (profile.cancer_location == "Brain"){
+        return <p className="cancer-type-card brain-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else {
+        return <p className="cancer-type-card"> {profile.cancer_location} Cancer</p>
+    }
+  }
 
   const ProfileCard = ({profile}) => useObserver(() => (
       <div className="single-profile-wrapper" key={profile.id}>
@@ -207,9 +216,8 @@ import { text } from "@fortawesome/fontawesome-svg-core";
                     backgroundColor: profile.active ? '#B7FFBF' : 'white'
                 }}
                 >
+                    {getCancerCard({profile})}
                     
-                    {profile.cancer_location == "Other/Rare Cancer" ? <p className="other-cancer-type-card"> {profile.cancer_location} </p> : 
-                    profile.cancer_location == "Brain" ? <p className="brain-cancer-type-card"> {profile.cancer_location} Cancer</p> : <p className="cancer-type-card"> {profile.cancer_location} Cancer</p> }
                     <h5 className="profile-username profile-name-loc">{profile.name} </h5>
                     
                 </div>
@@ -377,7 +385,7 @@ import { text } from "@fortawesome/fontawesome-svg-core";
                 {reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={"asc"} resetFunction={handleResetCompletion} reset={reset} />}
               </div>
               <div className="range-slider">
-                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" background="#ffe7ed" color="#f0658c"
+                  <Button className="active-button" id="prev" margin="2em 1.5em" 
                                             onClick={(e)=>{handleClearSelections()}}>
                                             Reset all selections
                                         </Button>

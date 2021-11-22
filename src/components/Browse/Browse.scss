@@ -164,6 +164,7 @@ $cardHeight: 240px;
         font-weight: bold;
         padding-top: 20px;
     }
+
     .cancer-type-card{
         color:#c294ec;
         font-weight: bold;
@@ -178,25 +179,15 @@ $cardHeight: 240px;
 
     .brain-cancer-type-card{
         color:#629efe;
-        font-weight: bold;
         background-color: #e4e7fb;
-        border-radius: 5px;
-        padding: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-        display: inline-block;
     }
 
     .other-cancer-type-card {
         color:#55bc7e;
-        font-weight: bold;
         background-color: #e3f4e9;
-        border-radius: 5px;
-        padding: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-        display: inline-block;
     }
+
+    
   }
 }
 
@@ -237,7 +228,7 @@ $cardHeight: 240px;
 }
 
 .lastLoginTime {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
 @media only screen and (max-width: 1300px) {
