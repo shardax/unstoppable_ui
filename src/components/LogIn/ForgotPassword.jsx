@@ -12,6 +12,7 @@ import Paper from '../Styled/Paper';
 import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 import { createBrowserHistory } from 'history'
+import UnsIcon from '../../images/2Unstoppable_logo.png'
 
 const store = useDataStore();
 
@@ -89,27 +90,30 @@ const ForgotPassword = () => {
         <div style={{ margin: "25px auto", maxWidth: "600px"}} className="form-spacing">
           <form onSubmit={handleSubmit}>
             <Paper>
-            <h2>Forgot Password</h2>
-            <h5>Please enter the email you used to sign up and we will send you instructions on how to reset your password.</h5>
+            <div style={{ display: "flex", justifyContent: "center"}}>
+                <div className = "logoImage"><img className="logoImage" src={UnsIcon} alt=""/></div>
+            </div>
+            <div className = "forgot">Forgot Password?</div>
+            <div className = "enterInfo">Please enter the email you used to sign up and we will send you instructions on how to reset your password</div>
           
-            <div className="input-row">
-              <label>Email</label>
+            {/* <div className="input-row"> */}
+              <div className="address">Email Address:</div>
               <Input
                 margin="0em 1em"
                 type="text"
                 name="email"
-                placeholder="Enter email"
+                placeholder="Enter your email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
                 className={"global-input login-form " + (touched.email && errors.email ? "has-error" : null)}
              />
               <Error touched={touched.email} message={errors.email} />
-            </div>
+            {/* </div> */}
 
             <div className="input-row">
               <Button type="submit" disabled={isSubmitting}>
-                Submit
+                SUBMIT
               </Button>
             </div>
             <form onSubmit={() => { recaptchaRef.current.execute(); }}>
@@ -119,7 +123,7 @@ const ForgotPassword = () => {
                 sitekey="6LdpusYUAAAAAMlMPRc3ljtC7He3A0XywRmhEt0U"
               />
             </form>
-            </Paper>
+            </Paper> 
           </form>
         </div>
       )}
