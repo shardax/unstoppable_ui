@@ -11,7 +11,6 @@ import Paper from '../Styled/Paper';
 import Input from '../Styled/Input';
 import Button from '../Styled/Button';
 import { createBrowserHistory } from 'history'
-import UnsIcon from '../../images/2Unstoppable_logo.png'
 
 const store = useDataStore();
 
@@ -91,29 +90,26 @@ const ForgotUsername = () => {
         <div style={{ margin: "25px auto", maxWidth: "600px"}} className="form-spacing">
           <form onSubmit={handleSubmit}>
             <Paper>
-            <div style={{ display: "flex", justifyContent: "center"}}>
-                <div className = "logoImage"><img className="logoImage" src={UnsIcon} alt=""/></div>
-            </div>
-              <div className = "forgot">Forgot Username?</div>
-              <div className = "enterInfo">Please enter the email you used to sign up and we will send you an email with your username</div>
-              {/* <div className="input-row"> */}
-              <div className="address">Email Address:</div>
+              <h2>Forgot Username</h2>
+              <h5>Please enter the email you used to sign up and we will send you an email with your username.</h5>
+              <div className="input-row">
+                <label>Email</label>
                 <Input
                   margin="0em 1em"
                   type="text"
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter email"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
                   className={(touched.email && errors.email ? "has-error" : null)}
                 />
                 <Error touched={touched.email} message={errors.email} />
-              {/* </div> */}
+              </div>
 
               <div className="input-row">
                 <Button type="submit" disabled={isSubmitting}>
-                  SUBMIT
+                  Submit
                 </Button>
               </div>
               <form onSubmit={() => { recaptchaRef.current.execute(); }}>

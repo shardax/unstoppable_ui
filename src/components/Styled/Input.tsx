@@ -17,17 +17,14 @@ const Input = styled.input<InputProps>`
   color: ${props => props.color ? props.color : "#484848"};
   background: ${props => props.background ? props.background : "#ffffff"};
   padding: ${props => props.padding ? props.padding : "4px 16px"};
-  min-width: 420px;
+  min-width: 25em;
   height: 50px;
-  border-radius: ${props => props.borderRadius ? props.borderRadius : "6px"};
-  font-weight: 500;
-  font-size: ${props => props.fontSize ? props.fontSize : "16px"};
+  border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};
+  font-weight: 400;
+  font-size: ${props => props.fontSize ? props.fontSize : "14px"};
   outline:none;
-  border: ${props => props.border ? props.border : "2px solid #EBEFF8"};
-  //margin: ${props => props.margin ? props.margin : "0"};
-  margin-left: 43px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  border: ${props => props.border ? props.border : "1px solid #b9b9b9"};
+  margin: ${props => props.margin ? props.margin : "0"};
   &:focus, &:not(:placeholder-shown) {
     border: ${props => props.focusBorder ? props.focusBorder : "1px solid " + colors.primary};
   }

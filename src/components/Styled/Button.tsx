@@ -1,5 +1,4 @@
 import React from 'react';
-import forgot_password from '../../assets/submit';
 import colors from '../../assets/colors';
 import styled from 'styled-components';
 
@@ -16,21 +15,15 @@ interface ButtonProps {
 
 const Button = styled.button<ButtonProps>`
   color: ${props => props.color ? props.color : "white"};
-  width: 420px;
-  height: 52px;
-  left: 750px;
-  top: 731px;
-  background: ${props => props.background ? props.background : forgot_password.buttonBackground};
+  background: ${props => props.background ? props.background : colors.buttonBackground};
   padding: ${props => props.padding ? props.padding : "4px 6px"};
-  min-width: 420px;
-  border-radius: ${props => props.borderRadius ? props.borderRadius : "6px"};
+  min-width: 20px;
+  border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};
   font-weight: 700;
   font-size: ${props => props.fontSize ? props.fontSize : "16px"};
   outline:none;
   border: ${props => props.border ? props.border : "none"};
-  // margin: ${props => props.margin ? props.margin : "0"};
-  margin-left: 45px;
-
+  margin: ${props => props.margin ? props.margin : "0"};
 `
 
 export default Button;
