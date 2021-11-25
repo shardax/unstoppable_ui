@@ -128,3 +128,35 @@
     margin-left: 1em;
   }
 }
+
+.dropdown-toggle:not(.nohover) {
+  background: transparent;
+  border-color: transparent;
+}
+
+.dropdown-item {
+  overflow:visible;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  height: 50px;
+  line-height: 40px;
+  padding-left: 30px;
+}
+
+.dropdown-item:hover {
+  color: white;
+  background-color: #684299;
+}
+
+#dropdown-basic-button {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  padding-bottom: 0.5em;
+  line-height: 1;
+}
+
+.dropdown-menu { 
+  background-color: #9560A8;
+}

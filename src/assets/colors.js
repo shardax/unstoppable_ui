@@ -4,5 +4,3 @@ const colors = {
 }
 
 export default colors;
-
-/*have to export colors also??*/
