@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {useDataStore} from "../../UserContext";
+import React, { useState, useEffect } from "react";
+import { useDataStore } from "../../UserContext";
 import { ProfileProps } from '../../UserStore';
 import EditUsername from '../Auth/EditUsername';
 import EditEmail from '../Auth/EditEmail';
@@ -10,7 +10,26 @@ import EditDOB from '../Auth/EditDOB';
 import Default from '../../layouts/Default'
 import './UserSettings.scss'
 import Button from '../Styled/Button'
+import Paper from '../Styled/Paper';
+import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 
+// ProfileIconBlock takes up only half of a Paper row (so 2 blocks fit on one row)
+const ProfileIconBlock = ({ field, answer }) => {
+  if (!answer || answer === "") {
+    return null
+  }
+
+  return (
+    <div className="profile-block">
+      <div className="full-profile-icon-row">
+        <div className="field-header">
+          <div>{field}</div>
+        </div>
+        <div className="field-answer muted-text">{answer}</div>
+      </div>
+    </div>
+  )
+}
 
 const UserSettings = (props: ProfileProps) => {
   const store = useDataStore();
@@ -26,8 +45,8 @@ const UserSettings = (props: ProfileProps) => {
   const [DOBDisable, setDOBDisable] = useState(true);
   const [PasswordDisable, setPasswordDisable] = useState(true);
   const [PhoneDisable, setPhoneDisable] = useState(true);
- 
-  
+
+
   useEffect(() => {
     setZipcodeDisable(!ZipcodeDisable);
     setEmailDisable(!EmailDisable);
@@ -35,7 +54,7 @@ const UserSettings = (props: ProfileProps) => {
     setPasswordDisable(!PasswordDisable);
     setPhoneDisable(!PhoneDisable);
   },
-  [showUsername]);
+    [showUsername]);
 
   useEffect(() => {
     setZipcodeDisable(!ZipcodeDisable);
@@ -44,7 +63,7 @@ const UserSettings = (props: ProfileProps) => {
     setPasswordDisable(!PasswordDisable);
     setPhoneDisable(!PhoneDisable);
   },
-  [showEmail]);
+    [showEmail]);
 
   useEffect(() => {
     setUsernameDisable(!UsernameDisable);
@@ -53,7 +72,7 @@ const UserSettings = (props: ProfileProps) => {
     setPasswordDisable(!PasswordDisable);
     setPhoneDisable(!PhoneDisable);
   },
-  [showZipcode]);
+    [showZipcode]);
 
   useEffect(() => {
     setZipcodeDisable(!ZipcodeDisable);
@@ -62,7 +81,7 @@ const UserSettings = (props: ProfileProps) => {
     setPasswordDisable(!PasswordDisable);
     setPhoneDisable(!PhoneDisable);
   },
-  [showDOB]);
+    [showDOB]);
 
   useEffect(() => {
     setZipcodeDisable(!ZipcodeDisable);
@@ -71,7 +90,7 @@ const UserSettings = (props: ProfileProps) => {
     setDOBDisable(!DOBDisable);
     setPhoneDisable(!PhoneDisable);
   },
-  [showPassword]);
+    [showPassword]);
 
   useEffect(() => {
     setZipcodeDisable(!ZipcodeDisable);
@@ -80,153 +99,78 @@ const UserSettings = (props: ProfileProps) => {
     setDOBDisable(!DOBDisable);
     setPasswordDisable(!PasswordDisable);
   },
-  [showPhone]);
-  
+    [showPhone]);
+
   const handleEditEmail = (event: React.MouseEvent) => {
-   event.preventDefault();
-   setShowEmail(!showEmail);
+    event.preventDefault();
+    setShowEmail(!showEmail);
   }
-   const handleEditUsername = (event: React.MouseEvent) => {
+  const handleEditUsername = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowUsername(!showUsername);
-   }
-   const handleEditPassword = (event: React.MouseEvent) => {
+  }
+  const handleEditPassword = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowPassword(!showPassword);
-   }
-   const handleEditDOB = (event: React.MouseEvent) => {
+  }
+  const handleEditDOB = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowDOB(!showDOB);
-   }
-   const handleEditZipcode = (event: React.MouseEvent) => {
+  }
+  const handleEditZipcode = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowZipcode(!showZipcode);
-   }
-   const handleEditPhone = (event: React.MouseEvent) => {
+  }
+  const handleEditPhone = (event: React.MouseEvent) => {
     event.preventDefault();
     setShowPhone(!showPhone);
-   }
+  }
 
   return (
     <Default>
+
       <div className="Values">
-        <h3>Account Settings</h3>
-        <hr></hr>
-        <div>
-          <h5>Email: </h5>
-          <div className="account-settings-field-row">
-            {!showEmail &&
-              <span style={{fontSize: "18px"}}>
-                {store.email}
-              </span>
-            }
-            {!showEmail &&
-              <Button hidden={EmailDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditEmail}>
-                Edit
-              </Button>
-            }
-            { showEmail &&
-              <EditEmail stateProps={{setShowEmail}}/>
-            }
+        <div className="account-settings-page-header">Account Settings</div>
+
+        <Paper margin="2em 20em" className="paper-block">
+          <div className="full-width">
+            <ProfileIconBlock field={"Avatar Image"} answer={
+              <div className="photo-cropper">
+                <img className="user-section-image" src={ROOTURL + store.avatarPath} />
+              </div>
+            } />
+          </div>
+
+
+          <ProfileIconBlock field={"User Name"} answer={
+            <div>
+              <input className="readonly-input-field" type="text" value={store.username} readOnly />
             </div>
-        </div>
-        <hr></hr>
-        <div>
-          <h5>Username: </h5>
-          <div className="account-settings-field-row">
-            {!showUsername &&
-              <span style={{fontSize: "18px"}}>
-                {store.username}
-              </span>
-            }
-            {!showUsername &&
-              <Button  hidden={UsernameDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditUsername}>
-                Edit
-              </Button>
-            }
-            { showUsername &&
-              <EditUsername stateProps={{setShowUsername}}/>
-            }
+          } />
+          <ProfileIconBlock field={"Email Address"} answer={
+            <div>
+              <input className="readonly-input-field" type="text" value={store.email} readOnly />
             </div>
-        </div>
-        <hr></hr>
-        <div>
-          <h5>Password: </h5>
-          <div className="account-settings-field-row">
-            {!showPassword &&
-              <span style={{fontSize: "18px"}}>
-                xxxxxxxxxxx
-              </span>
-            }
-            {!showPassword &&
-              <Button  hidden={PasswordDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditPassword}>
-                Edit
-              </Button>
-            }
-            { showPassword &&
-              <EditPassword stateProps={{setShowPassword}}/>
-            }
+          } />
+          <ProfileIconBlock field={"Phone Number"} answer={
+            <div>
+              <input className="readonly-input-field" type="text" value={store.phone} readOnly />
             </div>
-        </div>
-        <hr></hr>
-        <div>
-          <h5>Date of Birth: </h5>
-          <div className="account-settings-field-row">
-            {!showDOB &&
-              <span style={{fontSize: "18px"}}>
-                {store.profile.dob}
-              </span>
-            }
-            {!showDOB &&
-              <Button  hidden={DOBDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditDOB}>
-                Edit
-              </Button>
-            }
-            { showDOB &&
-              <EditDOB stateProps={{setShowDOB}}/>
-            }
+          } />
+          <ProfileIconBlock field={"Password"} answer={
+            <div>
+              <input className="readonly-input-field" type="text" value="****************" readOnly />
             </div>
-        </div>
-        <hr></hr>
-        <div>
-          <h5>Phone Number: </h5>
-          <div className="account-settings-field-row">
-            {!showPhone &&
-              <span style={{fontSize: "18px"}}>
-                {store.phone}
-              </span>
-            }
-            {!showPhone &&
-              <Button  hidden={PhoneDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditPhone}>
-                Edit
-              </Button>
-            }
-            { showPhone &&
-              <EditPhone stateProps={{setShowPhone}}/>
-            }
+          } />
+          <ProfileIconBlock field={"Zipcode"} answer={
+            <div>
+              <input className="readonly-input-field" type="text" value={store.profile.zipcode} readOnly />
             </div>
-        </div>
-        <hr></hr>
-        <div>
-          <h5>Zipcode: </h5>
-          <div className="account-settings-field-row">
-            {!showZipcode &&
-              <span style={{fontSize: "18px"}}>
-                {store.profile.zipcode}
-              </span>
-            }
-            {!showZipcode &&
-              <Button hidden={ZipcodeDisable} fontSize="12px" padding="0px 6px" margin="0px 4px" background="white" color="#6429B9" border="1px solid #6429B9" onClick={handleEditZipcode}>
-                Edit
-              </Button>
-            }
-            { showZipcode &&
-              <EditZipcode stateProps={{setShowZipcode}}/>
-            }
+          } />
+          <ProfileIconBlock field={"Date of Birth"} answer={
+            <div>
+              <input className="readonly-input-field" type="text" value={store.profile.dob} readOnly />
             </div>
-<<<<<<< HEAD
-        </div>
-=======
           } />
 
           <div>
@@ -236,10 +180,8 @@ const UserSettings = (props: ProfileProps) => {
           </div>
           
         </Paper>
->>>>>>> master
       </div>
     </Default>
-  );   
+  );
 }
 export default UserSettings;
-  
