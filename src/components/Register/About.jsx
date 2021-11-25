@@ -11,14 +11,23 @@ import {
   useParams
 } from "react-router-dom";
 import Button from '../Styled/Button';
+
+// importing questions for multi-page-form: OLD
 import AboutStep from './Forms/AboutStep';
 import CancerStep from './Forms/CancerStep';
 import FitnessStep from './Forms/FitnessStep';
 import UploadPhoto from '../manageProfile/UploadPhoto'
 import ConfirmStep from './Forms/ConfirmStep';
 import VerifyEmailStep from './Forms/VerifyEmailStep';
+
+// importing questions for multi-page-form: UPDATED
+import Q1_Personality from './Forms/Q1_Personality';
+import Q2_Work from './Forms/Q2_Work';
+import Q3_ShareAnything from './Forms/Q3_ShareAnything';
+
 import { createBrowserHistory } from 'history'
 
+// im malding rn 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -38,30 +47,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// progress bar/steps at the top 
 function getSteps() {
-  //return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email', 'Verify Email'];
   return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email'];
 }
+
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AboutStep />;
+      return <Q1_Personality/>;
     case 1:
-      return <CancerStep />;
+      return <Q2_Work/>;
     case 2:
-      return <FitnessStep />;
+      return <Q3_ShareAnything/>;
+
     case 3:
       return <UploadPhoto fromWizard={true} />;
     case 4:
       return <ConfirmStep />;
     case 5:
       return <VerifyEmailStep />;
+    
+    // Old steps that can be observed
+    // case 8:
+    //   return <AboutStep />;
+    // case 9:
+    //   return <CancerStep />;
+    // case 10:
+    //   return <FitnessStep />;
+
     default:
       return 'Unknown step';
   }
 }
-
-
 
 export default function About() {
   const history = createBrowserHistory({ forceRefresh: true });
@@ -109,13 +127,14 @@ export default function About() {
     setActiveStep(0);
   };
   
-
+// Entire Complete Profile Page 
   return (
-
     <div className={classes.root}>
       <img src={UnsIcon} className={classes.logo} />
       <h2>Create Your Profile</h2>
       <ForwardUserToLogout />
+
+      {/* Progress at Top */}
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -128,6 +147,8 @@ export default function About() {
         })}
       </Stepper>
       <div>
+
+
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>
@@ -140,7 +161,7 @@ export default function About() {
         ) : (
             <div>
               <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-              {/**<div>
+              {/* *<div>
                 <Button
                   margin="2em 1.5em"
                   padding="10px 20px"
@@ -159,7 +180,7 @@ export default function About() {
                 >
                   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
-              </div> **/}
+              </div> * */}
             </div>
           )}
       </div>

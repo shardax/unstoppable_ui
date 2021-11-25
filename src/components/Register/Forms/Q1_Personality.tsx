@@ -4,10 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';
-import Textarea from '../../Styled/Textarea';
-import Select from '../../Styled/Select';
+import { PERSONALITY_DESCRIPTION } from "../../../constants/ProfileConstants"
+import Button from '../../Styled/Button';   
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -26,15 +24,14 @@ const PromptIfDirty = () => {
   );
 };
 
-
-const AboutStep = () => {
+const Q1_Personality = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   let profile = store.profile;
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/wizard/5");
+      history.push("/complete-profile/5");
     }
   }, [])
 
@@ -44,10 +41,9 @@ const AboutStep = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/wizard/1");
+    history.push("/complete-profile/1");
   }
   return (
-
     <div>
       <Formik
         initialValues={{
@@ -62,7 +58,6 @@ const AboutStep = () => {
             resetForm();
             setSubmitting(false);
           }, 500);
-          
           
           const fetchData = async () => {
             try {
@@ -79,21 +74,19 @@ const AboutStep = () => {
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
-              history.push("/wizard/1");
+              history.push("/complete-profile/1");
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
-              // if (err.response) {
-              //   // client received an error response (5xx, 4xx)
-              // } else if (err.request) {
-              //   // client never received a response, or request never left
-              // } else {
-              //   // anything else
-              // }
+              if (err.response) {
+                // client received an error response (5xx, 4xx)
+              } else if (err.request) {
+                // client never received a response, or request never left
+              } else {
+                // anything else
+              }
             }
           };
           fetchData();
-          //alert("Fetch Data Done!!");
-          //alert(JSON.stringify(store.profile));
         }}
       >
         {({
@@ -109,47 +102,37 @@ const AboutStep = () => {
             <Form>
               <div className="form-container user-section-wrapper">
                 <div className="user-section-data">
+
                   <Paper>
-                    <div className="profile-section-header">About me 😀</div>
+                    <div className="profile-section-header">How would you describe your personality?</div>
                     <div className="question-wrapper">
                       <label htmlFor="personality">How would you describe your personality?</label>
                       <div className="Answers">
-                        <Field
+
+                      {PERSONALITY_DESCRIPTION.map(item => (
+                        <label>
+                          {item + " "}
+                          <Field id={item} type="radio" name="activity_ids" value={item}>
+                          </Field>&nbsp;&nbsp;&nbsp;
+                        </label>
+                      ))}
+
+                        {/* <Field
                           as={Select}
                           id="personality"
                           name="personality"
                         >
                           <option value="" label="- Select One -" />
                           {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
-                    </div>
-
-                    <div className="question-wrapper">
-                      <label htmlFor="work_status">Which of the following best describes your work situation?</label>
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="work_status"
-                          name="work_status"
-                        >
-                          <option value="" label="- Select One -" />
-                          {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
-                    </div>
-
-                    <div className="question-wrapper">
-                      <label htmlFor="details_about_self">About Me: Use this space for anything else you would like to share.</label>
-                      <div className="Answers">
-                        <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
+                        </Field> */}
                       </div>
                     </div>
                   
                     <PromptIfDirty />
-                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                    <Button disabled={isSubmitting}>
                         Next
                     </Button>
+
                   </Paper>
                 </div>
               </div>
@@ -159,4 +142,4 @@ const AboutStep = () => {
     </div>
   );
 }
-export default AboutStep;
+export default Q1_Personality;

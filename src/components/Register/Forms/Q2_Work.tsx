@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, useFormikContext  } from 'formik';
 import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
@@ -27,14 +27,15 @@ const PromptIfDirty = () => {
 };
 
 
-const AboutStep = () => {
+const Q2_Work = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
+  const [prevSubmitted, setPrevSubmitted] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/wizard/5");
+      history.push("/complete-profile/5");
     }
   }, [])
 
@@ -44,7 +45,7 @@ const AboutStep = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/wizard/1");
+    history.push("/complete-profile/2");
   }
   return (
 
@@ -79,16 +80,22 @@ const AboutStep = () => {
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
-              history.push("/wizard/1");
+            
+              if (prevSubmitted){
+                history.push("/complete-profile/0");
+              } else {
+                  history.push("/complete-profile/2");
+              }
+
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
-              // if (err.response) {
-              //   // client received an error response (5xx, 4xx)
-              // } else if (err.request) {
-              //   // client never received a response, or request never left
-              // } else {
-              //   // anything else
-              // }
+            //   if (err.response) {
+            //     // client received an error response (5xx, 4xx)
+            //   } else if (err.request) {
+            //     // client never received a response, or request never left
+            //   } else {
+            //     // anything else
+            //   }
             }
           };
           fetchData();
@@ -106,57 +113,53 @@ const AboutStep = () => {
           isSubmitting,
           setFieldValue
         }) => (
-            <Form>
-              <div className="form-container user-section-wrapper">
-                <div className="user-section-data">
-                  <Paper>
-                    <div className="profile-section-header">About me 😀</div>
-                    <div className="question-wrapper">
-                      <label htmlFor="personality">How would you describe your personality?</label>
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
-                    </div>
+          <Form>
+          <div className="form-container user-section-wrapper">
+            <div className="user-section-data">
 
-                    <div className="question-wrapper">
-                      <label htmlFor="work_status">Which of the following best describes your work situation?</label>
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="work_status"
-                          name="work_status"
-                        >
-                          <option value="" label="- Select One -" />
-                          {WORK_STATUS_DESCRIPTIONS.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
-                    </div>
+              <Paper>
+                <div className="profile-section-header">Which of the following best describes your work situation?*</div>
+                <div className="question-wrapper">
+                  <label htmlFor="personality">Which of the following best describes your work situation??</label>
+                  <div className="Answers">
 
-                    <div className="question-wrapper">
-                      <label htmlFor="details_about_self">About Me: Use this space for anything else you would like to share.</label>
-                      <div className="Answers">
-                        <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
-                      </div>
-                    </div>
-                  
-                    <PromptIfDirty />
-                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
-                        Next
-                    </Button>
-                  </Paper>
+                  {WORK_STATUS_DESCRIPTIONS.map(item => (
+                    <label>
+                      {item + " "}
+                      <Field id={item} type="radio" name="activity_ids" value={item}>
+                      </Field>&nbsp;&nbsp;&nbsp;
+                    </label>
+                  ))}
+
+                    {/* <Field
+                      as={Select}
+                      id="personality"
+                      name="personality"
+                    >
+                      <option value="" label="- Select One -" />
+                      {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
+                    </Field> */}
+                  </div>
                 </div>
-              </div>
-            </Form>
+              
+                <PromptIfDirty />
+
+                <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                    onClick={(e)=>{setPrevSubmitted(true)}}>
+                    Prev
+                </Button>
+
+                <Button disabled={isSubmitting}>
+                    Next
+                </Button>
+
+              </Paper>
+            </div>
+          </div>
+        </Form>
           )}
       </Formik>
     </div>
   );
 }
-export default AboutStep;
+export default Q2_Work;

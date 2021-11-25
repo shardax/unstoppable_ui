@@ -274,6 +274,7 @@ import TimeAgo from 'timeago-react';
   return useObserver(() => (
     <>
       <div >
+        <Link to={"/complete-profile/0"}> Complete Your Profile!</Link>
           <h3 className="pageHeader">Browse Profiles</h3>
           <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
           <div className="browse-sticky-nav">
