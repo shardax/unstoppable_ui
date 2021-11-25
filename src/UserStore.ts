@@ -24,10 +24,13 @@ export class UniqueListStore {
   unique_zipcodes: string[];
   unique_state_codes: string[];
   unique_cities: string[];
+  unique_personalities: string[];
+
   constructor(){
     this.unique_zipcodes = [];
     this.unique_state_codes=[];
     this.unique_cities=[];
+    this.unique_personalities = [];
   }
 }
 
@@ -69,6 +72,10 @@ export class SearchParamsStore {
   newestMemberOrder: string;
   activeUsers: boolean;
 
+  // activities: string;
+  personality: string;
+  prefered_exercise_location: string;
+
   constructor(){
     this.filter = "";
     this.ageRange = AGE_RANGE_CONSTANT;
@@ -82,6 +89,8 @@ export class SearchParamsStore {
     this.lastOnlineOrder = "";
     this.newestMemberOrder = "";
     this.activeUsers = false;
+    this.personality = "";
+    this.prefered_exercise_location = "";
   }
 }
 

@@ -224,7 +224,19 @@ const UserSettings = (props: ProfileProps) => {
               <EditZipcode stateProps={{setShowZipcode}}/>
             }
             </div>
+<<<<<<< HEAD
         </div>
+=======
+          } />
+
+          <div>
+            <Button fontSize="18px" padding="12px 36px" background="#FFE7ED" color="#F1658C">
+              Edit Settings
+            </Button>
+          </div>
+          
+        </Paper>
+>>>>>>> master
       </div>
     </Default>
   );   
