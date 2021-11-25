@@ -173,11 +173,12 @@ const UserSettings = (props: ProfileProps) => {
             </div>
           } />
 
-          <div className="edit-settings-button">
+          <div>
             <Button fontSize="18px" padding="12px 36px" background="#FFE7ED" color="#F1658C">
               Edit Settings
             </Button>
           </div>
+          
         </Paper>
       </div>
     </Default>

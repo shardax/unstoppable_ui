@@ -1,9 +1,7 @@
 @import "../../assets/scss/variables";
 
 //View Profile
-body{
-    background-color:red;
-}
+
 .SaveButton{
     text-align: center;
     margin-left: auto;
@@ -88,4 +86,8 @@ body{
 
 .full-width {
     width: 100%;
+}
+
+.format-children-default {
+    margin-left: auto; 
 }

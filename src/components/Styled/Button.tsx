@@ -16,13 +16,11 @@ interface ButtonProps {
 
 const Button = styled.button<ButtonProps>`
   color: ${props => props.color ? props.color : "white"};
-  width: 420px;
   height: 52px;
   left: 750px;
   top: 731px;
   background: ${props => props.background ? props.background : forgot_password.buttonBackground};
   padding: ${props => props.padding ? props.padding : "4px 6px"};
-  min-width: 420px;
   border-radius: ${props => props.borderRadius ? props.borderRadius : "6px"};
   font-weight: 700;
   font-size: ${props => props.fontSize ? props.fontSize : "16px"};
@@ -30,7 +28,6 @@ const Button = styled.button<ButtonProps>`
   border: ${props => props.border ? props.border : "none"};
   // margin: ${props => props.margin ? props.margin : "0"};
   margin-left: 45px;
-
 `
 
 export default Button;
