@@ -1,17 +1,13 @@
-<<<<<<< HEAD
-#root {
-  position: fixed;
-}
-=======
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 body {
-  position: fixed
+  margin: 0px;
 }
 
 #root{
   background-image: url('../../images/new2UCollage.png');
-  position: fixed;
+  margin: 0px;
+  // position: fixed; 
 }
 .forgot{
   margin-top: 60px;
@@ -64,7 +60,6 @@ body {
 .holder{
 color: red;
 }
->>>>>>> master
 
 .login-card {
   min-height: 60vh;
