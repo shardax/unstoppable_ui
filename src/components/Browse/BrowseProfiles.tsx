@@ -198,6 +198,44 @@ import { text } from "@fortawesome/fontawesome-svg-core";
         return <p className="cancer-type-card  other-cancer-type-card"> {profile.cancer_location} </p>
     } else if (profile.cancer_location == "Brain"){
         return <p className="cancer-type-card brain-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Breast"){
+        return <p className="cancer-type-card breast-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Bladder"){
+        return <p className="cancer-type-card bladder-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Bone"){
+        return <p className="cancer-type-card bone-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Thyroid"){
+        return <p className="cancer-type-card thyroid-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Cervical"){
+        return <p className="cancer-type-card cervical-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Colorectal"){
+        return <p className="cancer-type-card colorectal-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Esophageal"){
+        return <p className="cancer-type-card esophageal-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Gall Bladder"){
+        return <p className="cancer-type-card gall-bladder-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Gastric"){
+        return <p className="cancer-type-card gastric-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Head and Neck"){
+        return <p className="cancer-type-card head-and-neck-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Kidney"){
+        return <p className="cancer-type-card kidney-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Leukemia"){
+        return <p className="cancer-type-card leukemia-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Liver"){
+        return <p className="cancer-type-card liver-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Lung"){
+        return <p className="cancer-type-card lung-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Melanoma"){
+        return <p className="cancer-type-card melanoma-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Multiple Myeloma"){
+        return <p className="cancer-type-card multiple-myeloma-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Ovarian"){
+        return <p className="cancer-type-card ovarian-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Pancreatic"){
+        return <p className="cancer-type-card pancreatic-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Sarcoma"){
+        return <p className="cancer-type-card sarcoma-cancer-type-card">{profile.cancer_location} Cancer</p>
     } else {
         return <p className="cancer-type-card"> {profile.cancer_location} Cancer</p>
     }

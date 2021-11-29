@@ -166,9 +166,8 @@ $cardHeight: 240px;
     }
 
     .cancer-type-card{
-        color:#c294ec;
+        color:white;
         font-weight: bold;
-        background-color: #f3e8fb;
         border-radius: 5px;
         padding: 5px;
         padding-left: 10px;
@@ -178,13 +177,87 @@ $cardHeight: 240px;
     }
 
     .brain-cancer-type-card{
-        color:#629efe;
-        background-color: #e4e7fb;
+        background-color: #525151;
+    }
+
+    .breast-cancer-type-card{
+        background-color: #EB5757;
+    }
+
+    .bladder-cancer-type-card{
+        background-color: #5282FC;
+    }
+
+    .bone-cancer-type-card{
+        background-color: #FCB852;
     }
 
     .other-cancer-type-card {
-        color:#55bc7e;
-        background-color: #e3f4e9;
+        background-color: #9560A8;
+    }
+
+    .thyroid-cancer-type-card{
+        background-color: #4CB6D8;
+    }
+
+    .cervical-cancer-type-card{
+        background-color: #4CB6D8;
+    }
+
+    .colorectal-cancer-type-card{
+        background-color: #5282FC;
+    }
+
+    .esophageal-cancer-type-card{
+        background-color: #9560A8;
+    }
+
+    .gall-bladder-cancer-type-card{
+        background-color: #9560A8;
+    }
+
+    .gastric-cancer-type-card{
+        background-color: #9560A8;
+    }
+
+    .head-and-neck-cancer-type-card{
+        background-color: #902929;
+    }
+
+    .kidney-cancer-type-card{
+        background-color: #ff8947;
+    }
+
+    .leukemia-cancer-type-card{
+        background-color: #ff8947;
+    }
+
+    .liver-cancer-type-card{
+        background-color: #00a651;
+    }
+
+    .lung-cancer-type-card{
+        background-color: #525151;
+    }
+
+    .melanoma-cancer-type-card{
+        background-color: #1f1f1f;
+    }
+
+    .multiple-myeloma-cancer-type-card{
+        background-color: #902929;
+    }
+
+    .ovarian-cancer-type-card{
+        background-color: #4cb6db;
+    }
+
+    .pancreatic-cancer-type-card{
+        background-color: #9560a8;
+    }
+
+    .ovarian-cancer-type-card{
+        background-color: #fcb852;
     }
 
     
