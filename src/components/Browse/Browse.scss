@@ -6,6 +6,15 @@ $cardRadius: 10px;
 $cardWidth: 300px;
 $cardHeight: 240px;
 
+.accordian-inside {
+  display:block
+}
+
+.browse-container {
+  width:75vw; 
+  overflow: clip;
+}
+
 .browse-sticky-nav {
   position: sticky;
   top: 0;
@@ -36,11 +45,16 @@ $cardHeight: 240px;
     font-family: Montserrat;
 }
 
+.search-widget {
+  display:inline-block;
+  margin: 5px
+}
+
 .browse-filter-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: block;
+  // align-items: center;
+  // justify-content: flex-start;
+  // flex-wrap: wrap;
   border-radius: 10px;
   .browse-search {
     height: 40px;
@@ -73,36 +87,6 @@ $cardHeight: 240px;
   position: relative;
   z-index: 10;
 }
-
-.message-icon {
-  font-size: 28px;
-  color: #f0658c;
-  cursor: pointer;
-  // border: 1px solid $primaryPurple;
-  outline: $primaryPurple;
-  // margin-bottom: 0.2em;
-  border-radius: 50%;
-  padding: 0.1em;
-  // margin-right: 0.4em;
-  position: relative;
-  z-index: 10;
-}
-
-.profile-icon {
-    font-size: 20px;
-    color: #69616C;
-    cursor: pointer;
-    // border: 1px solid $primaryPurple;
-    outline: $primaryPurple;
-    // margin-bottom: 0.2em;
-    border-radius: 50%;
-    padding: 0.1em;
-    // margin-right: 0.4em;
-    position: relative;
-    z-index: 10;
-    margin-right: 5px;
-
-  }
 
 .profile-browse-grid {
   padding-bottom: 4em;
@@ -148,17 +132,16 @@ $cardHeight: 240px;
     // background-color: rgba($primaryPurple, 0.06);
     .profile-username {
       font-size: 16px;
-      font-weight: bold
     }
     .profile-location {
       color: rgb(113, 113,113);
       font-size: 13px;
-      vertical-align: baseline;
     }
     .other-profile-card-data {
       margin-top: 0.1em;
       margin-bottom: 0;
     }
+
     .other-profile-message-data{
         color:#f0658c;
         font-weight: bold;
@@ -260,7 +243,6 @@ $cardHeight: 240px;
         background-color: #fcb852;
     }
 
-    
   }
 }
 
@@ -297,7 +279,7 @@ $cardHeight: 240px;
 };
 
 .range-slider {
-  margin-left: 1em;
+  margin-left: 40px;
 }
 
 .lastLoginTime {
@@ -315,3 +297,6 @@ $cardHeight: 240px;
   }
 }
 
+.no-border-accordian {
+  border-style: none;
+}
