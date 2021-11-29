@@ -210,15 +210,23 @@ const Inbox = () => {
         "flex-row " +
         (isMe(from, store.username) ? "from-me-row" : "from-them-row")
       }>
+        <div className="message-sender-image">
+          {isMe(from, store.username) ? "" : <Avatar src={ROOTURL + currConversation.photo} size={36} />}
+        </div>
+
         <span className={
           "single-message-wrapper " +
           (isMe(from, store.username) ? "from-me-message" : "from-them-message")
         }>
-          {content} <span id="date_display" style={{ display: 'block', float: 'right' }}> <TimeAgo
+          {content}
+          <span id="date_display" style={{ display: 'block', float: 'right' }}> <TimeAgo
             datetime={updated_at}
-            locale='en.US'
-          /> </span>
+            locale='en.US' />
+          </span>
         </span>
+        <div className="message-sender-image">
+          {isMe(from, store.username) ? <Avatar src={ROOTURL + store.avatarPath} size={36} /> : "" }
+        </div>
       </div>
     )
   }
@@ -252,23 +260,28 @@ const Inbox = () => {
             ))}
           </div>
           <div className="conversation-wrapper">
-            <nav className="purple-nav conversation-nav-wrapper">
-              <div className="conv-nav-text">
-                {currChat === "" ? "Select or start conversation" : "Chat with " + currChat + ", Subject: " + subject}
-                {currChat && <Avatar src={ROOTURL + currConversation.photo} size="large" />}
+            <div>
+              <div className="conversation-header">
+                {currChat === "" ? "" : <Avatar src={ROOTURL + currConversation.photo} size={50} />}
+                <div className="conversation-header-text">
+                  {currChat}
+                </div>
               </div>
-            </nav>
-            {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
-            {!newConversation && currConversation.messages.sort(function compare(a: any, b: any) {
-              var dateA: any = new Date(a.updated_at);
-              var dateB: any = new Date(b.updated_at);
-              return dateA - dateB;
-            }).map((message: any) => (
-              <>
-                <Message content={message.content} from={message.from} to={message.to} updated_at={message.updated_at} />
-                {/* <hr></hr> */}
-              </>
-            ))}
+              <div className="scroll-area">
+
+                {/* {currChat === "" ? "Select or start conversation" : "Chat with " +  currChat} */}
+                {!newConversation && currConversation.messages.sort(function compare(a: any, b: any) {
+                  var dateA: any = new Date(a.updated_at);
+                  var dateB: any = new Date(b.updated_at);
+                  return dateA - dateB;
+                }).map((message: any) => (
+                  <>
+                    <Message content={message.content} from={message.from} to={message.to} updated_at={message.updated_at} />
+                    {/* <hr></hr> */}
+                  </>
+                ))}
+              </div>
+            </div>
             <form>
               {newConversation && <div className="form-group">
                 To: {currChat}
@@ -285,11 +298,9 @@ const Inbox = () => {
               </div>
               }
               {newConversation &&
-                <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em" height="40px" width="100%" padding="10px" fontSize="12px" placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
-              }
+                <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 25px" height="50px" width="93%" padding="12px 25px 0px 25px" fontSize="16px" borderRadius="50px" overflow="hidden" placeholder={"Write a message"} onKeyDown={handleKeyDown}></Textarea>}
               {currChat &&
-                <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 0em" height="40px" width="100%" padding="10px" fontSize="12px" placeholder={"Send a message to " + currChat + " 👋"} onKeyDown={handleKeyDown}></Textarea>
-              }
+                <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 25px" height="50px" width="93%" padding="12px 25px 0px 25px" fontSize="16px" borderRadius="50px" overflow="hidden" placeholder={"Write a message"} onKeyDown={handleKeyDown}></Textarea>}
             </form>
           </div>
         </div>

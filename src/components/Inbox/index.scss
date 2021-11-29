@@ -30,7 +30,9 @@
   .conversation-wrapper {
     margin-left: 3em;
     border-radius: 5px;
+    height: 100%;
     width: 100%;
+    background-color: white;
   }
 
   .conversation-nav-wrapper {
@@ -65,17 +67,21 @@
     width: 40%;
   }
   .from-them-message {
-    background-color: rgba($pinkNav, 0.6);
+    background-color: rgba(184, 186, 189, 0.4);
     // background-color: rgb(150,150,150);
-    color: white;
+    color: black;
     width: 40%;
+  }
+  .message-sender-image {
+    align-self: flex-end;
+    margin-bottom: 6px;
   }
 }
 
 .single-message-wrapper {
-  border-radius: 5px;
-  padding: 6px;
-  margin: 6px 0px;
+  border-radius: 24px;
+  padding: 12px 20px;
+  margin: 6px 8px;
 }
 
 .from-me-row {
@@ -84,4 +90,31 @@
 
 .from-me-row {
   justify-content: flex-end;
+}
+
+
+
+.conversation-header {
+  border-bottom: .5mm solid;
+  border-bottom-color:rgb(204, 204, 204);
+  padding-left: 25px;
+  padding-bottom: 10px;
+  padding-top: 40px;
+
+  font-family: 'Montserrat';
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.conversation-header-text {
+  margin-left: 10px;
+}
+
+.scroll-area {
+  padding-left: 15px;
+  max-height: 500px;
+  overflow-y: scroll;
 }
