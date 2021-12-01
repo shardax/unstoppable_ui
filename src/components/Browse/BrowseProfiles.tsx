@@ -22,6 +22,8 @@ import { AccordionSummary } from "@material-ui/core";
 import { AccordionDetails } from "@material-ui/core";
 import { Typography } from "antd";
 import { KeyboardArrowDown } from "@material-ui/icons";
+import LocationIcon from '@material-ui/icons/LocationOn';
+import AgeIcon from '@material-ui/icons/DataUsage';
 
 // chat imports 
 import ChatIcon from '@material-ui/icons/Chat';
@@ -493,19 +495,18 @@ import TimeAgo from 'timeago-react';
               </Accordion>
 
               {/* search button */}
-              <div className="range-slider search-widget">
+              <span className="range-slider search-widget">
                   <Button className="button-active" id="prev" padding="10px 20px">
                       SEARCH
                   </Button>
-              </div>
-
-              <div className="range-slider">
-                  <Button className="active-button" id="prev" margin="2em 1.5em" 
+              </span>
+              <span className="range-slider">
+                  <Button className="active-button" id="prev" padding="10px 20px" margin="1.5em 1.5em" 
                                             onClick={(e)=>{handleClearSelections()}}>
                                             Reset all selections
                                         </Button>
 
-              </div>
+              </span>
             </div>
           </div>
           <div className="range-slider">
