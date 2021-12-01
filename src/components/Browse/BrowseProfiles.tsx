@@ -22,6 +22,8 @@ import { AccordionSummary } from "@material-ui/core";
 import { AccordionDetails } from "@material-ui/core";
 import { Typography } from "antd";
 import { KeyboardArrowDown } from "@material-ui/icons";
+import LocationIcon from '@material-ui/icons/LocationOn';
+import AgeIcon from '@material-ui/icons/DataUsage';
 
 // chat imports 
 import ChatIcon from '@material-ui/icons/Chat';
@@ -204,6 +206,55 @@ import TimeAgo from 'timeago-react';
     }
   }
 
+  const getCancerCard = ({profile}) => {
+
+    if (profile.cancer_location == "Other/Rare Cancer"){
+        return <p className="cancer-type-card  other-cancer-type-card"> {profile.cancer_location} </p>
+    } else if (profile.cancer_location == "Brain"){
+        return <p className="cancer-type-card brain-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Breast"){
+        return <p className="cancer-type-card breast-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Bladder"){
+        return <p className="cancer-type-card bladder-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Bone"){
+        return <p className="cancer-type-card bone-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Thyroid"){
+        return <p className="cancer-type-card thyroid-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Cervical"){
+        return <p className="cancer-type-card cervical-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Colorectal"){
+        return <p className="cancer-type-card colorectal-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Esophageal"){
+        return <p className="cancer-type-card esophageal-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Gall Bladder"){
+        return <p className="cancer-type-card gall-bladder-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Gastric"){
+        return <p className="cancer-type-card gastric-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Head and Neck"){
+        return <p className="cancer-type-card head-and-neck-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Kidney"){
+        return <p className="cancer-type-card kidney-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Leukemia"){
+        return <p className="cancer-type-card leukemia-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Liver"){
+        return <p className="cancer-type-card liver-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Lung"){
+        return <p className="cancer-type-card lung-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Melanoma"){
+        return <p className="cancer-type-card melanoma-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Multiple Myeloma"){
+        return <p className="cancer-type-card multiple-myeloma-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Ovarian"){
+        return <p className="cancer-type-card ovarian-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Pancreatic"){
+        return <p className="cancer-type-card pancreatic-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else if (profile.cancer_location == "Sarcoma"){
+        return <p className="cancer-type-card sarcoma-cancer-type-card">{profile.cancer_location} Cancer</p>
+    } else {
+        return <p className="cancer-type-card"> {profile.cancer_location} Cancer</p>
+    }
+  }
+
   const ProfileCard = ({profile}) => useObserver(() => (
       <div className="single-profile-wrapper " key={profile.id}>
         <Link to={"/user/" + profile.id}>
@@ -213,13 +264,24 @@ import TimeAgo from 'timeago-react';
           <div>
             <Link to={"/user/" + profile.id}>
               <div
-              style={{
-                backgroundColor: profile.active ? '#B7FFBF' : 'white'
-              }}
-            >
-            <h5 className="profile-username profile-name-loc">{profile.name} · <span className="profile-location">
-              {profile.city}, {profile.state}</span></h5>
-            </div>
+                style={{
+                    backgroundColor: profile.active ? '#B7FFBF' : 'white'
+                }}
+                >
+                    {getCancerCard({profile})}
+                    
+                    <h5 className="profile-username profile-name-loc">{profile.name} </h5>
+                    
+                </div>
+            </Link>
+            
+            <span className="profile-location"><LocationIcon className="profile-icon"></LocationIcon>{profile.city}, {profile.state}</span>
+            <p className="other-profile-card-data"><AgeIcon className="profile-icon"></AgeIcon>{profile.age} years old</p>
+
+            <Link to={"/userMessage" + "/" + profile.user_id}>
+                
+                <p className="other-profile-message-data"> <ChatIcon className="message-icon"></ChatIcon> Message</p>
+            
             </Link>
             <p className="other-profile-card-data">{profile.cancer_location} Cancer</p>
             <p className="other-profile-card-data">{profile.age} years old</p>
@@ -433,17 +495,18 @@ import TimeAgo from 'timeago-react';
               </Accordion>
 
               {/* search button */}
-              <div className="range-slider search-widget">
+              <span className="range-slider search-widget">
                   <Button className="button-active" id="prev" padding="10px 20px">
                       SEARCH
                   </Button>
-              </div>
-              {/* reset button */}
-              <div className="range-slider search-widget">
-                  <Button id="prev" padding="10px 20px" background="#ffe7ed" color="#f0658c" onClick={(e)=>{handleClearSelections()}}>
-                      RESET
-                  </Button>
-              </div>
+              </span>
+              <span className="range-slider">
+                  <Button className="active-button" id="prev" padding="10px 20px" margin="1.5em 1.5em" 
+                                            onClick={(e)=>{handleClearSelections()}}>
+                                            Reset all selections
+                                        </Button>
+
+              </span>
             </div>
           </div>
           <div className="range-slider">
