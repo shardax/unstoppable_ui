@@ -333,7 +333,7 @@ import { useObserver } from "mobx-react";
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
-              <ProfileCardView profile={profile} />
+             <ProfileCardView profile={profile} />
             ))}
         </div>
         <div className="range-slider">
