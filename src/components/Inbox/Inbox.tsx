@@ -10,6 +10,7 @@ import Button from '../Styled/Button';
 import Default from '../../layouts/Default'
 import { Avatar } from 'antd';
 import TimeAgo from 'timeago-react';
+import SendIcon from '../../images/SendIcon.png';
 
 // TODO need to move up
 // Format nested params correctly
@@ -86,6 +87,8 @@ const Inbox = () => {
 
   const history = useHistory();
 
+  var messagesEnd;
+
   if (user_id === "") {
     setNewConversation(false);
   }
@@ -97,6 +100,13 @@ const Inbox = () => {
       setMessageSent(true);
       //resetForm();
     }
+  }
+  const handleSendButton = (event) => {
+    event.preventDefault();
+    setMessageSent(true);
+  }
+  const scrollToBottom = () => {
+    messagesEnd.scrollIntoView({ behavior: "auto" });
   }
   useEffect(() => {
     setIsError(false);
@@ -178,6 +188,7 @@ const Inbox = () => {
     setNewConversation(false);
     setSubject(currConversation.recent.subject);
     setUserPhoto(currConversation.photo);
+    scrollToBottom();
     console.log(currChat);
   }, [currConversation]);
 
@@ -280,6 +291,9 @@ const Inbox = () => {
                     {/* <hr></hr> */}
                   </>
                 ))}
+                <div style={{ float: "left", clear: "both" }}
+                  ref={(el) => { messagesEnd = el; }}>
+                </div>
               </div>
             </div>
             <form>
@@ -297,10 +311,11 @@ const Inbox = () => {
                 />
               </div>
               }
-              {newConversation &&
-                <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 25px" height="50px" width="93%" padding="12px 25px 0px 25px" fontSize="16px" borderRadius="50px" overflow="hidden" placeholder={"Write a message"} onKeyDown={handleKeyDown}></Textarea>}
-              {currChat &&
-                <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 25px" height="50px" width="93%" padding="12px 25px 0px 25px" fontSize="16px" borderRadius="50px" overflow="hidden" placeholder={"Write a message"} onKeyDown={handleKeyDown}></Textarea>}
+              {(newConversation || currChat) &&
+                <div className="send-message-bar">
+                  <Textarea value={msgText} onChange={event => setMsgText(event.target.value)} margin="1em 5px 1em 25px" height="50px" width="90%" padding="12px 25px 0px 25px" fontSize="16px" borderRadius="50px" overflow="hidden" placeholder={"Write a message"} onKeyDown={handleKeyDown}></Textarea>
+                  <button className="send-button" onClick={handleSendButton}><img src={SendIcon} height="80%" width="80%" /></button>
+                </div>}
             </form>
           </div>
         </div>
