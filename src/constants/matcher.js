@@ -1,6 +1,6 @@
 // App Server URL
 //export const ROOTURL = "http://localhost:3001"
-export const ROOTURL = "https://trusting-swirles-21bd7c.netlify.app/"
+export const ROOTURL = "https://trusting-swirles-21bd7c.netlify.app"
 
 // Web Socket URLs
 //export const WEBSOCKETCABLEURL = "ws://localhost:3001/cable"
