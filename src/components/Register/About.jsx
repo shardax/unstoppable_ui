@@ -130,9 +130,9 @@ export default function About() {
 // Entire Complete Profile Page 
   return (
     <div className={classes.root}>
-      <img src={UnsIcon} className={classes.logo} />
-      <h2>Create Your Profile</h2>
-      <ForwardUserToLogout />
+      {/* <img src={UnsIcon} className={classes.logo} /> */}
+      {/* <h2>Create Your Profile</h2> */}
+      {/* <ForwardUserToLogout /> */}
 
       {/* Progress at Top */}
       <Stepper activeStep={activeStep}>
