@@ -17,10 +17,6 @@ const Paper = styled.div<PaperProps>`
   background: ${props => props.background ? props.background : "white"};
   padding: ${props => props.padding ? props.padding : "1em"};
   border-radius: ${props => props.borderRadius ? props.borderRadius : "2px"};
-  width: 1579px;
-  height: 916px;
-  left: 171px;
-  top: 86px;
   outline:none;
   border: ${props => props.border ? props.border : "none"};
   margin: ${props => props.margin ? props.margin : "2em 0em"};
