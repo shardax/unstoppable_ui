@@ -172,8 +172,6 @@ export default function About() {
         })}
       </Stepper>
       <div>
-
-
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>

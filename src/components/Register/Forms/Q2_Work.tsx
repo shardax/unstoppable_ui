@@ -118,16 +118,16 @@ const Q2_Work = () => {
             <div className="user-section-data">
 
                 <div className="question-header">Which of the following best describes your work situation?*</div>
-                <div className="question-wrapper">
+                <div className="question-number">2/16 Questions</div>
+                <div className="form-question-wrapper">
                   {/* <label htmlFor="personality">Which of the following best describes your work situation??</label> */}
                   <div className="Answers">
 
                   {WORK_STATUS_DESCRIPTIONS.map(item => (
-                    <label>
-                      {item + " "}
-                      <Field id={item} type="radio" name="activity_ids" value={item}>
-                      </Field>&nbsp;&nbsp;&nbsp;
-                    </label>
+                    <div>
+                      <Field id={item} type="radio" name="activity_ids" value={item}></Field>
+                      <label htmlFor={item}>{item + " "}</label>
+                    </div>
                   ))}
 
                     {/* <Field
@@ -145,11 +145,11 @@ const Q2_Work = () => {
 
                 <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
                     onClick={(e)=>{setPrevSubmitted(true)}}>
-                    Prev
+                    Previous
                 </Button>
 
                 <Button disabled={isSubmitting}>
-                    Next
+                  Save &amp; Continue
                 </Button>
 
             </div>

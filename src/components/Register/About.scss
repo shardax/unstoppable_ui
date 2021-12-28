@@ -19,44 +19,60 @@
     margin:auto;
 }
 
-.question-wrapper input[type="radio"], input[type="checkbox"]{
-    opacity: 10;
-    position: fixed;
+.question-container button {
+    margin: 2em 1.5em; 
+    padding: 10px 20px; 
+    background: $focusBackground;
+    color: $focusText;
+    &:enabled {
+        background: $actionPink;
+        color: $actionText;
+    }
+}
+
+.form-question-wrapper input[type="radio"] {
+    opacity: 0;
     width: 0;
-}
 
-.question-wrapper label {
+    &:not(:disabled) ~ label {
+      cursor: pointer;
+    }
+    &:disabled ~ label {
+      color: hsla(150, 5%, 75%, 1);
+      border-color: hsla(150, 5%, 75%, 1);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+  }
+
+.form-question-wrapper label {
+    width: 100%;
     display: inline-block;
-    background-color: $mutedPurple;
-    color: $actionPink;
-    padding: 10px 20px;
-    font-family: sans-serif, Arial;
+    border-radius: 5px;
+    padding: 1em 2em; 
+    text-align: center;
+    background: $disabledBackground;
+    color: $disabledText;
+
+    font-family: Montserrat;
     font-size: 16px;
-    margin: 5px;
-    
-}
+    font-style: normal;
+    font-weight: 700;
 
-.question-wrapper input[type="radio"]:checked{
-    &+label{
-        background-color:#bfb;
-        border-color: #4c4;
+    &:hover {
+        background: $focusBackground;
+        color: $focusText;
     }
 }
 
-.question-wrapper input[type="radio"]{
-    &:checked+label{
-        background-color:#bfb;
-        border-color: #4c4;
-    }
+.form-question-wrapper input[type="radio"]:checked + label {
+    background: $actionPink;
+    color: $actionText;
 }
 
-.question-wrapper input[type="radio"]{
-    &:checked+label{
-        border: 2px dashed #444;
-    }
-}
 .form-container {
-
+    padding: 0em 3em;
+    text-align: center; 
 }
 
 .logo{
@@ -77,8 +93,9 @@ label{
     line-height: 30px;
 }
 
-.question-wrapper {
-    margin: 1em 0em;
+.form-question-wrapper {
+    width: 50%;
+    margin: auto;
     label {
         font-weight: 500;
     }

@@ -114,7 +114,8 @@ const Q10_ReasonsActive = () => {
                   <Paper>
 
                     <div className="question-header">Identify your top reasons for wanting to become more active</div>   
-                    <div className="question-wrapper">
+                    <div className="question-number">10/16 Questions</div>
+                    <div className="form-question-wrapper">
                       {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field

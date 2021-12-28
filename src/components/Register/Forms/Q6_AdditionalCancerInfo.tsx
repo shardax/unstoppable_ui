@@ -113,8 +113,8 @@ const Q6_AdditionalCancerInfo = () => {
                 <div className="user-section-data">
 
                     <div className="question-header">Additional Cancer Information (e.g., stage, year diagnosed, DC'S, TNBC) :</div>
-                    
-                    <div className="question-wrapper">
+                    <div className="question-number">6/16 Questions</div>
+                    <div className="form-question-wrapper">
                       {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field

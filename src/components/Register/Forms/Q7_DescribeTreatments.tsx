@@ -114,8 +114,8 @@ const Q7_DescribeTreatments = () => {
                   <Paper>
 
                     <div className="question-header">Please briefly describe your cancer treatments:</div>
-                    
-                    <div className="question-wrapper">
+                    <div className="question-number">7/16 Questions</div>
+                    <div className="form-question-wrapper">
                       {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field

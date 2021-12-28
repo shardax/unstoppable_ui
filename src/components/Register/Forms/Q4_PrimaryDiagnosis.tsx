@@ -113,8 +113,8 @@ const Q4_PrimaryDiagnosis = () => {
                 <div className="user-section-data">
 
                     <div className="question-header">What was your primary cancer diagnosis? (If other, provide details below?) *</div>
-                    
-                    <div className="question-wrapper">
+                    <div className="question-number">4/16 Questions</div>
+                    <div className="form-question-wrapper">
                       {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field

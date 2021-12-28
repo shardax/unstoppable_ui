@@ -114,7 +114,8 @@ const Q9_FavoriteActivities = () => {
                   <Paper>
 
                     <div className="question-header"> Favorite activities (check all that apply):</div>
-                    <div className="question-wrapper">
+                    <div className="question-number">9/16 Questions</div>
+                    <div className="form-question-wrapper">
                       {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field

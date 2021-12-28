@@ -101,37 +101,33 @@ const Q1_Personality = () => {
         }) => (
             <Form>
               <div className="form-container">
-                <div className="user-section-data">
+                  <div className="question-header">How would you describe your personality?</div>
+                  <div className="question-number">1/16 Questions</div>
+                  <div className="form-question-wrapper">
+                    <div className="question-answers">
 
-                    <div className="question-header">How would you describe your personality?</div>
-                    <div className="question-wrapper">
-                      <div className="Answers">
-
-                      {PERSONALITY_DESCRIPTION.map(item => (
-                        <label>
-                          {item + " "}
-                          <Field id={item} type="radio" name="activity_ids" value={item}>
-                          </Field>&nbsp;&nbsp;&nbsp;
-                        </label>
-                      ))}
-
-                        {/* <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field> */}
+                    {PERSONALITY_DESCRIPTION.map(item => (
+                      <div>
+                        <Field id={item} type="radio" name="activity_ids" value={item}></Field>
+                        <label htmlFor={item}>{item + " "}</label>
                       </div>
-                    </div>
-                  
-                    <PromptIfDirty />
-                    <Button disabled={isSubmitting}>
-                        Next
-                    </Button>
+                    ))}
 
-                </div>
+                      {/* <Field
+                        as={Select}
+                        id="personality"
+                        name="personality"
+                      >
+                        <option value="" label="- Select One -" />
+                        {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
+                      </Field> */}
+                    </div>
+                  </div>
+                
+                  <PromptIfDirty />
+                  <Button disabled={isSubmitting}>
+                      Save &amp; Continue
+                  </Button>
               </div>
             </Form>
           )}
