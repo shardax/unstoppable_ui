@@ -111,8 +111,6 @@ const Q7_DescribeTreatments = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-                  <Paper>
-
                     <div className="question-header">Please briefly describe your cancer treatments:</div>
                     <div className="question-number">7/16 Questions</div>
                     <div className="form-question-wrapper">
@@ -139,8 +137,6 @@ const Q7_DescribeTreatments = () => {
                     <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
                         Next
                     </Button>
-
-                  </Paper>
                 </div>
               </div>
             </Form>

@@ -111,8 +111,6 @@ const Q8_AboutMe = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-                  <Paper>
-
                     <div className="question-header">About Me: Use this space for anything else you would like to share.</div>
                     <div className="question-number">8/16 Questions</div>
                     <div className="form-question-wrapper">
@@ -140,7 +138,6 @@ const Q8_AboutMe = () => {
                         Next
                     </Button>
 
-                  </Paper>
                 </div>
               </div>
             </Form>

@@ -111,8 +111,6 @@ const Q10_ReasonsActive = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-                  <Paper>
-
                     <div className="question-header">Identify your top reasons for wanting to become more active</div>   
                     <div className="question-number">10/16 Questions</div>
                     <div className="form-question-wrapper">
@@ -140,7 +138,6 @@ const Q10_ReasonsActive = () => {
                         Next
                     </Button>
 
-                  </Paper>
                 </div>
               </div>
             </Form>

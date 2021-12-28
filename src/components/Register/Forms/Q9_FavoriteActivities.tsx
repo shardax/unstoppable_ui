@@ -111,8 +111,6 @@ const Q9_FavoriteActivities = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-                  <Paper>
-
                     <div className="question-header"> Favorite activities (check all that apply):</div>
                     <div className="question-number">9/16 Questions</div>
                     <div className="form-question-wrapper">
@@ -140,7 +138,6 @@ const Q9_FavoriteActivities = () => {
                         Next
                     </Button>
 
-                  </Paper>
                 </div>
               </div>
             </Form>
