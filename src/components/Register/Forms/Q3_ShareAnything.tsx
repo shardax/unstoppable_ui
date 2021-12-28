@@ -109,16 +109,13 @@ const Q3_ShareAnything = () => {
           setFieldValue
         }) => (
             <Form>
-              <div className="form-container user-section-wrapper">
+              <div className="form-container">
                 <div className="user-section-data">
-                  <Paper>
 
-                    <div className="profile-section-header">Use this space for anything else you would like to share
-</div>
+                    <div className="question-header">Use this space for anything else you would like to share</div>
                     
                     <div className="question-wrapper">
-                      <label htmlFor="personality">Use this space for anything else you would like to share
-</label>
+                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field
                           as={Select}
@@ -142,7 +139,6 @@ const Q3_ShareAnything = () => {
                         Next
                     </Button>
 
-                  </Paper>
                 </div>
               </div>
             </Form>

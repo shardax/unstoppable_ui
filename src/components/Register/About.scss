@@ -1,7 +1,64 @@
+@import '../../assets/scss/variables';
+
 .container{
     margin-left: auto;
     margin-right: auto;
 }
+
+.question-flex-container {
+    display: flex;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw;
+    background-image: url('../../images/new2UCollage.png');
+}
+
+.question-container {
+    width:85%; 
+    height: 90%;
+    margin:auto;
+}
+
+.question-wrapper input[type="radio"], input[type="checkbox"]{
+    opacity: 10;
+    position: fixed;
+    width: 0;
+}
+
+.question-wrapper label {
+    display: inline-block;
+    background-color: $mutedPurple;
+    color: $actionPink;
+    padding: 10px 20px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    margin: 5px;
+    
+}
+
+.question-wrapper input[type="radio"]:checked{
+    &+label{
+        background-color:#bfb;
+        border-color: #4c4;
+    }
+}
+
+.question-wrapper input[type="radio"]{
+    &:checked+label{
+        background-color:#bfb;
+        border-color: #4c4;
+    }
+}
+
+.question-wrapper input[type="radio"]{
+    &:checked+label{
+        border: 2px dashed #444;
+    }
+}
+.form-container {
+
+}
+
 .logo{
     margin-top: 15px;
     margin-bottom: 10px;
@@ -9,4 +66,20 @@
 }
 label{
     font-size: medium;
+}
+
+.question-header {
+    color: #07122E;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 30px;
+}
+
+.question-wrapper {
+    margin: 1em 0em;
+    label {
+        font-weight: 500;
+    }
 }

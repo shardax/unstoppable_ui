@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, useFormikContext  } from 'formik';
 import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION } from "../../../constants/ProfileConstants"
+import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
+import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -24,9 +25,11 @@ const PromptIfDirty = () => {
   );
 };
 
-const Q1_Personality = () => {
+
+const Q8_AboutMe = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
+  const [prevSubmitted, setPrevSubmitted] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const Q1_Personality = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/1");
+    history.push("/complete-profile/8");
   }
   return (
     <div>
@@ -74,7 +77,13 @@ const Q1_Personality = () => {
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
-              history.push("/complete-profile/1");
+
+              if (prevSubmitted){
+                history.push("/complete-profile/6");
+              } else {
+                  history.push("/complete-profile/8");
+              }
+
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
@@ -102,35 +111,35 @@ const Q1_Personality = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
+                  <Paper>
 
-                    <div className="question-header">How would you describe your personality?</div>
+                    <div className="question-header">About Me: Use this space for anything else you would like to share.</div>
                     <div className="question-wrapper">
+                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
-
-                      {PERSONALITY_DESCRIPTION.map(item => (
-                        <label>
-                          {item + " "}
-                          <Field id={item} type="radio" name="activity_ids" value={item}>
-                          </Field>&nbsp;&nbsp;&nbsp;
-                        </label>
-                      ))}
-
-                        {/* <Field
+                        <Field
                           as={Select}
                           id="personality"
                           name="personality"
                         >
                           <option value="" label="- Select One -" />
                           {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field> */}
+                        </Field>
                       </div>
                     </div>
                   
                     <PromptIfDirty />
-                    <Button disabled={isSubmitting}>
+
+                    <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                    onClick={(e)=>{setPrevSubmitted(true)}}>
+                      Prev
+                    </Button>
+
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
                         Next
                     </Button>
 
+                  </Paper>
                 </div>
               </div>
             </Form>
@@ -139,4 +148,4 @@ const Q1_Personality = () => {
     </div>
   );
 }
-export default Q1_Personality;
+export default Q8_AboutMe;

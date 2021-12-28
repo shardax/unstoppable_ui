@@ -114,13 +114,12 @@ const Q2_Work = () => {
           setFieldValue
         }) => (
           <Form>
-          <div className="form-container user-section-wrapper">
+          <div className="form-container">
             <div className="user-section-data">
 
-              <Paper>
-                <div className="profile-section-header">Which of the following best describes your work situation?*</div>
+                <div className="question-header">Which of the following best describes your work situation?*</div>
                 <div className="question-wrapper">
-                  <label htmlFor="personality">Which of the following best describes your work situation??</label>
+                  {/* <label htmlFor="personality">Which of the following best describes your work situation??</label> */}
                   <div className="Answers">
 
                   {WORK_STATUS_DESCRIPTIONS.map(item => (
@@ -153,7 +152,6 @@ const Q2_Work = () => {
                     Next
                 </Button>
 
-              </Paper>
             </div>
           </div>
         </Form>
