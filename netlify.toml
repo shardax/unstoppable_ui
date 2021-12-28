@@ -20,3 +20,7 @@
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "https://uns1.herokuapp.com/users/sign_in"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = "frame-ancestors https://www.facebook.com"
+

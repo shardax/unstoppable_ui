@@ -66,7 +66,7 @@ const SignIn2 = () => {
           try {
             const result = await axios.post(url,
               { user: {"username": values.username, "password": values.password}},
-              { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+              { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*" }
             });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
