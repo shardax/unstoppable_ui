@@ -1,3 +1,6 @@
+# 2Unstoppable Buddy System Frontend
+Frontend for application to match users going through cancer
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
