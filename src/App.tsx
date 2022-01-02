@@ -25,7 +25,7 @@ const App: React.FC = () => {
             <div className="App">
               <Switch>
                 <Route path="/user/:id" component={User} />
-                <Route path="/wizard/:stepId" component={About} />
+                <Route path="/complete-profile/:stepId" component={About} />
                 <Route path="/userMessage/:user_id" component={Inbox} />
                 <Route path="/forgotPassword/:tokenId" component={ForgotPasswordForm} />
                 <Route path="/chatroomDetails/:chatroomId" component={ChatroomMessagesList} />

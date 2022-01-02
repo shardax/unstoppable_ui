@@ -182,7 +182,7 @@ const ViewFavoritesPage: React.FC = ({}) => {
   return (
     <div>
       <div>
-        <h3 className="page-header">Favorites Profiles</h3>
+        <h3 className="pageHeader">Favorites Profiles</h3>
         <p>You can find all your favorite profiles here</p>
         <div id="headerFilter">
           <div className="box">

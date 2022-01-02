@@ -11,14 +11,31 @@ import {
   useParams
 } from "react-router-dom";
 import Button from '../Styled/Button';
+import Paper from '@material-ui/core/Paper';
+
+// importing questions for multi-page-form: OLD
 import AboutStep from './Forms/AboutStep';
 import CancerStep from './Forms/CancerStep';
 import FitnessStep from './Forms/FitnessStep';
 import UploadPhoto from '../manageProfile/UploadPhoto'
 import ConfirmStep from './Forms/ConfirmStep';
 import VerifyEmailStep from './Forms/VerifyEmailStep';
+
+// importing questions for multi-page-form: UPDATED
+import Q1_Personality from './Forms/Q1_Personality';
+import Q2_Work from './Forms/Q2_Work';
+import Q3_ShareAnything from './Forms/Q3_ShareAnything';
+import Q4_PrimaryDiagnosis from './Forms/Q4_PrimaryDiagnosis';
+import Q5_DescribeDiagnoses from './Forms/Q5_DescribeDiagnoses';
+import Q6_AdditionalCancerInfo from './Forms/Q6_AdditionalCancerInfo';
+import Q7_DescribeTreatments from './Forms/Q7_DescribeTreatments';
+import Q8_AboutMe from './Forms/Q8_AboutMe';
+import Q9_FavoriteActivities from './Forms/Q9_FavoriteActivities';
+import Q10_ReasonsActive from './Forms/Q10_ReasonsActive';
+
 import { createBrowserHistory } from 'history'
 
+// theming specific to this wizard
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -38,30 +55,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// progress bar/steps at the top 
 function getSteps() {
-  //return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Confirm Email', 'Verify Email'];
-  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email'];
+  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email', 'q7', 'q8', 'q9', 'q10'];
 }
+
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AboutStep />;
+      return <Q1_Personality/>;
     case 1:
-      return <CancerStep />;
+      return <Q2_Work/>;
     case 2:
-      return <FitnessStep />;
+      return <Q3_ShareAnything/>;
     case 3:
-      return <UploadPhoto fromWizard={true} />;
+        return <Q4_PrimaryDiagnosis/>;
     case 4:
-      return <ConfirmStep />;
+        return <Q5_DescribeDiagnoses/>;
     case 5:
+        return <Q6_AdditionalCancerInfo/>;
+    case 6:
+        return <Q7_DescribeTreatments/>;
+    case 7:
+        return <Q8_AboutMe/>;
+    case 8:
+        return <Q9_FavoriteActivities/>;
+    case 9:
+        return <Q10_ReasonsActive/>;
+    
+    case 10:
+      return <UploadPhoto fromWizard={true} />;
+    case 11:
+      return <ConfirmStep />;
+    case 12:
       return <VerifyEmailStep />;
+  
+    // Old steps that can be observed
+    // case 8:
+    //   return <AboutStep />;
+    // case 9:
+    //   return <CancerStep />;
+    // case 10:
+    //   return <FitnessStep />;
+
     default:
       return 'Unknown step';
   }
 }
-
-
 
 export default function About() {
   const history = createBrowserHistory({ forceRefresh: true });
@@ -109,13 +149,17 @@ export default function About() {
     setActiveStep(0);
   };
   
-
+// Entire Complete Profile Page 
   return (
 
+    <div className="question-flex-container">
+    <Paper className="question-container">
     <div className={classes.root}>
-      <img src={UnsIcon} className={classes.logo} />
-      <h2>Create Your Profile</h2>
-      <ForwardUserToLogout />
+      {/* <img src={UnsIcon} className={classes.logo} /> */}
+      {/* <h2>Create Your Profile</h2> */}
+      {/* <ForwardUserToLogout /> */}
+
+      {/* Progress at Top */}
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -140,7 +184,7 @@ export default function About() {
         ) : (
             <div>
               <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-              {/**<div>
+              {/* *<div>
                 <Button
                   margin="2em 1.5em"
                   padding="10px 20px"
@@ -159,12 +203,13 @@ export default function About() {
                 >
                   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
-              </div> **/}
+              </div> * */}
             </div>
           )}
       </div>
     </div>
-
+    </Paper>
+    </div>
   );
 
 }

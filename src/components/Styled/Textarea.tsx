@@ -12,7 +12,8 @@ interface TextareaProps {
   fontSize?: string,
   borderRadius?: string,
   height?: string,
-  width?: string
+  width?: string,
+  overflow?: string
 }
 
 const Textarea = styled.textarea<TextareaProps>`
@@ -27,8 +28,8 @@ const Textarea = styled.textarea<TextareaProps>`
   min-width: 25em;
   width: ${props => props.width ? props.width : "auto"};
   font-weight: 400;
-  outline:none;
-  overflow: none;
+  outline: none;
+  overflow: ${props => props.overflow ? props.overflow : "none"};
   outline-style: none;
   resize: none;
   &:focus, &:not(:placeholder-shown) {

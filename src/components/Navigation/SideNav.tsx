@@ -2,17 +2,20 @@ import './Navigation.scss';
 
 import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
 import { Link, NavLink } from 'react-router-dom';
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Avatar} from 'antd';
 import { BsHeartFill } from "react-icons/bs";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 //Icons
 import HomeIcon from '@material-ui/icons/Home';
 import MessageIcon from '@material-ui/icons/Message';
 import React from 'react'
 import SettingsIcon from '@material-ui/icons/Settings';
-import UnsIcon from '../../images/2unstoppable.png'
+import UnsIcon from '../../images/2Unstoppable_logo.png';
 import { useDataStore } from "../../UserContext";
 import {useObserver} from 'mobx-react';
 
@@ -61,28 +64,25 @@ const SideNav = () => {
         <Link to="/home"><img className="logo-navbar" src={UnsIcon} alt=""/></Link>
       </div>
       <div className="username-avatar-sidenav">
-        <Avatar src={ROOTURL + store.avatarPath}  size= "large" />
-        <div className="sidebar-title">{store.username}</div>
+        <Avatar src={ROOTURL + store.avatarPath} size="large" />
+        
+        <DropdownButton id="dropdown-basic-button" title={store.username}>
+          <Dropdown.Item href="/profile">Edit Profile</Dropdown.Item>
+          <Dropdown.Item href="/settings">Account Settings</Dropdown.Item>
+          <Dropdown.Item href="/logout">Log Out</Dropdown.Item>
+        </DropdownButton>
+
       </div>
-      
+
       <hr className="horizontal-break" />
 
-      <div className="main-navlink">  
+      <div className="main-navlink">
         {sideNavLinks.map((link: any) => (
           <div className="sidenav-link">
             <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
           </div>
         ))}
-      </div>  
-
-      <hr className="horizontal-break" />
-      <div className="main-navlink">
-        {optionLinks.map((link: any) => (
-            <div className="sidenav-link">
-              <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
-            </div>
-          ))}
-        </div>
+      </div>
     </div>
   ))
 }

@@ -21,6 +21,9 @@ import TimeAgo from "timeago-react";
 import axios from "axios";
 import { useDataStore } from "../../UserContext";
 
+import './index.scss';
+
+
 // TODO need to move up
 // Format nested params correctly
 
@@ -210,7 +213,7 @@ const Inbox = () => {
         setMessageSent(false);
       } catch (error) {
         //console.log(JSON.stringify(error));
-        console.log(error.message);
+        // console.log(error.message);
         setMessageSent(false);
         setIsError(true);
       }
@@ -237,7 +240,7 @@ const Inbox = () => {
       }
     } catch (error) {
       //console.log(JSON.stringify(error));
-      console.log(error.message);
+      // console.log(error.message);
       setIsError(true);
     }
   }
@@ -253,6 +256,7 @@ const Inbox = () => {
     setNewConversation(false);
     setSubject(currConversation.recent.subject);
     setUserPhoto(currConversation.photo);
+    scrollToBottom();
     console.log(currChat);
   }, [currConversation]);
 
@@ -317,6 +321,9 @@ const Inbox = () => {
             <TimeAgo datetime={updated_at} locale="en.US" />{" "}
           </span>
         </span>
+        <div className="message-sender-image">
+          {isMe(from, store.username) ? <Avatar src={ROOTURL + store.avatarPath} size={36} /> : "" }
+        </div>
       </div>
     );
   };
@@ -476,3 +483,7 @@ const Inbox = () => {
 };
 
 export default Inbox;
+function scrollToBottom() {
+  throw new Error("Function not implemented.");
+}
+

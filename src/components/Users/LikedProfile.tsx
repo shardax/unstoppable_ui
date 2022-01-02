@@ -27,9 +27,7 @@ const LikedProfile = ({ id }) => {
         setLoading(false)
       } catch (error) {
         setError(true)
-        console.log(error, "errrorrrr")
-
-      
+        console.log(error, "error")
         // throw new Error(e)
         // change error
         // throw new Error()

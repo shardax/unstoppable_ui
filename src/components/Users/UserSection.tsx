@@ -42,6 +42,25 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
     )
   }
 
+  // ProfileIconBlock takes up only half of a Paper row (so 2 blocks fit on one row)
+  const ProfileIconBlock = ({ icon, field, answer }) => {
+    if (!answer || answer === "") {
+      return null
+    }
+
+    return (
+      <div className="profile-block">
+        <div className="full-profile-icon-row">
+          <div className="field-question-profile">
+            {icon}
+            <div>{field}</div>
+          </div>
+          <div className="field-answer muted-text">{answer}</div>
+        </div>
+      </div>
+    )
+  }
+
   const ChipList = () => {
     const Chip = ({ activityId }) => {
       const getMatch = () => {
@@ -84,9 +103,14 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
               </span>
             </p>
           </div>
+          <Paper margin="2em 4em">
 
 
-            {/* <ProfileIconRow field={"Avatar Image"} answer={
+
+
+
+
+            <ProfileIconRow field={"Avatar Image"} answer={
               <div className="photo-cropper">
                 <img className="user-section-image" src={ROOTURL + user.photo} />
               </div>
@@ -102,7 +126,9 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
               <div>
                 <input className="readonly-input-field" type="text" value={user.email} readOnly />
               </div>
-            } icon={null} /> */}
+            } icon={null} />
+          </Paper>
+
 
 
 
