@@ -136,7 +136,9 @@ const SignIn2 = () => {
             <div>
               <img src={logo} className="logo-image" alt="Logo" width="300"/>
             </div>
-
+          <div className="register all">
+            <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
+          </div>
             <h2 className="sign-in-header">Sign In</h2>
             { errorMessage && <h3 className="error"> { errorMessage } </h3> }
 
@@ -163,9 +165,9 @@ const SignIn2 = () => {
               <Error touched={touched.username} message={errors.username} />
             </div>
 
-            <div className="register">
-              <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
-            </div>
+          <div className="register all">
+            <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
+          </div>
 
             <div className="input-row">
               <div className="input-format">
@@ -190,9 +192,6 @@ const SignIn2 = () => {
             </div>
 
             {/* forgot password  */}
-            <div className="register">
-              <Link to='/fpassword' activeclassname="active">Forgot Your Password?</Link>
-            </div>
             <div className="input-row">
               <Button className="login-buttons" type="submit" disabled={isSubmitting} style={{background: "#F1658C"}}>
                 SIGN IN

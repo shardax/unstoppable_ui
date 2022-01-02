@@ -352,6 +352,7 @@ import TimeAgo from 'timeago-react';
   return useObserver(() => (
     // consider: using a component to represent each search widget 
     <>
+      <Link to={"/complete-profile/0"}> Complete Your Profile!</Link>
       <div className="browse-container">
           <h3 className="pageHeader">Browse Profiles</h3>
           <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
