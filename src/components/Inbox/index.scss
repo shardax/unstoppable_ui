@@ -21,6 +21,8 @@
   .inbox-wrapper {
     // border-right: 1px solid rgb(240,240,240);
     // padding-right: 2em;
+    margin-right: 1em;
+    width: 40%;
   }
   .single-conversation-wrapper {
     // background-color: rgb(225,225,225);
@@ -30,7 +32,7 @@
     padding: 5px;
     display: flex;
     align-items: center;
-    width: 220px;
+    // width: 220px;
     .single-conversation-avatar {
       position: relative;
       display: inline-block;
@@ -40,6 +42,7 @@
     }
     .single-conversation-recent {
       margin: 0px 20px;
+      width: 100%;
       .conversation-subject {
         font-weight: 600;
 
@@ -51,6 +54,13 @@
     height: 100%;
     width: 100%;
     background-color: white;
+    margin-left: 1em;
+  }
+
+  .conversation-preview {
+    display: flex;
+    justify-content: space-between;
+    padding-top:5px;
   }
 
   .conversation-nav-wrapper {
@@ -181,9 +191,9 @@
   justify-content: space-between;
   border-bottom: .5mm solid;
   border-bottom-color:rgb(204, 204, 204);
-  padding-left: 25px;
+  // padding-left: 25px;
   padding-bottom: 10px;
-  padding-top: 40px;
+  // padding-top: 40px;
 
   font-family: 'Montserrat';
   font-weight: 700;
@@ -191,6 +201,16 @@
   line-height: 30px;
   display: flex;
   align-items: center;
+}
+
+.conversation-time {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: right;
+  color: #8B8B8B;
 }
 
 .conversation-header-text {

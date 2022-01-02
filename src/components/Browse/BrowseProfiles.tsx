@@ -1,23 +1,19 @@
-import './Browse.scss'
-
-import {AGE_RANGE_CONSTANT, CANCERLOCATIONLIST, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
-import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
-import React, {useEffect, useState} from "react";
-
-import Brightness1Icon from '@material-ui/icons/Brightness1';
-import Button from '../Styled/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import DiscreteSlider from "../Common/DiscreteSlider";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import {Link} from 'react-router-dom'
-import Pagination from "react-js-pagination";
-import ProfileCardView from "./ProfileCard"
-import Radio from '@material-ui/core/Radio';
+import React, {useState, useEffect} from "react";
+import axios from "axios";
+import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 import RangeSlider from "../Common/RangeSlider";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DiscreteSlider from "../Common/DiscreteSlider";
+import Radio from '@material-ui/core/Radio';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { useDataStore } from "../../UserContext";
+import {Link} from 'react-router-dom'
 import {SearchParamsStore} from "../../UserStore";
+import Pagination from "react-js-pagination";
+import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
+import './Browse.scss'
+import { useObserver } from "mobx-react";
+import Button from '../Styled/Button';
 import Select from '../Styled/Select';
 
 // accordian imports 
@@ -33,13 +29,12 @@ import AgeIcon from '@material-ui/icons/DataUsage';
 import ChatIcon from '@material-ui/icons/Chat';
 import SortBarDisplay from './SortBarDisplay'
 import SortIcon from '@material-ui/icons/Sort';
-import TimeAgo from 'timeago-react';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
-import axios from "axios";
-import colors from "../../assets/colors"
-import { text } from "@fortawesome/fontawesome-svg-core";
-import { useDataStore } from "../../UserContext";
-import { useObserver } from "mobx-react";
+import Brightness1Icon from '@material-ui/icons/Brightness1';
+import TimeAgo from 'timeago-react';
 
 //const BrowseProfiles: React.FC = ({  }) => {
   export const BrowseProfiles = () => {
@@ -357,7 +352,6 @@ import { useObserver } from "mobx-react";
   return useObserver(() => (
     // consider: using a component to represent each search widget 
     <>
-      <Link to={"/complete-profile/0"}> Complete Your Profile!</Link>
       <div className="browse-container">
           <h3 className="pageHeader">Browse Profiles</h3>
           <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
@@ -520,7 +514,7 @@ import { useObserver } from "mobx-react";
           </div>
           <div className="profile-browse-grid">
             {userCollection.map((profile: any) => (
-             <ProfileCardView profile={profile} />
+              <ProfileCard profile={profile} />
             ))}
         </div>
         <div className="range-slider">
@@ -532,7 +526,9 @@ import { useObserver } from "mobx-react";
                 onChange={handlePageChange}
               />
         </div>
+        
       </div>
+      
     </>
   ))
 }
