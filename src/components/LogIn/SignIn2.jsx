@@ -18,6 +18,7 @@ import {SearchParamsStore} from "../../UserStore";
 import axios from "axios";
 import logo from '../../images/2Unstoppable_logo.png';
 import {useDataStore} from "../../UserContext";
+import {View, TextInput} from "react";
 
 // import {displayToast} from "../Toast/Toast";
 
@@ -126,77 +127,85 @@ const SignIn2 = () => {
         isSubmitting,
         setFieldValue
       }) => (
-        <form className="form-spacing" style={{backgroundColor: 'white', borderRadius: '8px', 
-        width: '480px', height: '550px'}} onSubmit={handleSubmit}>
-          <div className="all">
-          <img src={logo} alt="Logo"  width="325" height="150"/>
-          </div>
-          <h2 className="all">Sign In</h2>
-          { errorMessage && <h3 className="error"> { errorMessage } </h3> }
-          <div className="input-row all">
-            
-            <div className="input-format">
-            <span>
-              <FontAwesomeIcon icon={faUser} />
-              <Input
-                type="text"
-                name="username"
-                placeholder="Username"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.username}
-                className={(touched.username && errors.username ? "has-error" : null)}
-                padding={"1em"}
-                border="1px solid #f0f0f0"
-                focusBorder="1px solid #6429B9"
-                fontSize="14px"
-              />
-              </span>
+        // form for signing in 
+        <form className="form-spacing sign-in-card" style={{backgroundColor: 'white', borderRadius: '8px', 
+        width: '480px'}} onSubmit={handleSubmit}>
+          
+          
+
+            <div>
+              <img src={logo} className="logo-image" alt="Logo" width="300"/>
             </div>
-            <Error touched={touched.username} message={errors.username} />
-          </div>
           <div className="register all">
             <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
           </div>
+            <h2 className="sign-in-header">Sign In</h2>
+            { errorMessage && <h3 className="error"> { errorMessage } </h3> }
 
-          <div className="input-row all">
-            <div className="input-format">
-            <span>
-              <FontAwesomeIcon icon={faLock} />
-              <Input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-                className={(touched.password && errors.password ? "has-error" : null)}
-                padding={"1em"}
-                border="1px solid #f0f0f0"
-                focusBorder="1px solid #6429B9"
-                fontSize="14px"
-              />
-              </span>
+            <div className="signin-wrapper">
+            <div className="input-row">
+              <div className="input-format">
+              <span>
+                <FontAwesomeIcon icon={faUser} />
+                <Input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.username}
+                  className={(touched.username && errors.username ? "has-error" : null)}
+                  padding={"1em"}
+                  border="1px solid #f0f0f0"
+                  focusBorder="1px solid #6429B9"
+                  fontSize="14px"
+                />
+                </span>
+              </div>
+              <Error touched={touched.username} message={errors.username} />
             </div>
-            <Error touched={touched.password} message={errors.password} />
-          </div>
+
           <div className="register all">
             <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
           </div>
 
-          <div className="input-row all">
-            <Button type="submit" disabled={isSubmitting} padding="8px 150px" style={{background: "#F1658C"}}>
-              SIGN IN
-            </Button>
-          </div>
-          <br/>
-          <div className="all">Don't have an account?</div>
-          <div className="register all">
-            <Link to='/register' activeclassname="active" padding="8px 150px" style={{background: "#FFE7ED"}}>
-              <Button type="submit" padding="8px 150px" style={{background: "#FFE7ED", color: "#F1658C"}}>Sign Up</Button>
-            </Link>
-          </div>
+            <div className="input-row">
+              <div className="input-format">
+              <span>
+                <FontAwesomeIcon icon={faLock} />
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  className={(touched.password && errors.password ? "has-error" : null)}
+                  padding={"1em"}
+                  border="1px solid #f0f0f0"
+                  focusBorder="1px solid #6429B9"
+                  fontSize="14px"
+                />
+                </span>
+              </div>
+              <Error touched={touched.password} message={errors.password} />
+            </div>
 
+            {/* forgot password  */}
+            <div className="input-row">
+              <Button className="login-buttons" type="submit" disabled={isSubmitting} style={{background: "#F1658C"}}>
+                SIGN IN
+              </Button>
+            </div>
+            {/* Dont have an account? */}
+            <hr/>
+            <h6 className="no-account-header">Don't have an account?</h6>
+            <div className="register">
+              <Link to='/register' activeclassname="active">
+                <Button className="login-buttons" type="submit" style={{background: "#FFE7ED", color: "#F1658C"}}>SIGN UP</Button>
+              </Link>
+            </div>
+          </div>
         </form>
       )}
     </Formik>

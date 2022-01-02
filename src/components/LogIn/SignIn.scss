@@ -1,12 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body {
+  margin: 0px;
+}
+
+#root{
+  background-image: url('../../images/new2UCollage.png');
+  margin: 0px;
+  // position: fixed; 
+}
+.forgot{
+  margin-top: 60px;
+  color: #07122E;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 37x;
+  text-align: center;
+}
+.logoImage{
+   margin-top: 20px;
+   width: 320px;
+   height: 70px;
+   
+   left: 800px;
+   top: 297px;
+}
+.enterInfo{
+  margin-top: 20px;
+  margin-left: 45px;
+  width: 420px;
+  height: 105px;
+  left: 750px;
+  top: 478px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 34px;
+  font-size: 20px;
+  color: #525151;
+  text-align: center;
+
+}
+
+.address{
+  margin-top: 40px;
+  margin-left: 45px;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #07122E;
+}
+
+.holder{
+color: red;
+}
+
 .login-card {
   min-height: 60vh;
 }
 
-.all {
-  display: flex;
+.logo-image {
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+}
+
+.sign-in-card {
   justify-content: center;
   align-items: center;
-  align-content: center
+  align-content: center;
+  padding: 20px 60px;
+}
+
+.sign-in-header {
+  text-align: center;
+  font-weight:bold;
+  margin:5px;
+}
+
+.no-account-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.login-buttons {
+  width: 100%;
+  padding: 10px;  
 }
 
 .registerMessage {
