@@ -11,6 +11,12 @@
     align-items: center
 }
 
+
+  #page {
+    overflow: scroll;
+    white-space: nowrap;
+ }
+
 .profile-section-header::before {
   font-weight: bold;
 
@@ -54,6 +60,13 @@
     
 }
 
+.popupbox-wrapper {
+  height: 90vh;
+}
+
+.popupbox-content {
+  overflow: scroll;
+}
 
 .radioButton {
     color: #F1658C;

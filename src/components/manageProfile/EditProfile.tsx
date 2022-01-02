@@ -14,9 +14,14 @@ import {
 } from "../../constants/ProfileConstants";
 import { Field, Form, Formik } from "formik";
 import { PROFILEURL, ROOTURL } from "../../constants/matcher";
+import {
+  PopupboxContainer,
+  PopupboxManager
+} from 'react-popupbox';
 import React, { useEffect, useState } from "react";
 
 import Button from "../Styled/Button";
+import Checkbox from '@material-ui/core/Checkbox';
 import Collapsible from "react-collapsible";
 import Default from "../../layouts/Default";
 import Error from "../LogIn/Error";
@@ -29,7 +34,6 @@ import Textarea from "../Styled/Textarea";
 import UploadPhoto from "./UploadPhoto";
 import axios from "axios";
 import { displayToast } from "../Toast/Toast";
-import styled from "@emotion/styled";
 import { useDataStore } from "../../UserContext";
 import { useHistory } from "react-router-dom";
 
@@ -50,30 +54,6 @@ const RadioButton = ({
         name={name}
         id={id}
         type="radio"
-        value={id || false}
-        checked={id === value}
-        onChange={onChange}
-        onBlur={onBlur}
-        {...props}
-      />
-      <label htmlFor={id}>{label}</label>
-    </div>
-  );
-};
-
-const CheckBoxButton = ({
-  field: { name, value, onChange, onBlur },
-  id,
-  label,
-  className,
-  ...props
-}) => {
-  return (
-    <div className={"checkbox"}>
-      <input
-        name={name}
-        id={id}
-        type="checkbox"
         value={id || false}
         checked={id === value}
         onChange={onChange}
@@ -132,12 +112,19 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
   });
 
   const handleCancel = (event: React.MouseEvent) => {
+    PopupboxManager.close()
     event.preventDefault();
     editControls.setEditMode(false);
   };
 
-  return (
-    <div>
+  const [checked, setChecked] = React.useState(false);
+
+  const handleCheck= (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
+  const content = (
+    <div className="page">
       <Formik
         initialValues={{
           // About Me
@@ -231,7 +218,7 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 3000,
                 "top-right"
               );
-              if (err instanceof Error) {
+              if (err) {
                 console.log(err);
 
                 if (err) {
@@ -259,7 +246,9 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
         }) => (
           <Form>
             <div className="question-wrapper">
+              <div>
               <label htmlFor="work_status">Current Work Status</label>
+              </div>
               <span style={{ display: "inline-block" }}>
                 <Field
                   component={RadioButton}
@@ -559,12 +548,20 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                             <label>
                               {" "}
                               {item.name}{" "}
-                              <Field
+                              {/* <Field
                                 id={item.id}
                                 type="checkbox"
                                 name="exercise_reason_ids"
                                 value={item.id}
-                              ></Field>
+                              ></Field> */}
+                                {item.id}           
+                              <Checkbox
+                                  id={item.id}
+                                  name="exercise_reason_ids"
+                                  color="primary"
+                                  // inputProps={{ 'aria-label': 'primary checkbox' }}
+                                  value={item.id}
+                                />
                               &nbsp;&nbsp;&nbsp;{" "}
                             </label>
                           ))}
@@ -668,5 +665,7 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
       </div> */}
     </div>
   );
+
+  return content
 };
 export default EditProfile;
