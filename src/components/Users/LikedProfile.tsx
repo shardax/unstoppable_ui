@@ -21,6 +21,7 @@ const LikedProfile = ({ id }) => {
         setUser(data.profile)
         setLoading(false)
       } catch (e) {
+
         // change error
         throw e
         // throw new Error()

@@ -6,18 +6,55 @@ $cardRadius: 10px;
 $cardWidth: 300px;
 $cardHeight: 240px;
 
+.accordian-inside {
+  display:block
+}
+
+.browse-container {
+  width:75vw; 
+  overflow: clip;
+}
+
 .browse-sticky-nav {
   position: sticky;
   top: 0;
   background-color: white;
   padding: 1em;
+  z-index: 3;
+  box-shadow: 3px 3px 1px 1px#ededed;
+}
+
+.pageHeader {
+    color:#9560A8;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Montserrat;
+}
+
+.boldedSubheader {
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Montserrat;
+}
+
+.totalUserProfileHeader{
+    margin-top: 20px;
+    color:#9560A8;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: Montserrat;
+}
+
+.search-widget {
+  display:inline-block;
+  margin: 5px
 }
 
 .browse-filter-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: block;
+  // align-items: center;
+  // justify-content: flex-start;
+  // flex-wrap: wrap;
   border-radius: 10px;
   .browse-search {
     height: 40px;
@@ -64,10 +101,12 @@ $cardHeight: 240px;
 }
 
 .single-profile-wrapper {
-  margin: 1em;
+  margin: .5em;
   margin-bottom: 2em;
   display: flex;
+  background-color: white;
   flex-direction: column;
+  padding: 10px;
   -webkit-transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
   transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
   // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
@@ -83,7 +122,7 @@ $cardHeight: 240px;
     padding: 1em 0em 0em 0em;
     border-bottom-left-radius: $cardRadius;
     border-bottom-right-radius: $cardRadius;
-    z-index: 100;
+    z-index: 0;
     position: relative;
     color: #69616C;
     display: flex;
@@ -102,6 +141,108 @@ $cardHeight: 240px;
       margin-top: 0.1em;
       margin-bottom: 0;
     }
+
+    .other-profile-message-data{
+        color:#f0658c;
+        font-weight: bold;
+        padding-top: 20px;
+    }
+
+    .cancer-type-card{
+        color:white;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: inline-block;
+
+    }
+
+    .brain-cancer-type-card{
+        background-color: #525151;
+    }
+
+    .breast-cancer-type-card{
+        background-color: #EB5757;
+    }
+
+    .bladder-cancer-type-card{
+        background-color: #5282FC;
+    }
+
+    .bone-cancer-type-card{
+        background-color: #FCB852;
+    }
+
+    .other-cancer-type-card {
+        background-color: #9560A8;
+    }
+
+    .thyroid-cancer-type-card{
+        background-color: #4CB6D8;
+    }
+
+    .cervical-cancer-type-card{
+        background-color: #4CB6D8;
+    }
+
+    .colorectal-cancer-type-card{
+        background-color: #5282FC;
+    }
+
+    .esophageal-cancer-type-card{
+        background-color: #9560A8;
+    }
+
+    .gall-bladder-cancer-type-card{
+        background-color: #9560A8;
+    }
+
+    .gastric-cancer-type-card{
+        background-color: #9560A8;
+    }
+
+    .head-and-neck-cancer-type-card{
+        background-color: #902929;
+    }
+
+    .kidney-cancer-type-card{
+        background-color: #ff8947;
+    }
+
+    .leukemia-cancer-type-card{
+        background-color: #ff8947;
+    }
+
+    .liver-cancer-type-card{
+        background-color: #00a651;
+    }
+
+    .lung-cancer-type-card{
+        background-color: #525151;
+    }
+
+    .melanoma-cancer-type-card{
+        background-color: #1f1f1f;
+    }
+
+    .multiple-myeloma-cancer-type-card{
+        background-color: #902929;
+    }
+
+    .ovarian-cancer-type-card{
+        background-color: #4cb6db;
+    }
+
+    .pancreatic-cancer-type-card{
+        background-color: #9560a8;
+    }
+
+    .ovarian-cancer-type-card{
+        background-color: #fcb852;
+    }
+
   }
 }
 
@@ -138,7 +279,11 @@ $cardHeight: 240px;
 };
 
 .range-slider {
-  margin-left: 1em;
+  margin-left: 40px;
+}
+
+.lastLoginTime {
+  padding-top: 5px;
 }
 
 @media only screen and (max-width: 1300px) {
@@ -152,3 +297,6 @@ $cardHeight: 240px;
   }
 }
 
+.no-border-accordian {
+  border-style: none;
+}

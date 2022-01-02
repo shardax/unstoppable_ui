@@ -24,7 +24,8 @@
 .full-profile-icon-row {
   // display: flex;
   // align-items: center;
-  margin: 25px 0em;
+  margin: 15px 0em;
+  width: 100%;
   .field-question-profile {
     color: rgb(34,34,34);
     font-weight: 600;
@@ -70,6 +71,18 @@
   }
 }
 
+.readonly-input-field {
+  outline: none;
+  width: 90%;
+  margin: 8px 0;
+  padding: 10px 10px;
+  border-radius: 6px;
+  border-style: solid;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(69, 69, 69);
+}
+
 .full-profile-icon {
   font-size: 20px !important;
   color: black;
@@ -86,11 +99,27 @@
 }
 
 .user-section-image {
-  height: 240px;
-  width: 300px;
+  height: 150px;
+  width: 150px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
   border-radius: 5px;
   margin-bottom: 1em;
+}
+
+.photo-cropper {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.field-header {
+  font-size: 18px !important;
+  color: black;
+  // margin-top: -0.8em;
+  margin-right: 0.8em;
+  font-weight: bold;
 }
 
 .go-back-home {

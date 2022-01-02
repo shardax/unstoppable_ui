@@ -19,8 +19,21 @@
 
 .profile-section-header::before {
   font-weight: bold;
-}
 
+}
+.profile-section-header{ 
+  color: #07122E;
+  width: 658px;
+  height: 30px;
+  left: 632px;
+  top: 322px;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 30px;
+}
 .profile-section-header::after {
   font-weight: bold;
 }

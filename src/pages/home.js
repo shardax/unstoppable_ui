@@ -13,7 +13,7 @@ export default function Home() {
   }
 
   if (!store.user_confirmed) {
-    return <Redirect to="/wizard/0" />
+    return <Redirect to="/complete-profile/0" />
   }
   
   return (

@@ -17,7 +17,10 @@ const Input = styled.input<InputProps>`
   color: ${props => props.color ? props.color : "#484848"};
   background: ${props => props.background ? props.background : "#ffffff"};
   padding: ${props => props.padding ? props.padding : "4px 16px"};
+<<<<<<< HEAD
   min-width: 25em;
+=======
+>>>>>>> master
   height: 50px;
   border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};
   font-weight: 400;

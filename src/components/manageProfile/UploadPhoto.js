@@ -60,10 +60,10 @@ const UploadPhoto = (props) => {
   };
 
   const handleNext = () => {
-    history.push("/wizard/4");
+    history.push("/complete-profile/4");
   };
   const handlePrev = () => {
-    history.push("/wizard/2");
+    history.push("/complete-profile/2");
   };
 
   const handleCancelUpload = (e) => {
