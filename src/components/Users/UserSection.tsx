@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
-import { ALLPROFILESURL, ROOTURL, PROFILEURL } from "../../constants/matcher";
 import './index.scss';
+
+import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
+import React, { useEffect, useState } from 'react'
+
+import Brightness1Icon from '@material-ui/icons/Brightness1';
+import Button from '../Styled/Button';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import ExploreIcon from '@material-ui/icons/Explore';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import LikedProfile from '../Users/LikedProfile'
+import { Link } from 'react-router-dom';
+import NotesIcon from '@material-ui/icons/Notes';
+import Paper from '../Styled/Paper';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import SportsTennisIcon from '@material-ui/icons/SportsTennis';
+import StarIcon from '@material-ui/icons/Star';
+import TimeAgo from 'timeago-react';
+import Tooltip from '@material-ui/core/Tooltip';
+import WorkIcon from '@material-ui/icons/Work';
+import axios from 'axios';
 import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
-import { Link } from 'react-router-dom';
-import Button from '../Styled/Button';
-import Paper from '../Styled/Paper';
-import LikedProfile from '../Users/LikedProfile'
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import NotesIcon from '@material-ui/icons/Notes';
-import SportsTennisIcon from '@material-ui/icons/SportsTennis';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
-import WorkIcon from '@material-ui/icons/Work';
-import ExploreIcon from '@material-ui/icons/Explore';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import StarIcon from '@material-ui/icons/Star';
-import Brightness1Icon from '@material-ui/icons/Brightness1';
-import Tooltip from '@material-ui/core/Tooltip';
-import TimeAgo from 'timeago-react';
-
 
 const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
   const store = useDataStore()
