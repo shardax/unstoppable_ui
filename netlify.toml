@@ -8,16 +8,9 @@
 [context.production.environment]	
     NODE_ENV = "production"
 
-# The following redirect is intended for use with most SPAs that handle
-# routing internally.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  
 [[redirects]]
   from = "/test"
-  to = "/https://www.google.com/"
+  to = "https://www.google.com/"
   force = true
 
 [[headers]]
