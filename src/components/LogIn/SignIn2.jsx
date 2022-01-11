@@ -66,7 +66,8 @@ const SignIn2 = () => {
           try {
             const result = await axios.post(url,
               { user: {"username": values.username, "password": values.password}},
-              { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*" }
+              { crossorigin:true},
+              {headers: {"Access-Control-Allow-Origin": "*", contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials':true}
             });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
@@ -131,8 +132,6 @@ const SignIn2 = () => {
         <form className="form-spacing sign-in-card" style={{backgroundColor: 'white', borderRadius: '8px', 
         width: '480px'}} onSubmit={handleSubmit}>
           
-          
-
             <div>
               <img src={logo} className="logo-image" alt="Logo" width="300"/>
             </div>

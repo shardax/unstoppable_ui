@@ -353,7 +353,6 @@ import TimeAgo from 'timeago-react';
     // consider: using a component to represent each search widget 
     <>
       <div className="browse-container">
-          <Link> </Link>
           <h3 className="pageHeader">Browse Profiles</h3>
           <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
           <div className="browse-sticky-nav">
