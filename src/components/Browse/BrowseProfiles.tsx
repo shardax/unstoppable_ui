@@ -328,14 +328,7 @@ export const BrowseProfiles = () => {
       } else if (type === "unlike") {
         store.unlikeProfile(id);
       }
-      const result = await axios.patch(
-        url,
-        { profile: store.profile },
-        {
-          withCredentials: true,
-          headers: { "Access-Control-Allow-Origin": "*" },
-        }
-      );
+      const result = await axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "https://two-unstoppable.herokuapp.com/sign_in"}} )
     } catch (e) {
       console.log(e);
     }
@@ -615,22 +608,12 @@ export const BrowseProfiles = () => {
     // consider: using a component to represent each search widget
     <>
       <div className="browse-container">
-        <h3 className="pageHeader">Browse Profiles</h3>
-        <p>
-          Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
-          Stage)
-        </p>
-        <div className="browse-sticky-nav">
-          <h5 className="boldedSubheader" style={{padding: "0px 16px"}}>
-            I'm looking for an exercise buddy:
-          </h5>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "26px 16px 35px"
-            }}
-          >
+          <Link to={"/complete-profile/0"}> Complete Your Profile!</Link>
+          <h3 className="pageHeader">Browse Profiles</h3>
+          <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
+          <div className="browse-sticky-nav">
+            <h5 className="boldedSubheader" style={{marginLeft : "5px"}}>I'm looking for an exercise buddy:</h5>
+            
             {/* age slider */}
             <div>
               {/* <RangeSlider ageRange={ageRange} onChange={handleChange}/> */}
@@ -875,7 +858,7 @@ export const BrowseProfiles = () => {
               Reset
             </Button>
           </div>
-        </div>
+          
           <div className="totalUserProfileHeader">
             <b> Total User Profile - {numberOfProfiles}</b>
             <MenuPopupState/>
