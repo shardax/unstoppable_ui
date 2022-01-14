@@ -200,7 +200,7 @@ import TimeAgo from 'timeago-react';
       } else if (type==="unlike") {
         store.unlikeProfile(id)
       }
-      const result = await axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"}} )
+      const result = await axios.patch(url, { profile: store.profile }, {  withCredentials: true, headers: {"Access-Control-Allow-Origin": "https://uns1.herokuapp.com/users/sign_in"}} )
     } catch (e) {
       console.log(e)
     }
