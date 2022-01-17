@@ -38,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    width: '100%',
-    height: '100%',
+    width: '100%'
     
   },
   paper: {
