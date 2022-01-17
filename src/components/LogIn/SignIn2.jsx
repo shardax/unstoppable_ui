@@ -15,11 +15,14 @@ import { Formik } from "formik";
 import Input from '../Styled/Input'
 import { LOGINURL } from "../../constants/matcher";
 import {SearchParamsStore} from "../../UserStore";
+
 import axios from "axios";
+
 import logo from '../../images/2Unstoppable_logo.png';
 import {useDataStore} from "../../UserContext";
 import {View, TextInput} from "react";
 
+axios.defaults.withCredentials = true;
 // import {displayToast} from "../Toast/Toast";
 
 const ValidationSchema = Yup.object().shape({
@@ -66,8 +69,7 @@ const SignIn2 = () => {
           try {
             const result = await axios.post(url,
               { user: {"username": values.username, "password": values.password}},
-              { crossorigin:true},
-              {headers: {"Access-Control-Allow-Origin": "*", contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials':true}
+              {headers: {"Access-Control-Allow-Origin": "*", contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials':true, 'test-header': "test-data"}
             });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
@@ -135,13 +137,14 @@ const SignIn2 = () => {
             <div>
               <img src={logo} className="logo-image" alt="Logo" width="300"/>
             </div>
-          <div className="register all">
-            <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
-          </div>
+          
             <h2 className="sign-in-header">Sign In</h2>
             { errorMessage && <h3 className="error"> { errorMessage } </h3> }
 
             <div className="signin-wrapper">
+            <div className="register all">
+              <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
+            </div>
             <div className="input-row">
               <div className="input-format">
               <span>
