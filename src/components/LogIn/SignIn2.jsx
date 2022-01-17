@@ -22,7 +22,6 @@ import logo from '../../images/2Unstoppable_logo.png';
 import {useDataStore} from "../../UserContext";
 import {View, TextInput} from "react";
 
-axios.defaults.withCredentials = true;
 // import {displayToast} from "../Toast/Toast";
 
 const ValidationSchema = Yup.object().shape({
@@ -69,7 +68,7 @@ const SignIn2 = () => {
           try {
             const result = await axios.post(url,
               { user: {"username": values.username, "password": values.password}},
-              {headers: {"Access-Control-Allow-Origin": "*", contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials':true, 'test-header': "test-data"}
+              {headers: {"Access-Control-Allow-Origin": "*", contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials':true} 
             });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
