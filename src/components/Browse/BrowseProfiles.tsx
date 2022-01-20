@@ -7,7 +7,7 @@ import DiscreteSlider from "../Common/DiscreteSlider";
 import Radio from '@material-ui/core/Radio';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { useDataStore } from "../../UserContext";
-import {Link} from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import {SearchParamsStore} from "../../UserStore";
 import Pagination from "react-js-pagination";
 import {CANCERLOCATIONLIST, AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from '../../constants/ProfileConstants';
@@ -15,6 +15,7 @@ import './Browse.scss'
 import { useObserver } from "mobx-react";
 import Button from '../Styled/Button';
 import Select from '../Styled/Select';
+import NotificationIcon from '../../images/NotificationIcon.png';
 
 // accordian imports 
 import Accordion from '@material-ui/core/Accordion';
@@ -353,8 +354,11 @@ import TimeAgo from 'timeago-react';
     // consider: using a component to represent each search widget 
     <>
       <div className="browse-container">
-          <h3 className="pageHeader">Browse Profiles</h3>
-          <p>Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
+          <div className="browse-header">
+            <h3 className="pageHeader">Browse Profiles</h3>
+            <NavLink className="notification-link" to="/notifications"><img src={NotificationIcon} className="notification-icon" /></NavLink>
+            <p className="browse-subheader">Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
+          </div>
           <div className="browse-sticky-nav">
             <h5 className="boldedSubheader" style={{marginLeft : "5px"}}>I'm looking for an exercise buddy:</h5>
             

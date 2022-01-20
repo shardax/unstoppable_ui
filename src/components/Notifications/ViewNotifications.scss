@@ -1,0 +1,14 @@
+.notification-header {
+    padding-top: 25px;
+
+    h3 {
+        color: #9560A8;
+        font-size: 28px;
+        font-weight: 700;
+        font-family: "Montserrat";
+    }
+}
+
+.notification-list > *:not(:last-child) {
+    margin-bottom: 20px;
+}

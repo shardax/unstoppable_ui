@@ -15,6 +15,25 @@ $cardHeight: 240px;
   overflow: clip;
 }
 
+.browse-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.notification-link {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.notification-icon {
+  width: 32px;
+  height: auto;
+}
+
+.browse-subheader {
+  width: 100%;
+}
+
 .browse-sticky-nav {
   position: sticky;
   top: 0;
