@@ -229,7 +229,7 @@ export const BrowseProfiles = () => {
             >
               <BiSortAlt2 />
               &nbsp;
-              Open Menu
+              Sort By
               &nbsp;
               <IoIosArrowDown />
             </Button>
@@ -615,6 +615,7 @@ export const BrowseProfiles = () => {
     // consider: using a component to represent each search widget
     <>
       <div className="browse-container">
+        <Link to={"/complete-profile/0"}> Complete your Profile!</Link>
         <h3 className="pageHeader">Browse Profiles</h3>
         <p>
           Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
