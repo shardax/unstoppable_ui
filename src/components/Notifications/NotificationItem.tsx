@@ -9,6 +9,7 @@ import { Avatar } from "antd";
 
 const NotificationItem = ({ notification }) => {
   const store = useDataStore();
+  var options = { year: 'numeric', month: 'short', day: 'numeric' };
 
   const NotificationItem = ({ notification }) => useObserver(() => (
     <div className="notification-item">
@@ -19,6 +20,9 @@ const NotificationItem = ({ notification }) => {
         </h6>
         <p className="notification-description">
           {notification.description}
+        </p>
+        <p className="notification-date">
+          {notification.date.toLocaleDateString("en-US", options)}
         </p>
       </div>
     </div>
