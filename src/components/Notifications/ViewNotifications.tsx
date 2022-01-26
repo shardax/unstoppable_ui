@@ -17,13 +17,17 @@ const ViewNotifications: React.FC = ({}) => {
       image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
       header:"Finish Setting Up Your Profile:",
       description:"Make more connections when your profile is completed. Click here to start!",
-      date: new Date("January 6, 2022")
+      date: new Date("January 6, 2022"),
+      color: "#9560A8",
+      read: false,
     },
     {
       image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
       header:"Melody just sent you a message:",
       description:"Hi! I just noticed we have similar cancer diagnoses, I would love to connect with you!",
-      date: new Date("October 21, 2021")
+      date: new Date("October 21, 2021"),
+      color: "#F1658C",
+      read: true,
     }
   ]);
   const sortModes = [
