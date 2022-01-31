@@ -29,9 +29,9 @@ const ValidationSchema = Yup.object().shape({
   username: Yup.string()
     .min(1, "Too Short!")
     .max(255, "Too Long!")
-    .required(`This field is required`),
+    .required(`ⓘ  This field is required`),
   password: Yup.string()
-    .required("This field is required")
+    .required("ⓘ  This field is required")
 });
 
 
