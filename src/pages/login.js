@@ -34,12 +34,10 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: `url(${collage})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    width: '100%'
-    
+    //backgroundImage: `url(${collage})`,
+    //backgroundColor:
+      //theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      backgroundColor: "transparent"
   },
   paper: {
     margin: theme.spacing(5, 4),

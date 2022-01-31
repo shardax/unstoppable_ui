@@ -136,18 +136,16 @@ const SignIn2 = () => {
             <div>
               <img src={logo} className="logo-image" alt="Logo" width="300"/>
             </div>
-          <div className="register all">
-            <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
-          </div>
+          
             <h2 className="sign-in-header">Sign In</h2>
             { errorMessage && <h3 className="error"> { errorMessage } </h3> }
 
             <div className="signin-wrapper">
             <div className="input-row">
               <div className="input-format">
-              <span>
-                <FontAwesomeIcon icon={faUser} />
-                <Input
+              
+                <FontAwesomeIcon icon={faUser} className="iconInInputFormat"/>
+                <Input 
                   type="text"
                   name="username"
                   placeholder="Username"
@@ -155,24 +153,26 @@ const SignIn2 = () => {
                   onBlur={handleBlur}
                   value={values.username}
                   className={(touched.username && errors.username ? "has-error" : null)}
-                  padding={"1em"}
+                  padding = "10px 10px 10px 40px"
                   border="1px solid #f0f0f0"
                   focusBorder="1px solid #6429B9"
                   fontSize="14px"
                 />
-                </span>
+                
               </div>
               <Error touched={touched.username} message={errors.username} />
             </div>
 
           <div className="register all">
-            <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
+            <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
           </div>
+
+          
 
             <div className="input-row">
               <div className="input-format">
-              <span>
-                <FontAwesomeIcon icon={faLock} />
+              
+                <FontAwesomeIcon icon={faLock} className="iconInInputFormat"/>
                 <Input
                   type="password"
                   name="password"
@@ -181,15 +181,20 @@ const SignIn2 = () => {
                   onBlur={handleBlur}
                   value={values.password}
                   className={(touched.password && errors.password ? "has-error" : null)}
-                  padding={"1em"}
+                  padding = "10px 10px 10px 40px"
+                  
                   border="1px solid #f0f0f0"
                   focusBorder="1px solid #6429B9"
                   fontSize="14px"
                 />
-                </span>
+                
               </div>
               <Error touched={touched.password} message={errors.password} />
             </div>
+
+          <div className="register all">
+            <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
+          </div>
 
             {/* forgot password  */}
             <div className="input-row">
