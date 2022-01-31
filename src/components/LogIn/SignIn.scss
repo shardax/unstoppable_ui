@@ -10,7 +10,6 @@ body {
   position: fixed; 
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
 }
 .forgot{
   margin-top: 60px;
@@ -111,7 +110,12 @@ color: red;
 }
 
 .input-row {
-  margin: 10px 0px;
+  margin: 20px 0px 0px 0px;
+  
+}
+
+.last-input-row{
+  margin: 20px 0px 20px 0px;
 }
 
 .input-format {

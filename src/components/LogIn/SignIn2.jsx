@@ -26,9 +26,9 @@ const ValidationSchema = Yup.object().shape({
   username: Yup.string()
     .min(1, "Too Short!")
     .max(255, "Too Long!")
-    .required("Required"),
+    .required(`This field is required`),
   password: Yup.string()
-    .required("Required")
+    .required("This field is required")
 });
 
 
@@ -153,7 +153,7 @@ const SignIn2 = () => {
                   onBlur={handleBlur}
                   value={values.username}
                   className={(touched.username && errors.username ? "has-error" : null)}
-                  padding = "10px 10px 10px 40px"
+                  padding = "10px 10px 10px 50px"
                   border="1px solid #f0f0f0"
                   focusBorder="1px solid #6429B9"
                   fontSize="14px"
@@ -181,7 +181,7 @@ const SignIn2 = () => {
                   onBlur={handleBlur}
                   value={values.password}
                   className={(touched.password && errors.password ? "has-error" : null)}
-                  padding = "10px 10px 10px 40px"
+                  padding = "10px 10px 10px 50px"
                   
                   border="1px solid #f0f0f0"
                   focusBorder="1px solid #6429B9"
@@ -195,21 +195,22 @@ const SignIn2 = () => {
           <div className="register all">
             <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
           </div>
-
+            
             {/* forgot password  */}
-            <div className="input-row">
+            <div className="last-input-row">
               <Button className="login-buttons" type="submit" disabled={isSubmitting} style={{background: "#F1658C"}}>
                 SIGN IN
               </Button>
             </div>
+            {/* Commenting this part out since new members gain membership through the new Wix website */ }
             {/* Dont have an account? */}
-            <hr/>
+            {/*<hr/>
             <h6 className="no-account-header">Don't have an account?</h6>
             <div className="register">
               <Link to='/register' activeclassname="active">
                 <Button className="login-buttons" type="submit" style={{background: "#FFE7ED", color: "#F1658C"}}>SIGN UP</Button>
               </Link>
-            </div>
+            </div>*/}
           </div>
         </form>
       )}
