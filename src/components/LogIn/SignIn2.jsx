@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import {AGE_RANGE_CONSTANT, STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
 import {Link, useHistory} from 'react-router-dom';
 import React, { useState } from "react";
-import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import Button from '../Styled/Button'
 import Error from "./Error";
@@ -21,6 +21,7 @@ import axios from "axios";
 import logo from '../../images/2Unstoppable_logo.png';
 import {useDataStore} from "../../UserContext";
 import {View, TextInput} from "react";
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 // import {displayToast} from "../Toast/Toast";
 
@@ -174,20 +175,28 @@ const SignIn2 = () => {
               <div className="input-format">
               
                 <FontAwesomeIcon icon={faLock} className="iconInInputFormat"/>
+                
                 <Input
-                  type="password"
                   name="password"
                   placeholder="Password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
                   className={(touched.password && errors.password ? "has-error" : null)}
-                  padding = "10px 10px 10px 50px"
-                  
+                  padding = "10px 50px 10px 50px"
                   border="1px solid #f0f0f0"
                   focusBorder="1px solid #6429B9"
                   fontSize="14px"
                 />
+                <FontAwesomeIcon icon={faEye} className="passwordVisibilityEye" onClick={
+                  function togglePassword () {
+                    values.showPassword = !values.showPassword;
+                    var password = document.getElementsByName("password")[0];
+                    const type = password.getAttribute("type") === "password" ? "text" : "password";
+                    password.setAttribute("type", type);
+                  }
+                }/>
+                
                 
               </div>
               <Error touched={touched.password} message={errors.password} />
