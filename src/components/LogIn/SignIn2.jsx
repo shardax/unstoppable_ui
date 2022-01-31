@@ -141,9 +141,7 @@ const SignIn2 = () => {
             { errorMessage && <h3 className="error"> { errorMessage } </h3> }
 
             <div className="signin-wrapper">
-            <div className="register all">
-              <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
-            </div>
+            
             <div className="input-row">
               <div className="input-format">
               
