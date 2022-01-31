@@ -1,10 +1,10 @@
 // App Server URL
 //export const ROOTURL = "http://localhost:3001"
-export const ROOTURL = "https://uns1.herokuapp.com"
+export const ROOTURL = "https://two-unstoppable.herokuapp.com"
 
 // Web Socket URLs
 //export const WEBSOCKETCABLEURL = "ws://localhost:3001/cable"
-export const WEBSOCKETCABLEURL = "wss://uns1.herokuapp.ble"
+export const WEBSOCKETCABLEURL = "wss://two-unstoppable.herokuapp.ble"
 
 // Authorization and Registration related URLs
 export const LOGINURL = ROOTURL + "/users/sign_in"
