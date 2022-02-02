@@ -182,6 +182,7 @@ const SignIn2 = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
+                  type="password"
                   className={(touched.password && errors.password ? "has-error" : null)}
                   padding = "10px 50px 10px 50px"
                   border="1px solid #f0f0f0"
