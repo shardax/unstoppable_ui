@@ -83,6 +83,24 @@ const SideNav = () => {
           </div>
         ))}
       </div>
+
+      <div className="bottomLinks">
+        <div className="ULWrapper">
+          <ul className="noBulletUnorderedList">
+            <li><a href="https://2unstoppable.org/Terms-of-use/">Terms of Use</a></li>
+            <li><a href="https://2unstoppable.org/privacy-policy/">Privacy</a></li>
+            <li><a href="https://2unstoppable.org/Disclaimer/">Disclaimer</a></li>
+          </ul>
+          <ul className="noBulletUnorderedList">
+            <li><a href="https://2unstoppable.org/contact-us/">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <hr className="bottomLinkDivider"></hr>
+        <p color="white" className="bottomWhiteLinks">Registered 501(c)(3)</p>
+        <p color="white" className="bottomWhiteLinks">© 2022 2Unstoppable - All Rights Reserved.</p>
+
+      </div>
     </div>
   ))
 }
