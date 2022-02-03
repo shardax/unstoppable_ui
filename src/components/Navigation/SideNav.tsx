@@ -98,7 +98,7 @@ const SideNav = () => {
 
         <hr className="bottomLinkDivider"></hr>
         <p color="white" className="bottomWhiteLinks">Registered 501(c)(3)</p>
-        <p color="white" className="bottomWhiteLinks">© 2021 2Unstoppable - All Rights Reserved.</p>
+        <p color="white" className="bottomWhiteLinks">© 2022 2Unstoppable - All Rights Reserved.</p>
 
       </div>
     </div>
