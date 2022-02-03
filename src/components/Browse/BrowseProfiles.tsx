@@ -6,7 +6,7 @@ import {
   DISTANCE_WITHIN_CONSTANT,
 } from "../../constants/ProfileConstants";
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
-import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
 import React, { useEffect, useState } from "react";
 
 // accordian imports
@@ -25,7 +25,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
-import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
+import { IoIosArrowDown } from "react-icons/io";
 import { KeyboardArrowDown } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import LocationIcon from "@material-ui/icons/LocationOn";
