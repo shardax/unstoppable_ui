@@ -174,7 +174,7 @@ const FitnessStep: React.FC<IFitnessStep> = ({ editControls }) => {
                     <div className="profile-section-header">Activity/Fitness</div>
                     <div className="question-title">
                       Favorite activities (check all that apply)
-              </div>
+                   </div>
                     <div className="Answers">
                       {stringActivities.map(item => (
                         <label>

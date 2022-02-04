@@ -1,26 +1,37 @@
-import React, { useState} from "react";
-import {Link, useHistory} from 'react-router-dom';
 import './SignIn.scss';
+
+import * as Yup from "yup";
+
+import {AGE_RANGE_CONSTANT, STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
+import {Link, useHistory} from 'react-router-dom';
+import React, { useState } from "react";
+import { faEye, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+
+import Button from '../Styled/Button'
+import Error from "./Error";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import Autosuggest from "react-autosuggest";
 import { Formik } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import Error from "./Error";
-import {useDataStore} from "../../UserContext";
-import {SearchParamsStore} from "../../UserStore";
-import { LOGINURL } from "../../constants/matcher";
-import {STEP_CONFIRMED_EMAIL, STEP_EMAIL_CONFIRMATION_SENT, AGE_RANGE_CONSTANT} from "../../constants/ProfileConstants";
 import Input from '../Styled/Input'
-import Button from '../Styled/Button'
+import { LOGINURL } from "../../constants/matcher";
+import {SearchParamsStore} from "../../UserStore";
+
+import axios from "axios";
+
+import logo from '../../images/2Unstoppable_logo.png';
+import {useDataStore} from "../../UserContext";
+import {View, TextInput} from "react";
+import { text } from '@fortawesome/fontawesome-svg-core';
+
 // import {displayToast} from "../Toast/Toast";
 
 const ValidationSchema = Yup.object().shape({
   username: Yup.string()
     .min(1, "Too Short!")
     .max(255, "Too Long!")
-    .required("Required"),
+    .required(`ⓘ  This field is required`),
   password: Yup.string()
-    .required("Required")
+    .required("ⓘ  This field is required")
 });
 
 
@@ -28,7 +39,7 @@ const SignIn2 = () => {
   const history = useHistory();
   const url = LOGINURL;
   const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   const store = useDataStore()
 
@@ -47,7 +58,7 @@ const SignIn2 = () => {
         setSubmitting(true);
         setTimeout(() => {
           //alert(JSON.stringify(values, null, 2));
-          resetForm();
+          //resetForm();
           setSubmitting(false);
         }, 500);
 
@@ -58,7 +69,7 @@ const SignIn2 = () => {
           try {
             const result = await axios.post(url,
               { user: {"username": values.username, "password": values.password}},
-              { withCredentials: true, headers: { contentType: "application/json; charset=utf-8", "Accept": "application/json"}
+              {headers: {"Access-Control-Allow-Origin": "*", contentType: "application/json; charset=utf-8", "Accept": "application/json", "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials':true} 
             });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
@@ -86,7 +97,7 @@ const SignIn2 = () => {
           } catch (error) {
             console.log(error.message);
             if (error.message.includes("401")) {
-              setErrorMessage("Invalid Username or Password.");
+              setErrorMessage("ⓘ Oops! Username or password is incorrect.");
             } else {
               setErrorMessage(error.message);
             }
@@ -119,62 +130,98 @@ const SignIn2 = () => {
         isSubmitting,
         setFieldValue
       }) => (
-        <form className="form-spacing" onSubmit={handleSubmit}>
-          <h2>Login</h2>
-          { errorMessage && <h3 className="error"> { errorMessage } </h3> }
-          <div className="input-row">
-            <div className="input-format">
-              <label>Name</label>
-              <Input
-                type="text"
-                name="username"
-                placeholder="username"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.username}
-                className={(touched.username && errors.username ? "has-error" : null)}
-                padding={"1em"}
-                border="1px solid #f0f0f0"
-                focusBorder="1px solid #6429B9"
-                fontSize="14px"
-              />
+        // form for signing in 
+        <form className="form-spacing sign-in-card" style={{backgroundColor: 'white', borderRadius: '8px', 
+        width: '480px'}} onSubmit={handleSubmit}>
+          
+            <div>
+              <img src={logo} className="logo-image" alt="Logo" width="300"/>
             </div>
-            <Error touched={touched.username} message={errors.username} />
+          
+            <h2 className="sign-in-header">Sign In</h2>
+            {/* { errorMessage && <h3 className="error"> { errorMessage } </h3> } */}
+
+            <div className="signin-wrapper">
+            
+            <div className="input-row">
+              <div className="input-format">
+              
+                <FontAwesomeIcon icon={faUser} className="iconInInputFormat"/>
+                <Input 
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.username}
+                  className={(touched.username && errors.username ? "has-error" : null)}
+                  padding = "10px 10px 10px 50px"
+                  border="1px solid #f0f0f0"
+                  focusBorder="1px solid #6429B9"
+                  fontSize="14px"
+                />
+                
+              </div>
+              <Error touched={touched.username} message={errorMessage} />
+            </div>
+
+          <div className="register all">
+            <Link to='/forgot-username' activeclassname="active">Forgot Your Username?</Link>
           </div>
 
-          <div className="input-row">
-            <div className="input-format">
-              <label>Password</label>
-              <Input
-                type="password"
-                name="password"
-                placeholder="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-                className={(touched.password && errors.password ? "has-error" : null)}
-                padding={"1em"}
-                border="1px solid #f0f0f0"
-                focusBorder="1px solid #6429B9"
-                fontSize="14px"
-              />
-            </div>
-            <Error touched={touched.password} message={errors.password} />
-          </div>
+          
 
-          <div className="input-row">
-            <Button type="submit" disabled={isSubmitting} padding="8px 30px">
-              Log in
-            </Button>
+            <div className="input-row">
+              <div className="input-format">
+              
+                <FontAwesomeIcon icon={faLock} className="iconInInputFormat"/>
+                
+                <Input
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  type="password"
+                  className={(touched.password && errors.password ? "has-error" : null)}
+                  padding = "10px 50px 10px 50px"
+                  border="1px solid #f0f0f0"
+                  focusBorder="1px solid #6429B9"
+                  fontSize="14px"
+                />
+                <FontAwesomeIcon icon={faEye} className="passwordVisibilityEye" onClick={
+                  function togglePassword () {
+                    values.showPassword = !values.showPassword;
+                    var password = document.getElementsByName("password")[0];
+                    const type = password.getAttribute("type") === "password" ? "text" : "password";
+                    password.setAttribute("type", type);
+                  }
+                }/>
+                
+                
+              </div>
+              <Error touched={touched.password} message={errorMessage} />
+            </div>
+
+          <div className="register all">
+            <Link to='/forgot-password' activeclassname="active">Forgot Your Password?</Link>
           </div>
-          <div className="register">
-            <Link to='/register' activeclassname="active">Sign Up</Link>
-          </div>
-          <div className="register">
-            <Link to='/fusername' activeclassname="active">Forgot Your Username?</Link>
-          </div>
-          <div className="register">
-            <Link to='/fpassword' activeclassname="active">Forgot Your Password?</Link>
+            
+            {/* forgot password  */}
+            <div className="last-input-row">
+              <Button className="login-buttons" type="submit" disabled={isSubmitting} style={{background: "#F1658C"}}>
+                SIGN IN
+              </Button>
+            </div>
+            {/* Commenting this part out since new members gain membership through the new Wix website */ }
+            {/* Dont have an account? */}
+            {/*<hr/>
+            <h6 className="no-account-header">Don't have an account?</h6>
+            <div className="register">
+              <Link to='/register' activeclassname="active">
+                <Button className="login-buttons" type="submit" style={{background: "#FFE7ED", color: "#F1658C"}}>SIGN UP</Button>
+              </Link>
+            </div>*/}
           </div>
         </form>
       )}
