@@ -39,7 +39,7 @@ const SignIn2 = () => {
   const history = useHistory();
   const url = LOGINURL;
   const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   const store = useDataStore()
 
@@ -58,7 +58,7 @@ const SignIn2 = () => {
         setSubmitting(true);
         setTimeout(() => {
           //alert(JSON.stringify(values, null, 2));
-          resetForm();
+          //resetForm();
           setSubmitting(false);
         }, 500);
 
@@ -97,7 +97,7 @@ const SignIn2 = () => {
           } catch (error) {
             console.log(error.message);
             if (error.message.includes("401")) {
-              setErrorMessage("Invalid Username or Password.");
+              setErrorMessage("ⓘ Oops! Username or password is incorrect.");
             } else {
               setErrorMessage(error.message);
             }
@@ -139,7 +139,7 @@ const SignIn2 = () => {
             </div>
           
             <h2 className="sign-in-header">Sign In</h2>
-            { errorMessage && <h3 className="error"> { errorMessage } </h3> }
+            {/* { errorMessage && <h3 className="error"> { errorMessage } </h3> } */}
 
             <div className="signin-wrapper">
             
@@ -162,7 +162,7 @@ const SignIn2 = () => {
                 />
                 
               </div>
-              <Error touched={touched.username} message={errors.username} />
+              <Error touched={touched.username} message={errorMessage} />
             </div>
 
           <div className="register all">
@@ -200,7 +200,7 @@ const SignIn2 = () => {
                 
                 
               </div>
-              <Error touched={touched.password} message={errors.password} />
+              <Error touched={touched.password} message={errorMessage} />
             </div>
 
           <div className="register all">
