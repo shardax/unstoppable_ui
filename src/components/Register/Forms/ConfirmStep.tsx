@@ -19,7 +19,7 @@ const ConfirmStep = () => {
  
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/wizard/5");
+      history.push("/complete-profile/5");
     }
   }, []);
   
@@ -36,10 +36,10 @@ const ConfirmStep = () => {
             const result = await axios.get(REGISTERURL + "/" + store.current_user_id + "/email_confirmation", { withCredentials: true });
             console.log(JSON.stringify(result));
             console.log(result.data.username);
-            history.push("/wizard/5");
+            history.push("/complete-profile/5");
         } catch (error) {
           //console.log(JSON.stringify(error));
-          console.log(error.message);
+          // console.log(error.message);
           //setIsError(true);
         }
       }
