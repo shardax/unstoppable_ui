@@ -23,6 +23,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import DiscreteSlider from "../Common/DiscreteSlider";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
@@ -42,6 +43,7 @@ import TimeAgo from "timeago-react";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Typography } from "antd";
 import axios from "axios";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
 
@@ -57,6 +59,11 @@ export const BrowseProfiles = () => {
     store.savedSearchParams.ageRange[1],
   ]);
   const [distance, setDistance] = useState(store.savedSearchParams.distance);
+
+  // const [distanceRange, setDistanceRange] = useState([
+  //   store.savedSearchParams.distanceRange[0],
+  //   store.savedSearchParams.distanceRange[1],
+  // ]);
   const [keywordSearchType, setKeywordSearchType] = useState("OR");
   // Cancer type selected from dropdpwn list
   const [cancerTypeKeyword, setCancerTypeKeyword] = useState(
@@ -121,6 +128,8 @@ export const BrowseProfiles = () => {
             min_age: ageRange[0],
             max_age: ageRange[1],
             distance: distance,
+            // min_distance: distanceRange[0],
+            // max_distance: distanceRange[1],
             commit: "Search",
             search: filter,
             keywordsSelect: keywordsSelect,
@@ -152,6 +161,7 @@ export const BrowseProfiles = () => {
     filter,
     ageRange,
     distance,
+    // distanceRange,
     keywordSearchType,
     activeUsers,
     distanceOrder,
@@ -174,12 +184,13 @@ export const BrowseProfiles = () => {
 
   ]);
 
-  const handleChange = (event: any, newAgeRange: number[]) => {
+  const handleAgeChange = (newAgeRange: number[]) => {
     setAgeRange(newAgeRange);
   };
 
-  const handleDistanceChange = (event: any, newDistance: number) => {
-    setDistance(newDistance);
+  const handleDistanceChange = (newDistanceRange: number[]) => {
+
+    
   };
 
   // Used by Checkbox for Active Users
@@ -285,6 +296,7 @@ export const BrowseProfiles = () => {
     store.savedSearchParams.filter = filter;
     store.savedSearchParams.ageRange = ageRange;
     store.savedSearchParams.distance = distance;
+    // store.savedSearchParams.distanceRange = distanceRange
     store.savedSearchParams.cancerTypeKeyword = cancerTypeKeyword;
     store.savedSearchParams.stateCodeKeyword = stateCodeKeyword;
     store.savedSearchParams.zipcodeKeyword = zipcodeKeyword;
@@ -302,6 +314,7 @@ export const BrowseProfiles = () => {
     setFilter(store.savedSearchParams.filter);
     setAgeRange(store.savedSearchParams.ageRange);
     setDistance(store.savedSearchParams.distance);
+    // setDistanceRange(store.savedSearchParams.distanceRange)
     setCancerTypeKeyword(store.savedSearchParams.cancerTypeKeyword);
     setStateCodeKeyword(store.savedSearchParams.stateCodeKeyword);
     setZipcodeKeyword(store.savedSearchParams.zipcodeKeyword);
@@ -610,6 +623,8 @@ export const BrowseProfiles = () => {
     ))}
   </div>
   }
+  const [minDistance, setMinDistance] = useState(1);
+  const [maxDistance, setMaxDistance] = useState(99);
 
   return useObserver(() => (
     // consider: using a component to represent each search widget
@@ -625,6 +640,18 @@ export const BrowseProfiles = () => {
           <h5 className="boldedSubheader" style={{padding: "0px 16px"}}>
             I'm looking for an exercise buddy:
           </h5>
+          <div className="box">
+          <FontAwesomeIcon icon={faSearch} />
+          <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
+                    <input
+                      className="browse-search global-input"
+                      color="#525151"
+                      value={filter}
+                      onChange={(e) => setFilter(e.target.value)}
+                      placeholder="Free Text Search"
+                    />
+          </Tooltip>
+          </div>
           <div
             style={{
               display: "flex",
@@ -633,24 +660,63 @@ export const BrowseProfiles = () => {
             }}
           >
             {/* age slider */}
-            <div>
+            <div style={{ display: "table-caption" }}>
               {/* <RangeSlider ageRange={ageRange} onChange={handleChange}/> */}
-              <label style={{ display: "table-caption" }}>
-                {" "}
-                Age
-                <Select></Select>
-              </label>
+              
+                <div>Age</div>
+                <div style={{display: "inline-flex"}}>
+                  <label style={{display: "flex", alignItems: "baseline" }}> Min
+                    &nbsp;
+                    <input
+                    value={ageRange[0]}
+                    onChange={(e) => handleAgeChange([Number(e.target.value), ageRange[1]])}
+                    placeholder="Min"
+                    style={{ width: 45}}
+                    />
+                  </label>
+                  <label style={{display: "flex", alignItems: "baseline" }}>
+                    Max
+                    &nbsp;
+                    <input
+                    value={ageRange[1]}
+                    onChange={(e) => handleAgeChange([ageRange[0], Number(e.target.value)])}
+                    placeholder="Max"
+                    style={{ width: 45}}
+                    />
+                    Years
+
+                  </label>
+                </div>
+                
+      
             </div>
             {/* distance */}
             <div>
               {/* {!reset && <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>}
             {reset && <DiscreteSlider  distance={DISTANCE_WITHIN_CONSTANT} onChange={handleDistanceChange}/>} */}
-              <label style={{ display: "table-caption" }}>
-                {" "}
-                Distance
-                {!reset && <Select></Select>}
-                {reset && <Select></Select>}
-              </label>
+              <div style={{display: "inline-flex"}}>
+                  <label style={{display: "flex", alignItems: "baseline" }}> Min
+                    &nbsp;
+                    <input
+                    value={minDistance}
+                    onChange={(e) => handleDistanceChange([Number(e.target.value), maxDistance])}
+                    placeholder="Min"
+                    style={{ width: 45}}
+                    />
+                  </label>
+                  <label style={{display: "flex", alignItems: "baseline" }}>
+                    Max
+                    &nbsp;
+                    <input
+                    value={maxDistance}
+                    onChange={(e) => handleDistanceChange([minDistance, Number(e.target.value)])}
+                    placeholder="Max"
+                    style={{ width: 45}}
+                    />
+                    Miles
+
+                  </label>
+                </div>
             </div>
             {/* city/state */}
             {store.uniqueLists &&
@@ -727,7 +793,7 @@ export const BrowseProfiles = () => {
               style={{ boxShadow: "none", padding: "0px !important" }}
             >
               <AccordionSummary
-                className="MuiAccordionSummary-root"
+                // className="MuiAccordionSummary-root"
                 expandIcon={<KeyboardArrowDown />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
@@ -739,18 +805,10 @@ export const BrowseProfiles = () => {
 
               <AccordionDetails>
                 <div className="accordian-inside">
-                  <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
-                    <input
-                      className="browse-search global-input search-widget"
-                      value={filter}
-                      onChange={(e) => setFilter(e.target.value)}
-                      placeholder="Free Text Search"
-                    />
-                  </Tooltip>
                   {/* cancer type*/}
                   <Select
                     onChange={(e) => setCancerTypeKeyword(e.target.value)}
-                    margin="0em 2em"
+                    // margin="0em 2em"
                     value={cancerTypeKeyword}
                     className="search-widget"
                   >
@@ -773,7 +831,7 @@ export const BrowseProfiles = () => {
                       <div className="search-widget">
                         <Select
                           onChange={(e) => setZipcodeKeyword(e.target.value)}
-                          margin="0em 2em"
+                          // margin="0em 2em"
                           value={zipcodeKeyword}
                         >
                           <option
@@ -790,7 +848,7 @@ export const BrowseProfiles = () => {
                   {/* Which of the following best describes you? */}
                   <Select
                     onChange={(e) => setPersonality(e.target.value)}
-                    margin="0em 2em"
+                    // margin="0em 2em"
                     value={cancerTypeKeyword}
                     className="search-widget"
                   >
@@ -809,7 +867,7 @@ export const BrowseProfiles = () => {
                       <div className="search-widget">
                         <Select
                           onChange={(e) => setZipcodeKeyword(e.target.value)}
-                          margin="0em 2em"
+                          // margin="0em 2em"
                           value={zipcodeKeyword}
                         >
                           <option
@@ -829,7 +887,7 @@ export const BrowseProfiles = () => {
                       <div className="search-widget">
                         <Select
                           onChange={(e) => setZipcodeKeyword(e.target.value)}
-                          margin="0em 2em"
+                          // margin="0em 2em"
                           value={zipcodeKeyword}
                         >
                           <option
