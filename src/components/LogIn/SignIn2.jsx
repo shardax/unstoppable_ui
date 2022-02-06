@@ -23,6 +23,7 @@ import {useDataStore} from "../../UserContext";
 import {View, TextInput} from "react";
 import { text } from '@fortawesome/fontawesome-svg-core';
 
+axios.defaults.withCredentials = true;
 // import {displayToast} from "../Toast/Toast";
 
 const ValidationSchema = Yup.object().shape({
