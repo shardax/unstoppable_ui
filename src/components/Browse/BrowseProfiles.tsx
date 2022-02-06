@@ -74,6 +74,16 @@ import TimeAgo from 'timeago-react';
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
   const [personality, setPersonality] = useState(store.savedSearchParams.personality);
   const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
+
+  // dummy data for notification
+  const [newNotif, setNewNotif] = useState<any>({
+      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
+      header:"Finish Setting Up Your Profile",
+      description:"Make more connections when your profile is completed. Click here to start!",
+      date: new Date("January 6, 2022"),
+      color: "#9560A8",
+      read: false,
+  })
  
 
   useEffect(() => {
@@ -345,6 +355,20 @@ import TimeAgo from 'timeago-react';
     };
   };
 
+  const checkCreateNotification = () => {
+    if (newNotif != null) {
+      return (<div className="notification-popup">
+      <p className="notification-text">{newNotif.header}</p>
+      <Button className="notification-action-btn">LETS GO</Button>
+      <Button className="notification-close-btn" onClick={() => closeNotification()}>X</Button>
+    </div>)
+    }
+  }
+
+  const closeNotification = () => {
+    setNewNotif(null);
+  }
+
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setPageCounter(pageNumber);
@@ -357,6 +381,9 @@ import TimeAgo from 'timeago-react';
           <div className="browse-header">
             <h3 className="pageHeader">Browse Profiles</h3>
             <NavLink className="notification-link" to="/notifications"><img src={NotificationIcon} className="notification-icon" /></NavLink>
+
+          {checkCreateNotification()}
+            
             <p className="browse-subheader">Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
           </div>
           <div className="browse-sticky-nav">

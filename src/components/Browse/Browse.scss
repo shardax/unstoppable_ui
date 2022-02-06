@@ -30,6 +30,46 @@ $cardHeight: 240px;
   height: auto;
 }
 
+.notification-popup {
+  background-color: rgba(149, 96, 168, 0.7);
+  position: absolute;
+  right: 300px;
+
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 30px;
+
+  font-family: "Montserrat";
+  color: white;
+
+  .notification-text {
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .notification-action-btn {
+    font-size: 12px;
+    width: 120px;
+    height: 30px;
+    border-radius: 20px;
+  }
+
+  .notification-close-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    
+    padding: 2px 5px 2px 5px;
+    background: transparent;
+    font-weight: 600;
+  }
+}
+
 .browse-subheader {
   width: 100%;
 }
