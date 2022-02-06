@@ -98,11 +98,24 @@
     position: absolute;
     bottom: 10px;
     align-content: center;
+    align-items: center;
   }
 
   .bottomLinks a{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    /* identical to box height, or 167% */
+
+   
+    align-items: center;
+    text-align: center;
+
+    /* main */
+
     color: #F1658C;
-    font-size: 10px;
   }
 
   .ULWrapper{
@@ -111,7 +124,6 @@
 
   .noBulletUnorderedList{
     list-style-type:none;
-    display: inline-block;
     padding-left: 0px;
     margin-bottom: 0px;
     padding-bottom: 0px;
@@ -119,8 +131,7 @@
 
   .noBulletUnorderedList li{
     padding:2px 5px 2px 5px;
-    
-    float: left;
+    text-align: center;
   }
 
   .bottomLinkDivider{
@@ -130,8 +141,20 @@
   }
 
   .bottomWhiteLinks{
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 157% */
+
+    display: flex;
+    align-items: center;
     text-align: center;
-    padding: 0px 5px 0px 5px;
+
+    color: #FFFFFF;
+    padding: 0px 10px 0px 10px;
   }
 }
 
