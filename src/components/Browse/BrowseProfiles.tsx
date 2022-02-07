@@ -26,7 +26,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
-import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
+import { IoIosArrowDown } from "react-icons/io";
 import { KeyboardArrowDown } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import LocationIcon from "@material-ui/icons/LocationOn";
@@ -171,8 +171,6 @@ export const BrowseProfiles = () => {
     pageCounter,
   ]);
 
-
-
   useEffect(() => {
     addAllKeywords();
   }, [
@@ -181,17 +179,13 @@ export const BrowseProfiles = () => {
     zipcodeKeyword,
     cityKeyword,
     filter,
-
   ]);
 
   const handleAgeChange = (newAgeRange: number[]) => {
     setAgeRange(newAgeRange);
   };
 
-  const handleDistanceChange = (newDistanceRange: number[]) => {
-
-    
-  };
+  const handleDistanceChange = (newDistanceRange: number[]) => {};
 
   // Used by Checkbox for Active Users
   const handleActiveUsers = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -199,34 +193,42 @@ export const BrowseProfiles = () => {
     console.log(event.target.checked);
   };
 
-
   const MenuPopupState = () => {
-
     const sortProfileCards = (sortBy, popupState) => {
-      let userCollectionTemp
-      switch(sortBy){
+      let userCollectionTemp;
+      switch (sortBy) {
         case "Age":
-          userCollectionTemp = userCollection.slice().sort((profile1, profile2) => profile2.age - profile1.age)
-          setUserCollection(userCollectionTemp)
-          break
+          userCollectionTemp = userCollection
+            .slice()
+            .sort((profile1, profile2) => profile2.age - profile1.age);
+          setUserCollection(userCollectionTemp);
+          break;
         case "Distance":
-          userCollectionTemp = userCollection.slice().sort((profile1, profile2) => profile1.distance - profile2.distance)
-          setUserCollection(userCollectionTemp)
-          console.log("Distance", userCollection)
-          break
+          userCollectionTemp = userCollection
+            .slice()
+            .sort(
+              (profile1, profile2) => profile1.distance - profile2.distance
+            );
+          setUserCollection(userCollectionTemp);
+          console.log("Distance", userCollection);
+          break;
         case "Last Online":
-          userCollectionTemp = userCollection.slice().sort((profile1, profile2) => profile1.last_seen_at - profile2.last_seen_at)
-          setUserCollection(userCollectionTemp)
-          console.log("Last Oneline", userCollection)
-          break
+          userCollectionTemp = userCollection
+            .slice()
+            .sort(
+              (profile1, profile2) =>
+                profile1.last_seen_at - profile2.last_seen_at
+            );
+          setUserCollection(userCollectionTemp);
+          console.log("Last Oneline", userCollection);
+          break;
         case "New Members":
-          break
+          break;
         default:
-          break
-  
+          break;
       }
-      popupState()
-    }
+      popupState();
+    };
     return (
       <PopupState variant="popover" popupId="demo-popup-menu">
         {(popupState) => (
@@ -239,22 +241,44 @@ export const BrowseProfiles = () => {
               {...bindTrigger(popupState)}
             >
               <BiSortAlt2 />
-              &nbsp;
-              Sort By
-              &nbsp;
+              &nbsp; Sort By &nbsp;
               <IoIosArrowDown />
             </Button>
             <Menu {...bindMenu(popupState)}>
-              <MenuItem style={{ color: "white", background: "#9560A8" }} onClick={() => sortProfileCards("Age", popupState.close)}>Age</MenuItem>
-              <MenuItem style={{ color: "white", background: "#9560A8" }} onClick={() => sortProfileCards("Distance", popupState.close)}>Distance</MenuItem>
-              <MenuItem style={{ color: "white", background: "#9560A8" }} onClick={() => sortProfileCards("Last Online", popupState.close)}>Last Online</MenuItem>
-              <MenuItem style={{ color: "white", background: "#9560A8" }} onClick={() => sortProfileCards("New Members", popupState.close)}>New Members</MenuItem>
+              <MenuItem
+                style={{ color: "white", background: "#9560A8" }}
+                onClick={() => sortProfileCards("Age", popupState.close)}
+              >
+                Age
+              </MenuItem>
+              <MenuItem
+                style={{ color: "white", background: "#9560A8" }}
+                onClick={() => sortProfileCards("Distance", popupState.close)}
+              >
+                Distance
+              </MenuItem>
+              <MenuItem
+                style={{ color: "white", background: "#9560A8" }}
+                onClick={() =>
+                  sortProfileCards("Last Online", popupState.close)
+                }
+              >
+                Last Online
+              </MenuItem>
+              <MenuItem
+                style={{ color: "white", background: "#9560A8" }}
+                onClick={() =>
+                  sortProfileCards("New Members", popupState.close)
+                }
+              >
+                New Members
+              </MenuItem>
             </Menu>
           </React.Fragment>
         )}
       </PopupState>
     );
-  }
+  };
 
   const addAllKeywords = () => {
     let allKeywords = cancerTypeKeyword ? cancerTypeKeyword : "";
@@ -288,8 +312,6 @@ export const BrowseProfiles = () => {
     //displayText = distanceOrder? displayText +  "  " + " SortOrder: " + distanceOrder : displayText;
     setSearchTextDisplay(displayText);
   };
-
-  
 
   // saves search criteria in local store
   const saveSearchCriteria = () => {
@@ -489,7 +511,6 @@ export const BrowseProfiles = () => {
     }
   };
 
-
   const ProfileCard = ({ profile }) =>
     useObserver(() => (
       <div className="single-profile-wrapper " key={profile.id}>
@@ -615,13 +636,14 @@ export const BrowseProfiles = () => {
     setPageCounter(pageNumber);
   };
 
-
   function ShowProfileCards() {
-    return   <div className="profile-browse-grid">
-    {userCollection.map((profile: any) => (
-      <ProfileCard profile={profile} />
-    ))}
-  </div>
+    return (
+      <div className="profile-browse-grid">
+        {userCollection.map((profile: any) => (
+          <ProfileCard profile={profile} />
+        ))}
+      </div>
+    );
   }
   const [minDistance, setMinDistance] = useState(1);
   const [maxDistance, setMaxDistance] = useState(99);
@@ -637,86 +659,98 @@ export const BrowseProfiles = () => {
           Stage)
         </p>
         <div className="browse-sticky-nav">
-          <h5 className="boldedSubheader" style={{padding: "0px 16px"}}>
+          <h5 className="boldedSubheader" style={{ padding: "0px 16px" }}>
             I'm looking for an exercise buddy:
           </h5>
-          <div className="box">
-          <FontAwesomeIcon icon={faSearch} />
-          <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
-                    <input
-                      className="browse-search global-input"
-                      color="#525151"
-                      value={filter}
-                      onChange={(e) => setFilter(e.target.value)}
-                      placeholder="Free Text Search"
-                    />
-          </Tooltip>
+          <div className="browse-search-box">
+            <FontAwesomeIcon icon={faSearch} />
+            <Tooltip title="Add any word including the cancer type, state, zipcode or city. Example: 1) 20854 Breast Ovarian 2)  VA TNBC 3)   Lung Rockville Gaithersburg 4)   MD DCIS kidney Stage 3">
+              <input
+                className="browse-search global-input"
+                color="#525151"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="Free Text Search"
+              />
+            </Tooltip>
           </div>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
-              padding: "26px 16px 35px"
+              padding: "26px 16px 35px",
             }}
           >
             {/* age slider */}
             <div style={{ display: "table-caption" }}>
               {/* <RangeSlider ageRange={ageRange} onChange={handleChange}/> */}
-              
-                <div>Age</div>
-                <div style={{display: "inline-flex"}}>
-                  <label style={{display: "flex", alignItems: "baseline" }}> Min
-                    &nbsp;
-                    <input
-                    value={ageRange[0]}
-                    onChange={(e) => handleAgeChange([Number(e.target.value), ageRange[1]])}
-                    placeholder="Min"
-                    style={{ width: 45}}
-                    />
-                  </label>
-                  <label style={{display: "flex", alignItems: "baseline" }}>
-                    Max
-                    &nbsp;
-                    <input
-                    value={ageRange[1]}
-                    onChange={(e) => handleAgeChange([ageRange[0], Number(e.target.value)])}
-                    placeholder="Max"
-                    style={{ width: 45}}
-                    />
-                    Years
 
-                  </label>
-                </div>
-                
-      
+              <div className="filter-label">Age</div>
+              <div style={{ display: "inline-flex" }}>
+                <label style={{ display: "flex", alignItems: "baseline" }}>
+                  {" "}
+                  <span className="filter-label"> Min </span> &nbsp;
+                  <input
+                    value={ageRange[0]}
+                    onChange={(e) =>
+                      handleAgeChange([Number(e.target.value), ageRange[1]])
+                    }
+                    placeholder="Min"
+                    style={{ width: 45 }}
+                  />
+                </label>
+                <label style={{ display: "flex", alignItems: "baseline", marginLeft: "10px" }}>
+                  <span className="filter-label"> Max </span> &nbsp;
+                  <input
+                    value={ageRange[1]}
+                    onChange={(e) =>
+                      handleAgeChange([ageRange[0], Number(e.target.value)])
+                    }
+                    placeholder="Max"
+                    style={{ width: 45 }}
+                  />
+                  &nbsp;
+                  <span className="filter-label"> Years </span>
+                </label>
+              </div>
             </div>
-            {/* distance */}
             <div>
+              <div className="filter-label">Distance</div>
               {/* {!reset && <DiscreteSlider  distance={distance} onChange={handleDistanceChange}/>}
             {reset && <DiscreteSlider  distance={DISTANCE_WITHIN_CONSTANT} onChange={handleDistanceChange}/>} */}
-              <div style={{display: "inline-flex"}}>
-                  <label style={{display: "flex", alignItems: "baseline" }}> Min
-                    &nbsp;
-                    <input
+              <div style={{ display: "inline-flex" }}>
+                <label style={{ display: "flex", alignItems: "baseline" }}>
+                  {" "}
+                  <span className="filter-label"> Min </span>&nbsp;
+                  <input
                     value={minDistance}
-                    onChange={(e) => handleDistanceChange([Number(e.target.value), maxDistance])}
+                    onChange={(e) =>
+                      handleDistanceChange([
+                        Number(e.target.value),
+                        maxDistance,
+                      ])
+                    }
                     placeholder="Min"
-                    style={{ width: 45}}
-                    />
-                  </label>
-                  <label style={{display: "flex", alignItems: "baseline" }}>
-                    Max
-                    &nbsp;
-                    <input
+                    style={{ width: 45 }}
+                  />
+                </label>
+                <label style={{ display: "flex", alignItems: "baseline" , marginLeft: "10px"}}>
+                <span className="filter-label"> Max </span>&nbsp;
+                  <input
                     value={maxDistance}
-                    onChange={(e) => handleDistanceChange([minDistance, Number(e.target.value)])}
+                    onChange={(e) =>
+                      handleDistanceChange([
+                        minDistance,
+                        Number(e.target.value),
+                      ])
+                    }
                     placeholder="Max"
-                    style={{ width: 45}}
-                    />
-                    Miles
-
-                  </label>
-                </div>
+                    style={{ width: 45 }}
+                  />
+                  &nbsp;
+                  <span className="filter-label"> Miles </span>
+                </label>
+              </div>
             </div>
             {/* city/state */}
             {store.uniqueLists &&
@@ -724,15 +758,16 @@ export const BrowseProfiles = () => {
                 <div>
                   <label style={{ display: "table-caption" }}>
                     {" "}
-                    City/State
+                    <span className="filter-label">City/State</span>
                     <Select
+                      style={{width: '25em'}}
                       onChange={(e) => setStateCodeKeyword(e.target.value)}
                       value={stateCodeKeyword}
                     >
                       <option
                         className="selector"
                         value=""
-                        label="- Select City/State -"
+                        label="Select State"
                       />
                       {store.uniqueLists.unique_state_codes.map((sc: any) => (
                         <option className="selector" value={sc} label={sc} />
@@ -741,8 +776,8 @@ export const BrowseProfiles = () => {
                   </label>
                 </div>
               )}
-            </div>
-            {/* {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div className="search-widget">
+          </div>
+          {/* {(store.uniqueLists && store.uniqueLists.unique_cities.length > 1) && <div className="search-widget">
                 <Select onChange={e => setCityKeyword(e.target.value)} margin="0em 2em" value={cityKeyword} >
                   <option className="selector" value="" label="- Select City -" />
                   {store.uniqueLists.unique_cities.map((c: any) => (
@@ -750,38 +785,53 @@ export const BrowseProfiles = () => {
                 ))}
                 </Select>
               </div>} */}
-            {/* active users filter */}
-          <div  style={{
+          {/* active users filter */}
+          <div
+            style={{
               padding: "0px 16px 35px",
-              display: "flex"
-            }}>
-              {/* className="range-slider search-widget" */}
-              <Tooltip title="Displays Users active since the last 5 minutes">
-                <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={activeUsers}
-                        onChange={(e) => handleActiveUsers(e)}
-                        name="activeUsers"
-                        color="primary"
-                      />
-                    }
-                    label="Active Users"
-                  />
-                </FormGroup>
-              </Tooltip>
+              display: "flex",
+              justifyContent: "space-between"
+            }}
+          >
+            {/* className="range-slider search-widget" */}
+            <div className="form-group-alignment">
+            <Tooltip title="Displays Users active since the last 5 minutes">
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={activeUsers}
+                      onChange={(e) => handleActiveUsers(e)}
+                      name="activeUsers"
+                      color="primary"
+                    />
+                  }
+                  label="Active Users"
+                />
+              </FormGroup>
+            </Tooltip>
             {/* yes to long distance button */}
-              <Tooltip title="Displays Users Who are Receptive to a Long Distance Buddy">
-                <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Checkbox name="yes-long-distance" color="primary" />
-                    }
-                    label="Yes to a Long-distance Buddy"
-                  />
-                </FormGroup>
-              </Tooltip>
+            <Tooltip title="Displays Users Who are Receptive to a Long Distance Buddy">
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox name="yes-long-distance" color="primary" />
+                  }
+                  label="Yes to a Long-distance Buddy"
+                />
+              </FormGroup>
+            </Tooltip>
+            </div>
+            <Select
+              style={{width: '25em'}}
+              onChange={(e) => setStateCodeKeyword(e.target.value)}
+              value={stateCodeKeyword}
+            >
+              <option className="selector" value="" label="Select City" />
+              {store.uniqueLists.unique_state_codes.map((sc: any) => (
+                <option className="selector" value={sc} label={sc} />
+              ))}
+            </Select>
           </div>
 
           {/* <h5 className="boldedSubheader">Advanced Search</h5> */}
@@ -805,8 +855,15 @@ export const BrowseProfiles = () => {
 
               <AccordionDetails>
                 <div className="accordian-inside">
+                <div style={{display: "inline-flex"}}>
                   {/* cancer type*/}
+                  <label style={{justifyContent: "center",
+ 
+    display: "grid"}}>
+                  <span className="filter-label"> Cancer Type </span>
+                   <div className="search-widget">
                   <Select
+                    style={{width: '20em'}}
                     onChange={(e) => setCancerTypeKeyword(e.target.value)}
                     // margin="0em 2em"
                     value={cancerTypeKeyword}
@@ -825,11 +882,19 @@ export const BrowseProfiles = () => {
                       />
                     ))}
                   </Select>
+                
+                  </div>
+                  </label>
                   {/* zipcode */}
                   {store.uniqueLists &&
                     store.uniqueLists.unique_zipcodes.length > 1 && (
+                      <label style={{justifyContent: "center",
+ 
+    display: "grid"}}>
+    <span className="filter-label"> Keyword </span>
                       <div className="search-widget">
                         <Select
+                        style={{width: '20em'}}
                           onChange={(e) => setZipcodeKeyword(e.target.value)}
                           // margin="0em 2em"
                           value={zipcodeKeyword}
@@ -844,9 +909,16 @@ export const BrowseProfiles = () => {
                           ))}
                         </Select>
                       </div>
+                      </label>
                     )}
                   {/* Which of the following best describes you? */}
+                   <label style={{justifyContent: "center",
+ 
+    display: "grid"}}>
+    <span className="filter-label"> Which of the following best describes you? </span>
+                <div className="search-widget">
                   <Select
+                  style={{width: '20em'}}
                     onChange={(e) => setPersonality(e.target.value)}
                     // margin="0em 2em"
                     value={cancerTypeKeyword}
@@ -861,11 +933,18 @@ export const BrowseProfiles = () => {
               <option className="selector" value={personality} label={personality} />
             ))} */}
                   </Select>
+                  </div>
+                  </label>
                   {/* Favorite activities */}
                   {store.uniqueLists &&
                     store.uniqueLists.unique_zipcodes.length > 1 && (
+                       <label style={{justifyContent: "center",
+ 
+    display: "grid"}}>
+    <span className="filter-label"> Favorite activies </span>
                       <div className="search-widget">
                         <Select
+                        style={{width: '20em'}}
                           onChange={(e) => setZipcodeKeyword(e.target.value)}
                           // margin="0em 2em"
                           value={zipcodeKeyword}
@@ -880,12 +959,16 @@ export const BrowseProfiles = () => {
               ))} */}
                         </Select>
                       </div>
+                      </label>
                     )}
+                  </div>
                   {/* Preferred exercise location */}
+                  <div>
                   {store.uniqueLists &&
                     store.uniqueLists.unique_zipcodes.length > 1 && (
                       <div className="search-widget">
                         <Select
+                        style={{width: '20em'}}
                           onChange={(e) => setZipcodeKeyword(e.target.value)}
                           // margin="0em 2em"
                           value={zipcodeKeyword}
@@ -901,6 +984,7 @@ export const BrowseProfiles = () => {
                         </Select>
                       </div>
                     )}
+                    </div>
                 </div>
 
                 {/* <div className="range-slider">
@@ -935,13 +1019,13 @@ export const BrowseProfiles = () => {
             </Button>
           </div>
         </div>
-          <div className="totalUserProfileHeader">
-            <b> Total User Profile - {numberOfProfiles}</b>
-            <MenuPopupState/>
-          </div>
+        <div className="totalUserProfileHeader">
+          <b> Total User Profile - {numberOfProfiles}</b>
+          <MenuPopupState />
+        </div>
 
-          <h6>{searchTextDisplay}</h6>
-        <ShowProfileCards/>
+        <h6>{searchTextDisplay}</h6>
+        <ShowProfileCards />
         <div className="range-slider">
           <Pagination
             activePage={pageCounter}
