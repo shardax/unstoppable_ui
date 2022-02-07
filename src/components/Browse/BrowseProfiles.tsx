@@ -647,11 +647,11 @@ export const BrowseProfiles = () => {
         </div>
             
         {/* <Link to={"/complete-profile/0"}> Complete your Profile!</Link> */}
-        <h3 className="pageHeader">Browse Profiles</h3>
+        {/* <h3 className="pageHeader">Browse Profiles</h3>
         <p>
           Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
           Stage)
-        </p>
+        </p> */}
         <div className="browse-sticky-nav">
           <h5 className="boldedSubheader" style={{padding: "0px 16px"}}>
             I'm looking for an exercise buddy:
