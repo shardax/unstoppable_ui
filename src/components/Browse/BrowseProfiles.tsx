@@ -8,6 +8,7 @@ import {
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 import React, { useEffect, useState } from "react";
+import {AdvancedSearch} from "./AdvancedSearch"
 
 // accordian imports
 import Accordion from "@material-ui/core/Accordion";
@@ -691,6 +692,7 @@ export const BrowseProfiles = () => {
                   {" "}
                   <span className="filter-label"> Min </span> &nbsp;
                   <input
+                  className="local-input"
                     value={ageRange[0]}
                     onChange={(e) =>
                       handleAgeChange([Number(e.target.value), ageRange[1]])
@@ -702,6 +704,7 @@ export const BrowseProfiles = () => {
                 <label style={{ display: "flex", alignItems: "baseline", marginLeft: "10px" }}>
                   <span className="filter-label"> Max </span> &nbsp;
                   <input
+                  className="local-input"
                     value={ageRange[1]}
                     onChange={(e) =>
                       handleAgeChange([ageRange[0], Number(e.target.value)])
@@ -723,6 +726,7 @@ export const BrowseProfiles = () => {
                   {" "}
                   <span className="filter-label"> Min </span>&nbsp;
                   <input
+                  className="local-input"
                     value={minDistance}
                     onChange={(e) =>
                       handleDistanceChange([
@@ -737,6 +741,7 @@ export const BrowseProfiles = () => {
                 <label style={{ display: "flex", alignItems: "baseline" , marginLeft: "10px"}}>
                 <span className="filter-label"> Max </span>&nbsp;
                   <input
+                    className="local-input"
                     value={maxDistance}
                     onChange={(e) =>
                       handleDistanceChange([
@@ -836,166 +841,8 @@ export const BrowseProfiles = () => {
 
           {/* <h5 className="boldedSubheader">Advanced Search</h5> */}
 
-          {/* free text search */}
           <div className="browse-filter-row" style={{ padding: "0px 16px" }}>
-            <Accordion
-              className="no-border-accordian"
-              style={{ boxShadow: "none", padding: "0px !important" }}
-            >
-              <AccordionSummary
-                // className="MuiAccordionSummary-root"
-                expandIcon={<KeyboardArrowDown />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography className="boldedSubheader">
-                  Advanced Search
-                </Typography>
-              </AccordionSummary>
-
-              <AccordionDetails>
-                <div className="accordian-inside">
-                <div style={{display: "inline-flex"}}>
-                  {/* cancer type*/}
-                  <label style={{justifyContent: "center",
- 
-    display: "grid"}}>
-                  <span className="filter-label"> Cancer Type </span>
-                   <div className="search-widget">
-                  <Select
-                    style={{width: '20em'}}
-                    onChange={(e) => setCancerTypeKeyword(e.target.value)}
-                    // margin="0em 2em"
-                    value={cancerTypeKeyword}
-                    className="search-widget"
-                  >
-                    <option
-                      className="selector"
-                      value=""
-                      label="- Select cancer type -"
-                    />
-                    {CANCERLOCATIONLIST.map((cancerLoc: any) => (
-                      <option
-                        className="selector"
-                        value={cancerLoc}
-                        label={cancerLoc}
-                      />
-                    ))}
-                  </Select>
-                
-                  </div>
-                  </label>
-                  {/* zipcode */}
-                  {store.uniqueLists &&
-                    store.uniqueLists.unique_zipcodes.length > 1 && (
-                      <label style={{justifyContent: "center",
- 
-    display: "grid"}}>
-    <span className="filter-label"> Keyword </span>
-                      <div className="search-widget">
-                        <Select
-                        style={{width: '20em'}}
-                          onChange={(e) => setZipcodeKeyword(e.target.value)}
-                          // margin="0em 2em"
-                          value={zipcodeKeyword}
-                        >
-                          <option
-                            className="selector"
-                            value=""
-                            label="- Select Zipcode -"
-                          />
-                          {store.uniqueLists.unique_zipcodes.map((z: any) => (
-                            <option className="selector" value={z} label={z} />
-                          ))}
-                        </Select>
-                      </div>
-                      </label>
-                    )}
-                  {/* Which of the following best describes you? */}
-                   <label style={{justifyContent: "center",
- 
-    display: "grid"}}>
-    <span className="filter-label"> Which of the following best describes you? </span>
-                <div className="search-widget">
-                  <Select
-                  style={{width: '20em'}}
-                    onChange={(e) => setPersonality(e.target.value)}
-                    // margin="0em 2em"
-                    value={cancerTypeKeyword}
-                    className="search-widget"
-                  >
-                    <option
-                      className="selector"
-                      value=""
-                      label="- Which of the following best describes you? -"
-                    />
-                    {/* {store.uniqueLists.unique_personalities.map((personality: any) => (
-              <option className="selector" value={personality} label={personality} />
-            ))} */}
-                  </Select>
-                  </div>
-                  </label>
-                  {/* Favorite activities */}
-                  {store.uniqueLists &&
-                    store.uniqueLists.unique_zipcodes.length > 1 && (
-                       <label style={{justifyContent: "center",
- 
-    display: "grid"}}>
-    <span className="filter-label"> Favorite activies </span>
-                      <div className="search-widget">
-                        <Select
-                        style={{width: '20em'}}
-                          onChange={(e) => setZipcodeKeyword(e.target.value)}
-                          // margin="0em 2em"
-                          value={zipcodeKeyword}
-                        >
-                          <option
-                            className="selector"
-                            value=""
-                            label="- Favorite activities -"
-                          />
-                          {/* {store.uniqueLists.unique_zipcodes.map((z: any) => (
-                <option className="selector" value={z} label={z} />
-              ))} */}
-                        </Select>
-                      </div>
-                      </label>
-                    )}
-                  </div>
-                  {/* Preferred exercise location */}
-                  <div>
-                  {store.uniqueLists &&
-                    store.uniqueLists.unique_zipcodes.length > 1 && (
-                      <div className="search-widget">
-                        <Select
-                        style={{width: '20em'}}
-                          onChange={(e) => setZipcodeKeyword(e.target.value)}
-                          // margin="0em 2em"
-                          value={zipcodeKeyword}
-                        >
-                          <option
-                            className="selector"
-                            value=""
-                            label="- Preferred exercise location -"
-                          />
-                          {/* {store.uniqueLists.unique_zipcodes.map((z: any) => (
-                <option className="selector" value={z} label={z} />
-              ))} */}
-                        </Select>
-                      </div>
-                    )}
-                    </div>
-                </div>
-
-                {/* <div className="range-slider">
-                <Tooltip title="Sort Users">
-                  <SortIcon />
-                </Tooltip > 
-                {!reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={distanceOrder} ageOrder={ageOrder} lastOnineOrder={lastOnlineOrder} newestMemberOrder={newestMemberOrder} resetFunction={handleResetCompletion} reset={reset} />}
-                {reset && <SortBarDisplay onChange={handleOrderChange} distanceOrder={"asc"} resetFunction={handleResetCompletion} reset={reset} />}
-              </div> */}
-              </AccordionDetails>
-            </Accordion>
+            <AdvancedSearch/>
 
             <hr style={{ opacity: ".10", marginTop: "1px" }} />
             {/* search button */}
