@@ -27,7 +27,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import { IoIosArrowDown } from "react-icons/io";
 import { KeyboardArrowDown } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 import LocationIcon from "@material-ui/icons/LocationOn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -44,6 +44,7 @@ import { Typography } from "antd";
 import axios from "axios";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
+import NotificationIcon from '../../images/NotificationIcon.png';
 
 //const BrowseProfiles: React.FC = ({  }) => {
 export const BrowseProfiles = () => {
@@ -105,12 +106,19 @@ export const BrowseProfiles = () => {
 
   // TODO
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
-  const [personality, setPersonality] = useState(
-    store.savedSearchParams.personality
-  );
-  const [preferedExerciseLocation, setPrefered] = useState(
-    store.savedSearchParams.prefered_exercise_location
-  );
+  const [personality, setPersonality] = useState(store.savedSearchParams.personality);
+  const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
+
+  // dummy data for notification
+  const [newNotif, setNewNotif] = useState<any>({
+      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
+      header:"Finish Setting Up Your Profile",
+      description:"Make more connections when your profile is completed. Click here to start!",
+      date: new Date("January 6, 2022"),
+      color: "#9560A8",
+      read: false,
+  })
+ 
 
   useEffect(() => {
     // gets all the profiles to populate the browse profile cards
@@ -597,6 +605,20 @@ export const BrowseProfiles = () => {
     }
   };
 
+  const checkCreateNotification = () => {
+    if (newNotif != null) {
+      return (<div className="notification-popup">
+      <p className="notification-text">{newNotif.header}</p>
+      <Button className="notification-action-btn">LETS GO</Button>
+      <Button className="notification-close-btn" onClick={() => closeNotification()}>X</Button>
+    </div>)
+    }
+  }
+
+  const closeNotification = () => {
+    setNewNotif(null);
+  }
+
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setPageCounter(pageNumber);
@@ -615,12 +637,21 @@ export const BrowseProfiles = () => {
     // consider: using a component to represent each search widget
     <>
       <div className="browse-container">
-        <Link to={"/complete-profile/0"}> Complete your Profile!</Link>
-        <h3 className="pageHeader">Browse Profiles</h3>
+        <div className="browse-header">
+          <h3 className="pageHeader">Browse Profiles</h3>
+          <NavLink className="notification-link" to="/notifications"><img src={NotificationIcon} className="notification-icon" /></NavLink>
+
+          {checkCreateNotification()}
+
+          <p className="browse-subheader">Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
+        </div>
+            
+        {/* <Link to={"/complete-profile/0"}> Complete your Profile!</Link> */}
+        {/* <h3 className="pageHeader">Browse Profiles</h3>
         <p>
           Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
           Stage)
-        </p>
+        </p> */}
         <div className="browse-sticky-nav">
           <h5 className="boldedSubheader" style={{padding: "0px 16px"}}>
             I'm looking for an exercise buddy:
