@@ -11,7 +11,6 @@ $cardHeight: 240px;
 }
 
 .browse-container {
-  width:75vw; 
   overflow: clip;
 }
 
@@ -33,7 +32,7 @@ $cardHeight: 240px;
 .notification-popup {
   background-color: rgba(149, 96, 168, 0.7);
   position: absolute;
-  right: 300px;
+  right: 100px;
 
   text-align: center;
   padding-left: 50px;
@@ -102,6 +101,9 @@ $cardHeight: 240px;
     font-weight: bold;
     font-size: 24px;
     font-family: Montserrat;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .search-widget {
@@ -152,6 +154,7 @@ $cardHeight: 240px;
   display: flex;
   flex-wrap: wrap;
   // overflow-y: scroll;
+  justify-content: space-between;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;
   &:-webkit-scrollbar {
@@ -358,4 +361,18 @@ $cardHeight: 240px;
 
 .no-border-accordian {
   border-style: none;
+}
+
+
+.MuiAccordionSummary-root {
+  padding: 0px !important
+}
+
+
+.button-active{
+  width: 212px;
+}
+
+.button-reset{
+  width: 212px;
 }

@@ -7,7 +7,9 @@ body {
 #root{
   background-image: url('../../images/new2UCollage.png');
   margin: 0px;
-  // position: fixed; 
+  position: fixed; 
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .forgot{
   margin-top: 60px;
@@ -61,6 +63,19 @@ body {
 color: red;
 }
 
+.iconInInputFormat{
+  position:absolute;
+  margin: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.passwordVisibilityEye{
+  position:relative;
+  right: 40px;
+  font-size: 1.5em;
+}
+
 .login-card {
   min-height: 60vh;
 }
@@ -101,7 +116,12 @@ color: red;
 }
 
 .input-row {
-  margin: 10px 0px;
+  margin: 20px 0px 0px 0px;
+  
+}
+
+.last-input-row{
+  margin: 20px 0px 20px 0px;
 }
 
 .input-format {
@@ -130,7 +150,8 @@ button {
 
 .form-message {
   font-size: 10px;
-  padding-top: 2px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .form-message.valid {
