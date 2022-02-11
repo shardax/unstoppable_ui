@@ -79,3 +79,4 @@ export const CANCERLOCATIONLIST = [
     export const STEP_EMAIL_CONFIRMATION_SENT =  "Email Confirmation Sent"
     export const AGE_RANGE_CONSTANT =  [18,120]
     export const DISTANCE_WITHIN_CONSTANT = 99
+    export const DISTANCE_RANGE_CONSTANT = [1, 99]

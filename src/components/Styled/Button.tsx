@@ -17,7 +17,7 @@ interface ButtonProps {
 const Button = styled.button<ButtonProps>`
   color: ${props => props.color ? props.color : "#fff"};
   background: ${props => props.background ? props.background : forgot_password.buttonBackground};
-
+ 
   padding: ${props => props.padding ? props.padding : "4px 6px"};
   border-radius: ${props => props.borderRadius ? props.borderRadius : "6px"};
   font-weight: 700;

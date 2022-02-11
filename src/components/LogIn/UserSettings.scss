@@ -34,6 +34,18 @@
     align-items: center;
 }
 
+.account-settings-page-header {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 37px;
+    /* identical to box height */
+
+    text-align: center;
+    color: #9560A8;
+}
+
 .readonly-input-field {
     outline: none;
     width: 100%;
