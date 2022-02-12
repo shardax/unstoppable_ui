@@ -644,7 +644,7 @@ export const BrowseProfiles = () => {
     if (newNotif != null) {
       return (<div className="notification-popup">
       <p className="notification-text">{newNotif.header}</p>
-      <Button className="notification-action-btn">LETS GO</Button>
+      <Button className="notification-action-btn"><Link to={"/complete-profile/0"} style={{ color: "#fff" }}>LETS GO</Link></Button>
       <Button className="notification-close-btn" onClick={() => closeNotification()}>X</Button>
     </div>)
     }

@@ -1,7 +1,8 @@
 @import "../assets/scss/variables.scss";
 
 .default-layout-main {
-  // max-width: 1200px;
+  // max-width: 85vw; 
+  height: 100vh; 
   display: flex;
   background: #f7f7f7;
   justify-content: flex-start;
