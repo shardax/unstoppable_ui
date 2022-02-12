@@ -6,15 +6,15 @@ import {
   DISTANCE_WITHIN_CONSTANT,
 } from "../../constants/ProfileConstants";
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
+import { Link, NavLink } from 'react-router-dom';
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
-import React, { useEffect, useMemo, useState } from "react";
-import { Theme, makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
 
 // accordian imports
 import Accordion from "@material-ui/core/Accordion";
 import { AccordionDetails } from "@material-ui/core";
 import { AccordionSummary } from "@material-ui/core";
-import { AdvancedSearch } from "./AdvancedSearch";
+import {AdvancedSearch} from "./AdvancedSearch"
 import AgeIcon from "@material-ui/icons/DataUsage";
 import { BiSortAlt2 } from "react-icons/bi";
 import Brightness1Icon from "@material-ui/icons/Brightness1";
@@ -30,10 +30,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import { IoIosArrowDown } from "react-icons/io";
 import { KeyboardArrowDown } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 import LocationIcon from "@material-ui/icons/LocationOn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import {MenuPopupState} from "./SortByMenu";
+// import NotificationIcon from '../../images/NotificationIcon.png';
 import Pagination from "react-js-pagination";
 import Radio from "@material-ui/core/Radio";
 import RangeSlider from "../Common/RangeSlider";
@@ -114,12 +115,20 @@ export const BrowseProfiles = () => {
 
   // TODO
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
-  const [personality, setPersonality] = useState(
-    store.savedSearchParams.personality
-  );
-  const [preferedExerciseLocation, setPrefered] = useState(
-    store.savedSearchParams.prefered_exercise_location
-  );
+  // const [personality, setPersonality] = useState(store.savedSearchParams.personality);
+  // const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
+
+  // dummy data for notification
+  const [newNotif, setNewNotif] = useState<any>({
+      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
+      header:"Finish Setting Up Your Profile",
+      description:"Make more connections when your profile is completed. Click here to start!",
+      date: new Date("January 6, 2022"),
+      color: "#9560A8",
+      read: false,
+  })
+ 
+
 
   useEffect(() => {
     // gets all the profiles to populate the browse profile cards
@@ -195,96 +204,7 @@ export const BrowseProfiles = () => {
     console.log(event.target.checked);
   };
 
-  const MenuPopupState = () => {
-    const sortProfileCards = (sortBy, popupState) => {
-      let userCollectionTemp;
-      switch (sortBy) {
-        case "Age":
-          userCollectionTemp = userCollection
-            .slice()
-            .sort((profile1, profile2) => profile2.age - profile1.age);
-          setUserCollection(userCollectionTemp);
-          break;
-        case "Distance":
-          userCollectionTemp = userCollection
-            .slice()
-            .sort(
-              (profile1, profile2) => profile1.distance - profile2.distance
-            );
-          setUserCollection(userCollectionTemp);
-          console.log("Distance", userCollection);
-          break;
-        case "Last Online":
-          userCollectionTemp = userCollection
-            .slice()
-            .sort(
-              (profile1, profile2) =>
-                profile1.last_seen_at - profile2.last_seen_at
-            );
-          setUserCollection(userCollectionTemp);
-          console.log("Last Oneline", userCollection);
-          break;
-        case "New Members":
-          break;
-        default:
-          break;
-      }
-      popupState();
-    };
-    return (
-      <PopupState variant="popover" popupId="demo-popup-menu">
-        {(popupState) => (
-          <React.Fragment>
-            <Button
-              // variant="contained"
-              background="rgb\(149,96,168, 0.1)\"
-              border="1px solid"
-              color="primary"
-              {...bindTrigger(popupState)}
-            >
-              <BiSortAlt2 />
-              &nbsp; Sort By &nbsp;
-              <IoIosArrowDown />
-            </Button>
-            <Menu
-              {...bindMenu(popupState)}
-              classes={{ paper: classes.menuPaper }}
-            >
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() => sortProfileCards("Age", popupState.close)}
-              >
-                Age
-              </MenuItem>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() => sortProfileCards("Distance", popupState.close)}
-              >
-                Distance
-              </MenuItem>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() =>
-                  sortProfileCards("Last Online", popupState.close)
-                }
-              >
-                Last Online
-              </MenuItem>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() =>
-                  sortProfileCards("New Members", popupState.close)
-                }
-              >
-                New Members
-              </MenuItem>
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
-    );
-  };
-
+  
   const addAllKeywords = () => {
     let allKeywords = cancerTypeKeyword ? cancerTypeKeyword : "";
     allKeywords = stateCodeKeyword
@@ -636,77 +556,58 @@ export const BrowseProfiles = () => {
     }
   };
 
+  const checkCreateNotification = () => {
+    if (newNotif != null) {
+      return (<div className="notification-popup">
+      <p className="notification-text">{newNotif.header}</p>
+      <Button className="notification-action-btn"><Link to={"/complete-profile/0"} style={{ color: "#fff" }}>LETS GO</Link></Button>
+      <Button className="notification-close-btn" onClick={() => closeNotification()}>X</Button>
+    </div>)
+    }
+  }
+
+  const closeNotification = () => {
+    setNewNotif(null);
+  }
+
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setPageCounter(pageNumber);
   };
 
   function ShowProfileCards() {
-    /* This function display all the user cards along with the proper footer that is pagination 
-    so user can navigate through pages of user profiles*/
-    const [currentPage, setCurrentPage] = useState(1);
-
-    let pageSize = 8;
-
-    let totalPageCount = Math.ceil(userCollection.length / 8);
-
-    const currentPageData = useMemo(() => {
-      const firstPageIndex = (currentPage - 1) * pageSize;
-      const lastPageIndex = firstPageIndex + pageSize;
-      return userCollection.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
-
     return (
-      <>
-        <div className="profile-browse-grid">
-          {userCollection.map((profile: any) => (
-            <ProfileCard profile={profile} />
-          ))}
-        </div>
-        <div className="page-footer">
-          <Button
-            onClick={() => {
-              if (currentPage - 1 < totalPageCount) {
-                setCurrentPage(currentPage + 1);
-              } else {
-                return null;
-              }
-            }}
-            color="#FFFFFF"
-            background="#F1658C"
-            borderRadius="6px"
-            margin="2em 1.5em"
-            padding="10px 40px"
-          >
-            Next
-          </Button>
-          <div>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage}
-              totalCount={userCollection.length}
-              pageSize={8}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
-          </div>
-        </div>
-      </>
+      <div className="profile-browse-grid">
+        {userCollection.map((profile: any) => (
+          <ProfileCard profile={profile} />
+        ))}
+      </div>
     );
   }
   const [minDistance, setMinDistance] = useState(1);
   const [maxDistance, setMaxDistance] = useState(99);
-  const classes = useStyles();
+
+  
 
   return useObserver(() => (
     // consider: using a component to represent each search widget
     <>
       <div className="browse-container">
-        <Link to={"/complete-profile/0"}> Complete your Profile!</Link>
-        <h3 className="pageHeader">Browse Profiles</h3>
+        <div className="browse-header">
+          <h3 className="pageHeader">Browse Profiles</h3>
+          {/* <NavLink className="notification-link" to="/notifications"><img src={NotificationIcon} className="notification-icon" /></NavLink> */}
+
+          {checkCreateNotification()}
+
+          <p className="browse-subheader">Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
+        </div>
+            
+        {/* <Link to={"/complete-profile/0"}> Complete your Profile!</Link> */}
+        {/* <h3 className="pageHeader">Browse Profiles</h3>
         <p>
           Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
           Stage)
-        </p>
+        </p> */}
         <div className="browse-sticky-nav">
           <h5 className="boldedSubheader" style={{ padding: "0px 16px" }}>
             I'm looking for an exercise buddy:
@@ -740,7 +641,7 @@ export const BrowseProfiles = () => {
                   {" "}
                   <span className="filter-label"> Min </span> &nbsp;
                   <input
-                    className="local-input"
+                  className="local-input"
                     value={ageRange[0]}
                     onChange={(e) =>
                       handleAgeChange([Number(e.target.value), ageRange[1]])
@@ -749,16 +650,10 @@ export const BrowseProfiles = () => {
                     style={{ width: 45 }}
                   />
                 </label>
-                <label
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    marginLeft: "10px",
-                  }}
-                >
+                <label style={{ display: "flex", alignItems: "baseline", marginLeft: "10px" }}>
                   <span className="filter-label"> Max </span> &nbsp;
                   <input
-                    className="local-input"
+                  className="local-input"
                     value={ageRange[1]}
                     onChange={(e) =>
                       handleAgeChange([ageRange[0], Number(e.target.value)])
@@ -780,7 +675,7 @@ export const BrowseProfiles = () => {
                   {" "}
                   <span className="filter-label"> Min </span>&nbsp;
                   <input
-                    className="local-input"
+                  className="local-input"
                     value={minDistance}
                     onChange={(e) =>
                       handleDistanceChange([
@@ -792,14 +687,8 @@ export const BrowseProfiles = () => {
                     style={{ width: 45 }}
                   />
                 </label>
-                <label
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    marginLeft: "10px",
-                  }}
-                >
-                  <span className="filter-label"> Max </span>&nbsp;
+                <label style={{ display: "flex", alignItems: "baseline" , marginLeft: "10px"}}>
+                <span className="filter-label"> Max </span>&nbsp;
                   <input
                     className="local-input"
                     value={maxDistance}
@@ -825,7 +714,7 @@ export const BrowseProfiles = () => {
                     {" "}
                     <span className="filter-label">City/State</span>
                     <Select
-                      style={{ width: "25em" }}
+                      style={{width: '25em'}}
                       onChange={(e) => setStateCodeKeyword(e.target.value)}
                       value={stateCodeKeyword}
                     >
@@ -855,40 +744,40 @@ export const BrowseProfiles = () => {
             style={{
               padding: "0px 16px 35px",
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "space-between"
             }}
           >
             {/* className="range-slider search-widget" */}
             <div className="form-group-alignment">
-              <Tooltip title="Displays Users active since the last 5 minutes">
-                <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={activeUsers}
-                        onChange={(e) => handleActiveUsers(e)}
-                        name="activeUsers"
-                        color="primary"
-                      />
-                    }
-                    label="Active Users"
-                  />
-                </FormGroup>
-              </Tooltip>
-              {/* yes to long distance button */}
-              <Tooltip title="Displays Users Who are Receptive to a Long Distance Buddy">
-                <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Checkbox name="yes-long-distance" color="primary" />
-                    }
-                    label="Yes to a Long-distance Buddy"
-                  />
-                </FormGroup>
-              </Tooltip>
+            <Tooltip title="Displays Users active since the last 5 minutes">
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={activeUsers}
+                      onChange={(e) => handleActiveUsers(e)}
+                      name="activeUsers"
+                      color="primary"
+                    />
+                  }
+                  label="Active Users"
+                />
+              </FormGroup>
+            </Tooltip>
+            {/* yes to long distance button */}
+            <Tooltip title="Displays Users Who are Receptive to a Long Distance Buddy">
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox name="yes-long-distance" color="primary" />
+                  }
+                  label="Yes to a Long-distance Buddy"
+                />
+              </FormGroup>
+            </Tooltip>
             </div>
             <Select
-              style={{ width: "25em" }}
+              style={{width: '25em'}}
               onChange={(e) => setStateCodeKeyword(e.target.value)}
               value={stateCodeKeyword}
             >
@@ -902,7 +791,7 @@ export const BrowseProfiles = () => {
           {/* <h5 className="boldedSubheader">Advanced Search</h5> */}
 
           <div className="browse-filter-row" style={{ padding: "0px 16px" }}>
-            <AdvancedSearch />
+            <AdvancedSearch/>
 
             <hr style={{ opacity: ".10", marginTop: "1px" }} />
             {/* search button */}
@@ -928,21 +817,23 @@ export const BrowseProfiles = () => {
         </div>
         <div className="totalUserProfileHeader">
           <b> Total User Profile - {numberOfProfiles}</b>
-          <MenuPopupState />
+          <MenuPopupState userCollection={userCollection} setUserCollection={setUserCollection}/>
         </div>
 
         <h6>{searchTextDisplay}</h6>
         <ShowProfileCards />
+        <div className="range-slider">
+          <Pagination
+            activePage={pageCounter}
+            itemsCountPerPage={12}
+            totalItemsCount={numberOfProfiles}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
     </>
   ));
 };
-export const useStyles = makeStyles((theme: Theme) => ({
-  menuPaper: {
-    backgroundColor: "#9560A8",
-    top: "540px !important",
-    left: "1028px !important",
-  },
-}));
 
 export default BrowseProfiles;
