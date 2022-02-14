@@ -64,7 +64,7 @@ const SideNav = () => {
         <Link to="/home"><img className="logo-navbar" src={UnsIcon} alt=""/></Link>
       </div>
       <div className="username-avatar-sidenav">
-        <Avatar src={ROOTURL + store.avatarPath} size="large" />
+        <Avatar className="avatar-border" src={ROOTURL + store.avatarPath} size="large" />
         
         <DropdownButton id="dropdown-basic-button" title={store.username}>
           <Dropdown.Item href="/profile">Edit Profile</Dropdown.Item>
