@@ -40,6 +40,7 @@ export const useDataStore = () => {
   if (!store) {
     throw new Error("useDataStore: !store, did you forget StoreProvider?");
   }
-  console.log('store!!!!', store)
+  // debugging output 
+  // console.log('store!!!!', store)
   return store;
 };
