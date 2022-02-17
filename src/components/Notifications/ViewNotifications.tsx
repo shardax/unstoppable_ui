@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button'
 
 import { useDataStore } from "../../UserContext";
 import NotificationItem from "./NotificationItem";
+import { NotificationButton } from "./NotificationButton";
 
 const ViewNotifications: React.FC = ({}) => {
   const store = useDataStore();
@@ -68,6 +69,10 @@ const ViewNotifications: React.FC = ({}) => {
 
   return (
     <div>
+      <div className="notification-btn-holder">
+        <NotificationButton />
+      </div>
+      
       <div className="notification-header">
         <h3>Notifications</h3>
         <h4>Sort By:</h4>
