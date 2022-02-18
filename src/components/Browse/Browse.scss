@@ -7,11 +7,21 @@ $cardWidth: 300px;
 $cardHeight: 240px;
 
 .accordian-inside {
-  display:block
+  display: inline-block;
 }
 
 .browse-container {
+  width: 80vw; // todo: flexboxes in the future
   overflow: clip;
+}
+
+.browse-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.browse-subheader {
+  width: 100%;
 }
 
 .browse-sticky-nav {
@@ -24,32 +34,33 @@ $cardHeight: 240px;
 }
 
 .pageHeader {
-    color:#9560A8;
-    font-weight: bold;
-    font-size: 30px;
-    font-family: Montserrat;
+  color: #9560a8;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: Montserrat;
 }
 
 .boldedSubheader {
-    font-weight: bold;
-    font-size: 16px;
-    font-family: Montserrat;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Montserrat;
 }
 
-.totalUserProfileHeader{
-    margin-top: 20px;
-    color:#9560A8;
-    font-weight: bold;
-    font-size: 24px;
-    font-family: Montserrat;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.totalUserProfileHeader {
+  margin-top: 20px;
+  color: #9560a8;
+  font-weight: bold;
+  font-size: 24px;
+  font-family: Montserrat;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .search-widget {
-  display:inline-block;
-  margin: 5px
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .browse-filter-row {
@@ -64,13 +75,14 @@ $cardHeight: 240px;
     width: 25em;
     margin-right: 1em;
     font-size: 16px;
-    background-color: rgb(240,240,240);
+    background-color: rgb(240, 240, 240);
     color: black;
     // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     padding: 1em;
     padding-left: 1em;
     &:focus {
-      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
       background-color: white;
     }
   }
@@ -96,7 +108,7 @@ $cardHeight: 240px;
   flex-wrap: wrap;
   // overflow-y: scroll;
   justify-content: space-between;
-  -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
   &:-webkit-scrollbar {
     display: none;
@@ -104,14 +116,14 @@ $cardHeight: 240px;
 }
 
 .single-profile-wrapper {
-  margin: .5em;
+  margin: 0.5em;
   margin-bottom: 2em;
   display: flex;
   background-color: white;
   flex-direction: column;
   padding: 10px;
-  -webkit-transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
-  transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+  -webkit-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   // box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   // background: $card;
   border-radius: $cardRadius;
@@ -127,7 +139,7 @@ $cardHeight: 240px;
     border-bottom-right-radius: $cardRadius;
     z-index: 0;
     position: relative;
-    color: #69616C;
+    color: #69616c;
     display: flex;
     font-size: 13px;
     justify-content: space-between;
@@ -137,7 +149,7 @@ $cardHeight: 240px;
       font-size: 16px;
     }
     .profile-location {
-      color: rgb(113, 113,113);
+      color: rgb(113, 113, 113);
       font-size: 13px;
     }
     .other-profile-card-data {
@@ -145,107 +157,105 @@ $cardHeight: 240px;
       margin-bottom: 0;
     }
 
-    .other-profile-message-data{
-        color:#f0658c;
-        font-weight: bold;
-        padding-top: 20px;
+    .other-profile-message-data {
+      color: #f0658c;
+      font-weight: bold;
+      padding-top: 20px;
     }
 
-    .cancer-type-card{
-        color:white;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-        display: inline-block;
-
+    .cancer-type-card {
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      display: inline-block;
     }
 
-    .brain-cancer-type-card{
-        background-color: #525151;
+    .brain-cancer-type-card {
+      background-color: #525151;
     }
 
-    .breast-cancer-type-card{
-        background-color: #EB5757;
+    .breast-cancer-type-card {
+      background-color: #eb5757;
     }
 
-    .bladder-cancer-type-card{
-        background-color: #5282FC;
+    .bladder-cancer-type-card {
+      background-color: #5282fc;
     }
 
-    .bone-cancer-type-card{
-        background-color: #FCB852;
+    .bone-cancer-type-card {
+      background-color: #fcb852;
     }
 
     .other-cancer-type-card {
-        background-color: #9560A8;
+      background-color: #9560a8;
     }
 
-    .thyroid-cancer-type-card{
-        background-color: #4CB6D8;
+    .thyroid-cancer-type-card {
+      background-color: #4cb6d8;
     }
 
-    .cervical-cancer-type-card{
-        background-color: #4CB6D8;
+    .cervical-cancer-type-card {
+      background-color: #4cb6d8;
     }
 
-    .colorectal-cancer-type-card{
-        background-color: #5282FC;
+    .colorectal-cancer-type-card {
+      background-color: #5282fc;
     }
 
-    .esophageal-cancer-type-card{
-        background-color: #9560A8;
+    .esophageal-cancer-type-card {
+      background-color: #9560a8;
     }
 
-    .gall-bladder-cancer-type-card{
-        background-color: #9560A8;
+    .gall-bladder-cancer-type-card {
+      background-color: #9560a8;
     }
 
-    .gastric-cancer-type-card{
-        background-color: #9560A8;
+    .gastric-cancer-type-card {
+      background-color: #9560a8;
     }
 
-    .head-and-neck-cancer-type-card{
-        background-color: #902929;
+    .head-and-neck-cancer-type-card {
+      background-color: #902929;
     }
 
-    .kidney-cancer-type-card{
-        background-color: #ff8947;
+    .kidney-cancer-type-card {
+      background-color: #ff8947;
     }
 
-    .leukemia-cancer-type-card{
-        background-color: #ff8947;
+    .leukemia-cancer-type-card {
+      background-color: #ff8947;
     }
 
-    .liver-cancer-type-card{
-        background-color: #00a651;
+    .liver-cancer-type-card {
+      background-color: #00a651;
     }
 
-    .lung-cancer-type-card{
-        background-color: #525151;
+    .lung-cancer-type-card {
+      background-color: #525151;
     }
 
-    .melanoma-cancer-type-card{
-        background-color: #1f1f1f;
+    .melanoma-cancer-type-card {
+      background-color: #1f1f1f;
     }
 
-    .multiple-myeloma-cancer-type-card{
-        background-color: #902929;
+    .multiple-myeloma-cancer-type-card {
+      background-color: #902929;
     }
 
-    .ovarian-cancer-type-card{
-        background-color: #4cb6db;
+    .ovarian-cancer-type-card {
+      background-color: #4cb6db;
     }
 
-    .pancreatic-cancer-type-card{
-        background-color: #9560a8;
+    .pancreatic-cancer-type-card {
+      background-color: #9560a8;
     }
 
-    .ovarian-cancer-type-card{
-        background-color: #fcb852;
+    .ovarian-cancer-type-card {
+      background-color: #fcb852;
     }
-
   }
 }
 
@@ -269,7 +279,7 @@ $cardHeight: 240px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: rgb(113, 113,113);
+  color: rgb(113, 113, 113);
   .age-range-input {
     width: 40px;
     outline: none;
@@ -279,7 +289,7 @@ $cardHeight: 240px;
 
 .slider-styling {
   color: $primaryPurple !important;
-};
+}
 
 .range-slider {
   margin-left: 40px;
@@ -304,16 +314,55 @@ $cardHeight: 240px;
   border-style: none;
 }
 
-
 .MuiAccordionSummary-root {
+  padding: 0px !important;
+}
+
+.button-active {
+  width: 212px;
+}
+
+.button-reset {
+  width: 212px;
+}
+
+.freeTextSearch {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  width: -webkit-fill-available;
+}
+
+.browse-search-box {
+  margin-left: 12px;
+  margin-right: 12px;
+  background-color: white;
+  padding-left: 10px;
+  border: 1.5px solid #d2d2d2;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+.filter-label {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.form-group-alignment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiAccordionDetails-root{
   padding: 0px !important
 }
 
 
-.button-active{
-  width: 212px;
-}
-
-.button-reset{
-  width: 212px;
+.local-input {
+  width: 45px;
+  border: #E5E5E5 solid 1px;
+  border-radius: 4px;
 }
