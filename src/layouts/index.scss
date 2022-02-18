@@ -6,6 +6,8 @@
   display: flex;
   background: #f7f7f7;
   justify-content: flex-start;
+  overflow-x: hidden;
+  overflow: auto;
   width: 100%;
   .format-children-default {
     margin-left: 14em;
@@ -26,6 +28,7 @@
 .default-main-view {
   display: flex;
   background: white;
+  overflow-y: scroll;
 }
 
 .topnav-wrapper {

@@ -20,6 +20,14 @@ const ViewEditProfile: React.FC = ({}) => {
   const history = useHistory();
   const [editMode, setEditMode] = useState(false);
 
+  const popupboxConfig = {
+    content: {
+      style: {
+        overflow: "scroll"
+      }
+    }
+  }
+
   const openPopupbox = () => {
     setEditMode(true);
     // window.addEventListener("scroll", () => {window.scrollTo(0,0)});
@@ -54,7 +62,7 @@ const ViewEditProfile: React.FC = ({}) => {
         <h3>My Profile</h3>
         <div>
           <Button onClick={openPopupbox}>Edit Profile</Button>
-          <PopupboxContainer />
+          <PopupboxContainer { ...popupboxConfig }/>
         </div>
       </div>
       <UserSection user={currentProfile} me={true} />

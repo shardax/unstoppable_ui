@@ -274,8 +274,8 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 />
               </span>
             </div>
-            <div className="form-container user-section-wrapper">
-              <div className="user-section-data">
+            <div className="user-section-wrapper-edit-profile">
+              <div className="user-section-data-edit-profile">
                 <div className="item">
                   <div className="title" onClick={() => toggle(0)}>
                     <h2>About me </h2>
