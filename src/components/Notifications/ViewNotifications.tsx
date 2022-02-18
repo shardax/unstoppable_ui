@@ -9,12 +9,13 @@ import Button from 'react-bootstrap/Button'
 
 import { useDataStore } from "../../UserContext";
 import NotificationItem from "./NotificationItem";
+import { NotificationButton } from "./NotificationButton";
 
 const ViewNotifications: React.FC = ({}) => {
   const store = useDataStore();
   const [notificationList, setNotificationList] = useState([
     {
-      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
+      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBFQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--fc4ad9f3cb2ddcfdd81c5a4c825e6461e1075975/stock4.png",
       header:"Finish Setting Up Your Profile:",
       description:"Make more connections when your profile is completed. Click here to start!",
       date: new Date("January 6, 2022"),
@@ -22,7 +23,7 @@ const ViewNotifications: React.FC = ({}) => {
       read: false,
     },
     {
-      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
+      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBFQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--fc4ad9f3cb2ddcfdd81c5a4c825e6461e1075975/stock4.png",
       header:"Melody just sent you a message:",
       description:"Hi! I just noticed we have similar cancer diagnoses, I would love to connect with you!",
       date: new Date("October 21, 2021"),
@@ -68,6 +69,10 @@ const ViewNotifications: React.FC = ({}) => {
 
   return (
     <div>
+      <div className="notification-btn-holder">
+        <NotificationButton />
+      </div>
+      
       <div className="notification-header">
         <h3>Notifications</h3>
         <h4>Sort By:</h4>

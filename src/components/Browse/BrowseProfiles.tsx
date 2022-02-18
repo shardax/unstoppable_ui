@@ -47,7 +47,7 @@ import axios from "axios";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
-import NotificationIcon from '../../images/NotificationIcon.png';
+import { NotificationButton } from "../Notifications/NotificationButton";
 
 //const BrowseProfiles: React.FC = ({  }) => {
 export const BrowseProfiles = () => {
@@ -116,16 +116,6 @@ export const BrowseProfiles = () => {
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
   const [personality, setPersonality] = useState(store.savedSearchParams.personality);
   const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
-
-  // dummy data for notification
-  const [newNotif, setNewNotif] = useState<any>({
-      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
-      header:"Finish Setting Up Your Profile",
-      description:"Make more connections when your profile is completed. Click here to start!",
-      date: new Date("January 6, 2022"),
-      color: "#9560A8",
-      read: false,
-  })
  
 
   useEffect(() => {
@@ -640,20 +630,6 @@ export const BrowseProfiles = () => {
     }
   };
 
-  const checkCreateNotification = () => {
-    if (newNotif != null) {
-      return (<div className="notification-popup">
-      <p className="notification-text">{newNotif.header}</p>
-      <Button className="notification-action-btn"><Link to={"/complete-profile/0"} style={{ color: "#fff" }}>LETS GO</Link></Button>
-      <Button className="notification-close-btn" onClick={() => closeNotification()}>X</Button>
-    </div>)
-    }
-  }
-
-  const closeNotification = () => {
-    setNewNotif(null);
-  }
-
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setPageCounter(pageNumber);
@@ -677,10 +653,7 @@ export const BrowseProfiles = () => {
       <div className="browse-container">
         <div className="browse-header">
           <h3 className="pageHeader">Browse Profiles</h3>
-          <NavLink className="notification-link" to="/notifications"><img src={NotificationIcon} className="notification-icon" /></NavLink>
-
-          {checkCreateNotification()}
-
+          <NotificationButton />
           <p className="browse-subheader">Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
         </div>
             
