@@ -163,7 +163,7 @@ const SignIn2 = () => {
                 />
                 
               </div>
-              <Error touched={touched.username} message={errorMessage} />
+              <Error touched={touched.username} message={errors.username} />
             </div>
 
           <div className="register all">
@@ -201,7 +201,7 @@ const SignIn2 = () => {
                 
                 
               </div>
-              <Error touched={touched.password} message={errorMessage} />
+              <Error touched={touched.password} message={errors.password} />
             </div>
 
           <div className="register all">
