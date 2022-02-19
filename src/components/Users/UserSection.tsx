@@ -20,6 +20,12 @@ import StarIcon from '@material-ui/icons/Star';
 import TimeAgo from 'timeago-react';
 import Tooltip from '@material-ui/core/Tooltip';
 import WorkIcon from '@material-ui/icons/Work';
+import LocationIcon from "@material-ui/icons/LocationOn";
+import AgeIcon from "@material-ui/icons/DataUsageTwoTone";
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import BorderColorIcon from '@material-ui/icons/BorderColorTwoTone';
+// import LoginIcon from '@mui/icon/LoginIcon';
 import axios from 'axios';
 import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
@@ -73,10 +79,8 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
     return (
       <div className="full-profile-icon-row">
         <div className="field-question-profile">
-          {icon}
-          <div>{field}</div>
+          {icon} <span>{field}</span> &nbsp; : &nbsp; <span className="field-answer muted-text">{answer}</span>
         </div>
-        <div className="field-answer muted-text">{answer}</div>
       </div>
     )
   }
@@ -134,14 +138,16 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
               <img className="user-section-image" src={ROOTURL + user.photo} />
             </div>
 
-            <div>
-              <h1>{user.name}</h1>
-              <span className="full-profile-location muted-text">{user.city}, {user.state}</span>
-              <div><span> {user.age} years old</span></div>
-            </div>
+            <div className="primary-info" style={{ width:"60%" }}>
+              <div className="profile-section-header-primary">{user.name}</div>
+              <div><LocationIcon className="profile-icon"></LocationIcon>{user.city}, {user.state}</div>
+              <div><AgeIcon className="profile-icon"></AgeIcon><span> {user.age} years old</span></div>
+              <div><AgeIcon className="profile-icon"></AgeIcon><span> Last login <TimeAgo datetime={user.last_seen_at} locale='en.US'/> </span></div> 
+              {/* <div><AgeIcon className="profile-icon"></AgeIcon><span> Profile Created <TimeAgo datetime={user.last_seen_at} locale='en.US'/> </span></div> */}
+            </div>  
 
-            <div>
-              <Button onClick={openPopupbox}>Edit Profile</Button>
+            <div className="edit-button" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Button onClick={openPopupbox} style={{textTransform: "uppercase"}} > <BorderColorIcon></BorderColorIcon> &nbsp; Edit Profile</Button>
               <PopupboxContainer />
             </div>
 
@@ -150,27 +156,24 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
           {/* About Me Card */}
           <Paper margin="2em 2em" style={{ float: "left", width:"40%" }} className='cancer-type-card'>
             <div className="profile-section-header">About Me</div>
-            <p className="muted-text">{user.age} years old!</p>
+            {/* <p className="muted-text">{user.age} years old</p> */}
+            <ProfileIconRow field={"Age"} answer={user.age} icon={<BorderColorIcon className="full-profile-icon" />} />
             <ProfileIconRow field={"Personality"} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />} />
-
-            <ProfileIconRow field={"Details"} answer={<div className="full-profile-das">
-              <p>{user.details_about_self}</p>
-            </div>} icon={<NotesIcon className="full-profile-icon" />} />
-
             <ProfileIconRow field={"Work Status"} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />} />
+            <ProfileIconRow field={"Details"} answer={<p>{user.details_about_self}</p>} icon={<NotesIcon className="full-profile-icon" />} />
           </Paper>
 
           {/* Cancer Type Card */}
           <Paper margin="2em 2em" style={{ float: "right", width:"40%" }} className='cancer-type-card'>
             <div className="profile-section-header">Cancer Type</div>
 
-            <p>{user.cancer_location} cancer</p>
-            <ProfileIconRow field={"Treatment description"} answer={user.treatment_description} icon={null} />
-            <ProfileIconRow field={"Treatment status"} answer={user.treatment_status} icon={null} />
-
-            <ProfileIconRow field={"Part of wellness program?"} answer={user.part_of_wellness_program ? "✅" : "No"} icon={null} />
-
-            {user.part_of_wellness_program ? <ProfileIconRow field={"Which wellness program?"} answer={user.which_wellness_program} icon={null} /> : null}
+            <ProfileIconRow field={"Cancer"} answer={user.cancer_location} icon={null} />
+            <ProfileIconRow field={"Treatment Description"} answer={user.treatment_description} icon={null} />
+            <ProfileIconRow field={"Treatment Status"} answer={user.treatment_status} icon={<LocalHospitalIcon className="full-profile-icon"/>} />
+            <ProfileIconRow field={"Part of Wellness Program?"} answer={user.part_of_wellness_program ? "✅" : "No"} icon={<FavoriteIcon/>} />
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Which Wellness Program?"} answer={user.which_wellness_program} icon={<FavoriteIcon/>} /> : null}
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Profile Created"} answer={user.which_wellness_program} icon={null} /> : null}
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Last Login"} answer={user.which_wellness_program} icon={null} /> : null}
           </Paper>
 
           {/* Activity/Fitness Card */}
