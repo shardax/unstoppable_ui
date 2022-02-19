@@ -50,13 +50,13 @@ const ViewEditProfile: React.FC = ({}) => {
         when={editMode}
         message="Are you sure you want to leave? Your changes will not be saved."
       />
-      <div>
+      {/* <div>
         <h3>My Profile</h3>
         <div>
           <Button onClick={openPopupbox}>Edit Profile</Button>
           <PopupboxContainer />
         </div>
-      </div>
+      </div> */}
       <UserSection user={currentProfile} me={true} />
     </div>
   );
