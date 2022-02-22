@@ -30,6 +30,7 @@ const Q4_PrimaryDiagnosis = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
@@ -121,6 +122,10 @@ const Q4_PrimaryDiagnosis = () => {
                           as={Select}
                           id="personality"
                           name="personality"
+                          onChange={e => {
+                            handleChange(e);
+                            setFilled(true);
+                          }}
                         >
                           <option value="" label="- Select One -" />
                           {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
@@ -135,7 +140,7 @@ const Q4_PrimaryDiagnosis = () => {
                       Prev
                     </Button>
 
-                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting || !filled}>
                         Next
                     </Button>
 

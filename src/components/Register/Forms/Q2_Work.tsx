@@ -31,6 +31,7 @@ const Q2_Work = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
@@ -125,7 +126,7 @@ const Q2_Work = () => {
 
                   {WORK_STATUS_DESCRIPTIONS.map(item => (
                     <div>
-                      <Field id={item} type="radio" name="activity_ids" value={item}></Field>
+                      <Field id={item} type="radio" name="activity_ids" value={item} onClick={()=>setFilled(true)}></Field>
                       <label htmlFor={item}>{item + " "}</label>
                     </div>
                   ))}
@@ -148,7 +149,7 @@ const Q2_Work = () => {
                     Previous
                 </Button>
 
-                <Button disabled={isSubmitting}>
+                <Button disabled={isSubmitting || !filled}>
                   Save &amp; Continue
                 </Button>
 
