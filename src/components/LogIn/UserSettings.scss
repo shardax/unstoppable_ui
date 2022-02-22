@@ -34,6 +34,18 @@
     align-items: center;
 }
 
+.account-settings-page-header {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 37px;
+    /* identical to box height */
+
+    text-align: center;
+    color: #9560A8;
+}
+
 .readonly-input-field {
     outline: none;
     width: 100%;
@@ -57,6 +69,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    width: 728px;
+    height: 331px;
     .profile-block {
       width: 50%;
       padding-left: 10px;
@@ -64,6 +78,21 @@
     };
     .field-header {
         margin: -20px, 0
+    }
+}
+
+.settings-block {
+    text-align: center;
+    margin: 30px auto 37px;
+    height: 236px;
+    .settings-button {
+        font-family: Montserrat;
+        text-transform: uppercase;
+        width: 478px;
+        height: 54px;
+    }
+    .account-settings {
+        margin: 31px auto;
     }
 }
 
@@ -78,6 +107,8 @@
     width: 100%;
 }
 
-.format-children-default {
-    margin-left: auto; 
+.account-settings-default .format-children-default {
+    margin-top: 0;
+    padding-top: 1em;
+    background-color: #f7f7f7;
 }

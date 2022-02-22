@@ -127,61 +127,73 @@ const UserSettings = (props: ProfileProps) => {
   }
 
   return (
-    <Default>
+    <div className="account-settings-default">
+      <Default>
 
-      <div className="Values">
-        <div className="account-settings-page-header">Account Settings</div>
+        <div className="Values">
+          <div className="account-settings-page-header">Account Settings</div>
 
-        <Paper margin="2em 20em" className="paper-block">
-          <div className="full-width">
-            <ProfileIconBlock field={"Avatar Image"} answer={
-              <div className="photo-cropper">
-                <img className="user-section-image" src={ROOTURL + store.avatarPath} />
+          <Paper margin="3em 20em" className="paper-block">
+            {/* <div className="full-width">
+              <ProfileIconBlock field={"Avatar Image"} answer={
+                <div className="photo-cropper">
+                  <img className="user-section-image" src={ROOTURL + store.avatarPath} />
+                </div>
+              } />
+            </div> */}
+
+
+            {/* <ProfileIconBlock field={"User Name"} answer={
+              <div>
+                <input className="readonly-input-field" type="text" value={store.username} readOnly />
               </div>
             } />
-          </div>
+            <ProfileIconBlock field={"Email Address"} answer={
+              <div>
+                <input className="readonly-input-field" type="text" value={store.email} readOnly />
+              </div>
+            } />
+            <ProfileIconBlock field={"Phone Number"} answer={
+              <div>
+                <input className="readonly-input-field" type="text" value={store.phone} readOnly />
+              </div>
+            } />
+            <ProfileIconBlock field={"Password"} answer={
+              <div>
+                <input className="readonly-input-field" type="text" value="****************" readOnly />
+              </div>
+            } />
+            <ProfileIconBlock field={"Zipcode"} answer={
+              <div>
+                <input className="readonly-input-field" type="text" value={store.profile.zipcode} readOnly />
+              </div>
+            } />
+            <ProfileIconBlock field={"Date of Birth"} answer={
+              <div>
+                <input className="readonly-input-field" type="text" value={store.profile.dob} readOnly />
+              </div>
+            } /> */}
 
-
-          <ProfileIconBlock field={"User Name"} answer={
-            <div>
-              <input className="readonly-input-field" type="text" value={store.username} readOnly />
+            <div className="settings-block">
+              <Button fontSize="18px" padding="12px 36px" background="#F1658C" color="#FFFFFF" className="settings-button">
+                  Disconnect from the buddy system
+              </Button>
+                <br></br>
+                <br></br>
+                <div className="account-settings">
+                All other settings can be managed in the Wix System
+                </div>
+              {/* All other settings can be managed in the Wix System */}
+                <br></br>
+              <Button fontSize="18px" padding="12px 36px" background="#F1658C" color="#FFFFFF" className="settings-button">
+                  Go to Wix website
+              </Button>
             </div>
-          } />
-          <ProfileIconBlock field={"Email Address"} answer={
-            <div>
-              <input className="readonly-input-field" type="text" value={store.email} readOnly />
-            </div>
-          } />
-          <ProfileIconBlock field={"Phone Number"} answer={
-            <div>
-              <input className="readonly-input-field" type="text" value={store.phone} readOnly />
-            </div>
-          } />
-          <ProfileIconBlock field={"Password"} answer={
-            <div>
-              <input className="readonly-input-field" type="text" value="****************" readOnly />
-            </div>
-          } />
-          <ProfileIconBlock field={"Zipcode"} answer={
-            <div>
-              <input className="readonly-input-field" type="text" value={store.profile.zipcode} readOnly />
-            </div>
-          } />
-          <ProfileIconBlock field={"Date of Birth"} answer={
-            <div>
-              <input className="readonly-input-field" type="text" value={store.profile.dob} readOnly />
-            </div>
-          } />
-
-          <div>
-            <Button fontSize="18px" padding="12px 36px" background="#FFE7ED" color="#F1658C">
-              Edit Settings
-            </Button>
-          </div>
-          
-        </Paper>
-      </div>
-    </Default>
+            
+          </Paper>
+        </div>
+      </Default>
+    </div>
   );
 }
 export default UserSettings;

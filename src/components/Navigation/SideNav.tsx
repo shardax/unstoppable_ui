@@ -64,7 +64,7 @@ const SideNav = () => {
         <Link to="/home"><img className="logo-navbar" src={UnsIcon} alt=""/></Link>
       </div>
       <div className="username-avatar-sidenav">
-        <Avatar src={ROOTURL + store.avatarPath} size="large" />
+        <Avatar className="avatar-border" src={ROOTURL + store.avatarPath} size="large" />
         
         <DropdownButton id="dropdown-basic-button" title={store.username}>
           <Dropdown.Item href="/profile">Edit Profile</Dropdown.Item>
@@ -90,8 +90,6 @@ const SideNav = () => {
             <li><a href="https://2unstoppable.org/Terms-of-use/">Terms of Use</a></li>
             <li><a href="https://2unstoppable.org/privacy-policy/">Privacy</a></li>
             <li><a href="https://2unstoppable.org/Disclaimer/">Disclaimer</a></li>
-          </ul>
-          <ul className="noBulletUnorderedList">
             <li><a href="https://2unstoppable.org/contact-us/">Contact Us</a></li>
           </ul>
         </div>

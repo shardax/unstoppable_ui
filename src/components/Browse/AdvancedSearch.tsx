@@ -97,7 +97,9 @@ export const AdvancedSearch = () => {
                     <option
                       className="selector"
                       value=""
-                      label="- Select cancer type -"
+                      label="Breast cancer"
+                      disabled
+                      selected
                     />
                     {CANCERLOCATIONLIST.map((cancerLoc: any) => (
                       <option
@@ -127,7 +129,9 @@ export const AdvancedSearch = () => {
                           <option
                             className="selector"
                             value=""
-                            label="- Select Zipcode -"
+                            label="Tamoxifen"
+                            disabled
+                            selected
                           />
                           {store.uniqueLists.unique_zipcodes.map((z: any) => (
                             <option className="selector" value={z} label={z} />
@@ -152,7 +156,9 @@ export const AdvancedSearch = () => {
                     <option
                       className="selector"
                       value=""
-                      label="- Which of the following best describes you? -"
+                      label="Select One"
+                      disabled
+                      selected
                     />
                     {/* {store.uniqueLists.unique_personalities.map((personality: any) => (
               <option className="selector" value={personality} label={personality} />
@@ -177,7 +183,9 @@ export const AdvancedSearch = () => {
                           <option
                             className="selector"
                             value=""
-                            label="- Favorite activities -"
+                            label="Select activities"
+                            disabled
+                            selected
                           />
                           {/* {store.uniqueLists.unique_zipcodes.map((z: any) => (
                 <option className="selector" value={z} label={z} />
@@ -204,7 +212,9 @@ export const AdvancedSearch = () => {
                           <option
                             className="selector"
                             value=""
-                            label="- Preferred exercise location -"
+                            label="Select location"
+                            disabled
+                            selected
                           />
                           {/* {store.uniqueLists.unique_zipcodes.map((z: any) => (
                 <option className="selector" value={z} label={z} />

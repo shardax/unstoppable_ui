@@ -6,7 +6,6 @@ import {
   DISTANCE_WITHIN_CONSTANT,
 } from "../../constants/ProfileConstants";
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
-import { Link, NavLink } from 'react-router-dom';
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 import React, { useEffect, useState } from "react";
 
@@ -30,6 +29,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import { IoIosArrowDown } from "react-icons/io";
 import { KeyboardArrowDown } from "@material-ui/icons";
+import { Link, NavLink } from 'react-router-dom';
 import LocationIcon from "@material-ui/icons/LocationOn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -49,6 +49,8 @@ import axios from "axios";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
+import { NotificationButton } from "../Notifications/NotificationButton";
+import {ProfileCardView} from "./ProfileCard"
 
 //const BrowseProfiles: React.FC = ({  }) => {
 export const BrowseProfiles = () => {
@@ -115,8 +117,6 @@ export const BrowseProfiles = () => {
 
   // TODO
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
-  // const [personality, setPersonality] = useState(store.savedSearchParams.personality);
-  // const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
 
   // dummy data for notification
   const [newNotif, setNewNotif] = useState<any>({
@@ -129,6 +129,11 @@ export const BrowseProfiles = () => {
   })
  
 
+
+
+  const [personality, setPersonality] = useState(store.savedSearchParams.personality);
+  const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
+ 
 
   useEffect(() => {
     // gets all the profiles to populate the browse profile cards
@@ -301,225 +306,6 @@ export const BrowseProfiles = () => {
     }
   };
 
-  const getCancerCard = ({ profile }) => {
-    if (profile.cancer_location == "Other/Rare Cancer") {
-      return (
-        <p className="cancer-type-card  other-cancer-type-card">
-          {" "}
-          {profile.cancer_location}{" "}
-        </p>
-      );
-    } else if (profile.cancer_location == "Brain") {
-      return (
-        <p className="cancer-type-card brain-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Breast") {
-      return (
-        <p className="cancer-type-card breast-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Bladder") {
-      return (
-        <p className="cancer-type-card bladder-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Bone") {
-      return (
-        <p className="cancer-type-card bone-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Thyroid") {
-      return (
-        <p className="cancer-type-card thyroid-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Cervical") {
-      return (
-        <p className="cancer-type-card cervical-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Colorectal") {
-      return (
-        <p className="cancer-type-card colorectal-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Esophageal") {
-      return (
-        <p className="cancer-type-card esophageal-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Gall Bladder") {
-      return (
-        <p className="cancer-type-card gall-bladder-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Gastric") {
-      return (
-        <p className="cancer-type-card gastric-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Head and Neck") {
-      return (
-        <p className="cancer-type-card head-and-neck-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Kidney") {
-      return (
-        <p className="cancer-type-card kidney-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Leukemia") {
-      return (
-        <p className="cancer-type-card leukemia-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Liver") {
-      return (
-        <p className="cancer-type-card liver-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Lung") {
-      return (
-        <p className="cancer-type-card lung-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Melanoma") {
-      return (
-        <p className="cancer-type-card melanoma-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Multiple Myeloma") {
-      return (
-        <p className="cancer-type-card multiple-myeloma-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Ovarian") {
-      return (
-        <p className="cancer-type-card ovarian-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Pancreatic") {
-      return (
-        <p className="cancer-type-card pancreatic-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Sarcoma") {
-      return (
-        <p className="cancer-type-card sarcoma-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else {
-      return (
-        <p className="cancer-type-card"> {profile.cancer_location} Cancer</p>
-      );
-    }
-  };
-
-  const ProfileCard = ({ profile }) =>
-    useObserver(() => (
-      <div className="single-profile-wrapper " key={profile.id}>
-        <Link to={"/user/" + profile.id}>
-          <img className="single-profile-image" src={ROOTURL + profile.photo} />
-        </Link>
-        <div className="single-profile-body">
-          <div>
-            <Link to={"/user/" + profile.id}>
-              <div
-                style={{
-                  backgroundColor: profile.active ? "#B7FFBF" : "white",
-                }}
-              >
-                {getCancerCard({ profile })}
-
-                <h5 className="profile-username profile-name-loc">
-                  {profile.name}{" "}
-                </h5>
-              </div>
-            </Link>
-
-            <span className="profile-location">
-              <LocationIcon className="profile-icon"></LocationIcon>
-              {profile.city}, {profile.state}
-            </span>
-            <p className="other-profile-card-data">
-              <AgeIcon className="profile-icon"></AgeIcon>
-              {profile.age} years old
-            </p>
-
-            <Link to={"/userMessage" + "/" + profile.user_id}>
-              <p className="other-profile-message-data">
-                {" "}
-                <ChatIcon className="message-icon"></ChatIcon> Message
-              </p>
-            </Link>
-            <p className="other-profile-card-data">
-              {profile.cancer_location} Cancer
-            </p>
-            <p className="other-profile-card-data">{profile.age} years old</p>
-          </div>
-          <div>
-            {profile.active && (
-              <Tooltip
-                title={
-                  <TimeAgo datetime={profile.last_seen_at} locale="en.US" />
-                }
-              >
-                <Brightness1Icon
-                  style={{ color: "#4DED30", fontSize: "medium" }}
-                />
-              </Tooltip>
-            )}
-            {!profile.active && (
-              <Tooltip
-                title={
-                  <TimeAgo datetime={profile.last_seen_at} locale="en.US" />
-                }
-              >
-                <Brightness1Icon
-                  style={{ color: "#D4D4D4", fontSize: "medium" }}
-                />
-              </Tooltip>
-            )}
-            <Link to={"/userMessage" + "/" + profile.user_id}>
-              <ChatIcon className="favorite-profile-icon"></ChatIcon>
-            </Link>
-            {store.profile.liked_profiles.includes(profile.id) ? (
-              <FavoriteIcon
-                onClick={() => updateLikedProfiles("unlike", profile.id)}
-                className="favorite-profile-icon"
-              />
-            ) : (
-              <FavoriteBorderIcon
-                onClick={() => updateLikedProfiles("like", profile.id)}
-                className="favorite-profile-icon"
-              />
-            )}
-          </div>
-        </div>
-      </div>
-    ));
-
   const handleRadioSearch = (event) => {
     setKeywordSearchType(event.target.value);
   };
@@ -579,7 +365,7 @@ export const BrowseProfiles = () => {
     return (
       <div className="profile-browse-grid">
         {userCollection.map((profile: any) => (
-          <ProfileCard profile={profile} />
+          <ProfileCardView profile={profile} />
         ))}
       </div>
     );
@@ -595,10 +381,7 @@ export const BrowseProfiles = () => {
       <div className="browse-container">
         <div className="browse-header">
           <h3 className="pageHeader">Browse Profiles</h3>
-          {/* <NavLink className="notification-link" to="/notifications"><img src={NotificationIcon} className="notification-icon" /></NavLink> */}
-
-          {checkCreateNotification()}
-
+          <NotificationButton />
           <p className="browse-subheader">Enter keywords separated by spaces in search box(for e.g: TNBC DCIS Stage)</p>
         </div>
             

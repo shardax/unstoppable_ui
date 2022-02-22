@@ -9,6 +9,7 @@ import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
 import { Link, NavLink } from 'react-router-dom';
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 import React, { useEffect, useState } from "react";
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 // accordian imports
 import Accordion from "@material-ui/core/Accordion";
@@ -50,6 +51,7 @@ import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
 
 export const MenuPopupState = (props) => {
+    const classes = useStyles();
     const sortProfileCards = (sortBy, popupState) => {
       let userCollectionTemp;
       switch (sortBy) {
@@ -100,7 +102,12 @@ export const MenuPopupState = (props) => {
               &nbsp; Sort By &nbsp;
               <IoIosArrowDown />
             </Button>
-            <Menu {...bindMenu(popupState)}>
+            <Menu 
+              {...bindMenu(popupState)}
+              classes={{ paper: classes.menuPaper }}
+              getContentAnchorEl={null}
+              anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+              transformOrigin={{vertical: 'top', horizontal: 'center'}}>
               <MenuItem
                 style={{ color: "white", background: "#9560A8" }}
                 onClick={() => sortProfileCards("Age", popupState.close)}
@@ -135,5 +142,15 @@ export const MenuPopupState = (props) => {
       </PopupState>
     );
   };
+
+
+  export const useStyles = makeStyles((theme: Theme) => ({
+    menuPaper: {
+      backgroundColor: "#9560A8",
+      // top: "44.5em !important",
+      // left: "88.5em !important"
+    },
+  }));
+  
 
 

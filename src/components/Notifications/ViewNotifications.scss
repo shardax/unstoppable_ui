@@ -1,0 +1,84 @@
+.notification-btn-holder {
+    display: flex;
+}
+
+.notification-header {
+    padding-top: 25px;
+
+    h3 {
+        color: #9560A8;
+        font-size: 28px;
+        font-weight: 700;
+        font-family: "Montserrat";
+    }
+
+    h4 {
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "Montserrat";
+    }
+}
+
+.interactables {
+    display: flex;
+
+    .dropdown-toggle:not(.nohover) {
+        background: white;
+    }
+    .dropdown-item {
+        overflow:visible;
+        font-weight: 400;
+        font-size: 15px;
+        width: 200px;
+        font-family: "Montserrat";
+        color: black;
+    }
+    #sort-by {
+        display: flex;
+        font-size: 15px;
+        font-weight: 400;
+        color: black;
+        padding: 15px;
+        line-height: 1;
+        width: 200px;
+    }
+    .dropdown-toggle::after {
+        margin-left: auto;
+        margin-right: 0;
+        align-self: center;
+    }
+
+
+    .clear-btn {
+        background-color: #F1658C;
+        width: 170px;
+        border-radius: 6px;
+        border: none;
+
+        font-size: 14px;
+        font-family: "Montserrat";
+        font-weight: bold;
+
+        margin-left: auto;
+        margin-right: 0;
+    }
+}
+
+.horizontal-line {
+    border: 1px solid black;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.notification-list > *:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.no-notification-message {
+    text-align: center;
+
+    font-family: "Montserrat";
+    font-size: 16px;
+    font-weight: bold;
+    color: #F1658C;
+}
