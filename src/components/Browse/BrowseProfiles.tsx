@@ -116,6 +116,12 @@ export const BrowseProfiles = () => {
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
   const [personality, setPersonality] = useState(store.savedSearchParams.personality);
   const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
+
+  const [scroll, setScroll] = useState(window.scrollY !== 0);
+
+  window.onscroll = function() {
+    setScroll(window.scrollY !== 0);
+  };
  
 
   useEffect(() => {
@@ -663,7 +669,7 @@ export const BrowseProfiles = () => {
           Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
           Stage)
         </p> */}
-        <div className="browse-sticky-nav">
+        <div className={`browse-sticky-nav ${scroll ? "scroll" : ""}`}>
           <h5 className="boldedSubheader" style={{ padding: "0px 16px" }}>
             I'm looking for an exercise buddy:
           </h5>
@@ -679,13 +685,7 @@ export const BrowseProfiles = () => {
               />
             </Tooltip>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "26px 16px 35px",
-            }}
-          >
+          <div className="top-filter">
             {/* age slider */}
             <div style={{ display: "table-caption" }}>
               {/* <RangeSlider ageRange={ageRange} onChange={handleChange}/> */}
@@ -795,13 +795,7 @@ export const BrowseProfiles = () => {
                 </Select>
               </div>} */}
           {/* active users filter */}
-          <div
-            style={{
-              padding: "0px 16px 35px",
-              display: "flex",
-              justifyContent: "space-between"
-            }}
-          >
+          <div className="bottom-filter">
             {/* className="range-slider search-widget" */}
             <div className="form-group-alignment">
             <Tooltip title="Displays Users active since the last 5 minutes">
@@ -845,7 +839,7 @@ export const BrowseProfiles = () => {
 
           {/* <h5 className="boldedSubheader">Advanced Search</h5> */}
 
-          <div className="browse-filter-row" style={{ padding: "0px 16px" }}>
+          <div className="browse-filter-row">
             <AdvancedSearch/>
 
             <hr style={{ opacity: ".10", marginTop: "1px" }} />
