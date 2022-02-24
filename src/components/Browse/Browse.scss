@@ -33,6 +33,39 @@ $cardHeight: 240px;
   box-shadow: 3px 3px 1px 1px#ededed;
 }
 
+.browse-sticky-nav.scroll {
+  .boldedSubheader {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .browse-filter-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .button-reset {
+    margin: 0;
+  }
+  .no-border-accordian {
+    width: 60%;
+  }
+  .top-filter, .bottom-filter {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.top-filter {
+  display: flex;
+  justify-content: space-between;
+  padding: 26px 16px 35px;
+}
+
+.bottom-filter {
+  padding: 0px 16px 35px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .pageHeader {
   color: #9560a8;
   font-weight: bold;
@@ -69,6 +102,7 @@ $cardHeight: 240px;
   // justify-content: flex-start;
   // flex-wrap: wrap;
   border-radius: 10px;
+  padding: 0px 16px;
   .browse-search {
     height: 40px;
     border-radius: 8px;
@@ -323,12 +357,9 @@ $cardHeight: 240px;
   padding: 0px !important;
 }
 
-.button-active {
+.button-active, .button-reset {
   width: 212px;
-}
-
-.button-reset {
-  width: 212px;
+  height: 64px;
 }
 
 .freeTextSearch {
