@@ -2,6 +2,8 @@ import './index.scss';
 
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
 import React, { useEffect, useState } from 'react'
+import { PopupboxContainer, PopupboxManager } from "react-popupbox";
+
 
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import Button from '../Styled/Button';
@@ -18,12 +20,55 @@ import StarIcon from '@material-ui/icons/Star';
 import TimeAgo from 'timeago-react';
 import Tooltip from '@material-ui/core/Tooltip';
 import WorkIcon from '@material-ui/icons/Work';
+import LocationIcon from "@material-ui/icons/LocationOn";
+import AgeIcon from "@material-ui/icons/DataUsageTwoTone";
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import BorderColorIcon from '@material-ui/icons/BorderColorTwoTone';
+// import LoginIcon from '@mui/icon/LoginIcon';
 import axios from 'axios';
 import colors from '../../assets/colors'
 import { useDataStore } from "../../UserContext";
 
+import "react-popupbox/dist/react-popupbox.css";
+
+import { Prompt, useHistory } from "react-router-dom";
+
+import { Avatar } from "antd";
+import EditProfile from '../manageProfile/EditProfile';
+import { useObserver } from "mobx-react";
+
 const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
-  const store = useDataStore()
+  const store = useDataStore();
+  const [currentProfile, setCurrentProfile] = useState(store.profile);
+  const [dataLoading, setDataLoading] = useState("");
+  const [profileImg, setProfileImg] = useState(ROOTURL + store.avatarPath);
+  const history = useHistory();
+  const [editMode, setEditMode] = useState(false);
+
+  const openPopupbox = () => {
+    setEditMode(true);
+    // window.addEventListener("scroll", () => {window.scrollTo(0,0)});
+    // window.removeEventListener("scroll", () => {window.scrollTo(0,0)});
+
+    const content = (
+      <div>
+        <div>
+          <h3 className="editProfile">Edit Profile</h3>
+          <div>
+            <Avatar src={ROOTURL + store.avatarPath} size={200} />
+            <span style={{ display: "inline-block", padding: "30px" }}>
+              <h4 className="userName"> {store.username}</h4>
+              <h5 className="userAge">Age: {currentProfile.age}</h5>
+            </span>
+          </div>
+        </div>
+
+        <EditProfile editControls={{ editMode, setEditMode }} />
+      </div>
+    );
+    PopupboxManager.open({ content });
+  };
 
   // ProfileIconRow takes up the entire Paper row
   const ProfileIconRow = ({ icon, field, answer }) => {
@@ -34,10 +79,8 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
     return (
       <div className="full-profile-icon-row">
         <div className="field-question-profile">
-          {icon}
-          <div>{field}</div>
+          {icon} <span>{field}</span> &nbsp; : &nbsp; <span className="field-answer muted-text">{answer}</span>
         </div>
-        <div className="field-answer muted-text">{answer}</div>
       </div>
     )
   }
@@ -87,84 +130,54 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
     <div>
       <div className="user-section-wrapper">
         <div className="user-section-data">
-          <h1 style={{ fontSize: "26px" }}>{user.name}  · <span className="full-profile-location muted-text">{user.city}, {user.state}</span>
-          </h1>
-          <div
-            style={{
-              backgroundColor: user.active ? '#4DED30' : 'white'
-            }}
-          >
-            <p style={{ fontSize: "20px" }}>
-              <span> Last login at:&nbsp;&nbsp;
-                <TimeAgo
-                  datetime={user.last_seen_at}
-                  locale='en.US'
-                />
-              </span>
-            </p>
-          </div>
-          <Paper margin="2em 4em">
+          
+          {/* Top Card */}
+          <Paper margin="2em 0em" className='top-card'>
 
+            <div className="photo-cropper">
+              <img className="user-section-image" src={ROOTURL + user.photo} />
+            </div>
 
+            <div className="primary-info" style={{ width:"60%" }}>
+              <div className="profile-section-header-primary">{user.name}</div>
+              <div><LocationIcon className="profile-icon"></LocationIcon>{user.city}, {user.state}</div>
+              <div><AgeIcon className="profile-icon"></AgeIcon><span> {user.age} years old</span></div>
+              <div><AgeIcon className="profile-icon"></AgeIcon><span> Last login <TimeAgo datetime={user.last_seen_at} locale='en.US'/> </span></div> 
+              {/* <div><AgeIcon className="profile-icon"></AgeIcon><span> Profile Created <TimeAgo datetime={user.last_seen_at} locale='en.US'/> </span></div> */}
+            </div>  
 
+            <div className="edit-button" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Button onClick={openPopupbox} style={{textTransform: "uppercase"}} > <BorderColorIcon></BorderColorIcon> &nbsp; Edit Profile</Button>
+              <PopupboxContainer />
+            </div>
 
-
-
-            <ProfileIconRow field={"Avatar Image"} answer={
-              <div className="photo-cropper">
-                <img className="user-section-image" src={ROOTURL + user.photo} />
-              </div>
-            } icon={null} />
-
-            <ProfileIconBlock field={"User Name"} answer={
-              <div>
-                <input className="readonly-input-field" type="text" value={user.name} readOnly />
-              </div>
-            } icon={null} />
-
-            <ProfileIconBlock field={"Email Address"} answer={
-              <div>
-                <input className="readonly-input-field" type="text" value={user.email} readOnly />
-              </div>
-            } icon={null} />
           </Paper>
 
-
-
-
-
-
-
-
-
-
-
-
-          <Paper margin="2em 0em">
-            <div className="profile-section-header">About me 😀</div>
-            <p className="muted-text">{user.age} years old!</p>
+          {/* About Me Card */}
+          <Paper margin="2em 2em" style={{ float: "left", width:"40%" }} className='cancer-type-card'>
+            <div className="profile-section-header">About Me</div>
+            {/* <p className="muted-text">{user.age} years old</p> */}
+            <ProfileIconRow field={"Age"} answer={user.age} icon={<BorderColorIcon className="full-profile-icon" />} />
             <ProfileIconRow field={"Personality"} answer={user.personality} icon={<EmojiPeopleIcon className="full-profile-icon" />} />
-
-            <ProfileIconRow field={"Details"} answer={<div className="full-profile-das">
-              <p>{user.details_about_self}</p>
-            </div>} icon={<NotesIcon className="full-profile-icon" />} />
-
             <ProfileIconRow field={"Work Status"} answer={user.work_status} icon={<WorkIcon className="full-profile-icon" />} />
+            <ProfileIconRow field={"Details"} answer={<p>{user.details_about_self}</p>} icon={<NotesIcon className="full-profile-icon" />} />
           </Paper>
 
-          <Paper margin="2em 0em">
-            <div className="profile-section-header">Details about Diagnosis</div>
+          {/* Cancer Type Card */}
+          <Paper margin="2em 2em" style={{ float: "right", width:"40%" }} className='cancer-type-card'>
+            <div className="profile-section-header">Cancer Type</div>
 
-            <p>{user.cancer_location} cancer</p>
-            <ProfileIconRow field={"Treatment description"} answer={user.treatment_description} icon={null} />
-            <ProfileIconRow field={"Treatment status"} answer={user.treatment_status} icon={null} />
-
-            <ProfileIconRow field={"Part of wellness program?"} answer={user.part_of_wellness_program ? "✅" : "No"} icon={null} />
-
-            {user.part_of_wellness_program ? <ProfileIconRow field={"Which wellness program?"} answer={user.which_wellness_program} icon={null} /> : null}
+            <ProfileIconRow field={"Cancer"} answer={user.cancer_location} icon={null} />
+            <ProfileIconRow field={"Treatment Description"} answer={user.treatment_description} icon={null} />
+            <ProfileIconRow field={"Treatment Status"} answer={user.treatment_status} icon={<LocalHospitalIcon className="full-profile-icon"/>} />
+            <ProfileIconRow field={"Part of Wellness Program?"} answer={user.part_of_wellness_program ? "✅" : "No"} icon={<FavoriteIcon/>} />
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Which Wellness Program?"} answer={user.which_wellness_program} icon={<FavoriteIcon/>} /> : null}
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Profile Created"} answer={user.which_wellness_program} icon={null} /> : null}
+            {user.part_of_wellness_program ? <ProfileIconRow field={"Last Login"} answer={user.which_wellness_program} icon={null} /> : null}
           </Paper>
 
-          <Paper margin="2em 0em">
+          {/* Activity/Fitness Card */}
+          <Paper margin="2em 0em" style={{ width:"100%" }} className='activity-fitness-type-card'>
             <div className="profile-section-header">Activity/Fitness</div>
 
             <ProfileIconRow field={"Reasons for Match"} answer={user.reason_for_match} icon={null} />
@@ -177,25 +190,6 @@ const UserSection: React.FC<{ user: any, me: boolean }> = ({ user, me }) => {
 
             <ProfileIconRow field={"Prefered exercise time"} answer={user.prefered_exercise_time} icon={<ScheduleIcon className={"full-profile-icon"} />} />
           </Paper>
-        </div>
-        <div className="user-metadata">
-          <img className="user-section-image" src={ROOTURL + user.photo} />
-          {me ? null : (
-            <div style={{ display: "flex" }}>
-              <Link style={{ textDecoration: "underline" }} to="/messages">
-                <Button margin="0em 0.3em 0em 0em" padding="4px 12px" fontSize="14px" borderRadius="20px" >Message {user.name}</Button>
-              </Link>
-              <Button margin="0em 0em" background="white" padding="4px 12px" fontSize="14px" borderRadius="20px" color={colors.primary} border={"1px solid" + colors.primary}>Save as Favorite</Button>
-            </div>
-          )}
-          {me ? (
-            <div>
-              <h6>Liked Profiles</h6>
-              {store.profile.liked_profiles.map((id: number) => (
-                <LikedProfile id={id} />
-              ))}
-            </div>
-          ) : null}
         </div>
       </div>
     </div>

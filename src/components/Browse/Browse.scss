@@ -180,7 +180,7 @@ $cardHeight: 240px;
     color: rgb(34, 34, 34);
     // background-color: rgba($primaryPurple, 0.06);
     .profile-username {
-      font-size: 16px;
+      font-size: 22px;
     }
     .profile-location {
       color: rgb(113, 113, 113);
@@ -201,7 +201,6 @@ $cardHeight: 240px;
       color: white;
       font-weight: bold;
       border-radius: 5px;
-      padding: 5px;
       padding-left: 10px;
       padding-right: 10px;
       display: inline-block;
@@ -232,7 +231,13 @@ $cardHeight: 240px;
     }
 
     .cervical-cancer-type-card {
-      background-color: #4cb6d8;
+      background-color: rgba(76, 181, 216, 0.2);
+      color: rgb(76, 182, 216);;
+      font-weight: bold;
+      border-radius: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      display: inline-block;
     }
 
     .colorectal-cancer-type-card {
@@ -396,4 +401,24 @@ $cardHeight: 240px;
   width: 45px;
   border: #E5E5E5 solid 1px;
   border-radius: 4px;
+}
+
+
+
+.message-icon{
+  background-color: #F1658C !important;
+}
+
+.location-icon{
+  color: #363637;
+}
+
+
+.age-icon {
+
+}
+
+.profile-card-detail {
+  color: black;
+  font-size: initial;
 }
