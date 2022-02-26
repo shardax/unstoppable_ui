@@ -4,7 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
+import { CANCERLOCATIONLIST} from "../../../constants/ProfileConstants"
+import Error from "../../LogIn/Error";
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
@@ -55,6 +56,7 @@ const Q4_PrimaryDiagnosis = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+          cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -115,24 +117,20 @@ const Q4_PrimaryDiagnosis = () => {
 
                     <div className="question-header">What was your primary cancer diagnosis? (If other, provide details below?) *</div>
                     <div className="question-number">4/16 Questions</div>
-                    <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                          onChange={e => {
-                            handleChange(e);
-                            setFilled(true);
-                          }}
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
+                    <div className="question-wrapper">
+                        <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
+                        <div className="Answers">
+                            <Field
+                                as={Select}
+                                id="cancer_location"
+                                name="cancer_location"
+                            >
+                                <option value="" label="- Select One -" />
+                                {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}
+                            </Field>
+                            <Error touched={touched.cancer_location} message={errors.cancer_location} />
+                        </div>
                     </div>
-                  
                     <PromptIfDirty />
 
                     <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  

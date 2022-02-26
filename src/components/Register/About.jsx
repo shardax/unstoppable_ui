@@ -93,8 +93,8 @@ function getStepContent(step) {
     // Old steps that can be observed
     // case 8:
     //   return <AboutStep />;
-    // case 9:
-    //   return <CancerStep />;
+    case 13:
+      return <CancerStep />;
     // case 10:
     //   return <FitnessStep />;
 
