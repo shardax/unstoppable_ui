@@ -8,6 +8,7 @@ import { ACTIVITY_REASONS} from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
+import {Link} from 'react-router-dom';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -30,6 +31,8 @@ const Q10_ReasonsActive = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
@@ -119,18 +122,14 @@ const Q10_ReasonsActive = () => {
                     <div> (check all that apply) :</div>
                     <div className="question-number">10/16 Questions</div>
                     <div className="form-question-wrapper">
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                          onClick={()=>setFilled(true)}
-                        >
-                          <option value="" label="- Select One -" />
-                          {ACTIVITY_REASONS.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
+                      {ACTIVITY_REASONS.map(item => (
+                        <div className="form-checkbox-item">
+                          <Field id={item} type="checkbox" name="work_status" value={item} onClick={()=>setFilled(true)}></Field>
+                          <label htmlFor={item}>{item + " "}</label>
+                        </div>
+                      ))}
                     </div>
+                    
                   
                     <PromptIfDirty />
 
@@ -139,10 +138,11 @@ const Q10_ReasonsActive = () => {
                       Prev
                     </Button>
 
-                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
-                        Next
-                    </Button>
-
+                    <Link to="/">
+                      <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                          Next
+                      </Button>
+                    </Link>
                 </div>
               </div>
             </Form>

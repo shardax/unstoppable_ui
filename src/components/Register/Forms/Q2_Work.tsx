@@ -126,7 +126,7 @@ const Q2_Work = () => {
 
                   {WORK_STATUS_DESCRIPTIONS.map(item => (
                     <div>
-                      <Field id={item} type="radio" name="activity_ids" value={item} onClick={()=>setFilled(true)}></Field>
+                      <Field id={item} type="radio" name="work_status" value={item} onClick={()=>setFilled(true)}></Field>
                       <label htmlFor={item}>{item + " "}</label>
                     </div>
                   ))}

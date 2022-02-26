@@ -31,6 +31,8 @@ const Q7_DescribeTreatments = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
@@ -55,6 +57,8 @@ const Q7_DescribeTreatments = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+          
+          treatment_description: profile.treatment_description,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -70,6 +74,8 @@ const Q7_DescribeTreatments = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+              profile.treatment_description = values.treatment_description;
+              
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },

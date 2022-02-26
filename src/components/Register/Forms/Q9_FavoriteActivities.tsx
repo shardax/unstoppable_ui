@@ -30,6 +30,8 @@ const Q9_FavoriteActivities = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
@@ -117,18 +119,12 @@ const Q9_FavoriteActivities = () => {
                     <div className="question-header"> Favorite activities (check all that apply):</div>
                     <div className="question-number">9/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                          onClick={()=>setFilled(true)}
-                        >
-                          <option value="" label="- Select One -" />
-                          {ACTIVITY_IDS.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
+                      {ACTIVITY_IDS.map(item => (
+                        <div className="form-checkbox-items">
+                          <Field id={item} type="checkbox" name="activity_ids" value={item} onClick={()=>setFilled(true)}></Field>
+                          <label htmlFor={item}>{item + " "}</label>
+                        </div>
+                      ))}
                     </div>
                   
                     <PromptIfDirty />

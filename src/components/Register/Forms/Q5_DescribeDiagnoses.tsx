@@ -122,6 +122,7 @@ const Q5_DescribeDiagnoses = () => {
                               as={Select}
                               id="treatment_status"
                               name="treatment_status"
+                              onClick={()=>setFilled(true)}
                           >
                               {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item} value={item}> {item}</option>))}
                           </Field>

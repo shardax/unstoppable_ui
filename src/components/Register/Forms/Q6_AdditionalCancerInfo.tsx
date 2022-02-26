@@ -31,6 +31,8 @@ const Q6_AdditionalCancerInfo = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+  
   let profile = store.profile;
 
   useEffect(() => {

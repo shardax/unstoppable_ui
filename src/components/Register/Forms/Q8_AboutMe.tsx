@@ -8,6 +8,7 @@ import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../const
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
+import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -30,6 +31,8 @@ const Q8_AboutMe = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
@@ -115,15 +118,7 @@ const Q8_AboutMe = () => {
                     <div className="question-number">8/16 Questions</div>
                     <div className="form-question-wrapper">
                       <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                          onClick={()=>setFilled(true)}
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
+                          <Field name="" as={Textarea} placeHolder="Treatment description" rows={2} cols={50} onClick={()=>setFilled(true)} />
                       </div>
                     </div>
                   

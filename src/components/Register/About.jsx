@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import Button from '../Styled/Button';
 import Paper from '@material-ui/core/Paper';
+import {Link} from 'react-router-dom';
 
 // importing questions for multi-page-form: OLD
 import AboutStep from './Forms/AboutStep';
@@ -176,9 +177,14 @@ export default function About() {
             <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Button onClick={handleReset} className={classes.button}>
+            {/* <Button onClick={handleReset} className={classes.button}>
               Reset
-            </Button>
+            </Button> */}
+            <Link to="/browse">
+              <Button className={classes.button}>
+                Browse Profiles
+              </Button>
+            </Link>
           </div>
         ) : (
             <div>
