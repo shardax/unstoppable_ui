@@ -74,6 +74,32 @@ export const CANCERLOCATIONLIST = [
       'From my provider (physician, nurse, nutritionist)',
       'Other'
     ]
+
+    export const ACTIVITY_IDS = [
+      'Walking', 
+      'Team Sports', 
+      'Yoga',
+      'Pilates',
+      'Running',
+      'Cycling',
+      'Weight Lifting',
+      'Aerobics',
+      'Pickleball',
+      'Swimming',
+      'Gardening',
+      'Zumba'
+    ]
+
+    export const ACTIVITY_REASONS = [
+      'Weight Loss',
+      'Social Support',
+      'Reduce Fatigue',
+      'Emotional Health', 
+      'Reduce Pain', 
+      'Sense of Accomplishment',
+      'Physical Health',
+      'Other'
+    ]
     
     export const STEP_CONFIRMED_EMAIL =  "Confirmed Email"
     export const STEP_EMAIL_CONFIRMATION_SENT =  "Email Confirmation Sent"

@@ -52,10 +52,6 @@ const Q4_PrimaryDiagnosis = () => {
     <div>
       <Formik
         initialValues={{
-          // About Me
-          personality: profile.personality,
-          work_status: profile.work_status,
-          details_about_self: profile.details_about_self,
           cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -68,10 +64,8 @@ const Q4_PrimaryDiagnosis = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              //About Me
-              profile.personality = values.personality;
-              profile.work_status = values.work_status;
-              profile.details_about_self = values.details_about_self;
+              
+              profile.cancer_location = values.cancer_location;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -117,13 +111,13 @@ const Q4_PrimaryDiagnosis = () => {
 
                     <div className="question-header">What was your primary cancer diagnosis? (If other, provide details below?) *</div>
                     <div className="question-number">4/16 Questions</div>
-                    <div className="question-wrapper">
-                        <label htmlFor="cancer_location">What was your primary cancer diagnosis?</label>
+                    <div className="form-question-wrapper">
                         <div className="Answers">
                             <Field
                                 as={Select}
                                 id="cancer_location"
                                 name="cancer_location"
+                                onClick={()=>setFilled(true)}
                             >
                                 <option value="" label="- Select One -" />
                                 {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}

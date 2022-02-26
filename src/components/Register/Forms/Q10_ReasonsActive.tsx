@@ -4,7 +4,7 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
+import { ACTIVITY_REASONS} from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
@@ -54,6 +54,8 @@ const Q10_ReasonsActive = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+
+          activity_reasons: profile.exercise_reason_ids,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -69,6 +71,8 @@ const Q10_ReasonsActive = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+
+              profile.exercise_reason_ids = values.activity_reasons;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -112,17 +116,18 @@ const Q10_ReasonsActive = () => {
               <div className="form-container">
                 <div className="user-section-data">
                     <div className="question-header">Identify your top reasons for wanting to become more active</div>   
+                    <div> (check all that apply) :</div>
                     <div className="question-number">10/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field
                           as={Select}
                           id="personality"
                           name="personality"
+                          onClick={()=>setFilled(true)}
                         >
                           <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
+                          {ACTIVITY_REASONS.map(item => (<option key={item} value={item}>	{item}</option>))}
                         </Field>
                       </div>
                     </div>

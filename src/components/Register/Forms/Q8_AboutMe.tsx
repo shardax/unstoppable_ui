@@ -111,15 +111,15 @@ const Q8_AboutMe = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-                    <div className="question-header">About Me: Use this space for anything else you would like to share.</div>
+                    <div className="question-header">Use this space for anything else you would like to share about your primary cancer:</div>
                     <div className="question-number">8/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
                         <Field
                           as={Select}
                           id="personality"
                           name="personality"
+                          onClick={()=>setFilled(true)}
                         >
                           <option value="" label="- Select One -" />
                           {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}

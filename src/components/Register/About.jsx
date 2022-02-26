@@ -82,21 +82,20 @@ function getStepContent(step) {
         return <Q9_FavoriteActivities/>;
     case 9:
         return <Q10_ReasonsActive/>;
-    
     case 10:
       return <UploadPhoto fromWizard={true} />;
-    case 11:
-      return <ConfirmStep />;
-    case 12:
-      return <VerifyEmailStep />;
-  
+
     // Old steps that can be observed
     // case 8:
     //   return <AboutStep />;
-    case 13:
-      return <CancerStep />;
+    // case 13:
+    //   return <CancerStep />;
     // case 10:
     //   return <FitnessStep />;
+    // case 11:
+    //   return <ConfirmStep />;
+    // case 12:
+    //   return <VerifyEmailStep />
 
     default:
       return 'Unknown step';

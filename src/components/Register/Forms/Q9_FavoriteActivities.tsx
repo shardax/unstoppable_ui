@@ -4,7 +4,7 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
+import { PERSONALITY_DESCRIPTION, ACTIVITY_IDS } from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
@@ -54,6 +54,7 @@ const Q9_FavoriteActivities = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+          activity_ids: profile.activity_ids,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -69,6 +70,8 @@ const Q9_FavoriteActivities = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+
+              profile.activity_ids = values.activity_ids;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -120,9 +123,10 @@ const Q9_FavoriteActivities = () => {
                           as={Select}
                           id="personality"
                           name="personality"
+                          onClick={()=>setFilled(true)}
                         >
                           <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
+                          {ACTIVITY_IDS.map(item => (<option key={item} value={item}>	{item}</option>))}
                         </Field>
                       </div>
                     </div>

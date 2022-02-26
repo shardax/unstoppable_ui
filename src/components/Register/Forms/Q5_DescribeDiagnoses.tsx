@@ -4,7 +4,7 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
+import { TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
@@ -70,6 +70,7 @@ const Q5_DescribeDiagnoses = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -116,23 +117,17 @@ const Q5_DescribeDiagnoses = () => {
                     <div className="question-header">Which of the following best describes you? *</div>
                     <div className="question-number">5/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                          onChange={e => {
-                            handleChange(e);
-                            setFilled(true);
-                          }}
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
+                          <Field
+                              as={Select}
+                              id="treatment_status"
+                              name="treatment_status"
+                          >
+                              {TREATMENT_STATUS_DESCRIPTIONS.map(item => (<option key={item} value={item}> {item}</option>))}
+                          </Field>
                       </div>
                     </div>
-                  
+            
                     <PromptIfDirty />
 
                     <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
