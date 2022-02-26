@@ -32,7 +32,7 @@ const Q6_AdditionalCancerInfo = () => {
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
   const [filled, setFilled] = useState(false);
-  
+
   let profile = store.profile;
 
   useEffect(() => {
@@ -57,6 +57,7 @@ const Q6_AdditionalCancerInfo = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);

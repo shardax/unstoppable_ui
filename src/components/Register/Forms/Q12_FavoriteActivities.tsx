@@ -4,10 +4,11 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
+import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -26,11 +27,12 @@ const PromptIfDirty = () => {
 };
 
 
-const Q5_DescribeDiagnoses = () => {
+const Q7_DescribeTreatments = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
   const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
@@ -45,13 +47,18 @@ const Q5_DescribeDiagnoses = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/5");
+    history.push("/complete-profile/12");
   }
   return (
     <div>
       <Formik
         initialValues={{
-          treatment_status: profile.treatment_status,
+          // About Me
+          personality: profile.personality,
+          work_status: profile.work_status,
+          details_about_self: profile.details_about_self,
+          
+          treatment_description: profile.treatment_description,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -63,9 +70,12 @@ const Q5_DescribeDiagnoses = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
+              //About Me
+              profile.personality = values.personality;
+              profile.work_status = values.work_status;
+              profile.details_about_self = values.details_about_self;
+              profile.treatment_description = values.treatment_description;
               
-              profile.treatment_status = values.treatment_status;
-
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -76,9 +86,9 @@ const Q5_DescribeDiagnoses = () => {
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted){
-                history.push("/complete-profile/3");
+                history.push("/complete-profile/10");
               } else {
-                  history.push("/complete-profile/5");
+                  history.push("/complete-profile/12");
               }
 
             } catch (err) {
@@ -108,18 +118,15 @@ const Q5_DescribeDiagnoses = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-
-                    <div className="question-header">Which of the following best describes you? *</div>
-                    <div className="question-number">5/16 Questions</div>
+                    <div className="question-header">Do you have any other favorite activities?
+</div>
+                    <div className="question-number">12/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {TREATMENT_STATUS_DESCRIPTIONS.map(item => (
-                        <div>
-                          <Field id={item} type="radio" name="treatment_status" value={item} onClick={()=>setFilled(true)}></Field>
-                          <label htmlFor={item}>{item + " "}</label>
-                        </div>
-                      ))}
+                      <div className="Answers">
+                          <Field name="treatment_description" as={Textarea} placeHolder="Treatment description" rows={2} cols={50} onClick={()=>setFilled(true)} />
+                      </div>
                     </div>
-            
+                  
                     <PromptIfDirty />
 
                     <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
@@ -127,10 +134,9 @@ const Q5_DescribeDiagnoses = () => {
                       Prev
                     </Button>
 
-                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting || !filled}>
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
                         Next
                     </Button>
-
                 </div>
               </div>
             </Form>
@@ -139,4 +145,4 @@ const Q5_DescribeDiagnoses = () => {
     </div>
   );
 }
-export default Q5_DescribeDiagnoses;
+export default Q7_DescribeTreatments;

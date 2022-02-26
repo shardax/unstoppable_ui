@@ -4,9 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import { PERSONALITY_DESCRIPTION } from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -25,12 +24,10 @@ const PromptIfDirty = () => {
   );
 };
 
-
-const Q5_DescribeDiagnoses = () => {
+const Q1_Personality = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
-  const [filled, setFilled] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
@@ -45,13 +42,16 @@ const Q5_DescribeDiagnoses = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/5");
+    history.push("/complete-profile/13");
   }
   return (
     <div>
       <Formik
         initialValues={{
-          treatment_status: profile.treatment_status,
+          // About Me
+          personality: profile.personality,
+          work_status: profile.work_status,
+          details_about_self: profile.details_about_self,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -63,9 +63,10 @@ const Q5_DescribeDiagnoses = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              
-              profile.treatment_status = values.treatment_status;
-
+              //About Me
+              profile.personality = values.personality;
+              profile.work_status = values.work_status;
+              profile.details_about_self = values.details_about_self;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -76,11 +77,12 @@ const Q5_DescribeDiagnoses = () => {
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted){
-                history.push("/complete-profile/3");
+                history.push("/complete-profile/11");
               } else {
-                  history.push("/complete-profile/5");
+                  history.push("/complete-profile/13");
               }
 
+              history.push("/complete-profile/1");
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
@@ -107,31 +109,33 @@ const Q5_DescribeDiagnoses = () => {
         }) => (
             <Form>
               <div className="form-container">
-                <div className="user-section-data">
+                  <div className="question-header">Where do you prefer to be active?</div>
+                  <div className="question-number">13/16 Questions</div>
+                  <div className="form-question-wrapper">
+                    <div className="question-answers">
+                      
+                    {PERSONALITY_DESCRIPTION.map(item => (
+                      <div>
+                        <Field id={item} type="radio" name="personality" value={item}></Field>
+                        <label htmlFor={item}>{item + " "}</label>
+                      </div>
+                    ))}
 
-                    <div className="question-header">Which of the following best describes you? *</div>
-                    <div className="question-number">5/16 Questions</div>
-                    <div className="form-question-wrapper">
-                      {TREATMENT_STATUS_DESCRIPTIONS.map(item => (
-                        <div>
-                          <Field id={item} type="radio" name="treatment_status" value={item} onClick={()=>setFilled(true)}></Field>
-                          <label htmlFor={item}>{item + " "}</label>
-                        </div>
-                      ))}
+                      {/* <Field
+                        as={Select}
+                        id="personality"
+                        name="personality"
+                      >
+                        <option value="" label="- Select One -" />
+                        {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
+                      </Field> */}
                     </div>
-            
-                    <PromptIfDirty />
-
-                    <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
-                    onClick={(e)=>{setPrevSubmitted(true)}}>
-                      Prev
-                    </Button>
-
-                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting || !filled}>
-                        Next
-                    </Button>
-
-                </div>
+                  </div>
+                
+                  <PromptIfDirty />
+                  <Button disabled={isSubmitting}>
+                      Save &amp; Continue
+                  </Button>
               </div>
             </Form>
           )}
@@ -139,4 +143,4 @@ const Q5_DescribeDiagnoses = () => {
     </div>
   );
 }
-export default Q5_DescribeDiagnoses;
+export default Q1_Personality;

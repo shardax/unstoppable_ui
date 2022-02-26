@@ -120,7 +120,7 @@ const Q9_FavoriteActivities = () => {
                     <div className="question-number">9/16 Questions</div>
                     <div className="form-question-wrapper">
                       {ACTIVITY_IDS.map(item => (
-                        <div className="form-checkbox-items">
+                        <div className="form-checkbox-item">
                           <Field id={item} type="checkbox" name="activity_ids" value={item} onClick={()=>setFilled(true)}></Field>
                           <label htmlFor={item}>{item + " "}</label>
                         </div>

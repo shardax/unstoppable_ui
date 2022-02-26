@@ -137,12 +137,10 @@ const Q10_ReasonsActive = () => {
                     onClick={(e)=>{setPrevSubmitted(true)}}>
                       Prev
                     </Button>
-
-                    <Link to="/">
-                      <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
-                          Next
-                      </Button>
-                    </Link>
+                    
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                        Next
+                    </Button>
                 </div>
               </div>
             </Form>

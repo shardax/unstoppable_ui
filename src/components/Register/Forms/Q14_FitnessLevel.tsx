@@ -4,7 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import { CANCERLOCATIONLIST} from "../../../constants/ProfileConstants"
+import Error from "../../LogIn/Error";
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
@@ -26,7 +27,7 @@ const PromptIfDirty = () => {
 };
 
 
-const Q5_DescribeDiagnoses = () => {
+const Q4_PrimaryDiagnosis = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -45,13 +46,13 @@ const Q5_DescribeDiagnoses = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/5");
+    history.push("/complete-profile/14");
   }
   return (
     <div>
       <Formik
         initialValues={{
-          treatment_status: profile.treatment_status,
+          cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -64,8 +65,7 @@ const Q5_DescribeDiagnoses = () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
               
-              profile.treatment_status = values.treatment_status;
-
+              profile.cancer_location = values.cancer_location;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -76,9 +76,9 @@ const Q5_DescribeDiagnoses = () => {
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted){
-                history.push("/complete-profile/3");
+                history.push("/complete-profile/13");
               } else {
-                  history.push("/complete-profile/5");
+                  history.push("/complete-profile/15");
               }
 
             } catch (err) {
@@ -109,17 +109,22 @@ const Q5_DescribeDiagnoses = () => {
               <div className="form-container">
                 <div className="user-section-data">
 
-                    <div className="question-header">Which of the following best describes you? *</div>
-                    <div className="question-number">5/16 Questions</div>
+                    <div className="question-header">How would you describe your current fitness level?</div>
+                    <div className="question-number">14/17 Questions</div>
                     <div className="form-question-wrapper">
-                      {TREATMENT_STATUS_DESCRIPTIONS.map(item => (
-                        <div>
-                          <Field id={item} type="radio" name="treatment_status" value={item} onClick={()=>setFilled(true)}></Field>
-                          <label htmlFor={item}>{item + " "}</label>
+                        <div className="Answers">
+                            <Field
+                                as={Select}
+                                id="cancer_location"
+                                name="cancer_location"
+                                onClick={()=>setFilled(true)}
+                            >
+                                <option value="" label="- Select One -" />
+                                {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}
+                            </Field>
+                            <Error touched={touched.cancer_location} message={errors.cancer_location} />
                         </div>
-                      ))}
                     </div>
-            
                     <PromptIfDirty />
 
                     <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
@@ -139,4 +144,4 @@ const Q5_DescribeDiagnoses = () => {
     </div>
   );
 }
-export default Q5_DescribeDiagnoses;
+export default Q4_PrimaryDiagnosis;
