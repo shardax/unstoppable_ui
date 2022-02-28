@@ -12,6 +12,7 @@ import UserSection from "../Users/UserSection";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
 
+
 const ViewEditProfile: React.FC = ({}) => {
   const store = useDataStore();
   const [currentProfile, setCurrentProfile] = useState(store.profile);
@@ -28,6 +29,9 @@ const ViewEditProfile: React.FC = ({}) => {
     }
   }
 
+
+  
+
   const openPopupbox = () => {
     setEditMode(true);
     // window.addEventListener("scroll", () => {window.scrollTo(0,0)});
@@ -36,7 +40,11 @@ const ViewEditProfile: React.FC = ({}) => {
     const content = (
       <div>
         <div>
-          <h3 className="editProfile">Edit Profile</h3>
+          <div className="inline-flex">
+            <h3 className="editProfile">Edit Profile</h3>
+            
+          </div>
+
           <div>
             <Avatar src={ROOTURL + store.avatarPath} size={200} />
             <span style={{ display: "inline-block", padding: "30px" }}>
@@ -60,8 +68,10 @@ const ViewEditProfile: React.FC = ({}) => {
       />
       <div>
         <h3>My Profile</h3>
+        <Button onClick={openPopupbox}>Edit Profile</Button>
+            
         <div>
-          <Button onClick={openPopupbox}>Edit Profile</Button>
+          
           <PopupboxContainer { ...popupboxConfig }/>
         </div>
       </div>

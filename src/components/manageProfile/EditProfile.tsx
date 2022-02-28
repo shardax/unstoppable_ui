@@ -245,10 +245,26 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
           setFieldValue,
         }) => (
           <Form>
+            <div className="XCancelButton">
+
+              <Button
+                color="black"
+                background="white"
+                borderRadius="6px"
+                margin="2em 1.5em"
+                padding="10px 20px"
+                onClick={handleCancel}
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.452197 2.66982C-0.147803 2.06982 -0.147803 1.07122 0.452197 0.450244C1.07318 -0.149756 2.0508 -0.149756 2.67178 0.450244L15.9907 13.7915L29.3319 0.450244C29.9319 -0.149756 30.9305 -0.149756 31.5291 0.450244C32.1501 1.07122 32.1501 2.07122 31.5291 2.66982L18.2102 15.9901L31.5291 29.3314C32.1501 29.9314 32.1501 30.93 31.5291 31.5509C30.9291 32.1509 29.9305 32.1509 29.3319 31.5509L15.9907 18.2097L2.67178 31.5509C2.0508 32.1509 1.07318 32.1509 0.452197 31.5509C-0.147803 30.93 -0.147803 29.93 0.452197 29.3314L13.7711 15.9901L0.452197 2.66982Z" fill="#363637"/>
+</svg>
+              </Button>
+            </div>
             <div className="question-wrapper">
               <div>
               <label htmlFor="work_status">Current Work Status</label>
               </div>
+              
               <span style={{ display: "inline-block" }}>
                 <Field
                   component={RadioButton}
@@ -488,8 +504,14 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       <div className="question_label">
                         Favorite activities (check all that apply)
                       </div>
-                      <div className="Answers">
-                        <label className = "list-item-display">
+                      
+                    </div>
+                  </div>
+
+
+                  <div className={selected == 2 ? "content show" : "content"}>
+                    <div className = "list-item-display">
+                        <label style={{display: "inline-block"}}>
                           {stringActivities.map((item) => (
                             <label className="list-item-large">
                               <Field
@@ -505,7 +527,6 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                           ))}
                         </label>
                       </div>
-                    </div>
                   </div>
 
                   <div className={selected == 2 ? "content show" : "content"}>
@@ -531,6 +552,8 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                           Identify your top reasons for wanting to become more
                           active:
                         </div>
+
+                        {/*
                         <div className="Answers">
                           <label>
                             {stringReasons.map((item) => (
@@ -549,17 +572,37 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                                   type="checkbox"
                                   name="exercise_reason_ids"
                                   value={item.id}
-                                ></Field> */}
+                                ></Field> }
                                   {item.id}           
                                 
                                 &nbsp;&nbsp;&nbsp;{" "}
                               </label>
                             ))}
                           </label>
-                        </div>
+                        </div> */}
                       </div>
 
 
+                  </div>
+
+                  <div className={selected == 2 ? "content show" : "content"}>
+                    <div className = "list-item-display">
+                        <label style={{display: "inline-block"}}>
+                          {stringReasons.map((item) => (
+                            <label className="list-item-large">
+                              <Field
+                                id={item.id}
+                                type="checkbox"
+                                name="exercise_reason_ids"
+                                value={item.id}
+                                className="list-item"
+                              ></Field>
+                              {item.name}                        
+                              &nbsp;&nbsp;&nbsp;
+                            </label>
+                          ))}
+                        </label>
+                      </div>
                   </div>
 
 
@@ -586,7 +629,7 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                           </div>
                     </div>
 
-                    {/*
+                    
                     <div className="question-wrapper-half">
                       <div className="question_label">
                         <label htmlFor="fitnessLevel">
@@ -610,7 +653,7 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
-                          */}
+                      
 
                     
 

@@ -222,27 +222,9 @@ color: #07122E;
     border: 2px solid #F1658C;
     background: #F1658C;
   }
-
-
-  // .checkbox input[type=checkbox] {
-  //   display: none;
-  // }
-
-  // .checkbox label:before {
-  //   border-radius: 3px;
-  //   }
-
-  //   .checkbox input[type=checkbox]:checked {
-  //       content: "\2713";
-  //       text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-  //       font-size: 15px;
-  //       color:red;
-  //       text-align: center;
-  //       line-height: 15px;
-  //   }
     
-    input[type="checkbox"] {
-      background-color: pink !important;
+    input[type="checkbox"]:checked {
+      filter: hue-rotate(86deg)
     }
 
     .item {
@@ -250,6 +232,7 @@ color: #07122E;
       margin-bottom: 5px;
       padding: 10px 0px;
     }
+
     .title {
       color: #07122E;
       display: flex;
@@ -427,14 +410,36 @@ color: #07122E;
 
 .list-item-large {
   padding-right: 10px;
-  width: 150px;
+  width: 300px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: center;
+  
 }
 
 .list-item-display {
-  display: inline-block;
-  width: 100%;
+  width: auto;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  text-align: center;
+  padding-top: 20px;
+  min-width: none;
+  font-family: Montserrat;
+  color: #07122E;
 }
 
 .list-item{
   margin-right: 10px;
+}
+
+.XCancelButton{
+  position: absolute;
+  right: 10px;
+  top:0px;
+}
+
+.display-none{
+  display:none;
 }
