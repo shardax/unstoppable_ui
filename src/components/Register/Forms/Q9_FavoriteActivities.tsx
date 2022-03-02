@@ -4,10 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import { PERSONALITY_DESCRIPTION, ACTIVITY_IDS } from "../../../constants/ProfileConstants"
+import Button from '../../Styled/Button'; 
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -30,11 +28,13 @@ const Q9_FavoriteActivities = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/7");
     }
   }, [])
 
@@ -44,7 +44,7 @@ const Q9_FavoriteActivities = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/9");
+    history.push("/complete-profile/10");
   }
   return (
     <div>
@@ -54,6 +54,7 @@ const Q9_FavoriteActivities = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+          activity_ids: profile.activity_ids,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -69,6 +70,8 @@ const Q9_FavoriteActivities = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+
+              profile.activity_ids = values.activity_ids;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -114,17 +117,12 @@ const Q9_FavoriteActivities = () => {
                     <div className="question-header"> Favorite activities (check all that apply):</div>
                     <div className="question-number">9/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
-                      <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
-                      </div>
+                      {ACTIVITY_IDS.map(item => (
+                        <div className="form-checkbox-item">
+                          <Field id={item} type="checkbox" name="activity_ids" value={item} onClick={()=>setFilled(true)}></Field>
+                          <label htmlFor={item}>{item + " "}</label>
+                        </div>
+                      ))}
                     </div>
                   
                     <PromptIfDirty />

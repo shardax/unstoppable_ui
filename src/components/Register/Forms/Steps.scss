@@ -1,26 +1,93 @@
+// radio button styling
 .user-section-data{
     width: 100%;
     margin-left: 2em;
 }
 
+.radio-item {
+  display: inline-block;
+  position: relative;
+  padding: 0 6px;
+  margin: 10px 0 0;
+}
+
+.radio-item input[type='radio'] {
+  display: none;
+}
+
+.radio-item label {
+  color: black;
+  font-weight: normal;
+}
+
+.radio-item label:before {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 11px;
+  border: 2px solid #8B8B8B;
+  background-color: transparent;
+}
+
+
+.radio-item input[type=radio]:checked + label:after {
+  border-radius: 11px;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  content: " ";
+  display: block;
+  border: 2px solid #F1658C;
+  background: #F1658C;
+}
+
+// checkbox styling
+.form-checkbox-item {
+  display:inline-block;
+  margin: 10px; 
+  padding: 5px;
+}
+
+.form-checkbox-item input[type='checkbox'] {
+  display: none;
+}
+
+.form-checkbox-item label {
+  color: black;
+  font-weight: normal;
+}
+
+.form-checkbox-item input[type="checkbox"]:checked + label {
+  border-radius: 5px;
+  content: " ";
+  color: #fff;
+  background: #F1658C;
+}
+
+// todo: identify where this is used
 .form-message {
-    font-size: 10px;
-    padding-top: 2px;
-  }
-  .form-message.valid {
-    color: #4caf50;
-  }
-  .form-message.invalid {
-    color: #f44336;
-  }
-  .has-error {
-    border: 1px solid #f44336;
-  }
-  form .error {
-    border: 2px solid #e53e3e;
-    border-radius: 5px;
-  }
-  form .errorText {
-    color: #e53e3e;
-  }
-  
+  font-size: 10px;
+  padding-top: 2px;
+}
+.form-message.valid {
+  color: #4caf50;
+}
+.form-message.invalid {
+  color: #f44336;
+}
+.has-error {
+  border: 1px solid #f44336;
+}
+form .error {
+  border: 2px solid #e53e3e;
+  border-radius: 5px;
+}
+form .errorText {
+  color: #e53e3e;
+}

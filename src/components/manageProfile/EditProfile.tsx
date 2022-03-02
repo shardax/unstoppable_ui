@@ -378,8 +378,8 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                           name="other_cancer_location"
                           as={Textarea}
                           placeHolder="Additional Cancer Information"
-                          rows={2}
-                          cols={50}
+                          rows={20}
+                          cols={70}
                         />
                       </div>
                     </div>

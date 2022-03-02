@@ -4,11 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';
-import Textarea from '../../Styled/Textarea';
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import { PERSONALITY_DESCRIPTION } from "../../../constants/ProfileConstants"
+import Button from '../../Styled/Button';  
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -26,17 +23,15 @@ const PromptIfDirty = () => {
   );
 };
 
-
-const Q2_Work = () => {
+const Q11_VirtualPartner = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
-  const [filled, setFilled] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/9");
     }
   }, [])
 
@@ -46,10 +41,9 @@ const Q2_Work = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/2");
+    history.push("/complete-profile/12");
   }
   return (
-
     <div>
       <Formik
         initialValues={{
@@ -64,7 +58,6 @@ const Q2_Work = () => {
             resetForm();
             setSubmitting(false);
           }, 500);
-          
           
           const fetchData = async () => {
             try {
@@ -81,27 +74,25 @@ const Q2_Work = () => {
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
-            
+
               if (prevSubmitted){
-                history.push("/complete-profile/0");
+                history.push("/complete-profile/9");
               } else {
-                  history.push("/complete-profile/2");
+                  history.push("/complete-profile/12");
               }
 
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
-            //   if (err.response) {
-            //     // client received an error response (5xx, 4xx)
-            //   } else if (err.request) {
-            //     // client never received a response, or request never left
-            //   } else {
-            //     // anything else
-            //   }
+              if (err.response) {
+                // client received an error response (5xx, 4xx)
+              } else if (err.request) {
+                // client never received a response, or request never left
+              } else {
+                // anything else
+              }
             }
           };
           fetchData();
-          //alert("Fetch Data Done!!");
-          //alert(JSON.stringify(store.profile));
         }}
       >
         {({
@@ -114,51 +105,37 @@ const Q2_Work = () => {
           isSubmitting,
           setFieldValue
         }) => (
-          <Form>
-          <div className="form-container">
-            <div className="user-section-data">
+            <Form>
+              <div className="form-container">
+                  <div className="question-header">Would you like a virtual partner?</div>
+                  <div className="question-number">11/16 Questions</div>
+                  <div className="form-question-wrapper">
+                    <div className="question-answers">
+                      
+                      <div>
+                        <Field id={"yes"} type="radio" name="personality" value={"Yes"}></Field>
+                        <label htmlFor={"Yes"}>{"Yes"}</label>
+                        <Field id={"no"} type="radio" name="personality" value={"No"}></Field>
+                        <label htmlFor={"no"}>{"No"}</label>
+                      </div>
 
-                <div className="question-header">Which of the following best describes your work situation?*</div>
-                <div className="question-number">2/16 Questions</div>
-                <div className="form-question-wrapper">
-                  {/* <label htmlFor="personality">Which of the following best describes your work situation??</label> */}
-                  <div className="Answers">
-
-                  {WORK_STATUS_DESCRIPTIONS.map(item => (
-                    <div>
-                      <Field id={item} type="radio" name="work_status" value={item} onClick={()=>setFilled(true)}></Field>
-                      <label htmlFor={item}>{item + " "}</label>
                     </div>
-                  ))}
-
-                    {/* <Field
-                      as={Select}
-                      id="personality"
-                      name="personality"
-                    >
-                      <option value="" label="- Select One -" />
-                      {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                    </Field> */}
                   </div>
-                </div>
-              
-                <PromptIfDirty />
-
-                <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
-                    onClick={(e)=>{setPrevSubmitted(true)}}>
-                    Previous
-                </Button>
-
-                <Button disabled={isSubmitting || !filled}>
-                  Save &amp; Continue
-                </Button>
-
-            </div>
-          </div>
-        </Form>
+                
+                  <PromptIfDirty />
+                  <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                  onClick={(e)=>{setPrevSubmitted(true)}}>
+                    Prev
+                  </Button>
+                  
+                  <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                      Next
+                  </Button>
+              </div>
+            </Form>
           )}
       </Formik>
     </div>
   );
 }
-export default Q2_Work;
+export default Q11_VirtualPartner;

@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import Button from '../Styled/Button';
 import Paper from '@material-ui/core/Paper';
+import {Link} from 'react-router-dom';
 
 // importing questions for multi-page-form: OLD
 import AboutStep from './Forms/AboutStep';
@@ -32,6 +33,12 @@ import Q7_DescribeTreatments from './Forms/Q7_DescribeTreatments';
 import Q8_AboutMe from './Forms/Q8_AboutMe';
 import Q9_FavoriteActivities from './Forms/Q9_FavoriteActivities';
 import Q10_ReasonsActive from './Forms/Q10_ReasonsActive';
+import Q11_VirtualPartner from './Forms/Q11_VirtualPartner';
+import Q12_FavoriteActivities from './Forms/Q12_FavoriteActivities';
+import Q13_WhereActive from './Forms/Q13_WhereActive';
+import Q14_FitnessLevel from './Forms/Q14_FitnessLevel';
+import Q15_WhenActive from './Forms/Q15_WhenActive';
+import Q16_MainReason from './Forms/Q16_MainReason';
 
 import { createBrowserHistory } from 'history'
 
@@ -57,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 // progress bar/steps at the top 
 function getSteps() {
-  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email', 'q7', 'q8', 'q9', 'q10'];
+  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18'];
 }
 
 function getStepContent(step) {
@@ -82,21 +89,32 @@ function getStepContent(step) {
         return <Q9_FavoriteActivities/>;
     case 9:
         return <Q10_ReasonsActive/>;
-    
     case 10:
-      return <UploadPhoto fromWizard={true} />;
+        return <Q11_VirtualPartner/>;
     case 11:
-      return <ConfirmStep />;
+        return <Q12_FavoriteActivities/>;
     case 12:
-      return <VerifyEmailStep />;
-  
+        return <Q13_WhereActive/>;
+    case 13:
+      return <Q14_FitnessLevel/>;
+    case 14:
+      return <Q15_WhenActive/>;
+    case 15:
+      return <Q16_MainReason/>;
+    case 16:
+      return <UploadPhoto fromWizard={true} />;
+
     // Old steps that can be observed
     // case 8:
     //   return <AboutStep />;
-    // case 9:
+    // case 13:
     //   return <CancerStep />;
     // case 10:
     //   return <FitnessStep />;
+    // case 11:
+    //   return <ConfirmStep />;
+    // case 12:
+    //   return <VerifyEmailStep />
 
     default:
       return 'Unknown step';
@@ -160,7 +178,7 @@ export default function About() {
       {/* <ForwardUserToLogout /> */}
 
       {/* Progress at Top */}
-      <Stepper activeStep={activeStep}>
+      {/* <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
@@ -170,16 +188,21 @@ export default function About() {
             </Step>
           );
         })}
-      </Stepper>
+      </Stepper> */}
       <div>
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Button onClick={handleReset} className={classes.button}>
+            {/* <Button onClick={handleReset} className={classes.button}>
               Reset
-            </Button>
+            </Button> */}
+            <Link to="/browse">
+              <Button className={classes.button}>
+                Browse Profiles
+              </Button>
+            </Link>
           </div>
         ) : (
             <div>
