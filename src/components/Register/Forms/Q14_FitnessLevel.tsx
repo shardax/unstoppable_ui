@@ -4,11 +4,10 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { CANCERLOCATIONLIST} from "../../../constants/ProfileConstants"
+import { FITNESS_LEVEL_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Error from "../../LogIn/Error";
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -27,7 +26,7 @@ const PromptIfDirty = () => {
 };
 
 
-const Q4_PrimaryDiagnosis = () => {
+const Q14_FitnessLevel = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -36,7 +35,7 @@ const Q4_PrimaryDiagnosis = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/13");
     }
   }, [])
 
@@ -46,13 +45,14 @@ const Q4_PrimaryDiagnosis = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/14");
+    history.push("/complete-profile/15");
   }
   return (
     <div>
       <Formik
         initialValues={{
-          cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location
+          cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location,
+          fitness_level : profile.fitness_level, 
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -66,6 +66,8 @@ const Q4_PrimaryDiagnosis = () => {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
               
               profile.cancer_location = values.cancer_location;
+              profile.fitness_level = values.fitness_level; 
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -115,14 +117,14 @@ const Q4_PrimaryDiagnosis = () => {
                         <div className="Answers">
                             <Field
                                 as={Select}
-                                id="cancer_location"
-                                name="cancer_location"
+                                id="fitness_level"
+                                name="fitness_level"
                                 onClick={()=>setFilled(true)}
                             >
                                 <option value="" label="- Select One -" />
-                                {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}
+                                {FITNESS_LEVEL_DESCRIPTIONS.map(item => (<option key={item} value={item}>	{item}</option>))}
                             </Field>
-                            <Error touched={touched.cancer_location} message={errors.cancer_location} />
+                            <Error touched={touched.fitness_level} message={errors.fitness_level} />
                         </div>
                     </div>
                     <PromptIfDirty />
@@ -144,4 +146,4 @@ const Q4_PrimaryDiagnosis = () => {
     </div>
   );
 }
-export default Q4_PrimaryDiagnosis;
+export default Q14_FitnessLevel;

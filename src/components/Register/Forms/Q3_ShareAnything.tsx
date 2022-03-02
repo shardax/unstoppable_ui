@@ -118,7 +118,7 @@ const Q3_ShareAnything = () => {
                     
                     <div className="form-question-wrapper">
                       <div className="Answers">
-                        <Field name="details_about_self" as={Textarea} placeHolder="Details about self" />
+                        <Field name="details_about_self" as={Textarea} cols={70} placeHolder="Details about self" />
                       </div>
                     </div>
                   

@@ -5,8 +5,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION } from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Paper from '../../Styled/Paper';
+import Button from '../../Styled/Button';  
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -24,7 +23,7 @@ const PromptIfDirty = () => {
   );
 };
 
-const Q1_Personality = () => {
+const Q11_VirtualPartner = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -32,7 +31,7 @@ const Q1_Personality = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/9");
     }
   }, [])
 
@@ -42,7 +41,7 @@ const Q1_Personality = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/11");
+    history.push("/complete-profile/12");
   }
   return (
     <div>
@@ -79,10 +78,9 @@ const Q1_Personality = () => {
               if (prevSubmitted){
                 history.push("/complete-profile/9");
               } else {
-                  history.push("/complete-profile/11");
+                  history.push("/complete-profile/12");
               }
 
-              history.push("/complete-profile/1");
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
@@ -118,7 +116,7 @@ const Q1_Personality = () => {
                         <Field id={"yes"} type="radio" name="personality" value={"Yes"}></Field>
                         <label htmlFor={"Yes"}>{"Yes"}</label>
                         <Field id={"no"} type="radio" name="personality" value={"No"}></Field>
-                        <label htmlFor={"no"}>{"no"}</label>
+                        <label htmlFor={"no"}>{"No"}</label>
                       </div>
 
                     </div>
@@ -140,4 +138,4 @@ const Q1_Personality = () => {
     </div>
   );
 }
-export default Q1_Personality;
+export default Q11_VirtualPartner;

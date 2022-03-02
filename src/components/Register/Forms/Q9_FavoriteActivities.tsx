@@ -5,9 +5,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, ACTIVITY_IDS } from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import Button from '../../Styled/Button'; 
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -36,7 +34,7 @@ const Q9_FavoriteActivities = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/7");
     }
   }, [])
 
@@ -46,7 +44,7 @@ const Q9_FavoriteActivities = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/9");
+    history.push("/complete-profile/10");
   }
   return (
     <div>

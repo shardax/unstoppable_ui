@@ -4,11 +4,10 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { CANCERLOCATIONLIST} from "../../../constants/ProfileConstants"
+import { PREFERRED_TIME_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Error from "../../LogIn/Error";
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -27,7 +26,7 @@ const PromptIfDirty = () => {
 };
 
 
-const Q4_PrimaryDiagnosis = () => {
+const Q15_WhenActive = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -36,7 +35,7 @@ const Q4_PrimaryDiagnosis = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/14");
     }
   }, [])
 
@@ -46,13 +45,13 @@ const Q4_PrimaryDiagnosis = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/4");
+    history.push("/complete-profile/16");
   }
   return (
     <div>
       <Formik
         initialValues={{
-          cancer_location: (profile.cancer_location === null) ? "" : profile.cancer_location
+          preferred_time : profile.prefered_exercise_time,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -65,7 +64,8 @@ const Q4_PrimaryDiagnosis = () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
               
-              profile.cancer_location = values.cancer_location;
+              profile.prefered_exercise_time = values.preferred_time;
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -115,14 +115,14 @@ const Q4_PrimaryDiagnosis = () => {
                         <div className="Answers">
                             <Field
                                 as={Select}
-                                id="cancer_location"
-                                name="cancer_location"
+                                id="preferred_time"
+                                name="preferred_time"
                                 onClick={()=>setFilled(true)}
                             >
                                 <option value="" label="- Select One -" />
-                                {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}
+                                {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item} value={item}>	{item}</option>))}
                             </Field>
-                            <Error touched={touched.cancer_location} message={errors.cancer_location} />
+                            <Error touched={touched.preferred_time} message={errors.preferred_time} />
                         </div>
                     </div>
                     <PromptIfDirty />
@@ -144,4 +144,4 @@ const Q4_PrimaryDiagnosis = () => {
     </div>
   );
 }
-export default Q4_PrimaryDiagnosis;
+export default Q15_WhenActive;

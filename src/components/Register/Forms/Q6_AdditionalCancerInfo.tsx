@@ -5,9 +5,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -120,7 +118,7 @@ const Q6_AdditionalCancerInfo = () => {
                     <div className="question-number">6/16 Questions</div>
                     <div className="form-question-wrapper">
                       <div className="Answers">
-                          <Field name="other_cancer_location" as={Textarea} placeHolder="Additional Cancer Information" rows={2} cols={50} onClick={()=>setFilled(true)} />
+                          <Field name="other_cancer_location" as={Textarea} placeHolder="Additional Cancer Information" rows={20} cols={70} onClick={()=>setFilled(true)} />
                       </div>
                     </div>
                   

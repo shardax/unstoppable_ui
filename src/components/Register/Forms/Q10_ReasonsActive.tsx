@@ -5,10 +5,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { ACTIVITY_REASONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
-import {Link} from 'react-router-dom';
+import Button from '../../Styled/Button';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -37,7 +34,7 @@ const Q10_ReasonsActive = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/8");
     }
   }, [])
 
@@ -47,7 +44,7 @@ const Q10_ReasonsActive = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/10");
+    history.push("/complete-profile/11");
   }
   return (
     <div>

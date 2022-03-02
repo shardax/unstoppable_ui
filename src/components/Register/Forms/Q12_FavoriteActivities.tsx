@@ -5,9 +5,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -27,7 +25,7 @@ const PromptIfDirty = () => {
 };
 
 
-const Q7_DescribeTreatments = () => {
+const Q12_FavoriteActivities = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -37,7 +35,7 @@ const Q7_DescribeTreatments = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/11");
     }
   }, [])
 
@@ -47,7 +45,7 @@ const Q7_DescribeTreatments = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/12");
+    history.push("/complete-profile/13");
   }
   return (
     <div>
@@ -86,9 +84,9 @@ const Q7_DescribeTreatments = () => {
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted){
-                history.push("/complete-profile/10");
+                history.push("/complete-profile/11");
               } else {
-                  history.push("/complete-profile/12");
+                  history.push("/complete-profile/13");
               }
 
             } catch (err) {
@@ -123,7 +121,7 @@ const Q7_DescribeTreatments = () => {
                     <div className="question-number">12/16 Questions</div>
                     <div className="form-question-wrapper">
                       <div className="Answers">
-                          <Field name="treatment_description" as={Textarea} placeHolder="Treatment description" rows={2} cols={50} onClick={()=>setFilled(true)} />
+                          <Field name="treatment_description" as={Textarea} placeHolder="Treatment description" rows={20} cols={70} onClick={()=>setFilled(true)} />
                       </div>
                     </div>
                   
@@ -145,4 +143,4 @@ const Q7_DescribeTreatments = () => {
     </div>
   );
 }
-export default Q7_DescribeTreatments;
+export default Q12_FavoriteActivities;

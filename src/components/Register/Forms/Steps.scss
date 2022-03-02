@@ -1,3 +1,4 @@
+// radio button styling
 .user-section-data{
     width: 100%;
     margin-left: 2em;
@@ -46,11 +47,30 @@
   background: #F1658C;
 }
 
+// checkbox styling
 .form-checkbox-item {
-  width:20%;
   display:inline-block;
+  margin: 10px; 
+  padding: 5px;
 }
 
+.form-checkbox-item input[type='checkbox'] {
+  display: none;
+}
+
+.form-checkbox-item label {
+  color: black;
+  font-weight: normal;
+}
+
+.form-checkbox-item input[type="checkbox"]:checked + label {
+  border-radius: 5px;
+  content: " ";
+  color: #fff;
+  background: #F1658C;
+}
+
+// todo: identify where this is used
 .form-message {
   font-size: 10px;
   padding-top: 2px;

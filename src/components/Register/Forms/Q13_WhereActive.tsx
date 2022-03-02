@@ -4,9 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION } from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Paper from '../../Styled/Paper';
+import { PREFERRED_EXERCISE_LOCATIONS } from "../../../constants/ProfileConstants"
+import Button from '../../Styled/Button';  
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -24,7 +23,7 @@ const PromptIfDirty = () => {
   );
 };
 
-const Q1_Personality = () => {
+const Q13_WhereActive = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -32,7 +31,7 @@ const Q1_Personality = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/12");
     }
   }, [])
 
@@ -42,7 +41,7 @@ const Q1_Personality = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/13");
+    history.push("/complete-profile/14");
   }
   return (
     <div>
@@ -52,6 +51,7 @@ const Q1_Personality = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+          preferred_exercise_locations: profile.prefered_exercise_location,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -67,6 +67,9 @@ const Q1_Personality = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+
+              profile.prefered_exercise_location = values.preferred_exercise_locations;
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -77,12 +80,10 @@ const Q1_Personality = () => {
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted){
-                history.push("/complete-profile/11");
+                history.push("/complete-profile/12");
               } else {
-                  history.push("/complete-profile/13");
+                  history.push("/complete-profile/14");
               }
-
-              history.push("/complete-profile/1");
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
               if (err.response) {
@@ -114,7 +115,7 @@ const Q1_Personality = () => {
                   <div className="form-question-wrapper">
                     <div className="question-answers">
                       
-                    {PERSONALITY_DESCRIPTION.map(item => (
+                    {PREFERRED_EXERCISE_LOCATIONS.map(item => (
                       <div>
                         <Field id={item} type="radio" name="personality" value={item}></Field>
                         <label htmlFor={item}>{item + " "}</label>
@@ -143,4 +144,4 @@ const Q1_Personality = () => {
     </div>
   );
 }
-export default Q1_Personality;
+export default Q13_WhereActive;

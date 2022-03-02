@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 // progress bar/steps at the top 
 function getSteps() {
-  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16'];
+  return ['About Me', 'Cancer History', 'Fitness Status', 'Upload Photo', 'Submit Profile', 'Confirm Email', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18'];
 }
 
 function getStepContent(step) {

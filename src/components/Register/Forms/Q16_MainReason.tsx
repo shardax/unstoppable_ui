@@ -7,8 +7,6 @@ import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
-import {Link} from 'react-router-dom';
 import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -28,7 +26,7 @@ const PromptIfDirty = () => {
 };
 
 
-const Q7_DescribeTreatments = () => {
+const Q16_MainReason = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -38,7 +36,7 @@ const Q7_DescribeTreatments = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/15");
     }
   }, [])
 
@@ -48,18 +46,13 @@ const Q7_DescribeTreatments = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/7");
+    history.push("/complete-profile/16");
   }
   return (
     <div>
       <Formik
         initialValues={{
-          // About Me
-          personality: profile.personality,
-          work_status: profile.work_status,
-          details_about_self: profile.details_about_self,
-          
-          treatment_description: profile.treatment_description,
+          main_reason : profile.reason_for_match,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -71,11 +64,8 @@ const Q7_DescribeTreatments = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              //About Me
-              profile.personality = values.personality;
-              profile.work_status = values.work_status;
-              profile.details_about_self = values.details_about_self;
-              profile.treatment_description = values.treatment_description;
+
+              profile.reason_for_match = values.main_reason; 
               
               // Saving data on server
               const res = await axios.patch(url,
@@ -87,9 +77,9 @@ const Q7_DescribeTreatments = () => {
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted){
-                history.push("/complete-profile/16");
+                history.push("/complete-profile/15");
               } else {
-                  history.push("/complete-profile/17");
+                  history.push("/complete-profile/16");
               }
 
             } catch (err) {
@@ -123,7 +113,7 @@ const Q7_DescribeTreatments = () => {
                     <div className="question-number">16/17 Questions</div>
                     <div className="form-question-wrapper">
                       <div className="Answers">
-                          <Field name="treatment_description" as={Textarea} placeHolder="Treatment description" rows={2} cols={50} onClick={()=>setFilled(true)} />
+                          <Field name="main_reason" as={Textarea} placeHolder="Treatment description" rows={20} cols={70} onClick={()=>setFilled(true)} />
                       </div>
                     </div>
                   
@@ -134,11 +124,9 @@ const Q7_DescribeTreatments = () => {
                       Prev
                     </Button>
 
-                    <Link to="/">
-                      <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
-                          Next
-                      </Button>
-                    </Link>
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
+                        Next
+                    </Button>
                 </div>
               </div>
             </Form>
@@ -147,4 +135,4 @@ const Q7_DescribeTreatments = () => {
     </div>
   );
 }
-export default Q7_DescribeTreatments;
+export default Q16_MainReason;

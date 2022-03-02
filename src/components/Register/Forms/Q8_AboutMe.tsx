@@ -5,9 +5,7 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import Button from '../../Styled/Button';
 import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
@@ -37,7 +35,7 @@ const Q8_AboutMe = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/6");
     }
   }, [])
 
@@ -47,7 +45,7 @@ const Q8_AboutMe = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/8");
+    history.push("/complete-profile/9");
   }
   return (
     <div>
@@ -118,7 +116,7 @@ const Q8_AboutMe = () => {
                     <div className="question-number">8/16 Questions</div>
                     <div className="form-question-wrapper">
                       <div className="Answers">
-                          <Field name="" as={Textarea} placeHolder="Treatment description" rows={2} cols={50} onClick={()=>setFilled(true)} />
+                          <Field name="anything-else" as={Textarea} placeHolder="Treatment description" rows={20} cols={70} onClick={()=>setFilled(true)} />
                       </div>
                     </div>
                   
