@@ -1,3 +1,9 @@
+.edit-profile-button {
+  text-transform: uppercase;
+  color: #F1658C;
+  background-color: #FFE7ED;
+}
+
 .user-section-wrapper {
   display: flex;
   margin-top: 3em;
@@ -61,11 +67,14 @@
   }
 }
 
-.profile-section-header {
-  font-size: 20px;
-  font-weight: 600;
-  color: rgb(34,34,34);
-  padding: 0.2em 0em;
+.profile-section-header-primary {
+  /* H4 */
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 44px;
+  color: #9560A8;
 }
 
 .profile-chip-list {

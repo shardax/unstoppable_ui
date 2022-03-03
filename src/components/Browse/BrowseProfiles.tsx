@@ -8,12 +8,12 @@ import {
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 import React, { useEffect, useState } from "react";
-import {AdvancedSearch} from "./AdvancedSearch"
 
 // accordian imports
 import Accordion from "@material-ui/core/Accordion";
 import { AccordionDetails } from "@material-ui/core";
 import { AccordionSummary } from "@material-ui/core";
+import {AdvancedSearch} from "./AdvancedSearch"
 import AgeIcon from "@material-ui/icons/DataUsage";
 import { BiSortAlt2 } from "react-icons/bi";
 import Brightness1Icon from "@material-ui/icons/Brightness1";
@@ -33,6 +33,8 @@ import { Link, NavLink } from 'react-router-dom';
 import LocationIcon from "@material-ui/icons/LocationOn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import {MenuPopupState} from "./SortByMenu";
+// import NotificationIcon from '../../images/NotificationIcon.png';
 import Pagination from "react-js-pagination";
 import Radio from "@material-ui/core/Radio";
 import RangeSlider from "../Common/RangeSlider";
@@ -48,6 +50,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
 import { NotificationButton } from "../Notifications/NotificationButton";
+import {ProfileCardView} from "./ProfileCard"
 
 //const BrowseProfiles: React.FC = ({  }) => {
 export const BrowseProfiles = () => {
@@ -114,8 +117,28 @@ export const BrowseProfiles = () => {
 
   // TODO
   // const [activities, setActivites] = useState(store.savedSearchParams.activeUsers);
+
+  // dummy data for notification
+  const [newNotif, setNewNotif] = useState<any>({
+      image:"/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBZEk9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0d5009055e89d71c1189aa1f90bf9ad5fd2c2ddf/DSC_0034.JPG",
+      header:"Finish Setting Up Your Profile",
+      description:"Make more connections when your profile is completed. Click here to start!",
+      date: new Date("January 6, 2022"),
+      color: "#9560A8",
+      read: false,
+  })
+ 
+
+
+
   const [personality, setPersonality] = useState(store.savedSearchParams.personality);
   const [preferedExerciseLocation, setPrefered] = useState(store.savedSearchParams.prefered_exercise_location);
+
+  const [scroll, setScroll] = useState(window.scrollY !== 0);
+
+  window.onscroll = function() {
+    setScroll(window.scrollY !== 0);
+  };
  
 
   useEffect(() => {
@@ -192,93 +215,7 @@ export const BrowseProfiles = () => {
     console.log(event.target.checked);
   };
 
-  const MenuPopupState = () => {
-    const sortProfileCards = (sortBy, popupState) => {
-      let userCollectionTemp;
-      switch (sortBy) {
-        case "Age":
-          userCollectionTemp = userCollection
-            .slice()
-            .sort((profile1, profile2) => profile2.age - profile1.age);
-          setUserCollection(userCollectionTemp);
-          break;
-        case "Distance":
-          userCollectionTemp = userCollection
-            .slice()
-            .sort(
-              (profile1, profile2) => profile1.distance - profile2.distance
-            );
-          setUserCollection(userCollectionTemp);
-          console.log("Distance", userCollection);
-          break;
-        case "Last Online":
-          userCollectionTemp = userCollection
-            .slice()
-            .sort(
-              (profile1, profile2) =>
-                profile1.last_seen_at - profile2.last_seen_at
-            );
-          setUserCollection(userCollectionTemp);
-          console.log("Last Oneline", userCollection);
-          break;
-        case "New Members":
-          break;
-        default:
-          break;
-      }
-      popupState();
-    };
-    return (
-      <PopupState variant="popover" popupId="demo-popup-menu">
-        {(popupState) => (
-          <React.Fragment>
-            <Button
-              // variant="contained"
-              background="rgb\(149,96,168, 0.1)\"
-              border="1px solid"
-              color="primary"
-              {...bindTrigger(popupState)}
-            >
-              <BiSortAlt2 />
-              &nbsp; Sort By &nbsp;
-              <IoIosArrowDown />
-            </Button>
-            <Menu {...bindMenu(popupState)}>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() => sortProfileCards("Age", popupState.close)}
-              >
-                Age
-              </MenuItem>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() => sortProfileCards("Distance", popupState.close)}
-              >
-                Distance
-              </MenuItem>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() =>
-                  sortProfileCards("Last Online", popupState.close)
-                }
-              >
-                Last Online
-              </MenuItem>
-              <MenuItem
-                style={{ color: "white", background: "#9560A8" }}
-                onClick={() =>
-                  sortProfileCards("New Members", popupState.close)
-                }
-              >
-                New Members
-              </MenuItem>
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
-    );
-  };
-
+  
   const addAllKeywords = () => {
     let allKeywords = cancerTypeKeyword ? cancerTypeKeyword : "";
     allKeywords = stateCodeKeyword
@@ -375,225 +312,6 @@ export const BrowseProfiles = () => {
     }
   };
 
-  const getCancerCard = ({ profile }) => {
-    if (profile.cancer_location == "Other/Rare Cancer") {
-      return (
-        <p className="cancer-type-card  other-cancer-type-card">
-          {" "}
-          {profile.cancer_location}{" "}
-        </p>
-      );
-    } else if (profile.cancer_location == "Brain") {
-      return (
-        <p className="cancer-type-card brain-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Breast") {
-      return (
-        <p className="cancer-type-card breast-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Bladder") {
-      return (
-        <p className="cancer-type-card bladder-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Bone") {
-      return (
-        <p className="cancer-type-card bone-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Thyroid") {
-      return (
-        <p className="cancer-type-card thyroid-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Cervical") {
-      return (
-        <p className="cancer-type-card cervical-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Colorectal") {
-      return (
-        <p className="cancer-type-card colorectal-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Esophageal") {
-      return (
-        <p className="cancer-type-card esophageal-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Gall Bladder") {
-      return (
-        <p className="cancer-type-card gall-bladder-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Gastric") {
-      return (
-        <p className="cancer-type-card gastric-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Head and Neck") {
-      return (
-        <p className="cancer-type-card head-and-neck-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Kidney") {
-      return (
-        <p className="cancer-type-card kidney-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Leukemia") {
-      return (
-        <p className="cancer-type-card leukemia-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Liver") {
-      return (
-        <p className="cancer-type-card liver-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Lung") {
-      return (
-        <p className="cancer-type-card lung-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Melanoma") {
-      return (
-        <p className="cancer-type-card melanoma-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Multiple Myeloma") {
-      return (
-        <p className="cancer-type-card multiple-myeloma-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Ovarian") {
-      return (
-        <p className="cancer-type-card ovarian-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Pancreatic") {
-      return (
-        <p className="cancer-type-card pancreatic-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else if (profile.cancer_location == "Sarcoma") {
-      return (
-        <p className="cancer-type-card sarcoma-cancer-type-card">
-          {profile.cancer_location} Cancer
-        </p>
-      );
-    } else {
-      return (
-        <p className="cancer-type-card"> {profile.cancer_location} Cancer</p>
-      );
-    }
-  };
-
-  const ProfileCard = ({ profile }) =>
-    useObserver(() => (
-      <div className="single-profile-wrapper " key={profile.id}>
-        <Link to={"/user/" + profile.id}>
-          <img className="single-profile-image" src={ROOTURL + profile.photo} />
-        </Link>
-        <div className="single-profile-body">
-          <div>
-            <Link to={"/user/" + profile.id}>
-              <div
-                style={{
-                  backgroundColor: profile.active ? "#B7FFBF" : "white",
-                }}
-              >
-                {getCancerCard({ profile })}
-
-                <h5 className="profile-username profile-name-loc">
-                  {profile.name}{" "}
-                </h5>
-              </div>
-            </Link>
-
-            <span className="profile-location">
-              <LocationIcon className="profile-icon"></LocationIcon>
-              {profile.city}, {profile.state}
-            </span>
-            <p className="other-profile-card-data">
-              <AgeIcon className="profile-icon"></AgeIcon>
-              {profile.age} years old
-            </p>
-
-            <Link to={"/userMessage" + "/" + profile.user_id}>
-              <p className="other-profile-message-data">
-                {" "}
-                <ChatIcon className="message-icon"></ChatIcon> Message
-              </p>
-            </Link>
-            <p className="other-profile-card-data">
-              {profile.cancer_location} Cancer
-            </p>
-            <p className="other-profile-card-data">{profile.age} years old</p>
-          </div>
-          <div>
-            {profile.active && (
-              <Tooltip
-                title={
-                  <TimeAgo datetime={profile.last_seen_at} locale="en.US" />
-                }
-              >
-                <Brightness1Icon
-                  style={{ color: "#4DED30", fontSize: "medium" }}
-                />
-              </Tooltip>
-            )}
-            {!profile.active && (
-              <Tooltip
-                title={
-                  <TimeAgo datetime={profile.last_seen_at} locale="en.US" />
-                }
-              >
-                <Brightness1Icon
-                  style={{ color: "#D4D4D4", fontSize: "medium" }}
-                />
-              </Tooltip>
-            )}
-            <Link to={"/userMessage" + "/" + profile.user_id}>
-              <ChatIcon className="favorite-profile-icon"></ChatIcon>
-            </Link>
-            {store.profile.liked_profiles.includes(profile.id) ? (
-              <FavoriteIcon
-                onClick={() => updateLikedProfiles("unlike", profile.id)}
-                className="favorite-profile-icon"
-              />
-            ) : (
-              <FavoriteBorderIcon
-                onClick={() => updateLikedProfiles("like", profile.id)}
-                className="favorite-profile-icon"
-              />
-            )}
-          </div>
-        </div>
-      </div>
-    ));
-
   const handleRadioSearch = (event) => {
     setKeywordSearchType(event.target.value);
   };
@@ -630,6 +348,20 @@ export const BrowseProfiles = () => {
     }
   };
 
+  const checkCreateNotification = () => {
+    if (newNotif != null) {
+      return (<div className="notification-popup">
+      <p className="notification-text">{newNotif.header}</p>
+      <Button className="notification-action-btn"><Link to={"/complete-profile/0"} style={{ color: "#fff" }}>LETS GO</Link></Button>
+      <Button className="notification-close-btn" onClick={() => closeNotification()}>X</Button>
+    </div>)
+    }
+  }
+
+  const closeNotification = () => {
+    setNewNotif(null);
+  }
+
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setPageCounter(pageNumber);
@@ -639,13 +371,15 @@ export const BrowseProfiles = () => {
     return (
       <div className="profile-browse-grid">
         {userCollection.map((profile: any) => (
-          <ProfileCard profile={profile} />
+          <ProfileCardView profile={profile} />
         ))}
       </div>
     );
   }
   const [minDistance, setMinDistance] = useState(1);
   const [maxDistance, setMaxDistance] = useState(99);
+
+  
 
   return useObserver(() => (
     // consider: using a component to represent each search widget
@@ -663,7 +397,7 @@ export const BrowseProfiles = () => {
           Enter keywords separated by spaces in search box(for e.g: TNBC DCIS
           Stage)
         </p> */}
-        <div className="browse-sticky-nav">
+        <div className={`browse-sticky-nav ${scroll ? "scroll" : ""}`}>
           <h5 className="boldedSubheader" style={{ padding: "0px 16px" }}>
             I'm looking for an exercise buddy:
           </h5>
@@ -679,13 +413,7 @@ export const BrowseProfiles = () => {
               />
             </Tooltip>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "26px 16px 35px",
-            }}
-          >
+          <div className="top-filter">
             {/* age slider */}
             <div style={{ display: "table-caption" }}>
               {/* <RangeSlider ageRange={ageRange} onChange={handleChange}/> */}
@@ -795,13 +523,7 @@ export const BrowseProfiles = () => {
                 </Select>
               </div>} */}
           {/* active users filter */}
-          <div
-            style={{
-              padding: "0px 16px 35px",
-              display: "flex",
-              justifyContent: "space-between"
-            }}
-          >
+          <div className="bottom-filter">
             {/* className="range-slider search-widget" */}
             <div className="form-group-alignment">
             <Tooltip title="Displays Users active since the last 5 minutes">
@@ -845,7 +567,7 @@ export const BrowseProfiles = () => {
 
           {/* <h5 className="boldedSubheader">Advanced Search</h5> */}
 
-          <div className="browse-filter-row" style={{ padding: "0px 16px" }}>
+          <div className="browse-filter-row">
             <AdvancedSearch/>
 
             <hr style={{ opacity: ".10", marginTop: "1px" }} />
@@ -872,7 +594,7 @@ export const BrowseProfiles = () => {
         </div>
         <div className="totalUserProfileHeader">
           <b> Total User Profile - {numberOfProfiles}</b>
-          <MenuPopupState />
+          <MenuPopupState userCollection={userCollection} setUserCollection={setUserCollection}/>
         </div>
 
         <h6>{searchTextDisplay}</h6>

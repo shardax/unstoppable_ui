@@ -55,7 +55,7 @@ const SignIn2 = () => {
         let errors = {};
         return errors;
       }}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
+      onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
         setSubmitting(true);
         setTimeout(() => {
           //alert(JSON.stringify(values, null, 2));
@@ -98,9 +98,15 @@ const SignIn2 = () => {
           } catch (error) {
             console.log(error.message);
             if (error.message.includes("401")) {
-              setErrorMessage("ⓘ Oops! Username or password is incorrect.");
+              /* Commented out as it now uses formik validation errors rather than state
+              
+              setErrorMessage("ⓘ Oops! Username or password is incorrect.");*/
+              setErrors({"username":"ⓘ Oops! Username or password is incorrect.",
+                        "password":"ⓘ Oops! Username or password is incorrect."});
+              
             } else {
-              setErrorMessage(error.message);
+              setErrors({"username":error.message,
+                        "password":error.message});
             }
             setIsError(true);
           }
