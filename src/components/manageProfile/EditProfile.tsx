@@ -87,7 +87,10 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
   // const [toggle, setTogglePanel] = useState(false);
   const [selected, setSelected] = useState(null);
 
+  var currentSelection = [];
+
   const toggle = (i) => {
+
     if (selected == i) {
       return setSelected(null);
     }
@@ -103,6 +106,7 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
     const name = store.activities[key].name.toString();
     return { id, name };
   });
+
   let stringReasons: { id: string; name: string }[] = Object.keys(
     store.exerciseReasons
   ).map(function (key) {
@@ -191,6 +195,8 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
               profile.part_of_wellness_program =
                 values.part_of_wellness_string == "Yes" ? true : false;
               profile.which_wellness_program = values.which_wellness_program;
+
+              
               // Saving data on server
               const res = await axios.patch(
                 url,
@@ -211,6 +217,12 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 3000,
                 "top-right"
               );
+
+              // Close the pop up box once the changes have been saved
+              PopupboxManager.close()
+              editControls.setEditMode(false);
+
+              
             } catch (err) {
               displayToast(
                 "Failed to update profile",
@@ -218,6 +230,9 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 3000,
                 "top-right"
               );
+              
+              
+
               if (err) {
                 console.log(err);
 
@@ -245,10 +260,26 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
           setFieldValue,
         }) => (
           <Form>
+            <div className="XCancelButton">
+
+              <Button
+                color="black"
+                background="white"
+                borderRadius="6px"
+                margin="2em 1.5em"
+                padding="10px 20px"
+                onClick={handleCancel}
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.452197 2.66982C-0.147803 2.06982 -0.147803 1.07122 0.452197 0.450244C1.07318 -0.149756 2.0508 -0.149756 2.67178 0.450244L15.9907 13.7915L29.3319 0.450244C29.9319 -0.149756 30.9305 -0.149756 31.5291 0.450244C32.1501 1.07122 32.1501 2.07122 31.5291 2.66982L18.2102 15.9901L31.5291 29.3314C32.1501 29.9314 32.1501 30.93 31.5291 31.5509C30.9291 32.1509 29.9305 32.1509 29.3319 31.5509L15.9907 18.2097L2.67178 31.5509C2.0508 32.1509 1.07318 32.1509 0.452197 31.5509C-0.147803 30.93 -0.147803 29.93 0.452197 29.3314L13.7711 15.9901L0.452197 2.66982Z" fill="#363637"/>
+</svg>
+              </Button>
+            </div>
             <div className="question-wrapper">
               <div>
               <label htmlFor="work_status">Current Work Status</label>
               </div>
+              
               <span style={{ display: "inline-block" }}>
                 <Field
                   component={RadioButton}
@@ -274,23 +305,23 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 />
               </span>
             </div>
-            <div className="form-container user-section-wrapper">
-              <div className="user-section-data">
+            <div className="user-section-wrapper-edit-profile">
+              <div className="user-section-data-edit-profile">
                 <div className="item">
                   <div className="title" onClick={() => toggle(0)}>
-                    <h2>About me </h2>
+                    <h2 className="edit_profile_h2_styling">About me </h2>
                     <span>{selected == 0 ? <BsChevronUp/> : <BsChevronDown/>}</span>
                   </div>
                   {/* <Collapsible className="profile-section-header" trigger="About me 😀 ">
                    */}
                   <div className={selected == 0 ? "content show" : "content"}>
                     {/* <div className="profile-section-header">About me 😀</div> */}
-                    <div className="question-wrapper">
-                      <label htmlFor="personality">
+                    <div className="question-wrapper-half">
+                      <label htmlFor="personality" className="question_label">
                         How would you describe your personality?
                       </label>
                       <div className="Answers">
-                        <Field as={Select} id="personality" name="personality">
+                        <Field as={Select} id="personality" name="personality" className="answerBorderBox">
                           <option value="" label="- Select One -" />
                           {PERSONALITY_DESCRIPTION.map((item) => (
                             <option key={item} value={item}>
@@ -302,13 +333,13 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
-                    <div className="question-wrapper">
-                      <label htmlFor="work_status">
+                    <div className="question-wrapper-half">
+                      <label htmlFor="work_status" className="question_label">
                         Which of the following best describes your work
                         situation?
                       </label>
                       <div className="Answers">
-                        <Field as={Select} id="work_status" name="work_status">
+                        <Field as={Select} id="work_status" name="work_status" className="answerBorderBox">
                           <option value="" label="- Select One -" />
                           {WORK_STATUS_DESCRIPTIONS.map((item) => (
                             <option key={item} value={item}>
@@ -320,16 +351,22 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
+                    
+                  </div>
+
+                  <div className={selected == 0 ? "contentNoFlex show" : "contentNoFlex"}>
+
                     <div className="question-wrapper">
-                      <label htmlFor="details_about_self">
-                        About Me: Use this space for anything else you would
-                        like to share.
+                      <label htmlFor="details_about_self" className="question_label">
+                        Use this space for anything else you would
+                        like to share about yourself
                       </label>
                       <div className="Answers">
                         <Field
                           name="details_about_self"
                           as={Textarea}
                           placeHolder="Details about self"
+                          className="answerBorderBoxFull"
                         />
                       </div>
                     </div>
@@ -338,13 +375,13 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 {/* </Collapsible> */}
                 <div className="item">
                   <div className="title" onClick={() => toggle(1)}>
-                    <h2>Details about Diagnosis </h2>
+                    <h2 className="edit_profile_h2_styling">Details about Diagnosis </h2>
                     <span>{selected == 1 ? <BsChevronUp/> : <BsChevronDown/>}</span>
                   </div>
 
                   <div className={selected == 1 ? "content show" : "content"}>
-                    <div className="question-wrapper">
-                      <label htmlFor="cancer_location">
+                    <div className="question-wrapper-thirty">
+                      <label htmlFor="cancer_location" className="question_label">
                         What was your primary cancer diagnosis?
                       </label>
                       <div className="Answers">
@@ -368,24 +405,8 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
-                    <div className="question-wrapper">
-                      <label htmlFor="other_cancer_location">
-                        Additional Cancer Information (e.g., stage, year
-                        diagnosed, DCIS, TNBC):{" "}
-                      </label>
-                      <div className="Answers">
-                        <Field
-                          name="other_cancer_location"
-                          as={Textarea}
-                          placeHolder="Additional Cancer Information"
-                          rows={20}
-                          cols={70}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="question-wrapper">
-                      <label htmlFor="treatment_status">
+                    <div className="question-wrapper-seventy">
+                      <label htmlFor="treatment_status" className="question_label">
                         Which of the following best describes you?
                       </label>
                       <div className="Answers">
@@ -404,8 +425,31 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
-                    <div className="question-wrapper">
-                      <label htmlFor="treatment_description">
+                    
+
+                  </div>
+
+                  <div className={selected == 1 ? "content show" : "content"}>
+
+                  <div className="question-wrapper-thirty">
+                      <label htmlFor="other_cancer_location" className="question_label">
+                        Additional Cancer Information (e.g., stage, year
+                        diagnosed, DCIS, TNBC):{" "}
+                      </label>
+                      <div className="Answers">
+                        <Field
+                          name="other_cancer_location"
+                          as={Textarea}
+                          placeHolder="Additional Cancer Information"
+                          rows={2}
+                          cols={50}
+                          className = "answerBorderBox"
+                        />
+                      </div>
+                  </div>
+
+                    <div className="question-wrapper-seventy">
+                      <label htmlFor="treatment_description" className="question_label">
                         Please briefly describe your cancer treatments:{" "}
                       </label>
                       <div className="Answers">
@@ -415,88 +459,194 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                           placeHolder="Treatment description"
                           rows={2}
                           cols={50}
+                          className = "answerBorderBoxFull"
                         />
                       </div>
                     </div>
 
+                  </div>
+
+                  <div className={selected == 1 ? "content show" : "content"}>
+
                     <div className="question-wrapper">
-                      <label htmlFor="part_of_wellness_program">
+                      <label htmlFor="part_of_wellness_program" className="question_label">
                         Have you ever been part of a support group or wellness
                         program following your cancer diagnosis?:
                       </label>
-                      <Field
-                        component={RadioButton}
-                        name="part_of_wellness_string"
-                        id="Yes"
-                        label="Yes"
-                      />
-                      <Field
-                        component={RadioButton}
-                        name="part_of_wellness_string"
-                        id="No"
-                        label="No"
-                      />
-                    </div>
-
-                    <div>
-                      <div className="question-wrapper">
-                        <label htmlFor="which_wellness_program">
-                          If yes, what program? (list the name and location if
-                          possible, for example: INOVA Life with Cancer-Breast
-                          Cancer Support Group, Fairfax):{" "}
-                        </label>
+                      <div className="display-flex">
                         <Field
-                          name="which_wellness_program"
-                          as={Input}
-                          placeoHlder="Which wellness program"
+                          component={RadioButton}
+                          name="part_of_wellness_string"
+                          id="Yes"
+                          label="Yes"
+                        />
+                        <Field
+                          component={RadioButton}
+                          name="part_of_wellness_string"
+                          id="No"
+                          label="No"
                         />
                       </div>
                     </div>
+                  
+                  </div>
+
+                  <div className={selected == 1 ? "content show" : "content"}>
+                    <div className="question-wrapper">
+                      <label htmlFor="which_wellness_program" className="question_label">
+                        If yes, what program? (list the name and location if
+                        possible, for example: INOVA Life with Cancer-Breast
+                        Cancer Support Group, Fairfax):{" "}
+                      </label>
+                      <Field
+                        name="which_wellness_program"
+                        as={Input}
+                        placeoHlder="Which wellness program"
+                        className="answerBorderBoxFull"
+                      />
+                    </div>
+                    
                   </div>
                 </div>
                 <div className="item">
                   <div className="title" onClick={() => toggle(2)}>
-                    <h2>Activity/Fitness</h2>
+                    <h2 className="edit_profile_h2_styling">Activity/Fitness</h2>
                     <span>{selected == 2 ? <BsChevronUp/> : <BsChevronDown/>}</span>
                   </div>
 
                   <div className={selected == 2 ? "content show" : "content"}>
                     <div className="question-wrapper">
-                      <div className="question-title">
+                      <div className="question_label">
                         Favorite activities (check all that apply)
                       </div>
-                      <div className="Answers">
-                        <label>
+                      
+                    </div>
+                  </div>
+
+
+                  <div className={selected == 2 ? "content show" : "content"}>
+                    <div className = "list-item-display">
+                        <label style={{display: "inline-block"}}>
                           {stringActivities.map((item) => (
-                            <label>
-                              {item.name + " "}
+                            <label className="list-item-large">
                               <Field
                                 id={item.id}
                                 type="checkbox"
                                 name="activity_ids"
                                 value={item.id}
+                                className="list-item"
                               ></Field>
+                              {item.name + " "}                        
                               &nbsp;&nbsp;&nbsp;
                             </label>
                           ))}
                         </label>
                       </div>
-                    </div>
+                  </div>
+
+                  <div className={selected == 2 ? "content show" : "content"}>
 
                     <div className="question-wrapper">
-                      <div className="question-title">
+                      <div className="question_label">
                         Do you have any other favorite activities?
                       </div>
                       <label>
                         <Input
                           name="other_favorite_activities"
                           placeholder="Enter any other favorite activity"
+                          className = "inputBoxFull"
                         />
                       </label>
                     </div>
 
+                  </div>
+
+                  <div className={selected == 2 ? "content show" : "content"}>
                     <div className="question-wrapper">
-                      <div className="question-title">
+                        <div className="question_label">
+                          Identify your top reasons for wanting to become more
+                          active:
+                        </div>
+
+                        {/*
+                        <div className="Answers">
+                          <label>
+                            {stringReasons.map((item) => (
+                              <label>
+                                <Checkbox
+                                    id={item.id}
+                                    name="exercise_reason_ids"
+                                    color="primary"
+                                    // inputProps={{ 'aria-label': 'primary checkbox' }}
+                                    value={item.id.toString().substring(item.id.length - 3)}
+                                  />
+                                {" "}
+                                {item.name}{" "}
+                                {/* <Field
+                                  id={item.id}
+                                  type="checkbox"
+                                  name="exercise_reason_ids"
+                                  value={item.id}
+                                ></Field> }
+                                  {item.id}           
+                                
+                                &nbsp;&nbsp;&nbsp;{" "}
+                              </label>
+                            ))}
+                          </label>
+                        </div> */}
+                      </div>
+
+
+                  </div>
+
+                  <div className={selected == 2 ? "content show" : "content"}>
+                    <div className = "list-item-display">
+                        <label style={{display: "inline-block"}}>
+                          {stringReasons.map((item) => (
+                            <label className="list-item-large">
+                              <Field
+                                id={item.id}
+                                type="checkbox"
+                                name="exercise_reason_ids"
+                                value={item.id}
+                                className="list-item"
+                              ></Field>
+                              {item.name}                        
+                              &nbsp;&nbsp;&nbsp;
+                            </label>
+                          ))}
+                        </label>
+                      </div>
+                  </div>
+
+
+                  <div className={selected == 2 ? "content show" : "content"}>
+
+                    <div className="question-wrapper-half">
+                          <div className="question_label">
+                            Would you like a virtual partner?
+                          </div>
+                          
+                          <div className="display-flex">
+                            <Field
+                              component={RadioButton}
+                              name="virtual_partner"
+                              id="Yes2"
+                              label="Yes"
+                            />
+                            <Field
+                              component={RadioButton}
+                              name="virtual_partner"
+                              id="No2"
+                              label="No"
+                            />
+                          </div>
+                    </div>
+
+                    
+                    <div className="display-none">
+                      <div className="question_label">
                         <label htmlFor="fitnessLevel">
                           How would you describe your current fitness level?
                         </label>
@@ -518,59 +668,12 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
-                    <div className="question-wrapper">
-                      <div className="question-title">
-                        Would you like a virtual partner?
-                      </div>
+                      
 
-                      <Field
-                        component={RadioButton}
-                        name="virtual_partner"
-                        id="Yes"
-                        label="Yes"
-                      />
-                      <Field
-                        component={RadioButton}
-                        name="virtual_partner"
-                        id="No"
-                        label="No"
-                      />
-                    </div>
+                    
 
-                    <div className="question-wrapper">
-                      <div className="question-title">
-                        Identify your top reasons for wanting to become more
-                        active:
-                      </div>
-                      <div className="Answers">
-                        <label>
-                          {stringReasons.map((item) => (
-                            <label>
-                              {" "}
-                              {item.name}{" "}
-                              {/* <Field
-                                id={item.id}
-                                type="checkbox"
-                                name="exercise_reason_ids"
-                                value={item.id}
-                              ></Field> */}
-                                {item.id}           
-                              <Checkbox
-                                  id={item.id}
-                                  name="exercise_reason_ids"
-                                  color="primary"
-                                  // inputProps={{ 'aria-label': 'primary checkbox' }}
-                                  value={item.id}
-                                />
-                              &nbsp;&nbsp;&nbsp;{" "}
-                            </label>
-                          ))}
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="question-wrapper">
-                      <label htmlFor="prefered_exercise_location">
+                    <div className="question-wrapper-half">
+                      <label htmlFor="prefered_exercise_location" className="question_label">
                         Where do you prefer to be active?
                       </label>
                       <div className="Answers">
@@ -590,8 +693,13 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                       </div>
                     </div>
 
-                    <div className="question-wrapper">
-                      <label htmlFor="prefered_exercise_time">
+                  </div>
+
+                  <div className={selected == 2 ? "content show" : "content"}>
+
+                    
+                    <div className="question-wrapper-half">
+                      <label htmlFor="prefered_exercise_time" className="question_label">
                         When do you prefer to be active?
                       </label>
                       <div className="Answers">
@@ -610,9 +718,10 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                         </Field>
                       </div>
                     </div>
+                          
 
-                    <div className="question-wrapper">
-                      <label htmlFor="reason_for_match">
+                    <div className="question-wrapper-half">
+                      <label htmlFor="reason_for_match" className="question-label">
                         What is the main reason you want to be matched with an
                         exercise partner?{" "}
                       </label>
