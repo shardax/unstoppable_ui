@@ -87,7 +87,10 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
   // const [toggle, setTogglePanel] = useState(false);
   const [selected, setSelected] = useState(null);
 
+  var currentSelection = [];
+
   const toggle = (i) => {
+
     if (selected == i) {
       return setSelected(null);
     }
@@ -103,6 +106,7 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
     const name = store.activities[key].name.toString();
     return { id, name };
   });
+
   let stringReasons: { id: string; name: string }[] = Object.keys(
     store.exerciseReasons
   ).map(function (key) {
@@ -191,6 +195,8 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
               profile.part_of_wellness_program =
                 values.part_of_wellness_string == "Yes" ? true : false;
               profile.which_wellness_program = values.which_wellness_program;
+
+              
               // Saving data on server
               const res = await axios.patch(
                 url,
@@ -211,6 +217,12 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 3000,
                 "top-right"
               );
+
+              // Close the pop up box once the changes have been saved
+              PopupboxManager.close()
+              editControls.setEditMode(false);
+
+              
             } catch (err) {
               displayToast(
                 "Failed to update profile",
@@ -218,6 +230,9 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                 3000,
                 "top-right"
               );
+              
+              
+
               if (err) {
                 console.log(err);
 
@@ -617,20 +632,20 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
                             <Field
                               component={RadioButton}
                               name="virtual_partner"
-                              id="Yes"
+                              id="Yes2"
                               label="Yes"
                             />
                             <Field
                               component={RadioButton}
                               name="virtual_partner"
-                              id="No"
+                              id="No2"
                               label="No"
                             />
                           </div>
                     </div>
 
                     
-                    <div className="question-wrapper-half">
+                    <div className="display-none">
                       <div className="question_label">
                         <label htmlFor="fitnessLevel">
                           How would you describe your current fitness level?
