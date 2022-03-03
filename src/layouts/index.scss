@@ -1,15 +1,18 @@
 @import "../assets/scss/variables.scss";
 
 .default-layout-main {
-  // max-width: 1200px;
+  // max-width: 85vw; 
+  height: 100vh; 
   display: flex;
-  background: white;
+  background: #f7f7f7;
   justify-content: flex-start;
   width: 100%;
   .format-children-default {
-    margin-left: 16em;
-    padding-left: 3%;
-    padding-right: 3%;
+    background: #f7f7f7;
+    height: fit-content;
+    margin-left: 14em;
+    padding-left: 2%; // was 3%
+    padding-right: 2%; // was 3%
     margin-top: 1em;
     // overflow-y: scroll;
     -ms-overflow-style: none;
@@ -30,6 +33,13 @@
 .topnav-wrapper {
   visibility: hidden;
   display: none;
+}
+
+.ant-avatar-sm {
+  width: 50px;
+  height: 50px;
+  line-height: 24px;
+  border-radius: 50%;
 }
 
 @media only screen and (max-width: 900px) {

@@ -1,11 +1,10 @@
-import React from 'react';
 import Default from '../layouts/Default';
 import Inbox from '../components/Inbox/Inbox';
+import React from 'react';
 
 const messages = () => {
   return (
       <div>
-        <h3>Messages</h3>
         <Inbox></Inbox>
       </div>
   )

@@ -1,6 +1,6 @@
-import { observable, action } from 'mobx';
-import { create, persist} from 'mobx-persist';
-import {AGE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from './constants/ProfileConstants';
+import {AGE_RANGE_CONSTANT, DISTANCE_RANGE_CONSTANT, DISTANCE_WITHIN_CONSTANT} from './constants/ProfileConstants';
+import { action, observable } from 'mobx';
+import { create, persist } from 'mobx-persist';
 
 export class ActivitiesStore {
   id: number;
@@ -24,10 +24,13 @@ export class UniqueListStore {
   unique_zipcodes: string[];
   unique_state_codes: string[];
   unique_cities: string[];
+  unique_personalities: string[];
+
   constructor(){
     this.unique_zipcodes = [];
     this.unique_state_codes=[];
     this.unique_cities=[];
+    this.unique_personalities = [];
   }
 }
 
@@ -57,6 +60,7 @@ export class CurrentChatroomStore {
 export class SearchParamsStore {
   filter: string;
   ageRange: number[];
+  distanceRange: number[];
   distance: number;
   cancerTypeKeyword: string;
   stateCodeKeyword: string;
@@ -69,10 +73,17 @@ export class SearchParamsStore {
   newestMemberOrder: string;
   activeUsers: boolean;
 
+  // activities: string;
+  personality: string;
+  prefered_exercise_location: string;
+  test: number;
+
   constructor(){
     this.filter = "";
     this.ageRange = AGE_RANGE_CONSTANT;
     this.distance = DISTANCE_WITHIN_CONSTANT;
+    this.distanceRange = DISTANCE_RANGE_CONSTANT;
+    this.test = 8;
     this.cancerTypeKeyword = "";
     this.stateCodeKeyword = "";
     this.zipcodeKeyword = "";
@@ -82,6 +93,8 @@ export class SearchParamsStore {
     this.lastOnlineOrder = "";
     this.newestMemberOrder = "";
     this.activeUsers = false;
+    this.personality = "";
+    this.prefered_exercise_location = "";
   }
 }
 

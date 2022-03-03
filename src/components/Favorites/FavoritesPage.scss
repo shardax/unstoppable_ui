@@ -1,0 +1,39 @@
+@import "../../assets/scss/variables";
+
+div#headerFilter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.favorites-search-box {
+    background-color: white;
+    padding-left: 10px;
+    border: none !important
+}
+
+.SortButton{
+    color: purple;
+}
+
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-header {
+    color: purple;
+    font-weight: bold;
+}
+
+.MuiButtonBase-root {
+    padding: 20px 30px
+}.MuiButton-root {
+
+} .MuiButton-contained {
+
+}
+.MuiButton-containedPrimary {
+
+}

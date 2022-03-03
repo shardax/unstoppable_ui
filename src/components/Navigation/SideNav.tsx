@@ -1,21 +1,23 @@
-import React from 'react'
 import './Navigation.scss';
-import { useDataStore } from "../../UserContext";
-import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
-import {Avatar} from 'antd';
-import UnsIcon from '../../images/2unstoppable.png'
-import {useObserver} from 'mobx-react'
 
+import { ALLPROFILESURL, ROOTURL } from "../../constants/matcher";
+import { Link, NavLink } from 'react-router-dom';
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {Avatar} from 'antd';
+import { BsHeartFill } from "react-icons/bs";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 //Icons
 import HomeIcon from '@material-ui/icons/Home';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MessageIcon from '@material-ui/icons/Message';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import React from 'react'
 import SettingsIcon from '@material-ui/icons/Settings';
-
-
-import { NavLink, Link } from 'react-router-dom';
+import UnsIcon from '../../images/2Unstoppable_logo.png';
+import { useDataStore } from "../../UserContext";
+import {useObserver} from 'mobx-react';
 
 const sideNavLinks = [
   {
@@ -29,13 +31,13 @@ const sideNavLinks = [
     icon: <AccountCircleIcon />
   },
   {
-    to: "/messages",
-    name: "Messages",
-    icon: <MessageIcon />
+    to: "/favorites",
+    name: "Favorites",
+    icon: <BsHeartFill size={18} />
   },
   {
-    to: "/chatrooms",
-    name: "Chatrooms",
+    to: "/messages",
+    name: "Messages",
     icon: <MessageIcon />
   }
 ]
@@ -59,32 +61,44 @@ const SideNav = () => {
   return useObserver(() => (
     <div className="sidenav-wrapper">
       <div style={{ display: "flex", justifyContent: "center"}}>
-        <img className="logo-navbar" src={UnsIcon} alt="" />
+        <Link to="/home"><img className="logo-navbar" src={UnsIcon} alt=""/></Link>
       </div>
       <div className="username-avatar-sidenav">
-        <Avatar src={ROOTURL + store.avatarPath}  size= "large" />
-        <div className="sidebar-title">{store.username}</div>
+        <Avatar className="avatar-border" src={ROOTURL + store.avatarPath} size="large" />
+        
+        <DropdownButton id="dropdown-basic-button" title={store.username}>
+          <Dropdown.Item href="/profile">Edit Profile</Dropdown.Item>
+          <Dropdown.Item href="/settings">Account Settings</Dropdown.Item>
+          <Dropdown.Item href="/logout">Log Out</Dropdown.Item>
+        </DropdownButton>
+
       </div>
-      <div className="sidebar-subtitle primary-grey-text">{store.email ? store.email : "Email not defined."}</div>
 
       <hr className="horizontal-break" />
 
-      <div className="main-navlink">  
+      <div className="main-navlink">
         {sideNavLinks.map((link: any) => (
           <div className="sidenav-link">
             <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
           </div>
         ))}
-      </div>  
+      </div>
 
-      <hr className="horizontal-break" />
-      <div className="main-navlink">
-        {optionLinks.map((link: any) => (
-            <div className="sidenav-link">
-              <NavLink className="sidenav-link-content" activeClassName="sidenav-link-content-active" to={link.to}>{link.icon} <span className="sidenav-link-name">{link.name}</span></NavLink>
-            </div>
-          ))}
+      <div className="bottomLinks">
+        <div className="ULWrapper">
+          <ul className="noBulletUnorderedList">
+            <li><a href="https://2unstoppable.org/Terms-of-use/">Terms of Use</a></li>
+            <li><a href="https://2unstoppable.org/privacy-policy/">Privacy</a></li>
+            <li><a href="https://2unstoppable.org/Disclaimer/">Disclaimer</a></li>
+            <li><a href="https://2unstoppable.org/contact-us/">Contact Us</a></li>
+          </ul>
         </div>
+
+        <hr className="bottomLinkDivider"></hr>
+        <p color="white" className="bottomWhiteLinks">Registered 501(c)(3)</p>
+        <p color="white" className="bottomWhiteLinks">© 2022 2Unstoppable - All Rights Reserved.</p>
+
+      </div>
     </div>
   ))
 }

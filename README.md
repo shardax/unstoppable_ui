@@ -1,3 +1,8 @@
+# 2Unstoppable Buddy System Frontend
+Frontend for application to match users going through cancer
+
+Hosted Site: https://elegant-minsky-ed6d47.netlify.app/home
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
