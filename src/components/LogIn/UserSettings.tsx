@@ -133,7 +133,7 @@ const UserSettings = (props: ProfileProps) => {
         <div className="Values">
           <div className="account-settings-page-header">Account Settings</div>
 
-          <Paper margin="3em 20em" className="paper-block">
+          <Paper style={{ marginLeft: "auto" , marginRight: "auto"}}  className="paper-block">
             {/* <div className="full-width">
               <ProfileIconBlock field={"Avatar Image"} answer={
                 <div className="photo-cropper">
