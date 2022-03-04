@@ -107,6 +107,7 @@ const CancerStep = () => {
                             profile.treatment_description = values.treatment_description;
                             profile.part_of_wellness_program = (values.part_of_wellness_string === "Yes") ? true : false
                             profile.which_wellness_program = values.which_wellness_program;
+
                             // Saving data on server
                             const res = await axios.patch(url, 
                                                     { profile: profile },

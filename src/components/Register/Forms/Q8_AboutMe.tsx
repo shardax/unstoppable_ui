@@ -5,9 +5,8 @@ import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import Button from '../../Styled/Button';
+import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -30,11 +29,13 @@ const Q8_AboutMe = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
+  const [filled, setFilled] = useState(false);
+
   let profile = store.profile;
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/6");
     }
   }, [])
 
@@ -44,7 +45,7 @@ const Q8_AboutMe = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/8");
+    history.push("/complete-profile/9");
   }
   return (
     <div>
@@ -111,19 +112,11 @@ const Q8_AboutMe = () => {
             <Form>
               <div className="form-container">
                 <div className="user-section-data">
-                    <div className="question-header">About Me: Use this space for anything else you would like to share.</div>
+                    <div className="question-header">Use this space for anything else you would like to share about your primary cancer:</div>
                     <div className="question-number">8/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
+                          <Field name="anything-else" as={Textarea} placeHolder="Treatment description" rows={20} cols={70} onClick={()=>setFilled(true)} />
                       </div>
                     </div>
                   

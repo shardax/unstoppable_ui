@@ -4,11 +4,8 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';
-import Textarea from '../../Styled/Textarea';
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
+import { PREFERRED_EXERCISE_LOCATIONS } from "../../../constants/ProfileConstants"
+import Button from '../../Styled/Button';  
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -26,17 +23,15 @@ const PromptIfDirty = () => {
   );
 };
 
-
-const Q2_Work = () => {
+const Q13_WhereActive = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
-  const [filled, setFilled] = useState(false);
   let profile = store.profile;
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/12");
     }
   }, [])
 
@@ -46,10 +41,9 @@ const Q2_Work = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/2");
+    history.push("/complete-profile/14");
   }
   return (
-
     <div>
       <Formik
         initialValues={{
@@ -57,6 +51,7 @@ const Q2_Work = () => {
           personality: profile.personality,
           work_status: profile.work_status,
           details_about_self: profile.details_about_self,
+          preferred_exercise_locations: profile.prefered_exercise_location,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -65,7 +60,6 @@ const Q2_Work = () => {
             setSubmitting(false);
           }, 500);
           
-          
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
@@ -73,6 +67,9 @@ const Q2_Work = () => {
               profile.personality = values.personality;
               profile.work_status = values.work_status;
               profile.details_about_self = values.details_about_self;
+
+              profile.prefered_exercise_location = values.preferred_exercise_locations;
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -81,27 +78,24 @@ const Q2_Work = () => {
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
-            
-              if (prevSubmitted){
-                history.push("/complete-profile/0");
-              } else {
-                  history.push("/complete-profile/2");
-              }
 
+              if (prevSubmitted){
+                history.push("/complete-profile/12");
+              } else {
+                  history.push("/complete-profile/14");
+              }
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
-            //   if (err.response) {
-            //     // client received an error response (5xx, 4xx)
-            //   } else if (err.request) {
-            //     // client never received a response, or request never left
-            //   } else {
-            //     // anything else
-            //   }
+              if (err.response) {
+                // client received an error response (5xx, 4xx)
+              } else if (err.request) {
+                // client never received a response, or request never left
+              } else {
+                // anything else
+              }
             }
           };
           fetchData();
-          //alert("Fetch Data Done!!");
-          //alert(JSON.stringify(store.profile));
         }}
       >
         {({
@@ -114,51 +108,40 @@ const Q2_Work = () => {
           isSubmitting,
           setFieldValue
         }) => (
-          <Form>
-          <div className="form-container">
-            <div className="user-section-data">
+            <Form>
+              <div className="form-container">
+                  <div className="question-header">Where do you prefer to be active?</div>
+                  <div className="question-number">13/16 Questions</div>
+                  <div className="form-question-wrapper">
+                    <div className="question-answers">
+                      
+                    {PREFERRED_EXERCISE_LOCATIONS.map(item => (
+                      <div>
+                        <Field id={item} type="radio" name="personality" value={item}></Field>
+                        <label htmlFor={item}>{item + " "}</label>
+                      </div>
+                    ))}
 
-                <div className="question-header">Which of the following best describes your work situation?*</div>
-                <div className="question-number">2/16 Questions</div>
-                <div className="form-question-wrapper">
-                  {/* <label htmlFor="personality">Which of the following best describes your work situation??</label> */}
-                  <div className="Answers">
-
-                  {WORK_STATUS_DESCRIPTIONS.map(item => (
-                    <div>
-                      <Field id={item} type="radio" name="work_status" value={item} onClick={()=>setFilled(true)}></Field>
-                      <label htmlFor={item}>{item + " "}</label>
+                      {/* <Field
+                        as={Select}
+                        id="personality"
+                        name="personality"
+                      >
+                        <option value="" label="- Select One -" />
+                        {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
+                      </Field> */}
                     </div>
-                  ))}
-
-                    {/* <Field
-                      as={Select}
-                      id="personality"
-                      name="personality"
-                    >
-                      <option value="" label="- Select One -" />
-                      {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                    </Field> */}
                   </div>
-                </div>
-              
-                <PromptIfDirty />
-
-                <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
-                    onClick={(e)=>{setPrevSubmitted(true)}}>
-                    Previous
-                </Button>
-
-                <Button disabled={isSubmitting || !filled}>
-                  Save &amp; Continue
-                </Button>
-
-            </div>
-          </div>
-        </Form>
+                
+                  <PromptIfDirty />
+                  <Button disabled={isSubmitting}>
+                      Save &amp; Continue
+                  </Button>
+              </div>
+            </Form>
           )}
       </Formik>
     </div>
   );
 }
-export default Q2_Work;
+export default Q13_WhereActive;

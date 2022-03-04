@@ -105,10 +105,10 @@ const Q1_Personality = () => {
                   <div className="question-number">1/16 Questions</div>
                   <div className="form-question-wrapper">
                     <div className="question-answers">
-
+                      
                     {PERSONALITY_DESCRIPTION.map(item => (
                       <div>
-                        <Field id={item} type="radio" name="activity_ids" value={item}></Field>
+                        <Field id={item} type="radio" name="personality" value={item}></Field>
                         <label htmlFor={item}>{item + " "}</label>
                       </div>
                     ))}

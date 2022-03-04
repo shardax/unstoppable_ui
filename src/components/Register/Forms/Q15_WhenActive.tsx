@@ -4,11 +4,10 @@ import { useDataStore } from "../../../UserContext";
 import { Prompt } from 'react-router-dom';
 import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
-import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../constants/ProfileConstants"
-import Button from '../../Styled/Button';
-import Textarea from '../../Styled/Textarea';
+import { PREFERRED_TIME_DESCRIPTIONS } from "../../../constants/ProfileConstants"
+import Error from "../../LogIn/Error";
+import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -27,7 +26,7 @@ const PromptIfDirty = () => {
 };
 
 
-const Q2_Work = () => {
+const Q15_WhenActive = () => {
   const store = useDataStore();
   const history = createBrowserHistory({ forceRefresh: true });
   const [prevSubmitted, setPrevSubmitted] = useState(false);
@@ -36,7 +35,7 @@ const Q2_Work = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      history.push("/complete-profile/14");
     }
   }, [])
 
@@ -46,17 +45,13 @@ const Q2_Work = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/2");
+    history.push("/complete-profile/16");
   }
   return (
-
     <div>
       <Formik
         initialValues={{
-          // About Me
-          personality: profile.personality,
-          work_status: profile.work_status,
-          details_about_self: profile.details_about_self,
+          preferred_time : profile.prefered_exercise_time,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -65,14 +60,12 @@ const Q2_Work = () => {
             setSubmitting(false);
           }, 500);
           
-          
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              //About Me
-              profile.personality = values.personality;
-              profile.work_status = values.work_status;
-              profile.details_about_self = values.details_about_self;
+              
+              profile.prefered_exercise_time = values.preferred_time;
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -81,27 +74,25 @@ const Q2_Work = () => {
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
               localStorage.setItem("userStore", JSON.stringify(store));
-            
+
               if (prevSubmitted){
-                history.push("/complete-profile/0");
+                history.push("/complete-profile/14");
               } else {
-                  history.push("/complete-profile/2");
+                  history.push("/complete-profile/16");
               }
 
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
-            //   if (err.response) {
-            //     // client received an error response (5xx, 4xx)
-            //   } else if (err.request) {
-            //     // client never received a response, or request never left
-            //   } else {
-            //     // anything else
-            //   }
+              if (err.response) {
+                // client received an error response (5xx, 4xx)
+              } else if (err.request) {
+                // client never received a response, or request never left
+              } else {
+                // anything else
+              }
             }
           };
           fetchData();
-          //alert("Fetch Data Done!!");
-          //alert(JSON.stringify(store.profile));
         }}
       >
         {({
@@ -114,51 +105,43 @@ const Q2_Work = () => {
           isSubmitting,
           setFieldValue
         }) => (
-          <Form>
-          <div className="form-container">
-            <div className="user-section-data">
+            <Form>
+              <div className="form-container">
+                <div className="user-section-data">
 
-                <div className="question-header">Which of the following best describes your work situation?*</div>
-                <div className="question-number">2/16 Questions</div>
-                <div className="form-question-wrapper">
-                  {/* <label htmlFor="personality">Which of the following best describes your work situation??</label> */}
-                  <div className="Answers">
-
-                  {WORK_STATUS_DESCRIPTIONS.map(item => (
-                    <div>
-                      <Field id={item} type="radio" name="work_status" value={item} onClick={()=>setFilled(true)}></Field>
-                      <label htmlFor={item}>{item + " "}</label>
+                    <div className="question-header">When do you prefer to be active?</div>
+                    <div className="question-number">15/17 Questions</div>
+                    <div className="form-question-wrapper">
+                        <div className="Answers">
+                            <Field
+                                as={Select}
+                                id="preferred_time"
+                                name="preferred_time"
+                                onClick={()=>setFilled(true)}
+                            >
+                                <option value="" label="- Select One -" />
+                                {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item} value={item}>	{item}</option>))}
+                            </Field>
+                            <Error touched={touched.preferred_time} message={errors.preferred_time} />
+                        </div>
                     </div>
-                  ))}
+                    <PromptIfDirty />
 
-                    {/* <Field
-                      as={Select}
-                      id="personality"
-                      name="personality"
-                    >
-                      <option value="" label="- Select One -" />
-                      {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                    </Field> */}
-                  </div>
-                </div>
-              
-                <PromptIfDirty />
-
-                <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
+                    <Button id="prev" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}  
                     onClick={(e)=>{setPrevSubmitted(true)}}>
-                    Previous
-                </Button>
+                      Prev
+                    </Button>
 
-                <Button disabled={isSubmitting || !filled}>
-                  Save &amp; Continue
-                </Button>
+                    <Button margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting || !filled}>
+                        Next
+                    </Button>
 
-            </div>
-          </div>
-        </Form>
+                </div>
+              </div>
+            </Form>
           )}
       </Formik>
     </div>
   );
 }
-export default Q2_Work;
+export default Q15_WhenActive;

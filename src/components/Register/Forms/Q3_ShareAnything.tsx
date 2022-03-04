@@ -8,6 +8,7 @@ import { PERSONALITY_DESCRIPTION, WORK_STATUS_DESCRIPTIONS} from "../../../const
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
 import Paper from '../../Styled/Paper';
+import Textarea from '../../Styled/Textarea';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -114,17 +115,10 @@ const Q3_ShareAnything = () => {
 
                     <div className="question-header">Use this space for anything else you would like to share</div>
                     <div className="question-number">3/16 Questions</div>
+                    
                     <div className="form-question-wrapper">
-                      {/* <label htmlFor="personality">Use this space for anything else you would like to share</label> */}
                       <div className="Answers">
-                        <Field
-                          as={Select}
-                          id="personality"
-                          name="personality"
-                        >
-                          <option value="" label="- Select One -" />
-                          {PERSONALITY_DESCRIPTION.map(item => (<option key={item} value={item}>	{item}</option>))}
-                        </Field>
+                        <Field name="details_about_self" as={Textarea} cols={70} placeHolder="Details about self" />
                       </div>
                     </div>
                   
