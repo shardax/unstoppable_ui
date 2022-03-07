@@ -6,8 +6,9 @@ import {
   DISTANCE_WITHIN_CONSTANT,
 } from "../../constants/ProfileConstants";
 import { ALLPROFILESURL, PROFILEURL, ROOTURL } from "../../constants/matcher";
+import { Link, NavLink } from 'react-router-dom';
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 // accordian imports
 import Accordion from "@material-ui/core/Accordion";
@@ -29,13 +30,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import { IoIosArrowDown } from "react-icons/io";
 import { KeyboardArrowDown } from "@material-ui/icons";
-import { Link, NavLink } from 'react-router-dom';
 import LocationIcon from "@material-ui/icons/LocationOn";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {MenuPopupState} from "./SortByMenu";
+import { NotificationButton } from "../Notifications/NotificationButton";
 // import NotificationIcon from '../../images/NotificationIcon.png';
-import Pagination from "react-js-pagination";
+import Pagination from "../Favorites/Pagination";
+import {ProfileCardView} from "./ProfileCard"
 import Radio from "@material-ui/core/Radio";
 import RangeSlider from "../Common/RangeSlider";
 import { SearchParamsStore } from "../../UserStore";
@@ -49,8 +51,6 @@ import axios from "axios";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDataStore } from "../../UserContext";
 import { useObserver } from "mobx-react";
-import { NotificationButton } from "../Notifications/NotificationButton";
-import {ProfileCardView} from "./ProfileCard"
 
 //const BrowseProfiles: React.FC = ({  }) => {
 export const BrowseProfiles = () => {
@@ -127,6 +127,56 @@ export const BrowseProfiles = () => {
       color: "#9560A8",
       read: false,
   })
+
+  function ProfileGrid(props) {
+    
+    const [currentPage, setCurrentPage] = useState(1)
+  
+    let pageSize = 8
+    console.log(props, "Props")
+  
+    let totalPageCount = Math.ceil(props.profiles.length/8)
+  
+    const currentPageData = useMemo(() => {
+      const firstPageIndex = (currentPage - 1) * pageSize;
+      const lastPageIndex = firstPageIndex + pageSize;
+      return props.profiles.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
+  
+  
+      return <>
+      <div className="profile-browse-grid">
+    {currentPageData.map((profile) => (
+      <ProfileCardView  profile={profile} />
+    ))}
+     </div>
+      <div className="page-footer">
+        <Button onClick={() => { 
+        
+          if(currentPage - 1 < totalPageCount) {
+            setCurrentPage(currentPage + 1)
+          }else{
+            return null
+          }}}
+          color="#FFFFFF"
+          background="#F1658C"
+          borderRadius="6px"
+          margin="2em 1.5em"
+          padding="10px 40px">
+          Next
+        </Button>
+        <div>
+          <Pagination 
+           className="pagination-bar"
+           currentPage={currentPage}
+           totalCount={props.profiles.length}
+           pageSize={8}
+           onPageChange={page => setCurrentPage(page)} />
+        </div>
+      </div>
+    </>
+  
+  }
  
 
 
@@ -604,16 +654,9 @@ export const BrowseProfiles = () => {
         </div>
 
         <h6>{searchTextDisplay}</h6>
-        <ShowProfileCards />
-        <div className="range-slider">
-          <Pagination
-            activePage={pageCounter}
-            itemsCountPerPage={12}
-            totalItemsCount={numberOfProfiles}
-            pageRangeDisplayed={5}
-            onChange={handlePageChange}
-          />
-        </div>
+        {/* <ShowProfileCards /> */}
+        <ProfileGrid profiles={userCollection} />
+
       </div>
     </>
   ));
