@@ -15,6 +15,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import collage from "../images/new2UCollage.png";
 import { makeStyles } from "@material-ui/core/styles";
+import {Redirect} from 'react-router-dom';
+import {useDataStore} from "../UserContext";
+
 
 function Copyright() {
   return (
@@ -56,6 +59,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const storedData = localStorage.getItem("userStore");
+  const store = useDataStore();
+
+  if (!(!storedData && ((store && !store.isLoggedIn)))) {
+    return <Redirect to="/home" />
+  }
 
   return (
     <Container maxWidth="xl" className={classes.image}>
