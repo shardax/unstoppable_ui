@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-      backgroundColor: "transparent"
+    backgroundColor: "transparent"
   },
   paper: {
     margin: theme.spacing(5, 4),
