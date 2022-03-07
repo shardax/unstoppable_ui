@@ -1,8 +1,8 @@
 import "./FavoritesPage.scss";
 
+import { ALLPROFILESURL, PROFILEURL, ROOTURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import Menu, { MenuProps } from '@material-ui/core/Menu';
-import { PROFILEURL, ROOTURL, UPLOADAVATARURL } from "../../constants/matcher";
 import { Prompt, useHistory } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
 import { faSearch, faSort } from "@fortawesome/free-solid-svg-icons";
@@ -18,9 +18,11 @@ import LikedProfile from "../Users/LikedProfile";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
+import {MenuPopupState} from "../Browse/SortByMenu";
 import Pagination from './Pagination';
 import SendIcon from '@material-ui/icons/Send';
 import Tooltip from "@material-ui/core/Tooltip";
+import axios from "axios";
 import { useDataStore } from "../../UserContext";
 import { withStyles } from '@material-ui/core/styles';
 
@@ -131,7 +133,7 @@ function ProfileGrid(props) {
   ))}
    </div>
     <div className="page-footer">
-      <Button onClick={() => { 
+      <Button className="button" disabled={currentPage == totalPageCount} onClick={() => { 
       
         if(currentPage - 1 < totalPageCount) {
           setCurrentPage(currentPage + 1)
@@ -179,6 +181,35 @@ const ViewFavoritesPage: React.FC = ({}) => {
     console.log(event.target.checked);
   };
 
+  useEffect(() => {
+    // gets all the profiles to populate the browse profile cards
+    const getProfiles = async () => {
+      try {
+        const { data } = await axios.get(ALLPROFILESURL, {
+          withCredentials: true,
+          headers: {
+            contentType: "application/json; charset=utf-8",
+          },
+        });
+        setUserCollection(data.profiles);
+        var temp = [] as any;
+        for(var i = 0; i < store.profile.liked_profiles.length; i++){
+          for(var j = 0; j < userCollection.length; j++){
+            if(store.profile.liked_profiles[i] == userCollection[j].profileId){
+              temp.push(userCollection[j].profile);
+            }
+          }
+        }
+        setUserCollection(temp);
+      } catch (e) {
+        console.log(`😱 Browse Fetch failed: ${e}`);
+        setUserCollection([]);
+      }
+    };
+    getProfiles();
+
+  }, []);
+
   return (
     <div>
       <div>
@@ -193,7 +224,7 @@ const ViewFavoritesPage: React.FC = ({}) => {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="Search by name, state, city, or zip code"
-                style={{ width: 500 }}
+                style={{ width: 700 }}
               />
             </Tooltip>
           </div>
@@ -213,7 +244,7 @@ const ViewFavoritesPage: React.FC = ({}) => {
           <Dropdown.Item >Another action</Dropdown.Item>
           <Dropdown.Item >Something else</Dropdown.Item>
           </DropdownButton> */}
-          <CustomizedMenus/>
+          <MenuPopupState className="irbfsN" userCollection={userCollection} setUserCollection={setUserCollection}/>
         </div>
       </div>
 
