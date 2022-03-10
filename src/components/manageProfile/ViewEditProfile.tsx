@@ -21,14 +21,6 @@ const ViewEditProfile: React.FC = ({}) => {
   const history = useHistory();
   const [editMode, setEditMode] = useState(false);
 
-  const popupboxConfig = {
-    content: {
-      style: {
-        overflow: "scroll"
-      }
-    }
-  }
-
 
   
 
