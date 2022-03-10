@@ -288,6 +288,7 @@ const Inbox = () => {
             <div className="conversation-preview">
               <div className="maxWidthMessagePreview">{message.recent.content}</div>
               <div className="message-icon">23</div>
+
             </div>
           </div>
         )}
@@ -352,8 +353,8 @@ const Inbox = () => {
         )}
         {!displaySearch && (
           <div className="conv-nav-header">
-            <h3 className="nav-header">Inbox Message</h3>
-            <span className="message-icon">26</span>
+              <h3 className="nav-header">Inbox Message&nbsp;<span className="message-icon-orange">26</span></h3>
+              
             <button
               onClick={() => setDisplaySearch(true)}
               className="search-Icon"

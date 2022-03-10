@@ -3,6 +3,10 @@
 
 .search-Icon {
   border-radius: 50%;
+  border: 0px;
+  box-shadow: 0px 5px 8px #ddd;
+  width:40px;
+  height:40px;
   background-color: white;
   border-color: inherit;
 }
@@ -21,8 +25,9 @@
   .inbox-wrapper {
     // border-right: 1px solid rgb(240,240,240);
     // padding-right: 2em;
+    padding-top: 10px;
     margin-right: 1em;
-    width: 40%;
+    width: 30%;
   }
   .single-conversation-wrapper {
     // background-color: rgb(225,225,225);
@@ -52,7 +57,7 @@
   .conversation-wrapper {
     border-radius: 5px;
     height: 100%;
-    width: 100%;
+    width: 70%;
     background-color: white;
     margin-left: 1em;
   }
@@ -103,7 +108,7 @@
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 30px;
   line-height: 20px;
   display: flex;
   align-items: center;
@@ -177,13 +182,23 @@
 
 
 .message-icon {
-  font-size: 10px;
-  width: 24px;
-  height: 24px;
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
   padding: 5px;
   border-radius: 50%;
   border: #FCB852;
+  color: white;
+}
+
+.message-icon-orange {
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+  border-radius: 50%;
   background-color: #FCB852;
+  border: #FCB852;
   color: white;
 }
 
