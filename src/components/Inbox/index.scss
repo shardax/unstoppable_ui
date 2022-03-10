@@ -189,10 +189,10 @@
 
 .conversation-header {
   justify-content: space-between;
-  border-bottom: .5mm solid;
-  border-bottom-color:rgb(204, 204, 204);
+  //border-bottom: .5mm solid;
+  //border-bottom-color:rgb(204, 204, 204);
   // padding-left: 25px;
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
   // padding-top: 40px;
 
   font-family: 'Montserrat';
@@ -231,4 +231,8 @@
 .send-button {
   background-color: white;
   border: 0;
+}
+.maxWidthMessagePreview{
+  max-width: 80%;
+  overflow: hidden;
 }

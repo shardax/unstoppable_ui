@@ -286,7 +286,7 @@ const Inbox = () => {
               </div>
             </div>
             <div className="conversation-preview">
-              <div>{message.recent.content}</div>
+              <div className="maxWidthMessagePreview">{message.recent.content}</div>
               <div className="message-icon">23</div>
             </div>
           </div>
