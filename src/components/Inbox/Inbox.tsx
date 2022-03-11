@@ -287,7 +287,7 @@ const Inbox = () => {
             </div>
             <div className="conversation-preview">
               
-              <div className="maxWidthMessagePreview">{String(message.recent.content).length >= 30 ? String(message.recent.content).substring(0, 30) + " ... " : String(message.recent.content)}</div>
+              <div className="maxWidthMessagePreview">{String(message.recent.content).length >= 20 ? String(message.recent.content).substring(0, 20) + " ... " : String(message.recent.content)}</div>
               <div className="message-icon">23</div>
 
             </div>
