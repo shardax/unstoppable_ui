@@ -103,7 +103,7 @@ function getStepContent(step) {
     case 15:
       return <Q16_MainReason/>;
     case 16:
-      return <Q17_UploadPhoto/>;
+      return <Q17_UploadPhoto />;
 
     // Old steps that can be observed
     // case 8:
