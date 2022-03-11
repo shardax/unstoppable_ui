@@ -33,13 +33,6 @@
     display: flex;
     align-items: center;
     // width: 220px;
-    .single-conversation-avatar {
-      position: relative;
-      display: inline-block;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
     .single-conversation-recent {
       margin: 0px 20px;
       width: 100%;
@@ -64,21 +57,50 @@
   }
 
   .conversation-nav-wrapper {
+    display: flex;
     padding: 1em;
-    text-align: center;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
     margin-bottom: 20px;
+    .nav-image {
+      margin-left: 40px;
+      margin-right: 20px;
+    }
     .conv-nav-text {
-      color: white;
+      // color: white;
+      display: flex;
+      color: black;
+      .chat-info {
+        .chat-user {
+          font-weight: 700;
+          font-size: 18px;
+        }
+        .chat-status {
+          font-weight: 600;
+          font-size: 16px;
+        }
+      }
     }
   }
+
+  .single-conversation-avatar {
+    position: relative;
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
   .purple-nav {
     background-color: rgba($primaryPurple, 0.6);
   }
 
   .pink-nav {
     background-color: rgba($pinkNav, 0.6);
+  }
+
+  .white-nav {
+    background-color: white;
   }
 
   .active-conversation {
@@ -97,6 +119,7 @@
   height: 50px !important;
   line-height: 24px;
   border-radius: 50%;
+  align-self: end;
 }
 
 .nav-header {
@@ -114,21 +137,45 @@
 
 .flex-row {
   display: flex;
+  word-wrap: break-word;
   .from-me-message {
-    background-color: rgba($primaryPurple, 0.6);
+    // background-color: rgba($primaryPurple, 0.6);
     // background-color: #9696ff;
+    background-color: #9560A8;
     color: white;
-    width: 40%;
+    width: 484px;
   }
   .from-them-message {
-    background-color: rgba(184, 186, 189, 0.4);
+    // background-color: rgba(184, 186, 189, 0.4);
     // background-color: rgb(150,150,150);
-    color: black;
-    width: 40%;
+    background-color: #B8BABD;
+    color: #363637;
+    width: 484px;
+  }
+  .from-me-image {
+    margin-right: 34px;
+    margin-left: 15px;
+  }
+  .from-them-image {
+    margin-right: 15px;
+    margin-left: 34px;
+  }
+  .from-me-date {
+    padding-right: 105px;
+  }
+  .from-them-date {
+    padding-left: 105px;
   }
   .message-sender-image {
     align-self: flex-end;
     margin-bottom: 6px;
+  }
+  .msg-text {
+    width: 85%;
+    padding-left: 5%;
+  }
+  .msg-send {
+    margin-left: 20px;
   }
 }
 
@@ -136,6 +183,12 @@
   border-radius: 24px;
   padding: 12px 20px;
   margin: 6px 8px;
+}
+
+.single-date-wrapper {
+  color: #8B8B8B;
+  margin-top: 8px;
+  margin-bottom: 20px;
 }
 
 .from-me-row {
