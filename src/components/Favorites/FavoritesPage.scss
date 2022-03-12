@@ -37,3 +37,15 @@ div#headerFilter {
 .MuiButton-containedPrimary {
 
 }
+
+button:disabled {
+    background: #F5F5F5;
+    color : #C3C3C3;
+   cursor:none;
+    pointer-events: none;
+}
+
+.irbfsN {
+    background-color: rgba(149,96,168, 0.15);
+    color: #9560A8;
+}
