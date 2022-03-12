@@ -209,7 +209,6 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
               store.profile = profile;
               console.log(JSON.stringify(res));
               editControls.setEditMode(false);
-              console.log("In handleBackToView");
               history.push("/profile");
               displayToast(
                 "Successfully updated profile ✅",
@@ -220,7 +219,6 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
 
               // Close the pop up box once the changes have been saved
               PopupboxManager.close()
-              editControls.setEditMode(false);
 
               
             } catch (err) {
@@ -235,18 +233,12 @@ const EditProfile: React.FC<IEditProfile> = ({ editControls }) => {
 
               if (err) {
                 console.log(err);
-
-                if (err) {
-                  // client received an error response (5xx, 4xx)
-                } else if (err) {
-                  // client never received a response, or request never left
-                } else {
-                  // anything else
-                }
               }
             }
+            
           };
           fetchData();
+          
         }}
       >
         {({
