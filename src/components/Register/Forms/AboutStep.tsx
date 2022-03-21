@@ -82,13 +82,13 @@ const AboutStep = () => {
               history.push("/wizard/1");
             } catch (err) {
               displayToast("Failed to update profile", "error", 3000, "top-right")
-              if (err.response) {
-                // client received an error response (5xx, 4xx)
-              } else if (err.request) {
-                // client never received a response, or request never left
-              } else {
-                // anything else
-              }
+              // if (err.response) {
+              //   // client received an error response (5xx, 4xx)
+              // } else if (err.request) {
+              //   // client never received a response, or request never left
+              // } else {
+              //   // anything else
+              // }
             }
           };
           fetchData();

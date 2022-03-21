@@ -1,9 +1,9 @@
-import React, {createContext, ReactNode} from 'react'
-import {useLocalStore} from 'mobx-react'
-import {createStore, UserStore} from './UserStore'
-import actionCable from 'actioncable'
-import {WEBSOCKETCABLEURL} from './constants/matcher'
+import React, {ReactNode, createContext} from 'react'
+import {UserStore, createStore} from './UserStore'
 
+import {WEBSOCKETCABLEURL} from './constants/matcher'
+import actionCable from 'actioncable'
+import {useLocalStore} from 'mobx-react'
 
 const CableApp = {cable: {}}
 CableApp.cable = actionCable.createConsumer(WEBSOCKETCABLEURL) 
@@ -40,5 +40,7 @@ export const useDataStore = () => {
   if (!store) {
     throw new Error("useDataStore: !store, did you forget StoreProvider?");
   }
+  // debugging output 
+  // console.log('store!!!!', store)
   return store;
 };

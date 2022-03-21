@@ -10,6 +10,7 @@ import ProgressBar from "./Progress-Bar";
 //import Cropper from 'react-easy-crop'
 import Paper from '../Styled/Paper';
 import Button from '../Styled/Button'
+import {Link} from 'react-router-dom';
 import { createBrowserHistory } from 'history'
 import {STEP_EMAIL_CONFIRMATION_SENT} from "../../constants/ProfileConstants";
 
@@ -60,10 +61,10 @@ const UploadPhoto = (props) => {
   };
 
   const handleNext = () => {
-    history.push("/wizard/4");
+    history.push("/complete-profile/4");
   };
   const handlePrev = () => {
-    history.push("/wizard/2");
+    history.push("/complete-profile/2");
   };
 
   const handleCancelUpload = (e) => {
@@ -167,12 +168,15 @@ return useObserver(() => (
           {(fileChosen) && (!uploadedFile) && <Button margin="0em 1.5em"  onClick={handleCancelUpload}>
                 Cancel
           </Button>}
-          {(fromWizard) && (!uploadStart) && <Button margin="0em 1.5em"  onClick={handlePrev}>
+          {/* {(fromWizard) && (!uploadStart) && <Button margin="0em 1.5em"  onClick={handlePrev}>
                 Prev
-          </Button>}
-          {(fromWizard) && (!uploadStart) && <Button margin="0em 1.5em"  onClick={handleNext}>
-                Next
-          </Button>}
+          </Button>} */}
+          {(fromWizard) && (!uploadStart) && 
+          <Link to="/">
+            <Button margin="0em 1.5em">
+                  Next
+            </Button>
+          </Link>}
         </form>
       </Fragment>
       </Paper>
