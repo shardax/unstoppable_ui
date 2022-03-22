@@ -65,8 +65,7 @@ const Q9_FavoriteActivities = () => {
               console.log(profile.activity_ids);
               
               // for every activity the user has selected (values.activity_ids), create an array of the ids by looking up the activity from the store. 
-              values.activities.forEach(x => console.log(x, typeof x));
-
+              
               const activity_ids = [] as any; 
 
               values.activities.forEach(activityName => {
@@ -125,7 +124,6 @@ const Q9_FavoriteActivities = () => {
                     <div className="question-header"> Favorite activities (check all that apply):</div>
                     <div className="question-number">9/16 Questions</div>
                     <div className="form-question-wrapper">
-                      {`${values.activities}`}
                       {ACTIVITY_IDS.map(item => (
                         <div className="form-checkbox-item">
                           <Field id={item} type="checkbox" name="activities" value={item} onClick={()=>setFilled(true)}></Field>

@@ -157,3 +157,21 @@ form .errorText {
     font-size: 18px;
   }
 }
+
+// todo: there is better practice for this that involves styling a new version of the select component, probably
+.visible_dropdown {
+  height: 250px !important;
+  width: 500px !important;
+  font-size: 20px !important;
+  font-family: Montserrat !important;
+  background-image: none !important;
+  border: 3px solid #C1D5FD !important;
+}
+
+.visible_dropdown > option:first-child {
+  display:none;
+}
+
+.visible_dropdown > option{
+  padding: 12px;
+}

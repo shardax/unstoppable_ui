@@ -47,7 +47,7 @@ const Q13_WhereActive = () => {
     <div>
       <Formik
         initialValues={{
-          preferred_exercise_locations: profile.prefered_exercise_location,
+          preferred_exercise_locations: [],
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -60,7 +60,8 @@ const Q13_WhereActive = () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
 
-              profile.prefered_exercise_location = values.preferred_exercise_locations;
+              // joins the array of responses from preferred_exercise_locations, excluding the beginning empty string, and assigns it to profile's exercise location value 
+              profile.prefered_exercise_location = values.preferred_exercise_locations.slice(0).join(', ');
 
               // Saving data on server
               const res = await axios.patch(url,
@@ -109,7 +110,7 @@ const Q13_WhereActive = () => {
                       
                     {PREFERRED_EXERCISE_LOCATIONS.map(item => (
                       <div className="form-checkbox-item">
-                        <Field id={item} type="checkbox" name="prefered_exercise_location" value={item}></Field>
+                        <Field id={item} type="checkbox" name="preferred_exercise_locations" value={item}></Field>
                         <label htmlFor={item}>{item + " "}</label>
                       </div>
                     ))}

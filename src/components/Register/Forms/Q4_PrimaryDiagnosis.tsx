@@ -8,7 +8,6 @@ import { CANCERLOCATIONLIST} from "../../../constants/ProfileConstants"
 import Error from "../../LogIn/Error";
 import Button from '../../Styled/Button';   
 import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
@@ -115,9 +114,11 @@ const Q4_PrimaryDiagnosis = () => {
                         <div className="Answers">
                             <Field
                                 as={Select}
+                                className="visible_dropdown"
                                 id="cancer_location"
                                 name="cancer_location"
                                 onClick={()=>setFilled(true)}
+                                size="3"
                             >
                                 <option value="" label="- Select One -" />
                                 {CANCERLOCATIONLIST.map(item => (<option key={item} value={item}>	{item}</option>))}

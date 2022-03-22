@@ -115,9 +115,11 @@ const Q15_WhenActive = () => {
                         <div className="Answers">
                             <Field
                                 as={Select}
+                                className="visible_dropdown"
                                 id="preferred_time"
                                 name="preferred_time"
                                 onClick={()=>setFilled(true)}
+                                size="3"
                             >
                                 <option value="" label="- Select One -" />
                                 {PREFERRED_TIME_DESCRIPTIONS.map(item => (<option key={item} value={item}>	{item}</option>))}
