@@ -50,11 +50,7 @@ const Q9_FavoriteActivities = () => {
     <div>
       <Formik
         initialValues={{
-          // About Me
-          personality: profile.personality,
-          work_status: profile.work_status,
-          details_about_self: profile.details_about_self,
-          activity_ids: profile.activity_ids,
+          activities: profile.activity_ids,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -66,12 +62,24 @@ const Q9_FavoriteActivities = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              //About Me
-              profile.personality = values.personality;
-              profile.work_status = values.work_status;
-              profile.details_about_self = values.details_about_self;
+              console.log(profile.activity_ids);
+              
+              // for every activity the user has selected (values.activity_ids), create an array of the ids by looking up the activity from the store. 
+              values.activities.forEach(x => console.log(x, typeof x));
 
-              profile.activity_ids = values.activity_ids;
+              const activity_ids = [] as any; 
+
+              values.activities.forEach(activityName => {
+                var act_tuple = store.activities.find(activity_tuples => activity_tuples['name'] === String(activityName));
+                if (typeof(act_tuple) === 'undefined') {
+                  throw "activity was undefined, major error"
+                } else {
+                  activity_ids.push(act_tuple['id']);
+                }
+              });
+
+              profile.activity_ids = activity_ids;
+
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -117,9 +125,10 @@ const Q9_FavoriteActivities = () => {
                     <div className="question-header"> Favorite activities (check all that apply):</div>
                     <div className="question-number">9/16 Questions</div>
                     <div className="form-question-wrapper">
+                      {`${values.activities}`}
                       {ACTIVITY_IDS.map(item => (
                         <div className="form-checkbox-item">
-                          <Field id={item} type="checkbox" name="activity_ids" value={item} onClick={()=>setFilled(true)}></Field>
+                          <Field id={item} type="checkbox" name="activities" value={item} onClick={()=>setFilled(true)}></Field>
                           <label htmlFor={item}>{item + " "}</label>
                         </div>
                       ))}

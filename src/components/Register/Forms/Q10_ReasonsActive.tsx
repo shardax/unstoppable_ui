@@ -51,11 +51,7 @@ const Q10_ReasonsActive = () => {
       <Formik
         initialValues={{
           // About Me
-          personality: profile.personality,
-          work_status: profile.work_status,
-          details_about_self: profile.details_about_self,
-
-          activity_reasons: profile.exercise_reason_ids,
+          reasons: profile.exercise_reason_ids,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
@@ -67,12 +63,21 @@ const Q10_ReasonsActive = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              //About Me
-              profile.personality = values.personality;
-              profile.work_status = values.work_status;
-              profile.details_about_self = values.details_about_self;
 
-              profile.exercise_reason_ids = values.activity_reasons;
+              // for every reason the user has selected (values.reasons), create an array of the ids by looking up the reason from the store. 
+              const reason_ids = [] as any; 
+
+              
+              values.reasons.forEach(reasonName => {
+                var rea_tuple = store.exerciseReasons.find(reason_tuples => reason_tuples['name'] === String(reasonName));
+                if (typeof(rea_tuple) === 'undefined') {
+                  throw "activity was undefined, major error"
+                } else {
+                  reason_ids.push(rea_tuple['id']);
+                }
+              });
+
+              profile.exercise_reason_ids = reason_ids;
               // Saving data on server
               const res = await axios.patch(url,
                               { profile: profile },
@@ -121,7 +126,7 @@ const Q10_ReasonsActive = () => {
                     <div className="form-question-wrapper">
                       {ACTIVITY_REASONS.map(item => (
                         <div className="form-checkbox-item">
-                          <Field id={item} type="checkbox" name="work_status" value={item} onClick={()=>setFilled(true)}></Field>
+                          <Field id={item} type="checkbox" name="reasons" value={item} onClick={()=>setFilled(true)}></Field>
                           <label htmlFor={item}>{item + " "}</label>
                         </div>
                       ))}

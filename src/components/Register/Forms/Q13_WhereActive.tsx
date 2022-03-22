@@ -47,10 +47,6 @@ const Q13_WhereActive = () => {
     <div>
       <Formik
         initialValues={{
-          // About Me
-          personality: profile.personality,
-          work_status: profile.work_status,
-          details_about_self: profile.details_about_self,
           preferred_exercise_locations: profile.prefered_exercise_location,
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -63,10 +59,6 @@ const Q13_WhereActive = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
-              //About Me
-              profile.personality = values.personality;
-              profile.work_status = values.work_status;
-              profile.details_about_self = values.details_about_self;
 
               profile.prefered_exercise_location = values.preferred_exercise_locations;
 
@@ -116,8 +108,8 @@ const Q13_WhereActive = () => {
                     <div className="question-answers">
                       
                     {PREFERRED_EXERCISE_LOCATIONS.map(item => (
-                      <div>
-                        <Field id={item} type="radio" name="personality" value={item}></Field>
+                      <div className="form-checkbox-item">
+                        <Field id={item} type="checkbox" name="prefered_exercise_location" value={item}></Field>
                         <label htmlFor={item}>{item + " "}</label>
                       </div>
                     ))}
