@@ -23,6 +23,7 @@ const Textarea = styled.textarea<TextareaProps>`
   border-radius: ${props => props.borderRadius ? props.borderRadius : "5px"};
   font-size: ${props => props.fontSize ? props.fontSize : "14px"};
   border: ${props => props.border ? props.border : "1px solid #b9b9b9"};
+  border-radius: ${props => props.borderRadius ? props.borderRadius : "50px"};
   margin: ${props => props.margin ? props.margin : "0"};
   height: ${props => props.height ? props.height : "100px"};
   min-width: 25em;

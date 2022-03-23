@@ -587,6 +587,8 @@ const Inbox = () => {
                       width="100%"
                       padding="10px"
                       fontSize="12px"
+                      border="2px solid #9560A8"
+                      borderRadius="50px"
                       placeholder={"Write a message "}
                       onKeyDown={handleKeyDown}
                     ></Textarea>
