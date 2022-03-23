@@ -43,6 +43,7 @@ import Q13_WhereActive from './Forms/Q13_WhereActive';
 import Q14_FitnessLevel from './Forms/Q14_FitnessLevel';
 import Q15_WhenActive from './Forms/Q15_WhenActive';
 import Q16_MainReason from './Forms/Q16_MainReason';
+import Q17_UploadPhoto from './Forms/Q17_UploadPhoto';
 
 import { createBrowserHistory } from 'history'
 
@@ -115,7 +116,7 @@ function getStepContent(step) {
     case 15:
       return <Q16_MainReason/>;
     case 16:
-      return <UploadPhoto fromWizard={true} />;
+      return <Q17_UploadPhoto />;
 
     // Old steps that can be observed
     // case 8:

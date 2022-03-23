@@ -91,3 +91,87 @@ form .error {
 form .errorText {
   color: #e53e3e;
 }
+
+.form-upload-photo {
+  .file-input-fake, .file-input-overlay {
+    height: 200px;
+    width: 60%;
+  }
+  
+  .file-input-fake {
+    opacity: 0;
+    position: relative;
+
+  }
+  
+  .file-input-overlay {
+    border: 2px dashed #B8BABD;
+    border-radius: 6px;
+    
+    position: absolute;
+  
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    font-family: Montserrat;
+    font-weight: 700;
+
+    .file-input-style-row {
+      width: 100%;
+
+      margin-bottom: -100px;
+    }
+    :last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .popup-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-progress-box {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 650px;
+    background-color: white;
+
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
+
+// todo: there is better practice for this that involves styling a new version of the select component, probably
+.visible_dropdown {
+  height: 250px !important;
+  width: 500px !important;
+  font-size: 20px !important;
+  font-family: Montserrat !important;
+  background-image: none !important;
+  border: 3px solid #C1D5FD !important;
+}
+
+.visible_dropdown > option:first-child {
+  display:none;
+}
+
+.visible_dropdown > option{
+  padding: 12px;
+}

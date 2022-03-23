@@ -6,8 +6,6 @@ import axios from "axios";
 import { PROFILEURL} from "../../../constants/matcher";
 import { TREATMENT_STATUS_DESCRIPTIONS } from "../../../constants/ProfileConstants"
 import Button from '../../Styled/Button';   
-import Select from '../../Styled/Select';
-import Paper from '../../Styled/Paper';
 import './Steps.scss'
 import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
