@@ -61,6 +61,10 @@ const Q1_Personality = () => {
           const fetchData = async () => {
             try {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
+
+              console.log(store);
+
+              throw "hahah testing";
               //About Me
               profile.personality = values.personality;
               profile.work_status = values.work_status;

@@ -74,6 +74,7 @@ const SignIn2 = () => {
             });
               console.log(JSON.stringify(result));
               console.log(result.data.username);
+
               store.username =  result.data.username;
               store.current_user_id = result.data.current_user_id;
               store.email = result.data.email;
@@ -90,11 +91,14 @@ const SignIn2 = () => {
               store.uniqueLists.unique_zipcodes = result.data.unique_zipcodes;
               store.uniqueLists.unique_cities = result.data.unique_cities;
               store.savedSearchParams = new SearchParamsStore();
+              store.completedProfile = result.data.completed_profile; 
+
               if (result.data.search_params) {
                 store.savedSearchParams = result.data.search_params;
               }
               console.log(JSON.stringify(store.savedSearchParams));
               localStorage.setItem("userStore", JSON.stringify(store));
+
           } catch (error) {
             console.log(error.message);
             if (error.message.includes("401")) {
