@@ -57,6 +57,9 @@
 
   .conversation-preview {
     display: flex;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 75%;
     justify-content: space-between;
     padding-top:5px;
   }
@@ -303,5 +306,6 @@
 }
 .maxWidthMessagePreview{
   max-width: 80%;
+  text-overflow: ellipsis;
   overflow: hidden;
 }
