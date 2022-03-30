@@ -38,7 +38,7 @@ const UploadPhoto = (props) => {
 
   useEffect(() => {
     if (fromWizard && (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT)) {
-      history.push("/wizard/5");
+      // history.push("/wizard/5");
     }
   }, []);
 

@@ -33,7 +33,7 @@ const Q5_DescribeDiagnoses = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      // history.push("/complete-profile/5");
     }
   }, [])
 
@@ -43,7 +43,7 @@ const Q5_DescribeDiagnoses = () => {
 
   const handleNext = (event: React.MouseEvent) => {
     event.preventDefault();
-    history.push("/complete-profile/5");
+    // history.push("/complete-profile/5");
   }
   return (
     <div>

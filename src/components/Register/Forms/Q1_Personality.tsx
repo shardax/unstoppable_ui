@@ -30,7 +30,7 @@ const Q1_Personality = () => {
 
   useEffect(() => {
     if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT) {
-      history.push("/complete-profile/5");
+      // history.push("/complete-profile/5");
     }
   }, [])
 

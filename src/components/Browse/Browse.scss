@@ -547,6 +547,14 @@ $cardHeight: 240px;
 .complete-profile-container {
   justify-content: center;
   align-items: center;
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  resize: vertical;
+  flex-direction: column;
+  height: 90vh;
+  width: 80vw;
+}
+
+.complete-profile-message {
+  resize: vertical;
+  display: contents;
 }

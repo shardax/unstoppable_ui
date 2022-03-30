@@ -118,10 +118,12 @@ const SignIn2 = () => {
             if (store.user_confirmed)
               history.push("/home");
             else {
-              if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT)
-                 history.push("/wizard/5");
-              else
-              history.push("/wizard/0");
+              // todo: investigate why this is here
+              // if (store.profile.step_status == STEP_EMAIL_CONFIRMATION_SENT)
+              //   //  history.push("/wizard/5");
+              // else
+              // history.push("/wizard/0");
+            history.push("/login")
             }
           } else {
             history.push("/login")
