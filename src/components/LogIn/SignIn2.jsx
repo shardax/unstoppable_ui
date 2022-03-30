@@ -91,7 +91,7 @@ const SignIn2 = () => {
               store.uniqueLists.unique_zipcodes = result.data.unique_zipcodes;
               store.uniqueLists.unique_cities = result.data.unique_cities;
               store.savedSearchParams = new SearchParamsStore();
-              store.completedProfile = result.data.completed_profile; 
+              store.completed_profile = result.data.completed_profile; 
 
               if (result.data.search_params) {
                 store.savedSearchParams = result.data.search_params;

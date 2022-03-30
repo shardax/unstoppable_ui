@@ -191,7 +191,7 @@ export class UserStore {
   @persist phone:string;
   @persist @observable currentChatroom: CurrentChatroomStore;
   @persist chatroomsInitialized: number[];
-  @persist completedProfile: boolean; 
+  @persist completed_profile: boolean; 
 
 
   constructor(){
@@ -215,7 +215,7 @@ export class UserStore {
       this.uniqueLists = localStorageData.uniqueLists;
       this.currentChatroom = localStorageData.currentChatroom;
       this.chatroomsInitialized = localStorageData.chatroomsInitialized;
-      this.completedProfile = localStorage.completed_profile;
+      this.completed_profile = localStorage.completed_profile;
       //this.filterPlusKeywords = localStorageData.filterPlusKeywords;
     } else {
       this.username = "";
@@ -235,7 +235,7 @@ export class UserStore {
       this.savedSearchParams = new SearchParamsStore();
       this.uniqueLists = new UniqueListStore();
       this.chatroomsInitialized = [];
-      this.completedProfile = false;
+      this.completed_profile = false;
       }
      //hydrate('userStore', this).then(() => console.log('userStore has been hydrated'))
      Promise.all([

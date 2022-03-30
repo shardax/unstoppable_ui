@@ -13,7 +13,7 @@ import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
 import {STEP_EMAIL_CONFIRMATION_SENT} from "../../../constants/ProfileConstants";
 
-const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+// const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
 const PromptIfDirty = () => {
   const formik = useFormikContext();

@@ -542,3 +542,11 @@ $cardHeight: 240px;
   color: black;
   font-size: initial;
 }
+
+// CSS for the complete profile page that shows up if user didn't complete profile 
+.complete-profile-container {
+  justify-content: center;
+  align-items: center;
+  display: table-cell;
+  vertical-align: middle;
+}

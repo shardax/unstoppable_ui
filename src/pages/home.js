@@ -2,7 +2,9 @@ import React from 'react'
 import BrowseProfiles from '../components/Browse/BrowseProfiles'
 import {useDataStore} from "../UserContext";
 import Default from '../layouts/Default';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
+import CompleteProfile from '../components/Browse/CompleteProfile' 
+
 
 export default function Home() {
   const storedData = localStorage.getItem("userStore");
@@ -11,14 +13,18 @@ export default function Home() {
   if (!storedData && ((store && !store.isLoggedIn))) {
     return <Redirect to="/login" />
   }
-
-  if (!store.user_confirmed) {
-    return <Redirect to="/complete-profile/0" />
-  }
   
+  if (JSON.parse(storedData).completed_profile == true) {
   return (
     <Default>
-      <BrowseProfiles />
+      <BrowseProfiles/>
     </Default>
   )
+  } else {
+    return (
+      <Default>
+        <CompleteProfile/>
+      </Default>
+    )
+  }
 }

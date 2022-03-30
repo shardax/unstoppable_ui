@@ -13,6 +13,7 @@ import { displayToast } from '../../Toast/Toast';
 import { createBrowserHistory } from 'history'
 import { STEP_EMAIL_CONFIRMATION_SENT } from "../../../constants/ProfileConstants";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { Link } from 'react-router-dom';
 
 const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -65,6 +66,12 @@ const Q17_UploadPhoto = () => {
     setCompleted(0);
   }
 
+  const completeProfile = (e) => {
+    e.preventDefault();
+    store.completed_profile = true; 
+    localStorage.setItem("userStore", JSON.stringify(store));
+  }
+
   const refreshPhoto = () => {
     const fetchProfile = async () => {
       try {
@@ -77,13 +84,19 @@ const Q17_UploadPhoto = () => {
             }
           })
         //   console.log(JSON.stringify(result));
+
         if (result) {
           console.log("In refresh photo");
           console.log(JSON.stringify(result.data.profile.photo));
           store.avatarPath = result.data.profile.photo;
           store.profile.photo = result.data.profile.photo;
+          store.completed_profile = true; 
           localStorage.setItem("userStore", JSON.stringify(store));
         }
+
+        localStorage.setItem("userStore", JSON.stringify(store));
+        console.log(store);
+
       } catch (e) {
         console.log(`😱 Profile Fetch failed: ${e}`);
       }
@@ -179,6 +192,7 @@ const Q17_UploadPhoto = () => {
               let url = PROFILEURL + "/" + store.profile.id + "/update_steps_json";
 
               profile.reason_for_match = values.main_reason;
+              profile.completed_profile = true; 
 
               // Saving data on server
               const res = await axios.patch(url,
@@ -187,12 +201,14 @@ const Q17_UploadPhoto = () => {
               )
               displayToast("Successfully updated profile ✅", "success", 3000, "top-right")
               store.profile = profile;
+              store.completed_profile = true; 
+              // console.log(store);
               localStorage.setItem("userStore", JSON.stringify(store));
 
               if (prevSubmitted) {
                 history.push("/complete-profile/16");
               } else {
-                history.push("/complete-profile/17");
+                history.push("/home");
               }
 
             } catch (err) {
@@ -258,7 +274,8 @@ const Q17_UploadPhoto = () => {
 
               </div>
 
-              
+              {/*  dummy field to make stuff run */}
+              <Field style={{ display: 'none'}} id="hi" type="radio" name="personality" value="hi"></Field>
 
               <PromptIfDirty />
 
@@ -270,6 +287,7 @@ const Q17_UploadPhoto = () => {
               <Button type="submit" margin="2em 1.5em" padding="10px 20px" disabled={isSubmitting}>
                 Next
               </Button>
+              
             </div>
 
           </Form>
